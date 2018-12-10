@@ -1,0 +1,80 @@
+.slider-swatch {
+  .slider-img-wrap {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 81.1%;
+    color: $white;
+    background-color: #e2e4f0;
+    img {
+      position: absolute;
+      z-index: 3;
+      min-height: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      top: -9999px;
+      left: -9999px;
+      right: -9999px;
+      bottom: -9999px;
+      margin: auto;
+      @include transform-origin();
+      @include transition($transition-other);
+    }
+    &.wider {
+      img {
+        max-height: 100%;
+        max-width: none;
+      }
+    }
+  }
+  .swatch-nav-box {
+    margin-top: 40px;
+    text-align: center;
+    a.btn,
+    .btn {
+      min-width: 120px;
+      padding: 9px;
+      font-size: 20px;
+      font-weight: $normal;
+      line-height: 20px;
+      .fas {
+        font-size: 15px;
+        line-height: 18px;
+      }
+      &.swiper-button-disabled {
+        background-color: $color-bg11;
+        border-color: $color-bg11;
+        color: $white;
+        opacity: .5;
+        cursor: default;
+      }
+    }
+    > :not(:first-child) {
+      margin-left: 36px;
+    }
+    @media all and (max-width: 480px) {
+      a.btn,
+      .btn {
+        min-width: 100px;
+        font-size: 14px;
+        line-height: 14px;
+        .fas {
+          font-size: 12px;
+          line-height: 14px;
+        }
+      }
+      > :not(:first-child) {
+        margin-left: 18px;
+      }
+    }
+  }
+
+  .swiper-swatch-button-prev.swiper-button-disabled,
+  .swiper-swatch-button-next.swiper-button-disabled {
+    .fas {
+      display: none;
+    }
+  }
+
+}

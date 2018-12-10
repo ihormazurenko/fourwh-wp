@@ -1,0 +1,40 @@
+.section-contact {
+
+}
+
+.contact-wrapper {
+	display: flex;
+	flex-wrap:wrap;
+	flex-direction:row-reverse;
+
+	.text {
+		width: 100%;
+		
+
+		ul {
+			margin-bottom: 40px;
+		}
+		li {
+			padding-left: 0;
+			&:before {
+				display: none;
+			}
+		}
+
+		@media (min-width: $screen-sm-min) {
+			width: 50%;
+			padding-left: 80px;
+		}
+	}
+	.form {
+		width: 100%;
+
+		@media (min-width: $screen-sm-min) {
+			width: 50%;
+		}
+	}
+	.far, .fas {
+		color: $light-blue;
+		margin-right: 10px;
+	}
+}

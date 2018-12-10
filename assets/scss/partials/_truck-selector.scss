@@ -1,0 +1,155 @@
+.section-select-truck {
+  
+}
+  .form-select-truck {}
+    .select-truck-list {
+      margin: 0 -15px 90px;
+      > li {
+        display: inline-block;
+        width: 32%;
+        width: -webkit-calc(33.33% - #{4px});
+        width: calc(33.33% - #{4px});
+        margin-bottom: 30px;
+        padding: 0 15px;
+        vertical-align: top;
+        label {
+          display: block;
+          cursor: pointer;
+        }
+      }
+      &.bed-length {
+        //display: none;
+        //margin-bottom: 44px;
+      }
+      @media all and (max-width: 767px) {
+        > li {
+          width: 50%;
+          width: -webkit-calc(50% - #{4px});
+          width: calc(50% - #{4px});
+        }
+      }
+      @media all and (max-width: 560px) {
+        margin: 0 auto 90px;
+        max-width: 360px;
+        > li {
+          width: 100%;
+          padding: 0;
+        }
+      }
+    }
+    .choose-bed-length-box {
+      display: none;
+      margin-bottom: 44px;
+      > :last-child {
+        margin-bottom: 0;
+      }
+    }
+        .select-truck-box {
+          position: relative;
+
+        }
+          .radio-truck {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0;
+            visibility: hidden;
+            &:checked {
+              & + label {
+                .select-truck-img-wrap {
+                  border-color: $color-bg12;
+                  &:after {
+                    opacity: 1;
+                  }
+                }
+                .select-truck-name {
+                  color: $color-text12;
+                }
+              }
+            }
+            &:hover:not(:checked) {
+              & + label {
+                .select-truck-img-wrap {
+                  border-color: $color-bg2;
+                }
+                .select-truck-name {
+                  color: $color-text2;
+                }
+              }
+            }
+          }
+
+          .select-truck-img-wrap {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            margin-bottom: 30px;
+            padding-bottom: 100%;
+            background-color: $white;
+            border: 1px solid rgb(98, 102, 106);
+            border-color: rgba(98, 102, 106, .2);
+            @include transition($transition-other);
+            img {
+                position: absolute;
+                z-index: 3;
+                max-height: 100%;
+                max-width: 100%;
+                width: auto;
+                height: auto;
+                top: -9999px;
+                left: -9999px;
+                right: -9999px;
+                bottom: -9999px;
+                margin: auto;
+                padding: 10px;
+                @include transform-origin();
+                @include transition($transition-other);
+              }
+              &:after {
+                position: absolute;
+                content: '';
+                z-index: 5;
+                top: 22px;
+                right: 22px;
+                width: 40px;
+                height: 40px;
+                background-color: $color-bg12;
+                @include border-radius(50%);
+                background-image: url(../../img/icon_check.png);
+                @include bg(center, 21px 18px, no-repeat);
+                @include transition($transition-other);
+                opacity: 0;
+                //visibility: hidden;
+              }
+              .bed-length & {
+                padding-bottom: 54%;
+                margin-bottom: 26px;
+              }
+            //@media all and (min-width: 769px) {}
+              @media all and (max-width: 767px) {
+                margin-bottom: 12px;
+                .bed-length & {
+                  margin-bottom: 12px;
+                }
+              }
+            }
+          .select-truck-name {
+            font-size: 22px;
+            font-weight: $normal;
+            line-height: 1.2;
+            color: $color-text11;
+            letter-spacing: .03em;
+            @include transition($transition-other);
+            @media all and (max-width: 767px) {
+              font-size: 20px;
+            }
+          }
+        .select-truck-btn-box {
+          display: none;
+          text-align: center;
+          a.btn,.btn {
+            min-width: 220px;
+            padding-top: 16px;
+            padding-bottom: 16px;
+          }
+        }

@@ -1,0 +1,196 @@
+a.btn, .btn {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  min-width: 170px;
+  margin: 0;
+  padding: 11px 18px;
+  font-size: $size-smaller;
+  font-weight: $normal;
+  line-height: 1.4;
+  letter-spacing: $letter-spacing-20;
+  color: $color-text3;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid $color-bg2;
+  background-color: $color-bg2;
+  @include border-radius($radius-small);
+  @media all and (max-width: 767px) {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+  @media all and (min-width: 769px) {
+    &:hover,
+    &:focus {
+      color: $color-text2;
+      background-color: transparent;
+    }
+  }
+  &.blue {
+    color: $white;
+    border-color: $color-bg12;
+    background-color: $color-bg12;
+    @media all and (min-width: 769px) {
+      &.hover,
+      &:hover,
+      &:focus {
+        color: $color-text12;
+        background-color: transparent;
+      }
+    }
+    &.inverse {
+      color: $color-text11;
+      background-color: transparent;
+      @media all and (min-width: 769px) {
+        &.hover,
+        &:hover,
+        &:focus {
+          color: $white;
+          background-color: $color-bg12;
+        }
+      }
+    }
+  }
+  &.white {
+    border-color: $white;
+    background-color: $white;
+    @media all and (min-width: 769px) {
+      &:hover,
+      &:focus {
+        color: $white;
+        background-color: transparent;
+      }
+    }
+    &.inverse {
+      color: $white;
+      background-color: transparent;
+      @media all and (min-width: 769px) {
+        &:hover,
+        &:focus {
+          color: $color-text3;
+          background-color: $white;
+        }
+      }
+    }
+  }
+  &.download {
+    min-width: 240px;
+    padding: 10px 60px 13px 13px;
+    font-size: $size-small;
+    font-weight: $normal;
+    line-height: 1.4;
+    letter-spacing: 0;
+    word-spacing: 0;
+    text-align: center;
+    &:after {
+      position: absolute;
+      content: '';
+      top: 50%;
+      right: 20px;
+      width: 26px;
+      height: 25px;
+      background-image: url(../../img/icon_download.png);
+      @include bg(center, contain, no-repeat);
+      @include translate(0, -50%);
+      @include transition($transition-link);
+    }
+    @media all and (min-width: 769px) {
+      &:hover,
+      &:focus {
+        &:after {
+          background-image: url(../../img/icon_download_blue.png);
+        }
+      }
+    }
+  }
+  &.big {
+    padding: 15px 32px;
+    font-size: 20px;
+    font-weight: $normal;
+    @media all and (max-width: 767px) {
+      font-size: 18px;
+      padding: 13px 25px;
+    }
+  }
+  &.small {
+    padding: 9px 15px;
+    // font-size: 20px;
+    min-width: auto;
+  }
+}
+
+.main-nav > ul > li.btn-dealer a,
+.mobile-menu > li.btn-dealer a,
+.btn-dealer a {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  margin: 0;
+  padding: 13px 15px;
+  min-width: 112px;
+  font-size: $size-smaller;
+  font-weight: $medium;
+  line-height: 1;
+  color: $color-text3;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid $color-bg2;
+  background-color: $color-bg2;
+  @include border-radius($radius-small);
+  @media all and (min-width: 769px) {
+    &:focus,
+    &:hover {
+      color: $color-text2;
+      background-color: transparent;
+    }
+  }
+  @media all and (max-width: 1280px) {}
+  .home & {
+    min-width: 170px;
+    padding: 14px 20px;
+    font-size: $size-smaller;
+    font-weight: $black-weight;
+    @media all and (max-width: 1440px) {
+      padding: 13px 15px;
+      min-width: 130px;
+      font-size: $size-smaller; 
+      font-weight: $medium;
+    }
+  }
+}
+.mobile-menu > li.btn-dealer a {
+  margin: 10px 25px 8px;
+}
+
+
+.btn-jump-to-content {
+  position: absolute;
+  display: block;
+  width: 300px;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  padding: 10px 15px;
+  font-size: 20px;
+  font-weight: $normal;
+  color: $color-text;
+  text-align: center;
+  text-decoration: none;
+  background-color: $white;
+  z-index: -9999;
+  opacity: 0;
+  @media all and (min-width: 769px) {
+    &:hover {
+      color: $color-text2;
+      text-decoration: none;
+    }
+    &:focus {
+      opacity: 1;
+      text-decoration: none;
+      z-index: 9999;
+    }
+  }
+}

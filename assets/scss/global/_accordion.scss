@@ -1,0 +1,70 @@
+
+.accordion {
+    border-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 25px 35px 25px 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    border-top: 2px solid #eee;
+    margin-bottom: 0;
+    position: relative;
+    .fa {
+        position: absolute;
+        right: 0;
+        top: 25px;
+        @include animate();
+        color: #eee;
+    }
+
+    
+    &.active, &.accordion:hover {
+        border-color: #ccc;     
+        .fa {
+            color: #ccc;
+        }   
+    }
+    &.active {        
+        .fa {
+            transform: rotate(180deg);
+            color: $light-blue;
+        }
+    }
+
+}
+
+
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    display: none;
+    // overflow: hidden;
+    // max-height: 0;
+    overflow: hidden;
+    // transition: max-height 0.2s ease-out;
+    &:last-child {
+        // border-bottom: 2px solid #eee;
+    }
+
+    ul > li {
+        list-style: none;
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: solid 1px #ccc;
+        &:last-child {
+            border-bottom: none;
+        }
+        &:before {
+            display: none;
+        }
+    }
+    a {
+        color: $light-blue;
+    }
+
+}
+

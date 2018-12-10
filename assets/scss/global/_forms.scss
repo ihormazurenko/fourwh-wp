@@ -1,0 +1,94 @@
+.input-style {
+  display: block;
+  width: 100%;
+  min-height: 56px;
+  margin: 0;
+  padding: 12px 30px 8px;
+  @include font($normal, $size-smaller, $font-main, 1);
+  letter-spacing: $letter-spacing-20;
+  color: $color-text11;
+  background-color: $white;
+  border: 1px solid $color-bg11;
+  border-color: rgba($color-bg11, .2);
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  @include border-radius(0);
+  @include transition($transition-other);
+}
+.wpcf7-not-valid.input-style {
+  border-color: red;
+}
+textarea.input-style {
+  overflow-y: auto;
+  @include font($normal, $size-smaller, $font-main, 1.6);
+  letter-spacing: $letter-spacing-20;
+  padding: 23px 28px;
+  width: 100%;
+  height: 136px;
+  resize: none;
+  border: 1px solid $color-bg11;
+  border-color: rgba($color-bg11, .2);
+  color: $color-text11;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  @include border-radius(0);
+}
+
+input::-webkit-input-placeholder {
+  font-family: $font-main;
+  font-weight: $normal;
+  color: #d5d6d7;
+    @include transition($transition-other)
+}
+
+input::-moz-placeholder {
+  font-family: $font-main;
+  font-weight: $normal;
+  color: #d5d6d7;
+  @include transition($transition-other)
+}
+
+input:-ms-input-placeholder {
+  font-family: $font-main;
+  font-weight: $normal;
+  color: #d5d6d7;
+  @include transition($transition-other)
+}
+
+input:-moz-placeholder {
+  font-family: $font-main;
+  font-weight: $normal;
+  color: #d5d6d7;
+  @include transition($transition-other)
+}
+
+textarea::-webkit-input-placeholder {
+  font-family: $font-main;
+  font-weight: $normal;
+  color: #d5d6d7;
+  @include transition($transition-other)
+}
+
+textarea::-moz-placeholder {
+  font-family: $font-main;
+  font-weight: $normal;
+  color: #d5d6d7;
+  @include transition($transition-other)
+}
+
+textarea:-ms-input-placeholder {
+  font-family: $font-main;
+  font-weight: $normal;
+  color: #d5d6d7;
+  @include transition($transition-other)
+}
+
+textarea:-moz-placeholder {
+  font-family: $font-main;
+  font-weight: $normal;
+  color: #d5d6d7;
+  @include transition($transition-other)
+}

@@ -1,0 +1,254 @@
+
+.section-service-location {
+    
+}
+  .map-box {
+    margin-bottom: 127px;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .service-list {
+    overflow: hidden;
+    margin: 0 -15px -60px;
+    @media all and (max-width: 767px) {
+      margin-bottom: -30px;
+    }
+    > li {
+      float: left;
+      width: 33.33%;
+      padding: 0 15px;
+      margin-bottom: 60px;
+      &:nth-child(3n + 4) {
+        clear: both;
+        @media all and (max-width: 991px) {
+          clear: none;
+        }
+      }
+      @media all and (max-width: 991px) {
+        width: 50%;
+        &:nth-child(odd){
+          clear: both;
+        }
+      }
+      @media all and (max-width: 767px) {
+        margin-bottom: 30px;
+      }
+      @media all and (max-width: 640px) {
+        width: 100%;
+      }
+    }
+  }
+        .service-box {
+          padding: 35px 29px 0;
+          border: 1px solid $color-bg12;
+          border-color: rgba(0, 163, 224, .32);
+          @include border-radius($radius-small);
+          @media all and (max-width: 767px) {
+            padding: 25px 20px 0;
+          }
+        }
+          .service-top-box {
+            overflow: hidden;
+            margin-bottom: 12px;
+          }
+              .service-img-wrap {
+                float: left;
+                width: 40px;
+                margin: 5px 28px 0 0;
+                @media all and (max-width: 767px) {
+                  margin-right: 20px;
+                }
+                img {
+                  max-width: 100%;
+                  height: auto;
+                }
+              }
+              .service-title-box {}
+                .service-title {
+                  font-size: 16px;
+                  font-weight: $normal;
+                  text-transform: uppercase;
+                  letter-spacing: .02em;
+                  word-spacing: .02em;
+                  color: $color-text11;
+                  @media all and (max-width: 767px) {
+                   font-size: 14px;
+                  }
+                }
+                .service-info-box {
+                  overflow: hidden;
+                  height: 85px;
+                  color: $color-text11;
+                  opacity: .77;
+                  letter-spacing: .03em;
+                  border-top: 1px solid transparent;
+                  @media all and (max-width: 767px) {
+                    height: 72px;
+                    font-size: 16px;
+                  }
+
+                  &.more {
+                    display: none;
+                    height: auto;
+                    padding-top: 20px;
+                    padding-bottom: 22px;
+                    border-top-color: $color-bg11;
+                    border-top-color: rgba($color-bg11, .2);
+                  }
+                  a {
+                    color: $color-text12;
+                    text-decoration: none;
+                    @media all and (min-width: 769px) {
+                      &:hover,
+                      &:focus {
+                        text-decoration: none;
+                        color: $color-text2;
+                      }
+                    }
+                  }
+                }
+                a.more-info-btn,
+                .more-info-btn {
+                  display: block;
+                  position: relative;
+                  padding: 5px 10px;
+                  margin-top: 24px;
+                  margin-bottom: 22px;
+                  font-family: $font-roboto;
+                  font-weight: $medium;
+                  line-height: 1;
+                  letter-spacing: .04em;
+                  word-spacing: .01em;
+                  text-align: center;
+                  color: $color-text12;
+                  text-decoration: none;
+                  @media all and (min-width: 769px) {
+                    &:hover,
+                    &:focus {
+                      color: $color-text2;
+                      text-decoration: none;
+
+                      .arrow-down {
+                        border-color: $color-bg2;
+                      }
+                    }
+                  }
+                  &.open {
+                    color: $color-text11;
+                    .arrow-down {
+                      top: 0;
+                      @include rotate(-135deg);
+                      border-color: $color-bg11;
+                    }
+                    @media all and (min-width: 769px) {
+                      &:hover,
+                      &:focus {
+                        color: $color-text2;
+                        text-decoration: none;
+
+                        .arrow-down {
+                          border-color: $color-bg2;
+                        }
+                      }
+                    }
+                  }
+                  @media all and (max-width: 767px) {
+                    font-size: 16px;
+                  }
+                }
+                .arrow-down {
+                  position: relative;
+                  display: inline-block;
+                  top: -4px;
+                  width: 8px;
+                  height: 8px;
+                  margin-left: 4px;
+                  border: 2px solid $color-bg12;
+                  border-left: none;
+                  border-top: none;
+                  @include transform-origin(50%, 50%);
+                  @include rotate(45deg);
+                  @include css3-prefix('transition', 'border-color .2s,top 0s, transform .35s')
+                }
+  .map-wrap {
+    margin-bottom: 90px;
+    @media all and (max-width: 767px) {
+      margin-bottom: 60px;
+    }
+  }
+    #map {
+      width: 100%;
+      height: 520px;
+      margin-bottom: 16px;
+      @media all and (max-width: 767px) {
+        height: 420px;
+      }
+    }
+      .service-marker-box {
+        max-width: 240px;
+      }
+        .service-marker-title {
+          margin-top: 4px;
+          margin-bottom: 6px;
+          font-family: $font-main;
+          font-size: $size-smaller;
+          font-weight: $normal;
+          line-height: 1;
+          letter-spacing: .03em;
+          color: $color-text11;
+        }
+        .service-marker-info {
+          padding: 0 16px;
+          font-family: $font-main;
+          font-size: 12px;
+          font-weight: $normal;
+          line-height: 1.8;
+          letter-spacing: .02em;
+          color: $color-text11;
+          opacity: .8;
+        }
+      .map-contact-info {
+        display: table;
+        width: 100%;
+        font-size: $size-smaller;
+        line-height: 1.2;
+        letter-spacing: .03em;
+        color: $color-text11;
+        opacity: .6;
+        @media all and (max-width: 767px) {
+          font-size: 15px;
+        }
+        @media all and (max-width: 580px) {
+          display: block;
+        }
+        .left-box,
+        .right-box {
+          display: table-cell;
+          width: 50%;
+          padding: 0 10px 10px;
+          vertical-align: top;
+          @media all and (max-width: 580px) {
+            display: block;
+            width: 100%;
+            padding: 0;
+          }
+        }
+        .left-box {
+          width: 60%;
+          margin-bottom: 10px;
+          padding-left: 0;
+          @media all and (max-width: 580px) {
+            width: 100%;
+          }
+        }
+        .right-box {
+          padding-right: 0;
+          text-align: right;
+          @media all and (max-width: 580px) {
+           text-align: left;
+          }
+        }
+      }

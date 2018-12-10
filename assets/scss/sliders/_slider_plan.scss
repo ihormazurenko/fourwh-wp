@@ -1,0 +1,119 @@
+.slider-plan {
+  margin-bottom: 80px;
+
+  .swiper-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .swiper-slide {
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+  }
+  .gallery-top {
+    min-height: 445px;
+    width: 100%;
+    @media all and (max-width: 767px) {
+      min-height: 345px;
+    }
+    @media all and (max-width: 540px) {
+      min-height: 245px;
+    }
+    @media all and (max-width: 480px) {
+      min-height: 200px;
+    }
+  }
+  .gallery-thumbs {
+    max-width: 500px;
+    box-sizing: border-box;
+    padding: 10px 0 0;
+    .slide-img-wrap {
+      &:after {
+        position: absolute;
+        z-index: 5;
+        content: '';
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $black;
+        opacity: .4;
+        @include transition($transition-other);
+      }
+    }
+    .swiper-slide {
+      cursor: pointer;
+      &.swiper-slide-thumb-active {
+        .slide-img-wrap {
+          &:after {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .gallery-thumbs .swiper-slide {
+    width: 100% !important;
+    max-width: 140px;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: auto;
+      width: auto;
+    }
+    @media all and (max-width: 480px) {
+      max-width: 100px;
+    }
+  }
+  .gallery-thumbs .swiper-slide-thumb-active {
+    max-width: 170px;
+    margin-top: -11px;
+    opacity: 1;
+    .slide-img-wrap {
+      margin-bottom: 12px;
+    }
+    @media all and (max-width: 480px) {
+      max-width: 115px;
+      margin-top: -5px;
+    }
+  }
+  .slide-img-wrap {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding-bottom: 71.5%;
+    margin-bottom: 24px;
+    background-color: #e2e4f0;
+    img {
+      position: absolute;
+      z-index: 3;
+      min-height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      top: -9999px;
+      left: -9999px;
+      right: -9999px;
+      bottom: -9999px;
+      margin: auto;
+      @include transform-origin();
+      @include transition($transition-other);
+    }
+    &.wider {
+      img {
+        min-width: 100%;
+        min-height: auto;
+      }
+    }
+  }
+  .side-title-box {}
+    .slide-title {
+      font-size: $size-main;
+      font-weight: $normal;
+      line-height: 1.2;
+      color: $color-text11;
+    }
+}

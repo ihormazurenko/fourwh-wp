@@ -1,0 +1,346 @@
+/*----------------------------------------------------------------------------------*/
+/*------------------------------RESET DEFAULT STYLES--------------------------------*/
+/*----------------------------------------------------------------------------------*/
+html,body                       { width:100%; height:100%; }
+body                            { padding:0; margin:0; @include font(); background: $white; color: $color-text;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+div,p,a,span,em,strong,img,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,td,tr,form,fieldset,label,select,input,textarea {
+  padding:0;
+  margin:0;
+  outline:none;
+  list-style:none;
+}
+select, input, textarea        { font-size:$size-main; vertical-align:middle; color:$color-text; }
+textarea                       { vertical-align:top; }
+:focus                         { outline:none; }
+input[type=submit], button     { cursor:pointer; }
+img, fieldset                  { border:0; }
+table                          { border-collapse:collapse; border-spacing:0; }
+a:link, a:visited              { font-family: $font-main; color: $color-text; text-decoration:underline; }
+a:hover                        { text-decoration:none; }
+/*----------------------------------------------------------------------------------*/
+/*-------------------------------------DEFAULT CLASSES------------------------------*/
+/*----------------------------------------------------------------------------------*/
+.float-r           	           { float:right !important; }
+.float-l                       { float:left !important; }
+.no-float                      { float:none !important; }
+.no-border                     { border:0 !important; }
+.no-bg                         { background:none !important; }
+.no-margin                     { margin:0 !important; }
+.no-padding                    { padding:0 !important; }
+.no-display                    { display:none !important; }
+.display                       { display:block !important; }
+.inline                        { display:inline !important; }
+.overflow                      { overflow:hidden !important; }
+.align-r                       { text-align:right !important; }
+.align-l                       { text-align:left !important; }
+.align-c                       { text-align:center !important; }
+.clear                         { clear:both; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+em, i {
+  font-style: italic;
+}
+strong, b {
+  font-weight: $bold;
+}
+a, .btn {
+  @include transition($transition-link);
+}
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  max-width: 100%;
+  height: auto;
+}
+.container {
+  max-width: 1210px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.vertical-align {
+  .container {
+    display: table;
+    width: 100%;
+    height: 494px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+  .container-box {
+    display: table-cell;
+    width: 100%;
+    min-height: 50px;
+    vertical-align: middle;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: $normal;
+}
+
+.content {
+  font-size: 20px;
+  line-height: $line-height;
+  * {
+    margin-bottom: 15px; 
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: $normal;
+    line-height: $line-height-heading;
+  }
+  h1 { font-size: 55px; }
+  h2 { font-size: 45px; }
+  h3 { font-size: 35px; }
+  h4 { font-size: 25px; }
+  h5 { font-size: 22px; }
+  h6 { font-size: 20px; }
+  a {
+    color: $color-text3;
+    text-decoration: underline;
+    &:hover {
+      opacity: 0.7;
+      text-decoration: none;
+    }
+  }
+  ul {
+    > li {
+      overflow: hidden;
+      position: relative;
+      padding-left: 25px;
+      margin-bottom: 1px;
+      list-style-position: outside;
+      &:before {
+        position: absolute;
+        display: inline-block;
+        top: 0;
+        left: 4px;
+        content: '';
+        margin-top: 12px;
+        margin-right: 12px;
+        width: 4px;
+        height: 4px;
+        background-color: $color-text;
+        @include border-radius();
+        vertical-align: top;
+      }
+    }
+  }
+  ol {
+    position: relative;
+    counter-reset: myCounter;
+    > li {
+      overflow: hidden;
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 1px;
+      list-style-position: outside;
+      &:before {
+        position: absolute;
+        display: inline-block;
+        top: 0;
+        left: 0;
+        counter-increment: myCounter;
+        content:counter(myCounter)'. ';
+        padding-right: 10px;
+      }
+    }
+  }
+  blockquote {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 10px;
+    text-align: left;
+    border-left: 2px solid #0b0b0b;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    &.alignleft {
+      float: left;
+      margin: 4px 20px 20px 0;
+    }
+    &.alignright {
+      float: right;
+      margin: 4px 0 20px 20px;
+    }
+    &.aligncenter{
+      display: block;
+      margin: 0 auto 30px;
+      clear: both;
+    }
+    @media all and (max-width: 1024px) {
+      &.alignleft,
+      &.alignright,
+      &.aligncenter{
+        float: none;
+        display: block;
+        margin: 0 auto 30px;
+        clear: both;
+      }
+    }
+  }
+  .inverse & {
+    color: $white;
+    ul {
+      > li {
+        &:before {
+          background-color: $white;
+        }
+      }
+    }
+  }
+  &.small {
+    * {
+      margin-bottom: 10px;
+    }
+    font-size: 16px;
+    h1 { font-size: (55px) * 0.8; }
+    h2 { font-size: (45px) * 0.8; }
+    h3 { font-size: (35px) * 0.8; }
+    h4 { font-size: (25px) * 0.8; }
+    h5 { font-size: (22px) * 0.8; }
+    h6 { font-size: (20px) * 0.8; }
+    ul {
+      > li {
+        padding-left: 20px;
+        margin-bottom: 1px;
+        &:before {
+          width: 4px;
+          height: 4px;
+          margin-top: 9px;
+          margin-right: 9px;
+        }
+      }
+    }
+    ol {
+      > li {
+        margin-bottom: 1px;
+        padding-left: 25px;
+      }
+    }
+  }
+  &.big {
+    font-size: 22px;
+    h1 { font-size: (55px) * 1.2; }
+    h2 { font-size: (45px) * 1.2; }
+    h3 { font-size: (35px) * 1.2; }
+    h4 { font-size: (25px) * 1.2; }
+    h5 { font-size: (22px) * 1.2; }
+    h6 { font-size: (20px) * 1.2; }
+    ul {
+      > li {
+        &:before {
+          width: 6px;
+          height: 6px;
+          margin-top: 13px;
+          margin-right: 13px;
+        }
+      }
+    }
+  }
+  &.biggest {
+    font-size: 30px;
+    h1 { font-size: (55px) * 1.6; }
+    h2 { font-size: (45px) * 1.6; }
+    h3 { font-size: (35px) * 1.6; }
+    h4 { font-size: (25px) * 1.6; }
+    h5 { font-size: (22px) * 1.6; }
+    h6 { font-size: (20px) * 1.6; }
+    ol {
+      > li {
+        padding-left: 40px;
+        &:before {
+
+        }
+      }
+    }
+    ul {
+      > li {
+        &:before {
+          width: 8px;
+          height: 8px;
+          margin-top: 18px;
+          margin-right: 18px;
+        }
+      }
+    }
+  }
+
+  .align-center & {
+    text-align: center;
+    ul, ol {
+      > li {
+        padding-left: 0;
+        &:before {
+          position: relative;
+          top: auto;
+          left: auto;
+        }
+      }
+    }
+  }
+  @media all and (max-width: 1024px) {
+    font-size: 19px;
+    &.big {
+      font-size: 21px;
+    }
+    &.biggest {
+      font-size: 24px;
+    }
+  }
+  @media all and (max-width: 767px) {
+    font-size: 18px;
+    &.big {
+      font-size: 20px;
+    }
+    &.biggest {
+      font-size: 22px;
+    }
+  }
+}
+
+/*----------------------------------------------------------------------------------*/
+/*-------------------------------------WRAPPER--------------------------------------*/
+/*----------------------------------------------------------------------------------*/
+.wrapper {
+  overflow: hidden;
+  position: relative;
+}
+#main-content {
+  .white-header-bg & {
+    padding-top: 132px;
+  }
+  @media all and (max-width: 1024px) {
+    padding-top: 70px;
+  }
+}
+
+// Video Wrapper
+.videoWrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+.videoWrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+

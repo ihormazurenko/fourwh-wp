@@ -1,0 +1,226 @@
+.section-inventory-details {
+  .container {
+    max-width: 1216px;
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+  .group-title {
+    margin-bottom: 77px;
+    padding-bottom: 27px;
+    line-height: 1.3;
+    text-transform: uppercase;
+    &:after {
+      height: 6px;
+      width: 180px;
+    }
+    @media all and (max-width: 767px){
+      margin-bottom: 50px;
+      padding-bottom: 20px;
+      &:after {
+        height: 4px;
+      }
+    }
+  }
+}
+.inventory-detail-list-wrap {
+  margin-bottom: 125px;
+}
+  .inventory-detail-list {
+    margin: 0 -12px -80px;
+    text-align: left;
+    > li {
+      display: inline-block;
+      width: 32%;
+      width: -webkit-calc(33.33% - #{4px});
+      width: calc(33.33% - #{4px});
+      padding: 0 12px;
+      margin-bottom: 80px;
+      vertical-align: top;
+      &:nth-child(3n + 1) {
+        clear: both;
+      }
+      &.full-inventory-info {
+        overflow: hidden;
+        width: 100%;
+        .left-box,
+        .right-box {
+          float: left;
+          width: 50%;
+        }
+        .left-box {
+          width: 53%;
+          padding-right: 35px;
+          > :last-child {
+            margin-bottom: 0;
+          }
+        }
+        .right-box {
+          width: 47%;
+          padding-left: 35px;
+        }
+        .inventory-detail-box {
+          border: none;
+          @include border-radius(0);
+        }
+        .centered-img {
+          margin-bottom: 35px;
+          padding-bottom: 76.5%;
+          @include border-radius(0);
+        }
+        .inventory-info-wrap {
+          //margin-top: -7px;
+          padding: 0;
+        }
+        .inventory-info-box {
+          height: auto;
+        }
+        .inventory-detail-title {
+          font-size: 30px;
+        }
+        a.more-info-btn,
+        .more-info-btn {
+          display: none;
+        }
+        @media all and (max-width: 1024px) {
+          .rigth-box {
+            padding-left: 15px;
+          }
+          .left-box {
+            padding-right: 15px;
+          }
+          .inventory-detail-title {
+            font-size: 26px;
+          }
+
+        }
+        @media all and (max-width: 767px) {
+          .inventory-detail-title {
+            font-size: 24px;
+          }
+        }
+      }
+    }
+
+    @media all and (max-width: 991px){
+      margin-bottom: -30px;
+      > li {
+        width: 49%;
+        width: -webkit-calc(50% - #{4px});
+        width: calc(50% - #{4px});
+        margin-bottom: 30px;
+        &.full-inventory-info {
+          .left-box,
+          .right-box {
+            width: 50%;
+          }
+        }
+      }
+    }
+    @media all and (max-width: 767px){
+      > li {
+        &.full-inventory-info {
+          .left-box,
+          .right-box {
+            width: 100%;
+            padding: 0;
+          }
+          .left-box {
+            margin-bottom: 40px;
+          }
+        }
+      }
+    }
+    @media all and (max-width: 640px){
+      > li {
+        width: 100%;
+      }
+    }
+  }
+    .inventory-detail-box {
+      overflow: hidden;
+      @include border-radius($radius-small);
+      border: 1px solid $color-text11;
+      border: 1px solid rgba($color-text11, .2);
+      .centered-img {
+        padding-bottom: 80.6%;
+        @include border-radius($radius-small $radius-small 0 0);
+      }
+      .centered-img-label {
+        position: absolute;
+        z-index: 5;
+        display: inline-block;
+        top: 0;
+        left: 0;
+        padding: 12px 16px 12px;
+        font-size: 20px;
+        font-weight: $normal;
+        line-height: 1.2;
+        letter-spacing: 0;
+        color: $white;
+        text-transform: uppercase;
+        background-color: $light-blue;
+        @media all and (max-width: 1024px) {
+          font-size: 19px;
+        }
+        @media all and (max-width: 767px) {
+          font-size: 18px;
+        }
+      }
+      a.more-info-btn,
+      .more-info-btn {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+      .inventory-info-wrap {
+        padding: 27px 30px 0;
+      }
+        .inventory-detail-title {
+          overflow: hidden;
+          margin-bottom: 17px;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-size: 24px;
+          font-weight: $normal;
+          line-height: 1.2;
+          letter-spacing: .03em;
+          @media all and (max-width: 1024px) {
+            margin-bottom: 15px;
+            font-size: 22px;
+          }
+          @media all and (max-width: 767px) {
+            font-size: 20px;
+          }
+        }
+        .inventory-info-box {
+          overflow: hidden;
+          height: 89px;
+          &.content {
+            margin-bottom: 15px;
+            font-size: $size-main;
+            line-height: 1.7;
+            letter-spacing: .03em;
+            @media all and (max-width: 1024px) {
+              font-size: 17px;
+            }
+            @media all and (max-width: 767px) {
+              font-size: 16px;
+            }
+          }
+
+          &.content {
+            color: rgba($color-text11, .8);
+          }
+          &.more {
+            display: none;
+            height: auto;
+            padding: 20px 0 25px;
+            border-top: 1px solid $color-text11;
+            border-top: 1px solid rgba($color-text11, .2);
+            &.content {
+              margin-bottom: 0;
+            }
+          }
+
+        }

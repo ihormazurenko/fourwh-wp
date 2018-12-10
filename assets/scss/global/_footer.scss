@@ -1,0 +1,192 @@
+#footer {
+  padding-top: 82px;
+  background-color: $color-bg4;
+  .container {
+    max-width: 1240px;
+  }
+  @media all and (max-width: 767px) {
+    padding-top: 62px;
+  }
+}
+  .footer-list {
+    overflow: hidden;
+    margin: 0 -10px;
+    padding-bottom: 66px;
+    @media all and (max-width: 767px) {
+      margin-bottom: -30px;
+      padding-bottom: 46px;
+    }
+    > li {
+      float: left;
+      width: 20%;
+      padding: 0 10px;
+      > :last-child {
+        margin-bottom: 0;
+      }
+      &:first-child {
+        padding-left: 33px;
+        width: 22.8%;
+        @media all and (max-width: 1024px) {
+          padding-left: 10px;
+        }
+      }
+      &:nth-child(2) {
+        width: 22.5%;
+      }
+      &:nth-child(3) {
+        width: 20.2%;
+      }
+      &:nth-child(4) {
+        width: 17.6%;
+      }
+      &:last-child {
+        width: 16.9%;
+      }
+
+      @media all and (max-width: 960px) {
+        width: 33.33%;
+        margin-bottom: 30px;
+        &:first-child,
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4) {
+          width: 33.33%;
+        }
+        &:last-child {
+          width: 50%;
+        }
+        &:nth-child(3n + 4) {
+          clear: both;
+        }
+      }
+      @media all and (max-width: 620px) {
+        width: 50%;
+        &:first-child,
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4) {
+          width: 50%;
+        }
+        &:last-child {
+          width: 100%;
+        }
+        &:nth-child(3n + 4) {
+          clear: none;
+        }
+        &:nth-child(odd) {
+          clear: both;
+        }
+      }
+      @media all and (max-width: 420px) {
+        width: 100% !important;
+      }
+    }
+  }
+      .footer-box {
+        margin-bottom: 45px;
+        @media all and (max-width: 767px) {
+          margin-bottom: 30px;
+        }
+      }
+        a.footer-title,
+        .footer-title {
+          display: block;
+          margin-bottom: 26px;
+          font-size: $size-big;
+          line-height: 1.1;
+          color: $white;
+          @media all and (max-width: 1366px) {
+            font-size: 22px;
+          }
+          @media all and (max-width: 767px) {
+            margin-bottom: 18px;
+            font-size: 20px;
+          }
+          & + a.footer-title,
+          & + .footer-title {
+            margin-top: -20px;
+          }
+        }
+        a.footer-title {
+          text-decoration: none;
+          @media all and (min-width: 769px) {
+            &:hover,
+            &:focus {
+              color: $color-text2;
+            }
+          }
+        }
+        a.footer-link,
+        .footer-link {
+          display: block;
+          margin-bottom: 1px;
+          padding: 5px 0;
+          font-size: $size-small;
+          line-height: 1.5;
+          opacity: .6;
+          color: $white;
+          @media all and (max-width: 1366px) {
+            font-size: 16px;
+          }
+        }
+        a.footer-link {
+          text-decoration: none;
+          @media all and (min-width: 769px) {
+            &:hover,
+            &:focus {
+              color: $color-text2;
+              opacity: 1;
+            }
+          }
+        }
+        .social-list {
+          margin: 38px -2px 0;
+          > li {
+            display: inline-block;
+            padding: 0 2px;
+            width: 44px;
+            margin-bottom: 9px;
+            a {
+              display: inline-block;
+              width: 40px;
+              height: 40px;
+              line-height: 40px;
+              text-align: center;
+              border: 1px solid $white;
+              border-color: rgba($white, .35);
+              @include border-radius(50%);
+              background-color: transparent;
+              i {
+                color: $color-text5;
+                opacity: .7;
+                @include transition($transition-link);
+              }
+              &:hover,
+              &:focus {
+                border-color: $color-text6;
+                background-color: $color-bg6;
+                i {
+                  color: $white;
+                  opacity: 1;
+                }
+              }
+            }
+          }
+          @media all and (max-width: 767px) {
+            margin-top: 25px;
+          }
+        }
+  .footer-bottom-box {
+    padding: 24px 0 28px;
+    text-align: center;
+    border-top: 1px solid $white;
+    border-color: rgba(255, 255, 255, .05);
+  }
+      .copyright  {
+        font-size: $size-small;
+        color: $white;
+        opacity: .45;
+        @media all and (max-width: 1366px) {
+          font-size: 16px;
+        }
+      }

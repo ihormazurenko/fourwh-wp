@@ -1,0 +1,116 @@
+
+  .content-with-sidebar {
+    overflow: hidden;
+    .content-box {
+      float: left;
+      width: 80%;
+      width: -webkit-calc(100% - #{300px});
+      width: calc(100% - #{300px});
+    }
+    .sidebar {
+      float: right;
+      width: 20%;
+      width: -webkit-calc(0% + #{300px});
+      width: calc(0% + #{300px});
+      padding-left: 30px;
+    }
+    @media all and (max-width: 767px) {
+      display: table;
+      width: 100%;
+     .content-box {
+       float: none;
+       width: 100%;
+       margin-bottom: 80px;
+     }
+      .sidebar {
+        display: table-footer-group;
+        float: none;
+        width: 100%;
+        max-width: 360px;
+        padding: 0;
+        > * {
+          max-width: 360px;
+        }
+      }
+    }
+  }
+  .article-list {
+    > li {
+      &:not(:last-child){
+        margin-bottom: 86px;
+      }
+    }
+  }
+      .article-box {
+        > a {
+          text-decoration: none;
+          @media all and (min-width: 769px) {
+            &:hover,
+            &:focus {
+              color: $color-text2;
+            }
+          }
+        }
+        .content {
+          color: $color-text11;
+          font-size: $size-main;
+          line-height: 1.5;
+          letter-spacing: .03em;
+          > :not(img):not(:last-child){
+            margin-bottom: 33px;
+          }
+          @media all and (max-width: 1024px) {
+            font-size: 17px;
+          }
+          @media all and (max-width: 767px) {
+            font-size: 16px;
+          }
+          .article-list & {
+            color: rgba($color-text11, .8);
+          }
+        }
+        > :last-child {}
+        margin-bottom: 0;
+      }
+        .article-img-wrap {
+          margin-bottom: 40px;
+          img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+          }
+        }
+          .article-title {
+            margin-bottom: 10px;
+            font-size: 30px;
+            letter-spacing: .03em;
+            line-height: 1.2;
+            color: $color-text11;
+            @media all and (max-width: 1024px) {
+              font-size: 28px;
+            }
+            @media all and (max-width: 767px) {
+              font-size: 24px;
+            }
+          }
+          .article-info {
+            margin-bottom: 28px;
+            font-size: 15px;
+            font-weight: $normal;
+            //letter-spacing: .03em;
+            color: $color-text11;
+            @media all and (min-width: 769px) {
+              a {
+                &:hover,
+                &:focus {
+                  color: $color-text2;
+                }
+              }
+            }
+          }
+          a.read-more,
+          .read-more {
+            color: $light-blue;
+            text-transform: uppercase;
+            text-decoration: none;
+          }

@@ -1,0 +1,214 @@
+.header {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  min-height: 132px;
+  text-align: right;
+  opacity: 0;
+  @include transition($transition-other);
+  &.show,
+  .no-js &,
+  html:not(.js) & {
+    opacity: 1;
+  }
+  .white-header-bg & {
+    background-color: $white;
+  }
+  .container {
+    position: relative;
+    .home & {
+      max-width: 1832px;
+      @media all and (max-width: 1440px) {
+        max-width: 1210px;
+      }
+    }
+  }
+  //.admin-bar & {
+  //  top: 32px;
+  //}
+  .home & {
+    min-height: 166px;
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+  @media all and (max-width: 1024px) {
+    min-height: 70px !important;
+    padding: 8px 0 3px !important;
+    text-align: left;
+  }
+}
+
+#header-main {
+  z-index: 10;
+  .white-header-bg & {
+    @include box-shadow(0 5px 10px 0, rgba($black, .2));
+  }
+}
+
+#header-scrolling {
+  position: fixed;
+  z-index: 1010;
+  top: -82px;
+  min-height: 82px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  background-color: $white;
+  @media all and (max-width: 1024px) {
+    top: -70px;
+    min-height: 70px;
+  }
+  .direction-up & {
+    top: 0;
+    @include box-shadow(0 5px 10px 0, rgba($black, .2));
+  }
+  .direction-down & {
+    top: -82px;
+    @media all and (max-width: 1024px) {
+      top: -70px
+    }
+  }
+  .home.overflow.direction-down &,
+  .overflow.direction-down & {
+    top: 0;
+  }
+}
+
+
+.logo {
+  overflow: hidden;
+  float: left;
+  max-width: 316px;
+  @include transition($transition-other);
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  #header-scrolling & {
+    max-width: 158px;
+  }
+  .home & {
+    margin-left: 10px;
+    @media all and (max-width: 1440px) {
+     margin-left: 0;
+    }
+  }
+  @media all and (max-width: 1024px) {
+    max-width: 158px;
+  }
+}
+
+.home #header-scrolling {
+  .logo {
+    margin-left: 0;
+  }
+}
+
+
+.mobile-menu-wrap,
+.mobile-menu-toggle {
+  display: none;
+}
+.mobile-menu-wrap {
+  position: fixed;
+  z-index: 99999;
+  right: 0;
+  height: 0;
+  width: 0;
+  top: 70px;
+  @include css3-prefix('transition-delay',$transition-other);
+  .admin-bar & {
+    top: 108px;
+  }
+  &.showing {
+    height: 100%;
+    width: 100%;
+    @include css3-prefix('transition-delay','0s');
+  }
+  @media all and (max-width: 1024px) {
+    display: block;
+  }
+}
+.mobile-menu-overlay {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.25);
+  opacity: 0;
+  @include transition(opacity $transition-other);
+  .showing & {
+    opacity: 1;
+  }
+}
+.mobile-menu-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: -100%;
+  z-index: 2;
+  padding-bottom: 100px;
+  background-color: rgba(255, 255, 255, 0.9);
+  @include transition(right $transition-other);
+  overflow: auto;
+  @include box-shadow(-10px 10px 30px, rgba($black, .2));
+  .showing & {
+    right: 0;
+  }
+}
+
+.mobile-menu-toggle {
+  position: absolute;
+  right: 0;
+  top: -8px;
+  height: 70px;
+  width: 70px;
+  vertical-align: middle;
+  cursor: pointer;
+  font-size: 26px;
+  span:before,
+  span:after,
+  span {
+    position: absolute;
+    display: block;
+    content: '';
+    cursor: pointer;
+    height: 2px;
+    width: 30px;
+    background-color: $color-bg2;
+    @include transition(all $transition-other);
+    .scrolling & {
+      background-color: $color-bg;
+    }
+  }
+  span {
+    z-index: 999999;
+    left: 50%;
+    top: 50%;
+    @include translate();
+  }
+  span:before {
+    top: -9px;
+  }
+  span:after {
+    bottom: -9px;
+  }
+  &.active span {
+    background-color: transparent;
+  }
+  &.active span:before {
+    @include rotate(45deg);
+    top: 0;
+  }
+  &.active span:after {
+    @include rotate(-45deg);
+    bottom: 0;
+  }
+  @media all and (max-width: 1024px) {
+    display: block;
+  }
+}

@@ -1,0 +1,133 @@
+.section-article {
+  padding-top: 100px;
+  @media all and (max-width: 1024px) {
+    padding-top: 0;
+  }
+}
+.related-news-box {
+  clear: both;
+  padding-top: 80px;
+  .group-title {
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    &:after {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+  @media all and (max-width: 767px) {
+    padding-top: 0;
+    padding-bottom: 80px;
+    .group-title {
+      font-size: 24px;
+    }
+  }
+}
+  .related-news-list {
+    overflow: hidden;
+    margin: 0 -15px -30px;
+    > li {
+      float: left;
+      width: 33.33%;
+      padding: 0 15px;
+      margin-bottom: 30px;
+      &:nth-child(3n + 1) {
+        clear: both;
+      }
+      a {
+        text-decoration: none;
+        cursor: pointer;
+        @media all and (min-width: 769px) {
+          &:hover,
+          &:focus {
+            a.read-more,
+            .read-more {
+              color: $color-text2;
+            }
+            .related-img-wrap {
+              img {
+                @include scale(1.1);
+              }
+            }
+          }
+        }
+      }
+      @media all and (max-width: 991px) {
+        width: 50%;
+        &:nth-child(3n + 1) {
+          clear: none;
+        }
+        &:nth-child(odd) {
+          clear: both;
+        }
+      }
+      @media all and (max-width: 640px) {
+        width: 100%;
+      }
+    }
+  }
+    .related-box {
+      overflow: hidden;
+      border: 1px solid #f0f0f0;
+      @include border-radius($radius-small);
+    }
+      .related-img-wrap {
+        padding-bottom: 82%;
+        @include border-radius($radius-small $radius-small 0 0);
+        @media all and (max-width: 767px) {
+          padding-bottom: 72%;
+        }
+      }
+      .related-info {
+        padding: 26px 28px 18px;
+        .desc{
+          margin-bottom: 13px;
+          font-size: $size-main;
+          color: $color-text11;
+          opacity: .8;
+        }
+        .btn-box {
+          margin-right: -15px;
+          text-align: right;
+        }
+        a.read-more,
+        .read-more {
+          font-weight: $medium;
+          cursor: default;
+        }
+        @media all and (max-width: 1024px) {
+          a.read-more,
+          .read-more,
+          .desc{
+            font-size: 17px;
+          }
+        }
+        @media all and (max-width: 767px) {
+          padding: 22px 20px 15px;
+          a.read-more,
+          .read-more,
+          .desc{
+            font-size: 16px;
+          }
+          .btn-box {
+            margin-right: 0;
+          }
+        }
+      }
+        .related-title {
+          overflow: hidden;
+          margin-bottom: 12px;
+          font-size: 25px;
+          letter-spacing: .01em;
+          font-weight: $normal;
+          color: $color-text11;
+          line-height: 1.2;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          @media all and (max-width: 1024px) {
+            font-size: 22px;
+          }
+          @media all and (max-width: 767px) {
+            font-size: 20px;
+          }
+        }

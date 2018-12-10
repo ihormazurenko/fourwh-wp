@@ -1,0 +1,37 @@
+@import 'global/variables';
+@import 'global/mixins';
+
+/*import global styles */
+@import 'global/global';
+@import 'global/layout';
+@import 'fonts/fonts';
+@import 'global/buttons';
+@import 'global/magnific';
+@import 'global/forms';
+@import 'global/headers';
+@import 'global/navigation';
+@import 'global/sidebar';
+@import 'global/footer';
+@import 'global/accordion';
+//@import 'global/responsive';
+
+/* styles used throughout site */
+@import 'partials/home';
+@import 'partials/dealer';
+@import 'partials/truck-selector';
+@import 'partials/truck-preparation';
+@import 'partials/faq';
+@import 'partials/manuals';
+@import 'partials/camper-build';
+@import 'partials/how-to-videos';
+@import 'partials/video-gallery';
+@import 'partials/camper-details';
+@import 'partials/events';
+@import 'partials/contact';
+@import 'partials/article-list';
+@import 'partials/article-details';
+@import 'partials/all-model';
+@import 'partials/inventory-list';
+@import 'partials/inventory-details';
+@import 'partials/career';
+

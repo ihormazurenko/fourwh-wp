@@ -1,0 +1,124 @@
+/*fonts*/
+$font-main: 'CircularStd', Arial, sans-serif;
+$font-roboto: 'Roboto', Arial, sans-serif;
+
+/*fonts-weight*/
+$normal: 400;
+$medium: 500;
+$bold: 600;
+$black-weight: 800;
+
+/*fonts-size*/
+$size-smaller: 16px;
+$size-small: 17px;
+$size-main: 18px;
+$size-big: 24px;
+$size-hero-heading: 118px;
+$size-heading1: 70px;
+$size-heading2: 40px;
+//$size-heading2: 40px;
+//$size-heading3: 28px;
+
+/*line-height*/
+$line-height: 1.6;
+$line-height-heading: 1.2;
+
+$letter-spacing-250: 0.25em;
+$letter-spacing-20: 0.02em;
+
+/*colors*/
+$white: #ffffff;
+$black: #000000;
+$color-text: #3e3e3e;
+$color-text2: #ffc72c;
+$color-text3: #212020;
+$color-text4: #0033a0;
+$color-text5: #989898;
+$color-text6: #fc4c02;
+$color-text7: #ff3f3f;
+$color-text8: #0e90ff;
+$color-text9: #f7f9fb;
+$color-text10: #00f0dc;
+$color-text11: #62666a;
+$color-text12: #00a3e0;
+//$color-text2: #313b43;
+//$color-text3: #ff614c;
+$color-bg: #3e3e3e;
+$color-bg2: #ffc72c;
+$color-bg3: #212020;
+$color-bg4: #0033a0;
+$color-bg5: #989898;
+$color-bg6: #fc4c02;
+$color-bg7: #ff3f3f;
+$color-bg8: #0e90ff;
+$color-bg9: #f7f9fb;
+$color-bg10: #00f0dc;
+$color-bg11: #62666a;
+$color-bg12: #00a3e0;
+$light-blue: $color-bg12;
+//$color-bg3: #1d4d94;
+$color-bg14: #d5d5d5;
+
+/*transition*/
+$transition-link: .25s;
+$transition-other: .35s;
+
+/*border-radius*/
+$radius-main: 10px;
+$radius-small: 5px;
+
+
+//grid columns
+// Extra small screen / phone
+$screen-xs:                  1px;
+$screen-xs-min:              $screen-xs;
+$screen-phone:               $screen-xs-min;
+
+//Additional breakpoint at 480;
+
+$screen-tn:					 480px !default;
+$screen-tn-min:              $screen-tn;
+
+// Small screen / tablet
+
+$screen-sm:                  768px !default;
+$screen-sm-min:              $screen-sm;
+$screen-tablet:              $screen-sm-min;
+
+// Medium screen / desktop
+
+$screen-md:                  992px !default;
+$screen-md-min:              $screen-md !default;
+$screen-desktop:             $screen-md-min !default;
+
+// Large screen / normal desktop
+$screen-lg:                  1200px !default;
+$screen-lg-min:              $screen-lg;
+$screen-lg-desktop:          $screen-lg-min;
+
+// XLarge screen / wide desktop
+$screen-xl:                  1440px;
+$screen-xl-min:              $screen-xl;
+$screen-xl-desktop:          $screen-xl-min;
+
+// So media queries don't overlap when required, provide a maximum
+$screen-tn-less:             ($screen-tn-min - 1) !default;
+$screen-xs-max:              ($screen-tn-min - 1) !default;
+$screen-tn-max:              ($screen-sm-min - 1) !default;
+$screen-sm-max:              ($screen-md-min - 1) !default;
+$screen-md-max:              ($screen-lg-min - 1) !default;
+$screen-lg-max:				 ($screen-xl-min - 1);
+$screen-xl-max:				 1599px;
+
+$tn-max:              ($screen-tn - 1) !default;
+$xs-max:              ($screen-sm-min - 1) !default;
+$sm-max:              ($screen-md-min - 1) !default;
+$md-max:              ($screen-lg-min - 1) !default;
+$lg-max:              ($screen-xl-min - 1);
+$xl-max:				 1599px;
+
+
+//columns - grid - for custom layouts  
+$col: 8.333333333%; 
+$gutter: 10px;
+

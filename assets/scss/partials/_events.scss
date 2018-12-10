@@ -1,4 +1,4 @@
-.section-events  { 
+.section-events  { //event list
    
   .categories {
 	margin-bottom: 80px;
@@ -98,3 +98,19 @@
   
 }
 
+
+.section-event { //event detail
+	@extend .section-events;
+
+	padding-top: 100px;
+
+	.list-item {
+		align-items: flex-start;
+	}
+
+	h5 {
+		margin-top: 30px;
+		border-bottom: solid 1px #ccc;
+		padding-bottom: 8px;
+	}
+}

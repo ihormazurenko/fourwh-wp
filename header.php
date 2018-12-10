@@ -66,8 +66,18 @@
     <header id="header-main" class="header">
         <div class="container">
             <div class="logo">
-                <a href="dev-sitemap.html">
-                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/logo.png" alt=" Four Wheel Campers">
+                <a href="<?php echo home_url(); ?>">
+                    <?php
+                    if ( get_field('logo', 'option') ) {
+                        $logo_url = get_field('logo', 'option');
+                    } elseif ( has_custom_logo() ) {
+                        $custom_logo = wp_get_attachment_image_src( get_theme_mod('custom_logo'), 'full' );
+                        $logo_url = $custom_logo[0];
+                    } else {
+                        $logo_url = get_bloginfo('template_url') . '/img/logo.png';
+                    }
+                    ?>
+                    <img src="<?php echo $logo_url; ?>" alt="<?php bloginfo('name'); ?>">
                 </a>
             </div>
             <div class="mobile-menu-toggle">
@@ -129,8 +139,18 @@
     <header id="header-scrolling" class="header">
         <div class="container">
             <div class="logo">
-                <a href="dev-sitemap.html">
-                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/logo.png" alt=" Four Wheel Campers">
+                <a href="<?php echo home_url(); ?>">
+                    <?php
+                    if ( get_field('logo', 'option') ) {
+                        $logo_url = get_field('logo', 'option');
+                    } elseif ( has_custom_logo() ) {
+                        $custom_logo = wp_get_attachment_image_src( get_theme_mod('custom_logo'), 'full' );
+                        $logo_url = $custom_logo[0];
+                    } else {
+                        $logo_url = get_bloginfo('template_url') . '/img/logo.png';
+                    }
+                    ?>
+                    <img src="<?php echo $logo_url; ?>" alt="<?php bloginfo('name'); ?>">
                 </a>
             </div>
             <div class="mobile-menu-toggle">

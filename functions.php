@@ -86,7 +86,6 @@ if ( function_exists( 'add_theme_support' ) ) {
     add_theme_support( 'post-thumbnails' );
 }
 
-
 // support menus
 if ( function_exists( 'register_nav_menus' ) ) {
     register_nav_menus(array(
@@ -109,7 +108,7 @@ add_filter('excerpt_length', 'new_excerpt_length');
 
 
 // for Options Page
-if (function_exists('acf_set_options_page_menu')){
-    acf_set_options_page_menu('Theme Options');
+if( function_exists('acf_add_options_page') ) {
+    acf_add_options_page('Theme Options');
 }
 

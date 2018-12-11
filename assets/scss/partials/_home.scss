@@ -187,7 +187,11 @@
       @media all and (max-width: 767px) {
         font-size: 24px;
       }
+      .align-center & {
+        text-align: center;
+      }
     }
+
     .hero-desc {
       margin-bottom: 34px;
       .home & {
@@ -195,6 +199,14 @@
         max-width: 770px;
       }
     }
+
+    .hero-btn-box {
+      .align-center & {
+        text-align: center;
+      }
+    }
+
+
     .bg-img {
       position: absolute;
       z-index: 3;
@@ -296,6 +308,7 @@
       max-width: 1160px;
       margin: 0 auto;
       padding-bottom: 49.6%;
+      background-color: #dcdcdc;
       @include border-radius($radius-main);
       @media all and (max-width: 460px) {
         padding-bottom: 60%;

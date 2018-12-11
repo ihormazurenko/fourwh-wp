@@ -22,6 +22,7 @@
     }
   }
 
+
   .slide-box {
     overflow: hidden;
     position: relative;
@@ -75,6 +76,24 @@
       > img {
         max-height: 100%;
         max-width: none;
+      }
+    }
+
+    &.dark-overlay {
+      background-color: $black;
+
+      &:before {
+        top: 0;
+        @include background-gradient(bottom, $black);
+      }
+
+      &:after {
+        bottom: 0;
+        @include background-gradient(top, $black);
+      }
+
+      > img {
+        opacity: .8;
       }
     }
 

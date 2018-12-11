@@ -112,3 +112,31 @@ if( function_exists('acf_add_options_page') ) {
     acf_add_options_page('Theme Options');
 }
 
+
+//for test
+function usage() {
+    if (get_current_user_id() == 1) {
+        echo '<div class="statistic-wp"><style> .statistic-wp { position: fixed; z-index: 99999; max-width: 200px; bottom: 20px; left: 20px; background-color: #fff; color: #000; padding: 5px 10px; border: 1px solid red; } </style>';
+            printf( ( '%d / %s' ), get_num_queries(), timer_stop( 0, 3 ) );
+            if ( function_exists( 'memory_get_usage' ) ) {
+                echo ' / ' . round( memory_get_usage() / 1024 / 1024, 2 ) . 'mb ';
+            }
+        echo '</div>';
+    }
+}
+add_action('admin_footer_text', 'usage');
+add_action('wp_footer', 'usage');
+
+//get youtube thumbnail
+function getYouTubeThumbnail($video_url) {
+
+    if (empty($video_url))
+        return;
+
+    $fetch              = explode("v=", $video_url);
+    $youtube_video_id   = $fetch[1];
+    $video_thumb_url = 'https://img.youtube.com/vi/'.$youtube_video_id.'/maxresdefault.jpg';
+
+    return $video_thumb_url;
+}
+

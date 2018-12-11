@@ -1,210 +1,193 @@
-<?php get_header(); ?>
+<?php
+get_header();
 
-    <section class="section section-hero inverse align-center vertical-line" style="background-image: url(<?php echo get_bloginfo('template_url'); ?>/img/banner_bg.jpg)">
+$video_title = get_field('video_title');
+$video_slider = get_field('video_slider');
+
+$build_based        = get_field('build_based');
+$social_slider      = get_field('social_slider');
+$upcoming_events    = get_field('upcoming_events');
+
+
+    get_template_part('inc/hero', 'banner');
+?>
+
+
+<?php if (($video_slider && is_array($video_slider) && count($video_slider) > 0) || $video_title) {
+    $video_slide_count = count($video_slider); ?>
+
+    <section class="section section-meet-popup <?php if ($video_slide_count > 1) { echo 'slider-mode'; } ?>">
         <div class="container">
-            <div class="hero-box">
-                <h1 class="hero-title">Freedom <span>on</span> Four Wheels</h1>
-                <div class="hero-desc content biggest">
-                    <p>building lightweight, durable pop-up campers since 1972</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            <?php
+                if ($video_title) { echo '<h2 class="section-title">'.$video_title.'</h2>';}
 
-    <!--
-    <section class="section section-hero slider-hero inverse align-center vertical-line">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" style="background-image: url(<?php echo get_bloginfo('template_url'); ?>/img/banner_bg.jpg)">
-                    <div class="container">
-                        <div class="hero-box">
-                            <h1 class="hero-title">Freedom <span>on</span> Four Wheels</h1>
-                            <div class="hero-desc content biggest">
-                                <p>building lightweight, durable pop-up campers since 1972</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="background-image: url(<?php echo get_bloginfo('template_url'); ?>/img/calendar-hero.jpg)">
-                    <div class="container">
-                        <div class="hero-box">
-                            <h1 class="hero-title">Slide 2</h1>
-                            <div class="hero-desc content biggest">
-                                <p>building lightweight, durable pop-up campers since 1972</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide" style="background-image: url(<?php echo get_bloginfo('template_url'); ?>/img/faq--hero.jpg)">
-                    <div class="container">
-                        <div class="hero-box">
-                            <h1 class="hero-title">Slide 3</h1>
-                            <div class="hero-desc content biggest">
-                                <p>building lightweight, durable pop-up campers since 1972</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                if ($video_slider) {
 
-            <div class="swiper-pagination"></div>
-        </div>
-    </section>
--->
-    <section class="section section-meet-popup slider-mode"><!-- when use slider please add class "slider-mode" -->
-        <div class="container">
-            <h2 class="section-title">Meet the Popup Camper</h2>
-            <!--<a href="https://www.youtube.com/watch?v=MyvZIW8Rd5Y" class="youtube-video">-->
-            <!--<div class="video-preview">-->
-            <!--<img src="<?php echo get_bloginfo('template_url'); ?>/img/WoolrichEdition.jpg" alt="">-->
-            <!--</div>-->
-            <!--</a>-->
-            <div class="slider-video">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <a href="https://www.youtube.com/watch?v=MyvZIW8Rd5Y" class="youtube-video">
-                                <div class="video-preview">
-                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/WoolrichEdition.jpg" alt="">
+                    if ($video_slide_count > 1) {
+                        echo '<div class="slider-video">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">';
+                    }
+
+                    foreach ($video_slider as $slide) {
+                        $video_url          = $slide['url'];
+
+                        if (!empty($video_url)) {
+                            $video_thumb_url    = $slide['img'] ? $slide['img']['url'] : getYouTubeThumbnail($video_url);
+
+                            if ($video_slide_count > 1) {
+                                echo '<div class="swiper-slide">
+                                            <a href="'.$video_url.'" class="youtube-video" title="'.esc_attr($video_title).'">
+                                                <div class="video-preview">
+                                                    <img src="'.$video_thumb_url.'" alt="'.esc_attr($video_title).'">
+                                                </div>
+                                            </a>
+                                        </div>';
+                            } else {
+                                echo '<a href="' . $video_url . '" class="youtube-video" title="' . esc_attr($video_title) . '">
+                                        <div class="video-preview">
+                                            <img src="' . $video_thumb_url . '" alt="' . esc_attr($video_title) . '">
+                                        </div>
+                                    </a>';
+                            }
+                        }
+                    }
+
+                    if ($video_slide_count > 1) {
+                        echo ' </div>
+                                    <div class="custom-nav-box">
+                                        <div class="swiper-custom-button-prev"></div>
+                                        <div class="swiper-custom-button-next"></div>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="https://www.youtube.com/watch?v=r35VhjA92KU" class="youtube-video">
-                                <div class="video-preview">
-                                    <img src="https://img.youtube.com/vi/r35VhjA92KU/maxresdefault.jpg" alt="">
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide">
-                            <a href="https://www.youtube.com/watch?v=Jp23a6OMIuw" class="youtube-video">
-                                <div class="video-preview">
-                                    <img src="https://img.youtube.com/vi/Jp23a6OMIuw/maxresdefault.jpg" alt="">
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="custom-nav-box">
-                        <div class="swiper-custom-button-prev"></div>
-                        <div class="swiper-custom-button-next"></div>
-                    </div>
-                </div>
-            </div>
+                            </div>';
+                    }
+
+
+                }
+            ?>
         </div>
     </section>
+<?php } ?>
 
-    <section class="section section-build-based inverse">
-        <div class="container">
-            <div class="left-box">
-                <div class="four-truck-img-wrap">
-                    <img class="" src="<?php echo get_bloginfo('template_url'); ?>/img/fourwh-truck.png" alt="Truck">
-                </div>
-            </div>
-            <div class="right-box">
-                <div class="build-based-box">
-                    <h2 class="section-title">Build Based On My Truck</h2>
-                    <div class="build-based-desc content big">
-                        <p>usu ne homero qualisque inciderint. Mei nostrum</p>
-                    </div>
-                    <div class="build-based-btn-box">
-                        <a href="truck-selector.html" class="btn white big inverse" title="Start My Build">Start My Build</a>
+<?php if ($build_based && is_array($build_based) && count($build_based) > 0) {
+    $build_title = $build_based['title'];
+    $build_description = $build_based['description'];
+    $build_button = $build_based['button'];
+
+    if ($build_title || $build_description || $build_button) { ?>
+        <section class="section section-build-based inverse">
+            <div class="container">
+                <div class="left-box">
+                    <div class="four-truck-img-wrap">
+                        <img class="" src="<?php echo get_bloginfo('template_url'); ?>/img/fourwh-truck.png" alt="Truck">
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+                <div class="right-box">
+                    <div class="build-based-box">
+                        <?php
+                            if ($build_title) { echo '<h2 class="section-title">'.$build_title.'</h2>';}
 
+                            if ($build_description) { echo '<div class="build-based-desc content big">'.$build_description.'</div>';}
+
+                            if ($build_button && is_array($build_button) && count($build_button) > 0) {
+                                $label = $build_button['label'];
+                                $link_type = $build_button['link_type'];
+                                $target = $build_button['target'] ? 'target="_blank"' : '';
+
+                                if ($link_type == 'internal') {
+                                    $link = $build_button['internal_link'] ? $build_button['internal_link'] : '';
+                                } elseif ($link_type == 'external') {
+                                    $link = $build_button['external_link'] ? $build_button['external_link'] : '';
+                                } else {
+                                    $link = '';
+                                }
+
+                                if (!empty($label) && !empty($link)) {
+                                    echo '<div class="build-based-btn-box">
+                                            <a href="' . $link . '" class="btn white inverse big" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>
+                                        </div>';
+                                }
+                            }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <?php }
+} ?>
+
+<?php if ($social_slider && is_array($social_slider) && count($social_slider) > 0) { ?>
     <section class="section section-social-slider vertical-line">
         <div class="container">
             <div class="swiper-container social-slider">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <a href="#" title="slide">
-                            <div class="slide-box">
-                                <img src="<?php echo get_bloginfo('template_url'); ?>/img/slide_1.jpg" alt="">
-                                <div class="slide-inner-box">
-                                    <div class="slider-social-table">
-                                        <div class="slider-social-table-body">
-                                            <img class="slide-icon facebook" src="<?php echo get_bloginfo('template_url'); ?>/img/icon_facebook.png" alt="">
-                                            <h3 class="slide-title">lorem ipsum sit amet due dummy quo hisac.</h3>
+                    <?php foreach ($social_slider as $slide) {
+                        $slide_title            = $slide['title'];
+                        $slide_without_title    = $slide_title ? '' : 'without-title';
+                        $slide_description      = $slide['description'];
+                        $slide_image            = $slide['image'];
+                        $slide_image_class      = ($slide_image['width'] > $slide_image['height']) ? 'wider' : '';
+                        $slide_style            = $slide['slide_style'];
+                        $slide_icon_base        = get_bloginfo('template_url').'/img/';
+                        $slide_icon             = '';
+                        $slide_icon_alt         = '';
+                        $slide_overlay_class    = '';
+                        $slide_icon_class       = '';
+
+                        if ($slide_title || $slide_description || $slide_image) {
+                            if ($slide_style == 'facebook') {
+                                $slide_icon             = 'icon_facebook.png';
+                                $slide_icon_alt         = 'Facebook';
+                                $slide_icon_class       = 'facebook';
+                                $slide_overlay_class    = 'dark-overlay';
+                            } elseif ($slide_style == 'instagram') {
+                                $slide_icon             = 'icon_instagram.png';
+                                $slide_icon_alt         = 'Instagram';
+                                $slide_icon_class       = 'instagram';
+                                $slide_overlay_class    ='blue-overlay';
+                            } elseif ($slide_style == 'pinterest') {
+                                $slide_icon             = 'icon_pinterest.png';
+                                $slide_icon_alt         = 'Pinterest';
+                                $slide_icon_class       = 'pinterest';
+                                $slide_overlay_class    = 'orange-overlay';
+                            } else {
+                                $slide_icon             = '';
+                                $slide_icon_alt         = '';
+                                $slide_overlay_class    = '';
+                                $slide_icon_class       = '';
+                            }
+                        }
+
+                        if ($slide_title || $slide_description || $slide_image || $slide_style) {
+                            echo '<div class="swiper-slide">
+                                    <a href="#" title="'.esc_attr($slide_title).'">
+                                        <div class="slide-box '.$slide_image_class.' '.$slide_overlay_class.'">';
+                                            if ($slide_image) {
+                                                echo '<img src="'.$slide_image['url'].'" alt="'.esc_attr($slide_title).'">';
+                                            }
+                                            echo '<div class="slide-inner-box">
+                                                    <div class="slider-social-table '.$slide_without_title.'">
+                                                        <div class="slider-social-table-body">';
+                                                            if ($slide_style) {
+                                                                echo '<img src="'.$slide_icon_base.$slide_icon.'" alt="'.esc_attr($slide_icon_alt).'" class="'.$slide_icon_class.'">';
+                                                            }
+                                                            if ($slide_title) {
+                                                                echo '<h3 class="slide-title">'.$slide_title.'</h3>';
+                                                            }
+                                                 echo '</div>
+                                                        <div class="slider-social-table-footer">';
+                                                            if ($slide_description) {
+                                                                echo '<p class="slide-desc">'.$slide_description.'</p>';
+                                                            }
+                                                  echo '</div>
+                                                    </div>
+                                            </div>
                                         </div>
-                                        <div class="slider-social-table-footer">
-                                            <p class="slide-desc">usu ne homero qualisque inciderint. Mei nostrum. Some lorm text great with due sit amet que.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="#" title="slide">
-                            <div class="slide-box blue-overlay">
-                                <img src="<?php echo get_bloginfo('template_url'); ?>/img/slide_2.jpg" alt="">
-                                <div class="slide-inner-box">
-                                    <div class="slider-social-table without-title">
-                                        <div class="slider-social-table-body">
-                                            <img class="slide-icon instagram" src="<?php echo get_bloginfo('template_url'); ?>/img/icon_instagram.png" alt="">
-                                        </div>
-                                        <div class="slider-social-table-footer">
-                                            <p class="slide-desc">usu ne homero qualisque inciderint. Mei nostrum. Some lorm text great with due sit amet que.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="#" title="slide">
-                            <div class="slide-box orange-overlay">
-                                <img src="<?php echo get_bloginfo('template_url'); ?>/img/slide_3.jpg" alt="">
-                                <div class="slide-inner-box">
-                                    <div class="slider-social-table without-title">
-                                        <div class="slider-social-table-body">
-                                            <img class="slide-icon pinterest" src="<?php echo get_bloginfo('template_url'); ?>/img/icon_pinterest.png" alt="">
-                                        </div>
-                                        <div class="slider-social-table-footer">
-                                            <p class="slide-desc">usu ne homero qualisque inciderint. Mei nostrum sit emt.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="#" title="slide">
-                            <div class="slide-box blue-overlay">
-                                <img src="https://thebig.co/images/blogs/vertical_panorama02.jpg" alt="">
-                                <div class="slide-inner-box">
-                                    <div class="slider-social-table without-title">
-                                        <div class="slider-social-table-body">
-                                            <img class="slide-icon instagram" src="<?php echo get_bloginfo('template_url'); ?>/img/icon_instagram.png" alt="">
-                                        </div>
-                                        <div class="slider-social-table-footer">
-                                            <p class="slide-desc">usu ne homero qualisque inciderint. Mei nostrum. Some lorm text great with due sit amet que.usu ne homero qualisque inciderint. Mei nostrum. Some lorm text great with due sit amet que. usu ne homero qualisque inciderint. Mei nostrum. Some lorm text great with due sit amet que.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="swiper-slide">
-                        <a href="#" title="slide">
-                            <div class="slide-box">
-                                <img src="<?php echo get_bloginfo('template_url'); ?>/img/slide_2.jpg" alt="">
-                                <div class="slide-inner-box">
-                                    <div class="slider-social-table">
-                                        <div class="slider-social-table-body">
-                                            <img class="slide-icon facebook" src="<?php echo get_bloginfo('template_url'); ?>/img/icon_facebook.png" alt="">
-                                            <h3 class="slide-title">lorem ipsum sit amet due dummy quo hisac. lorem ipsum sit amet due dummy quo hisac. lorem ipsum sit amet due dummy quo hisac.</h3>
-                                        </div>
-                                        <div class="slider-social-table-footer">
-                                            <p class="slide-desc">usu ne homero qualisque inciderint. Mei nostrum. Some lorm text great with due sit amet que.usu ne homero qualisque inciderint. Mei nostrum. Some lorm text great with due sit amet que.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                                    </a>
+                                </div>';
+                        }
+                    } ?>
                 </div>
                 <div class="social-nav-box">
                     <div class="swiper-social-button-prev"></div>
@@ -213,70 +196,85 @@
             </div>
         </div>
     </section>
+<?php } ?>
 
-    <section class="section section-upcoming-events">
-        <div class="container">
-            <h2 class="section-title">Upcoming Events</h2>
-            <a href="#" class="go-link" title="All Events">All Events</a>
-            <ul class="events-list">
-                <li>
-                    <a href="#" title="">
-                        <div class="event-box">
-                            <div class="event-img-wrap wider">
-                                <span class="event-date">07-12</span>
-                                <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_1.jpg" alt="">
+
+<?php if ($upcoming_events && is_array($upcoming_events) && count($upcoming_events) > 0) {
+    $show_upcoming_events = $upcoming_events['show'];
+
+    if ($show_upcoming_events) {
+        $upcoming_title = $upcoming_events['title'];
+        $upcoming_event_count = $upcoming_events['event_count']; ?>
+
+        <section class="section section-upcoming-events">
+            <div class="container">
+
+                <?php if ($upcoming_title) { echo '<h2 class="section-title">'.$upcoming_title.'</h2>';} ?>
+
+                <a href="#" class="go-link" title="<?= esc_attr_x('All Events', 'fw_campers'); ?>"><?= __('All Events', 'fw_campers') ?></a>
+
+                <ul class="events-list">
+                    <li>
+                        <a href="#" title="">
+                            <div class="event-box">
+                                <div class="event-img-wrap wider">
+                                    <span class="event-date">07-12</span>
+                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_1.jpg" alt="">
+                                </div>
+                                <div class="event-info">
+                                    <span class="event-location">Sacramento, CA</span>
+                                    <h3 class="event-title">Saint-Tite Western no texts</h3>
+                                </div>
                             </div>
-                            <div class="event-info">
-                                <span class="event-location">Sacramento, CA</span>
-                                <h3 class="event-title">Saint-Tite Western no texts</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" title="">
+                            <div class="event-box">
+                                <div class="event-img-wrap wider">
+                                    <span class="event-date">15-19</span>
+                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_2.jpg" alt="">
+                                </div>
+                                <div class="event-info">
+                                    <span class="event-location">Henderson, NV</span>
+                                    <h3 class="event-title">Saint-Tite Western no texts</h3>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" title="">
-                        <div class="event-box">
-                            <div class="event-img-wrap wider">
-                                <span class="event-date">15-19</span>
-                                <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_2.jpg" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" title="">
+                            <div class="event-box">
+                                <div class="event-img-wrap wider">
+                                    <span class="event-date">15-19</span>
+                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_3.jpg" alt="">
+                                </div>
+                                <div class="event-info">
+                                    <span class="event-location">Denver, CO</span>
+                                    <h3 class="event-title">Saint-Tite Western no texts</h3>
+                                </div>
                             </div>
-                            <div class="event-info">
-                                <span class="event-location">Henderson, NV</span>
-                                <h3 class="event-title">Saint-Tite Western no texts</h3>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" title="">
+                            <div class="event-box">
+                                <div class="event-img-wrap wider">
+                                    <span class="event-date">07-12</span>
+                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_4.jpg" alt="">
+                                </div>
+                                <div class="event-info">
+                                    <span class="event-location">Sacramento, CA</span>
+                                    <h3 class="event-title">Saint-Tite Western no texts</h3>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" title="">
-                        <div class="event-box">
-                            <div class="event-img-wrap wider">
-                                <span class="event-date">15-19</span>
-                                <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_3.jpg" alt="">
-                            </div>
-                            <div class="event-info">
-                                <span class="event-location">Denver, CO</span>
-                                <h3 class="event-title">Saint-Tite Western no texts</h3>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" title="">
-                        <div class="event-box">
-                            <div class="event-img-wrap wider">
-                                <span class="event-date">07-12</span>
-                                <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_4.jpg" alt="">
-                            </div>
-                            <div class="event-info">
-                                <span class="event-location">Sacramento, CA</span>
-                                <h3 class="event-title">Saint-Tite Western no texts</h3>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </section>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    <?php }
+} ?>
 
 <?php get_footer(); ?>

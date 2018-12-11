@@ -42,10 +42,12 @@
                                                                     $link = '';
                                                                 }
 
-                                                                if (!empty($link)) {
-                                                                    echo '<a href="' . $link . '" class="footer-title" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
-                                                                } else {
-                                                                    echo '<span class="footer-title">' . $label . '</span>';
+                                                                if (!empty($label)) {
+                                                                    if (!empty($link)) {
+                                                                        echo '<a href="' . $link . '" class="footer-title" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
+                                                                    } else {
+                                                                        echo '<span class="footer-title">' . $label . '</span>';
+                                                                    }
                                                                 }
                                                             }
 
@@ -66,10 +68,12 @@
                                                                             $link = '';
                                                                         }
 
-                                                                        if (!empty($link)) {
-                                                                            echo '<a href="' . $link . '" class="footer-link" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
-                                                                        } else {
-                                                                            echo '<span class="footer-link">' . $label . '</span>';
+                                                                        if (!empty($label)) {
+                                                                            if (!empty($link)) {
+                                                                                echo '<a href="' . $link . '" class="footer-link" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
+                                                                            } else {
+                                                                                echo '<span class="footer-link">' . $label . '</span>';
+                                                                            }
                                                                         }
                                                                     }
                                                                 }

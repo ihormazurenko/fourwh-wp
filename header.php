@@ -1,3 +1,11 @@
+<?php
+// body classes
+$classes = '';
+if (!get_field('show_hero_banner')) {
+    $classes = 'white-header-bg';
+}
+
+?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -9,7 +17,10 @@
     <?php wp_head(); ?>
 </head>
 
-<body <?php body_class(); ?>>
+<?php
+
+?>
+<body <?php body_class($classes); ?>>
 <div class="wrapper">
     <a class="btn-jump-to-content smooth-scroll" href="#main-content"><?php _e('Skip Navigation', 'fw_campers'); ?></a>
 

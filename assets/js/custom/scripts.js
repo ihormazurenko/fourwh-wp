@@ -2,7 +2,7 @@
 
     // header fade
     $(function () {
-        var header = $('#header-main');
+        var header = $('#header-main, #header-scrolling');
         setTimeout(function () {
             header.addClass('show');
         }, 800);

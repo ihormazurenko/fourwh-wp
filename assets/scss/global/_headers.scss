@@ -43,7 +43,7 @@
 }
 
 #header-main {
-  z-index: 10;
+  z-index: 20;
   .white-header-bg & {
     @include box-shadow(0 5px 10px 0, rgba($black, .2));
   }
@@ -57,26 +57,53 @@
   padding-top: 11px;
   padding-bottom: 11px;
   background-color: $white;
-  @media all and (max-width: 1024px) {
-    top: -70px;
-    min-height: 70px;
-  }
   .direction-up & {
     top: 0;
     @include box-shadow(0 5px 10px 0, rgba($black, .2));
   }
   .direction-down & {
     top: -82px;
-    @media all and (max-width: 1024px) {
-      top: -70px
-    }
   }
   .home.overflow.direction-down &,
   .overflow.direction-down & {
     top: 0;
   }
-}
+  @media all and (max-width: 1024px) {
+    top: -70px;
+    min-height: 70px;
+    .direction-down & {
+      top: -70px;
+    }
+  }
 
+  .admin-bar & {
+    top: -88px;
+  }
+  .direction-up.admin-bar & {
+    top: 32px;
+  }
+  .direction-down.admin-bar & {
+    top: -88px;
+  }
+  @media all and (max-width: 1024px) {
+    .admin-bar & {
+      top: -76px;
+    }
+    .direction-down.admin-bar & {
+      top: -76px;
+    }
+  }
+  @media all and (max-width: 782px) {
+    .direction-up.admin-bar & {
+      top: 46px;
+    }
+  }
+  @media all and (max-width: 600px) {
+    .direction-up.admin-bar & {
+      top: 0;
+    }
+  }
+}
 
 .logo {
   overflow: hidden;
@@ -106,7 +133,6 @@
     margin-left: 0;
   }
 }
-
 
 .mobile-menu-wrap,
 .mobile-menu-toggle {

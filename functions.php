@@ -41,7 +41,7 @@ add_action('wp_head', 'add_ie_html5_shiv');
 // logo at the entrance to the admin panel
 function my_custom_login_logo(){
     echo '<style type="text/css">
-    h1 a {height:142px !important; width:190px !important; background-size:contain !important; background-image:url('.get_bloginfo("template_url").'/img/main_logo.png) !important;}
+    h1 a {height:102px !important; width:316px !important; background-size:contain !important; background-image:url('.get_bloginfo("template_url").'/img/logo.png) !important;}
     </style>';
 }
 add_action('login_head', 'my_custom_login_logo');

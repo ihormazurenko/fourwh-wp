@@ -81,6 +81,8 @@
       .related-info {
         padding: 26px 28px 18px;
         .desc{
+          overflow: hidden;
+          max-height: 110px;
           margin-bottom: 13px;
           font-size: $size-main;
           color: $color-text11;
@@ -93,7 +95,6 @@
         a.read-more,
         .read-more {
           font-weight: $medium;
-          cursor: default;
         }
         @media all and (max-width: 1024px) {
           a.read-more,

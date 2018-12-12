@@ -1,8 +1,4 @@
-<?php
-/**
- * Template Name: Articles
- */
-get_header(); ?>
+<?php get_header(); ?>
 
     <?php get_template_part('inc/hero', 'banner'); ?>
 
@@ -22,7 +18,7 @@ get_header(); ?>
 
                 <?php get_sidebar(); ?>
 
-                <?php get_template_part('inc/article', 'related-news'); ?>
+                <?php get_template_part('inc/section', 'related-news'); ?>
 
             </div>
         </div>

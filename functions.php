@@ -97,12 +97,13 @@ if ( function_exists( 'register_nav_menus' ) ) {
 
 // for excerpts
 function new_excerpt_more( $more ) {
-    return '&nbsp;&hellip;';
+    global $post;
+    return '<a class="read-more" href="'. get_permalink($post) . '" title="'.esc_attr_x('Read More...', 'fw_campers').'"> '.__('Read More...', 'fw_campers').'</a>';
 }
 add_filter( 'excerpt_more', 'new_excerpt_more' );
 
 function new_excerpt_length($length) {
-  return 30;
+  return 120;
 }
 add_filter('excerpt_length', 'new_excerpt_length');
 
@@ -140,3 +141,16 @@ function getYouTubeThumbnail($video_url) {
     return $video_thumb_url;
 }
 
+//register sidebar
+function register_my_widgets(){
+    register_sidebar( array(
+        'name' => "Right Sidebar",
+        'id' => 'sidebar',
+        'description' => 'Shows on Articles Page',
+        'before_widget' => '<div id="%1$s" class="widget %2$s">',
+        'after_widget' => '</div>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>'
+    ) );
+}
+add_action( 'widgets_init', 'register_my_widgets' );

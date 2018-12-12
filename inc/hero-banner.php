@@ -2,12 +2,18 @@
 
 $show_hero_banner   = get_field('show_hero_banner');
 $hero_banner        = get_field('hero_banner');
+$hero_classes       = '';
+
+if (is_front_page()) {
+    $hero_classes ='align-center vertical-line';
+}
+
 
 if ($show_hero_banner && ($hero_banner && is_array($hero_banner) && count($hero_banner) > 0)) {
     $hero_slide_count   = count($hero_banner);
 
     if ($hero_slide_count > 1) {
-        echo '<section class="section section-hero slider-hero inverse align-center vertical-line">
+        echo '<section class="section section-hero slider-hero inverse '.$hero_classes.'">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">';
     }
@@ -56,7 +62,7 @@ if ($show_hero_banner && ($hero_banner && is_array($hero_banner) && count($hero_
                                 </div>
                             </div>';
                 } else {
-                    echo '<section class="section section-hero inverse align-center vertical-line" style="background-image: url('.$hero_image['url'].')">
+                    echo '<section class="section section-hero inverse '.$hero_classes.'" style="background-image: url('.$hero_image['url'].')">
                                 <div class="container">
                                     <div class="hero-box">';
                                     if ($hero_title) { echo '<h1 class="hero-title">'.$hero_title.'</h1>'; }

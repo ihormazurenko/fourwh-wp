@@ -1,0 +1,103 @@
+.pagenavi-block {
+  text-align: right;
+  &:not(:empty) {
+    margin-top: 75px;
+  }
+}
+
+.wp-pagenavi {
+  overflow: hidden;
+  display: inline-block;
+  background-color: #f9f9f9;
+  border: 1px solid #00A3E0;
+  border-color: rgba(0, 163, 224, 0.3);
+  @include border-radius(2em);
+  .pages {
+    display: none;
+  }
+  .extend,
+  .current,
+  .page {
+    display: inline-block;
+    margin: 5px 0;
+    padding: 6px 20px;
+    color: $light-blue;
+    font-family: $font-roboto;
+    font-size: $size-smaller;
+    font-weight: $normal;
+    line-height: 1;
+    vertical-align: top;
+    border-left: 1px solid $light-blue;
+    border-color: rgba($light-blue, .4);
+    cursor: pointer;
+  }
+  .extend,
+  .current {
+    color: $color-text11;
+    cursor: default;
+  }
+  a {
+    text-decoration: none;
+    @media all and (min-width: 769px) {
+      &:hover,
+      &:focus {
+        color: $color-text2;
+      }
+    }
+    &.first,
+    &.last,
+    &.previouspostslink,
+    &.nextpostslink {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+      min-width: 107px;
+      margin: 0;
+      padding: 11px 18px;
+      font-family: $font-roboto;
+      font-size: 14px;
+      font-weight: $normal;
+      line-height: 1;
+      letter-spacing: $letter-spacing-20;
+      color: $white;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid $light-blue;
+      background-color: $light-blue;
+      @include border-radius(2em);
+      vertical-align: top;
+      @media all and (min-width: 769px) {
+        &:hover,
+        &:focus {
+          color: $light-blue;
+          background-color: transparent;
+        }
+      }
+    }
+    &.first {
+      margin-right: 1px;
+      @include border-radius(2em 0 0 2em);
+       + .previouspostslink {
+         @include border-radius(0 2em 2em 0);
+       }
+    }
+    &.last {
+      margin-left: 1px;
+      @include border-radius(0 2em 2em 0);
+    }
+    &.previouspostslink {
+      & + .extend,
+      & + .current,
+      & + .page {
+        border: none;
+      }
+    }
+  }
+  > :first-child:not(.previouspostslink) {
+    border: none;
+  }
+  > :nth-last-child(2):not(.extend):not(.current):not(.page) {
+    @include border-radius(2em 0 0 2em);
+  }
+}

@@ -100,7 +100,7 @@
       background-color: $light-blue;
     }
   }
-  .popular-posts {}
+  .widget-popular-posts {}
 
   .popular-posts-list {
     > li {
@@ -160,10 +160,11 @@
             @include transition($transition-other);
           }
           .popular-desc {
+            max-height: 38px;
             font-size: 12px;
             letter-spacing: .03em;
             color: $color-text11;
             opacity: .8;
           }
+
 }
-  .widget-category-title {}

@@ -1,38 +1,55 @@
 <?php
-    $title = strip_tags(get_the_title());
-    $url = get_the_permalink();
-?>
-<li>
-    <div class="article-box">
-        <a href="article-details.html" title="Four Wheel Business is Amazing">
-            <div class="article-img-wrap">
-<!--                <img src="img/article_1.jpg" alt="Four Wheel Business is Amazing">-->
-                <a href="<?php the_permalink(); ?>" title="<?= esc_attr($title); ?>">
+    $title = get_the_title();
+    $url = get_permalink();
+    $date = get_the_date('F j, Y T');
+
+    if (is_single()) {
+        ?>
+        <div class="article-box">
+            <?php if (has_post_thumbnail()) { ?>
+                <div class="article-img-wrap">
                     <?php the_post_thumbnail('full', array(
-                        'alt'   => esc_attr($post->post_title)
+                        'alt'   => esc_attr($title)
                     )); ?>
-                </a>
+                </div>
+            <?php } ?>
+            <h2 class="article-title"><?php echo $title; ?></h2>
+            <div class="article-info">
+                <span><?php _e('Published Date:', 'fw_campers'); ?> <?php echo $date; ?></span>
+                <span><?php _e('By', 'fw_campers'); ?> <?php the_author_posts_link(); ?></span>
             </div>
-        </a>
-        <a href="article-details.html" title="Four Wheel Business is Amazing">
-            <h2 class="article-title">Four Wheel Business is Amazing</h2>
-        </a>
-        <div class="article-info"> Published Date: 22 september 2018 By <a href="#" title="Nikil Shorma">Nikil Shorma</a></div>
-        <div class="content">
-            <p>Business to popular belief, Lorem Ipsum is not simply random text.
-                It has roots in a piece of classica Latin literature from 45 BC,
-                making it over 2000 years old. Richard McClintock very impottant
-                an trending business for sturt upIt is a long established fact that
-                a reader will be distracted by the reads readable content of a page
-                when looking at its layout. The point of using Lorem Ipsum is tha it has
-                more-or-less normal distribution of letters, as opposed to using
-                'Content here, content here', making it look like readable English.
-                Many desktop publishing packages...</p>
-            <p>Business to popular belief, Lorem Ipsum is not simply random text.
-                It has roots in a piece of classical Latin literature from 45 BC,
-                making it over 2000 years old. Richard McClintock very impottant
-                and trending business for sturt upIt is a long
-                established. <a class="read-more" href="article-details.html" title="Read More">Read More...</a></p>
+            <div class="content">
+                <?php the_content(); ?>
+            </div>
         </div>
-    </div>
-</li>
+        <?php
+    } else {
+        ?>
+        <div class="article-box">
+            <?php if (has_post_thumbnail()) { ?>
+                <a href="<?php echo esc_url($url); ?>" title="<?php echo esc_attr($title); ?>">
+                    <div class="article-img-wrap">
+                        <?php the_post_thumbnail('full', array(
+                            'alt'   => esc_attr($title)
+                        )); ?>
+                    </div>
+                </a>
+            <?php } ?>
+            <a href="<?php echo esc_url($url); ?>" title="<?php echo esc_attr($title); ?>">
+                <h2 class="article-title"><?php echo $title; ?></h2>
+            </a>
+            <div class="article-info">
+                <span><?php _e('Published Date:', 'fw_campers'); ?> <?php echo $date; ?></span>
+                <span><?php _e('By', 'fw_campers'); ?> <?php the_author_posts_link(); ?></span>
+            </div>
+            <div class="content">
+                <?php the_excerpt(); ?>
+            </div>
+        </div>
+        <?php
+    }
+
+
+?>
+
+

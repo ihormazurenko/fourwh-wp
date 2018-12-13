@@ -30,7 +30,7 @@ get_template_part('inc/hero', 'banner');
                         $video_url = esc_url($slide['url']);
 
                         if (!empty($video_url)) {
-                            $video_thumb_url = $slide['img'] ? $slide['img']['url'] : getYouTubeThumbnail($video_url);
+                            $video_thumb_url = $slide['img'] ? $slide['img']['url'] : getVideoThumbnail($video_url);
 
                             if ($video_slide_count > 1) {
                                 echo '<div class="swiper-slide">

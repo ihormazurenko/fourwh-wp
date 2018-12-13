@@ -1,58 +1,90 @@
 <?php
 get_header();
 
-$title = get_the_title();
-$url = get_permalink();
-$date = get_the_date(get_option('date_format'));
+$title                  = get_the_title();
+$dates                  = get_field('dates');
+$country                = get_field('country');
+$event_type             = get_field('event_type');
+$information            = get_field('information');
+$external_button_group  = get_field('external_button_group');
 
-$archive_year  = get_the_time('Y');
-$archive_month = get_the_time('m');
-$archive_day   = get_the_time('d');
 
 ?>
 
     <section class="section content-wrapper section-event">
         <div class="container">
 
-            <h1 class="section-title smaller line">All Of Mistaken Idea Of Pleasure</h1>
-
-
-
-
-
-
+            <h1 class="section-title smaller line"><?php echo $title; ?></h1>
 
             <div class="video-list content">
 
                 <div class="list-item">
 
-                    <div class="image">
-                        <img src="<?php echo get_bloginfo('template_url'); ?>/img/calendar-thumbnail.jpg" alt="">
-                    </div>
+                    <?php if (has_post_thumbnail()) { ?>
+                        <div class="image">
+                            <?php the_post_thumbnail('large', array(
+                                'alt'   => esc_attr($title)
+                            )); ?>
+                        </div>
+                    <?php } ?>
+
                     <div class="text">
+                        <?php if ( $dates || $country ) : ?>
+                            <ul>
+                                <?php if ( $dates && is_array( $dates ) && count( $dates ) > 0 ) : ?>
+                                    <?php
+                                        $start = $dates['start'];
+                                        $end = $dates['end'];
 
-                        <ul>
-                            <li><i class="far fa-calendar-alt"></i> September 27, 2018 @ 4:30 pm PST</li>
-                            <li><i class="fas fa-map-marker"></i> British Columbia, Canada</li>
+//                                        var_dump( strtotime( $start ) );
+//                                        var_dump( strtotime( $end ) );
+                                        if ( strtotime($start ) !== strtotime( $end )) {
+                                            echo funcDate($start, $end,true);
+                                        } else {
+                                            echo $start;
+                                        }
 
-                        </ul>
-                        <h5>Location</h5>
-                        <div class="address">Coffee House 4432 More Rd. #1243, <br />San Francisco, CA 95835</div>
-                        <h5>Details</h5>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour or randomised </p>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour or randomised </p>
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour or randomised </p>
+                                    ?>
+                                    <li><i class="far fa-calendar-alt"></i> September 27, 2018 @ 4:30 pm PST</li>
+                                <?php endif; ?>
+                                <?php if ( $country ) : ?>
+                                    <li><i class="fas fa-map-marker"></i> <?php echo $country; ?></li>
+                                <?php endif; ?>
+                            </ul>
+                        <?php endif; ?>
+
+                        <?php
+                            if ( $event_type == 'internal' ) :
+                                if ( $information && is_array( $information ) && count( $information ) > 0 ) :
+                                    $location   = $information['location'];
+                                    $details    = $information['details'];
+
+                                    if ( $location ) {
+                                        ?>
+                                        <h5><?php _e('Location', 'fw_campers'); ?></h5>
+                                        <div class="address"><?php echo $location; ?></div>
+                                        <?php
+                                    }
+                                    if ( $details ) {
+                                        ?>
+                                        <h5><?php _e('Details', 'fw_campers'); ?></h5>
+                                        <?php echo $details; ?>
+                                        <?php
+                                    }
+                                endif;
+                            elseif ( $event_type == 'external' ) :
+                                if ( $external_button_group && is_array( $external_button_group ) && count( $external_button_group ) > 0 ) {
+                                    $label  = $external_button_group['label'];
+                                    $link   = $external_button_group['link'];
+                                    $target = $external_button_group['target'] ? 'target="_blank"' : '';
+
+                                    echo '<a href="' . esc_url( $link ) . '" title="' . esc_attr( $label ) . '" class="btn blue inverse" '.$target.'>' . $label . '</a>';
+                                }
+                            endif;
+                        ?>
                     </div>
-
                 </div>
-
-
-
             </div>
-
-
-
-
         </div>
     </section>
 

@@ -28,8 +28,6 @@
 
         get_template_part('inc/pagination');
 
-    } else {
-        echo '<p class="no-results">Sorry, articles not found...</p>';
     }
 
     wp_reset_query();

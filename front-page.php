@@ -1,17 +1,14 @@
-<?php
-get_header();
+<?php get_header();
 
-$video_title = get_field('video_title');
-$video_slider = get_field('video_slider');
+    $video_title        = get_field('video_title');
+    $video_slider       = get_field('video_slider');
 
-$build_based        = get_field('build_based');
-$social_slider      = get_field('social_slider');
-$upcoming_events    = get_field('upcoming_events');
+    $build_based        = get_field('build_based');
+    $social_slider      = get_field('social_slider');
+    $upcoming_events    = get_field('upcoming_events');
 
-
-    get_template_part('inc/hero', 'banner');
+get_template_part('inc/hero', 'banner');
 ?>
-
 
 <?php if (($video_slider && is_array($video_slider) && count($video_slider) > 0) || $video_title) {
     $video_slide_count = count($video_slider); ?>
@@ -30,10 +27,10 @@ $upcoming_events    = get_field('upcoming_events');
                     }
 
                     foreach ($video_slider as $slide) {
-                        $video_url          = $slide['url'];
+                        $video_url = esc_url($slide['url']);
 
                         if (!empty($video_url)) {
-                            $video_thumb_url    = $slide['img'] ? $slide['img']['url'] : getYouTubeThumbnail($video_url);
+                            $video_thumb_url = $slide['img'] ? $slide['img']['url'] : getYouTubeThumbnail($video_url);
 
                             if ($video_slide_count > 1) {
                                 echo '<div class="swiper-slide">
@@ -62,7 +59,6 @@ $upcoming_events    = get_field('upcoming_events');
                                 </div>
                             </div>';
                     }
-
 
                 }
             ?>
@@ -145,17 +141,14 @@ $upcoming_events    = get_field('upcoming_events');
                                 $slide_icon             = 'icon_instagram.png';
                                 $slide_icon_alt         = 'Instagram';
                                 $slide_icon_class       = 'instagram';
-                                $slide_overlay_class    ='blue-overlay';
+                                $slide_overlay_class    = 'blue-overlay';
                             } elseif ($slide_style == 'pinterest') {
                                 $slide_icon             = 'icon_pinterest.png';
                                 $slide_icon_alt         = 'Pinterest';
                                 $slide_icon_class       = 'pinterest';
                                 $slide_overlay_class    = 'orange-overlay';
                             } else {
-                                $slide_icon             = '';
-                                $slide_icon_alt         = '';
-                                $slide_overlay_class    = '';
-                                $slide_icon_class       = '';
+                                $slide_icon = $slide_icon_alt = $slide_overlay_class = $slide_icon_class = '';
                             }
                         }
 

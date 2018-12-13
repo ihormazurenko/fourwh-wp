@@ -7,12 +7,6 @@ get_header();
 $form           = get_field('contact_us_form');
 $contact_info   = get_field('contact_info');
 
-//if (is_array($form) && is_object($form[0])) {
-//    echo "<div class='form-page-wrap'>";
-//    echo do_shortcode('[contact-form-7 id="'.$form[0]->ID.'" title="'.$form[0]->post_title.'"]');
-//    echo "</div>";
-//}
-
 ?>
 
     <?php get_template_part('inc/hero', 'banner'); ?>

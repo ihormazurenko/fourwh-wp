@@ -143,7 +143,7 @@
                         if ($current_year == 2018) {
                             echo '<p class="copyright">© Copyright Four Wheel Campers 2018. All rights reserved</p>';
                         } elseif ($current_year > 2018) {
-                            echo '<p class="copyright">© Copyright Four Wheel Campers 2018 -'.$current_year.' All rights reserved</p>';
+                            echo '<p class="copyright">© Copyright Four Wheel Campers 2018-'.$current_year.' All rights reserved</p>';
                         }
                     ?>
                 </div>

@@ -53,30 +53,20 @@ if ($show_hero_banner && ($hero_banner && is_array($hero_banner) && count($hero_
                 $hero_classes .= ($hero_title || $hero_subtitle || $hero_content || $hero_button) ? ' ' : ' without-content' ;
 
                 if ($hero_slide_count > 1) {
-                    echo ' <div class="swiper-slide" style="background-image: url('.$hero_image['url'].')">
-                                <div class="container">
-                                    <div class="hero-box">';
-                                        if ($hero_title) { echo '<h1 class="hero-title">'.$hero_title.'</h1>'; }
-                                        if ($hero_subtitle) {echo '<h2 class="hero-subtitle">'.$hero_subtitle.'</h2>'; }
-                                        if ($hero_content) { echo '<div class="hero-desc content biggest">'.$hero_content.'</div>'; }
-                                        if ($hero_button) { echo '<div class="hero-btn-box">'.$hero_button.'</div>'; }
-                                echo '</div>
-                                </div>
-                            </div>';
+                    echo '<div class="swiper-slide" style="background-image: url('.$hero_image['url'].')">';
                 } else {
-                    echo '<section class="section section-hero inverse '.$hero_classes.'" style="background-image: url('.$hero_image['url'].')">
-                                <div class="container">
-                                    <div class="hero-box">';
-                                    if ($hero_title) { echo '<h1 class="hero-title">'.$hero_title.'</h1>'; }
-                                    if ($hero_subtitle) {echo '<h2 class="hero-subtitle">'.$hero_subtitle.'</h2>'; }
-                                    if ($hero_content) { echo '<div class="hero-desc content biggest">'.$hero_content.'</div>'; }
-                                    if ($hero_button) { echo '<div class="hero-btn-box">'.$hero_button.'</div>'; }
-                             echo '</div>
-                                </div>
-                            </section>';
+                    echo '<div class="section section-hero inverse '.$hero_classes.'" style="background-image: url('.$hero_image['url'].')">';
                 }
+                echo  '<div class="container">
+                            <div class="hero-box">';
+                                if ($hero_title) { echo '<h1 class="hero-title">'.$hero_title.'</h1>'; }
+                                if ($hero_subtitle) {echo '<h2 class="hero-subtitle">'.$hero_subtitle.'</h2>'; }
+                                if ($hero_content) { echo '<div class="hero-desc content biggest">'.$hero_content.'</div>'; }
+                                if ($hero_button) { echo '<div class="hero-btn-box">'.$hero_button.'</div>'; }
+                        echo '</div>
+                        </div>
+                    </div>';
             }
-
         }
 
     if ($hero_slide_count > 1) {

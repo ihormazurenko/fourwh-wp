@@ -8,7 +8,7 @@
         <div class="article-box">
             <?php if (has_post_thumbnail()) { ?>
                 <div class="article-img-wrap">
-                    <?php the_post_thumbnail('full', array(
+                    <?php the_post_thumbnail('large', array(
                         'alt'   => esc_attr($title)
                     )); ?>
                 </div>
@@ -29,7 +29,7 @@
             <?php if (has_post_thumbnail()) { ?>
                 <a href="<?php echo esc_url($url); ?>" title="<?php echo esc_attr($title); ?>">
                     <div class="article-img-wrap">
-                        <?php the_post_thumbnail('full', array(
+                        <?php the_post_thumbnail('large', array(
                             'alt'   => esc_attr($title)
                         )); ?>
                     </div>
@@ -48,8 +48,3 @@
         </div>
         <?php
     }
-
-
-?>
-
-

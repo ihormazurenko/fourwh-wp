@@ -5,7 +5,7 @@
 
 			<p class="wrap-404">
 				<span class="error-404">404</span>
-                <?php _e('Not Found', 'fw_campers') ?>
+                <?php _e('Not Found', 'fw_campers'); ?>
 			</p>
 			
 		</div>

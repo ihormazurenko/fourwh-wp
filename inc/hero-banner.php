@@ -5,7 +5,7 @@ $hero_banner        = get_field('hero_banner');
 $hero_classes       = '';
 
 if (is_front_page()) {
-    $hero_classes ='align-center vertical-line';
+    $hero_classes = 'vertical-line';
 }
 
 
@@ -49,6 +49,8 @@ if ($show_hero_banner && ($hero_banner && is_array($hero_banner) && count($hero_
                         $hero_button = '<a href="' . $link . '" class="btn blue" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
                     }
                 }
+
+                $hero_classes .= ($hero_title || $hero_subtitle || $hero_content || $hero_button) ? ' ' : ' without-content' ;
 
                 if ($hero_slide_count > 1) {
                     echo ' <div class="swiper-slide" style="background-image: url('.$hero_image['url'].')">

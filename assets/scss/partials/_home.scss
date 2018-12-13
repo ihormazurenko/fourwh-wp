@@ -77,9 +77,11 @@
       min-height: 380px;
     }
   }
-  @media all and (min-width: 1441px) {
-    @include aspect-ratio(16,9);
-    max-height: 900px;
+  &.without-content {
+    @media all and (min-width: 1441px) {
+      @include aspect-ratio(16,9);
+      max-height: 900px;
+    }
   }
   .container {
     position: relative;
@@ -100,7 +102,6 @@
     }
   }
 }
-
   .hero-box {
     max-width: 510px;
     a.btn,
@@ -113,6 +114,7 @@
     .home & {
       max-width: 1200px;
       margin: 0 auto;
+      text-align: center;
     }
   }
     .hero-title {
@@ -187,22 +189,19 @@
       @media all and (max-width: 767px) {
         font-size: 24px;
       }
-      .align-center & {
-        text-align: center;
-      }
     }
 
     .hero-desc {
       margin-bottom: 34px;
       .home & {
-        margin: 0 auto;
+        margin: 0 auto 34px;
         max-width: 770px;
       }
     }
 
     .hero-btn-box {
       .align-center & {
-        text-align: center;
+        //text-align: center;
       }
     }
 

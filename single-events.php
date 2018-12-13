@@ -36,16 +36,14 @@ $external_button_group  = get_field('external_button_group');
                                         $start = $dates['start'];
                                         $end = $dates['end'];
 
-//                                        var_dump( strtotime( $start ) );
-//                                        var_dump( strtotime( $end ) );
-                                        if ( strtotime($start ) !== strtotime( $end )) {
-                                            echo funcDate($start, $end,true);
+                                        if (strtotime( $start ) <= strtotime( $end )) {
+                                            $date = funcDate($start, $end, true);
                                         } else {
-                                            echo $start;
+                                            $date = $start;
                                         }
 
                                     ?>
-                                    <li><i class="far fa-calendar-alt"></i> September 27, 2018 @ 4:30 pm PST</li>
+                                    <li><i class="far fa-calendar-alt"></i> <?php echo $date; ?></li>
                                 <?php endif; ?>
                                 <?php if ( $country ) : ?>
                                     <li><i class="fas fa-map-marker"></i> <?php echo $country; ?></li>

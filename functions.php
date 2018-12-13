@@ -217,28 +217,40 @@ function funcDate($start, $end, $hours = false) {
     if ( !$start || !$end )
         return false;
 
-    $timezone   = 'PST';
+    $timezone   = ' PST';
+    $dash       = ' – ';
 
-    $month1     = date("F", strtotime($start)).' ';
-    $month2     = date("F", strtotime($end)).' ';
-    $year1      = ' '.date("Y", strtotime($start)).' '.$timezone;
-    $year2      = ' '.date("Y", strtotime($end)).' '.$timezone;
+    $hours1     = '(' . date("g:i a", strtotime( $start ) ) . ')';
+    $hours2     = '(' . date("g:i a", strtotime( $end ) ) . ')';
 
-    if ($year1 === $year2) {
+    $day1       = date("j", strtotime( $start )) . ' ';
+    $day2       = date("j", strtotime( $end)) . ' ';
+
+    $month1     = date("F", strtotime( $start ) ) . ' ';
+    $month2     = date("F", strtotime( $end ) ) . ' ';
+
+    $year1      = ', ' . date("Y", strtotime( $start ) ) . $timezone;
+    $year2      = ', ' . date("Y", strtotime( $end ) ) . $timezone;
+
+    if ( $year1 === $year2 ) {
         $year1 = '';
-        if ($month1 === $month2) {
+        if ( $month1 === $month2 ) {
             $month2 = '';
+            if ( ( $day1 === $day2 ) && ( $hours1 !== $hours2 ) ) {
+                $day2 = '';
+                $hours2 = '';
+                $hours1 = '(' . date("g:i a", strtotime( $start ) ) . $dash . date("g:i a", strtotime( $end ) ) . ')';
+                $dash = '';
+            } else {
+                $day2 = '';
+                $hours2 = '';
+                $dash = '';
+            }
         }
     }
 
-    if ($hours == true) {
-        $hours1 = ' @ '.date("g:i a", strtotime($start));
-        $hours2 = ' @ '.date("g:i a", strtotime($end));
-    } else {
-        $hours1 = $hours2 = '';
-    }
 
-    $convertDate = $month1 . date("j", strtotime($start)) . $hours1 . $year1 . ' – ' . $month2 . date("j", strtotime($end)) . $hours2 . $year2;
+    $convertDate = $month1 . $day1 . $hours1 . $year1 . $dash . $month2 . $day2 . $hours2 . $year2;
 
     return $convertDate;
 }

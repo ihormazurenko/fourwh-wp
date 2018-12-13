@@ -29,9 +29,9 @@ get_header(); ?>
                         if ($new_query->have_posts()) {
                             echo '<ul class="article-list">';
                             while ( $new_query->have_posts() ) : $new_query->the_post();
-                                echo '<li>';
-                                    get_template_part('inc/loop', 'post');
-                                echo '</li>';
+
+                                get_template_part('inc/loop', 'post');
+
                             endwhile;
                             echo "</ul>";
 

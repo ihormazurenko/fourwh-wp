@@ -14,3 +14,5 @@ if ($show_section_info) {
             echo '<div class="section-desc content">' . $section_description . '</div>';
     }
 }
+
+

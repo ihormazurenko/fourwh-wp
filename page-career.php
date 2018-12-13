@@ -18,7 +18,7 @@ $career = get_field('career');
                 if ( $career && is_array( $career ) && count( $career ) > 0 ) :
                    $image                   = $career['image'];
                    $content                 = $career['content'];
-                   $positions               = $career['positions'];
+                   $positions               = $career['positions_list'];
                    $positions_title         = $career['positions_title'];
                    $people_qualities        = $career['people_qualities'];
                    $people_qualities_title  = $career['people_qualities_title'];

@@ -12,8 +12,10 @@
         top: 0;
         width: 38px;
         height: 38px;
-        font: 16px FontAwesome;
-        line-height: 40px;
+        font-family: 'Font Awesome 5 Free';
+        font-size: 16px;
+        font-weight: 900;
+        line-height: 38px;
         text-align: center;
         color: $white;
         border: 1px solid $light-blue;
@@ -43,8 +45,10 @@
       top: 0;
       width: 38px;
       height: 38px;
-      font: 16px FontAwesome;
-      line-height: 40px;
+      font-family: 'Font Awesome 5 Free';
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 38px;
       text-align: center;
       color: $white;
       border: 1px solid $light-blue;
@@ -101,7 +105,6 @@
     }
   }
   .widget-popular-posts {}
-
   .popular-posts-list {
     > li {
       padding: 24px 0;

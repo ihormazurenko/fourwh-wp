@@ -1,4 +1,10 @@
-
+.section-articles {
+  &.archive {
+    .section-title {
+      margin-bottom: 60px;
+    }
+  }
+}
   .content-with-sidebar {
     overflow: hidden;
     .content-box {
@@ -106,6 +112,9 @@
                   color: $color-text2;
                 }
               }
+            }
+            .date {
+              text-decoration: none;
             }
           }
           a.read-more,

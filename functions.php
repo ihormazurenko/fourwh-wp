@@ -287,6 +287,7 @@ function funcDate($start, $end, $format = 'full') {
 
         if ($month1 === $month2) {
             $month1 = '';
+            $dash = '–';
             if ( $day1 === $day2 ) {
                 $day1 = '';
                 $dash = '';

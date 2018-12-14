@@ -32,7 +32,7 @@
                                                             if ($group_title) {
                                                                 $label = $group_title['label'];
                                                                 $link_type = $group_title['link_type'];
-                                                                $target = $group_title['target'] ? 'target="_blank"' : '';
+                                                                $target = $group_title['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
 
                                                                 if ($link_type == 'internal') {
                                                                     $link = $group_title['internal_link'] ? $group_title['internal_link'] : '';
@@ -58,7 +58,7 @@
                                                                     if ($link_data && is_array($link_data) && count($link_data) > 0) {
                                                                         $label = $link_data['label'];
                                                                         $link_type = $link_data['link_type'];
-                                                                        $target = $link_data['target'];
+                                                                        $target = $link_data['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
 
                                                                         if ($link_type == 'internal') {
                                                                             $link = $link_data['internal_link'] ? $link_data['internal_link'] : '';
@@ -126,7 +126,7 @@
                                                                 $icon = '<i class="fab fa-instagram"></i>';
                                                             }
 
-                                                            echo ' <a href="'.$social_link.'" title="'.esc_attr($title).'" target="_blank">'.$icon.'</a>';
+                                                            echo ' <a href="'.$social_link.'" title="'.esc_attr($title).'" target="_blank" rel="nofollow noopener">'.$icon.'</a>';
                                                         }
                                                     echo '</li>';
                                                 }

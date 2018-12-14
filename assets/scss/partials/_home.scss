@@ -79,7 +79,7 @@
   }
   &.without-content {
     @media all and (min-width: 1441px) {
-      @include aspect-ratio(16,9);
+      // @include aspect-ratio(16,9);
       max-height: 900px;
     }
   }

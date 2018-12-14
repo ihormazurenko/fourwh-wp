@@ -1,15 +1,20 @@
+<?php 
+    $show_section_info = get_field('show_section_info');
+?>
 <?php get_header(); ?>
+    
+    <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section section-content content-wrapper">
         <div class="container">
-            <?php the_title('<h1 class="section-title">', '</h1>'); ?>
-            <div class="content">
-                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-
-                    <?php the_content(); ?>
-
-                <?php endwhile; else: endif; ?>
-            </div>
+            <?php get_template_part('inc/section', 'info'); ?>
+            <?php print $section_info['title'];
+                  // If the section info content is included, and the title is included, don't show the page title
+                  if (!$show_section_info) { 
+                    the_title('<h1 class="section-title">', '</h1>');
+                  }
+                ?>
+            <?php get_template_part('inc/section', 'content'); ?>
         </div>
     </section>
 

@@ -217,20 +217,25 @@ function funcDate($start, $end, $hours = false) {
     if ( !$start || !$end )
         return false;
 
-    $timezone   = ' PST';
-    $dash       = ' – ';
+    $dash           = ' – ';
+    $timezone       = date_default_timezone_set( get_option('timezone_string') );
+    $timezone_str   = ' '.date("T", $timezone );
+    $currentTime    = date('U');
 
-    $hours1     = '(' . date("g:i a", strtotime( $start ) ) . ')';
-    $hours2     = '(' . date("g:i a", strtotime( $end ) ) . ')';
+    $hours1         = '(' . date("g:i a", $start ) . ')';
+    $hours2         = '(' . date("g:i a", $end ) . ')';
 
-    $day1       = date("j", strtotime( $start )) . ' ';
-    $day2       = date("j", strtotime( $end)) . ' ';
+    $day1           = date("j", $start ) . ' ';
+    $day2           = date("j", $end ) . ' ';
 
-    $month1     = date("F", strtotime( $start ) ) . ' ';
-    $month2     = date("F", strtotime( $end ) ) . ' ';
+    $month1         = date("F", $start ) . ' ';
+    $month2         = date("F", $end ) . ' ';
 
-    $year1      = ', ' . date("Y", strtotime( $start ) ) . $timezone;
-    $year2      = ', ' . date("Y", strtotime( $end ) ) . $timezone;
+    $year1          = ', ' . date("Y", $start ) . $timezone_str;
+    $year2          = ', ' . date("Y", $end ) . $timezone_str;
+
+    $wrong_text = is_user_logged_in() ? '<span class="warning">' . __('Something wrong, please check event dates !!!', 'fc_details') . '</span>' : '';
+    $over_text  = __('Event is over – ', 'fc_details');
 
     if ( $year1 === $year2 ) {
         $year1 = '';
@@ -239,7 +244,7 @@ function funcDate($start, $end, $hours = false) {
             if ( ( $day1 === $day2 ) && ( $hours1 !== $hours2 ) ) {
                 $day2 = '';
                 $hours2 = '';
-                $hours1 = '(' . date("g:i a", strtotime( $start ) ) . $dash . date("g:i a", strtotime( $end ) ) . ')';
+                $hours1 = '(' . date("g:i a", $start ) . $dash . date("g:i a", $end ) . ')';
                 $dash = '';
             } else {
                 $day2 = '';
@@ -249,8 +254,24 @@ function funcDate($start, $end, $hours = false) {
         }
     }
 
-
+    // future even
     $convertDate = $month1 . $day1 . $hours1 . $year1 . $dash . $month2 . $day2 . $hours2 . $year2;
+
+    if ( $start !== $end && $start < $end ) {
+        if ($currentTime >= $end) {
+            //finished event
+            $convertDate = $over_text . date("F j (g:i a), Y T", $end);
+        }
+    } elseif ( $start !== $end && $start > $end ) {
+        //if start date > end date
+        $convertDate = $wrong_text;
+
+    } else {
+        if ($currentTime >= $end) {
+            //finished event
+            $convertDate = $over_text . date("F j (g:i a), Y T", $end);
+        }
+    }
 
     return $convertDate;
 }

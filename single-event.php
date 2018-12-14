@@ -1,8 +1,9 @@
 <?php
 get_header();
-
+//date_default_timezone_set( get_option('timezone_string') );
 $title                  = get_the_title();
-$dates                  = get_field('dates');
+$dates_start_U          = get_field('dates_start_U');
+$dates_end_U            = get_field('dates_end_U');
 $country                = get_field('country');
 $event_type             = get_field('event_type');
 $information            = get_field('information');
@@ -29,21 +30,10 @@ $external_button_group  = get_field('external_button_group');
                     <?php } ?>
 
                     <div class="text">
-                        <?php if ( $dates || $country ) : ?>
+                        <?php if ( ( $dates_start_U && $dates_end_U ) || $country ) : ?>
                             <ul>
-                                <?php if ( $dates && is_array( $dates ) && count( $dates ) > 0 ) : ?>
-                                    <?php
-                                        $start = $dates['start'];
-                                        $end = $dates['end'];
-
-                                        if (strtotime( $start ) <= strtotime( $end )) {
-                                            $date = funcDate($start, $end, true);
-                                        } else {
-                                            $date = $start;
-                                        }
-
-                                    ?>
-                                    <li><i class="far fa-calendar-alt"></i> <?php echo $date; ?></li>
+                                <?php if ( $dates_start_U && $dates_end_U ) : ?>
+                                    <li><i class="far fa-calendar-alt"></i> <?php echo funcDate( $dates_start_U, $dates_end_U ); ?></li>
                                 <?php endif; ?>
                                 <?php if ( $country ) : ?>
                                     <li><i class="fas fa-map-marker"></i> <?php echo $country; ?></li>

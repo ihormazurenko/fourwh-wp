@@ -38,7 +38,7 @@ get_header(); ?>
                             get_template_part('inc/pagination');
 
                         } else {
-                            echo '<p class="no-results">Sorry, articles not found...</p>';
+                            echo '<p class="no-results">' . __('Sorry, articles not found...', 'fw_campers') . '</p>';
                         }
 
                         wp_reset_query();

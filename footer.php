@@ -118,6 +118,12 @@
                                                             } elseif ($social_icon == 'vimeo') {
                                                                 $title = 'Vimeo';
                                                                 $icon = '<i class="fab fa-vimeo-v"></i>';
+                                                            } elseif ($social_icon == 'youtube') {
+                                                                $title = 'Youtube';
+                                                                $icon = '<i class="fab fa-youtube"></i>';
+                                                            } elseif ($social_icon == 'instagram') {
+                                                                $title = 'Instagram';
+                                                                $icon = '<i class="fab fa-instagram"></i>';
                                                             }
 
                                                             echo ' <a href="'.$social_link.'" title="'.esc_attr($title).'" target="_blank">'.$icon.'</a>';

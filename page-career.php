@@ -130,7 +130,7 @@ $career = get_field('career');
 
                                             if ( $link_type == 'internal' ) {
                                                 $link = $why_we_button['internal_link'] ? $why_we_button['internal_link'] : '';
-                                            } elseif ( $link_type == 'external ') {
+                                            } elseif ( $link_type == 'external') {
                                                 $link = $why_we_button['external_link'] ? $why_we_button['external_link'] : '';
                                             }
                                         ?>

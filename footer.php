@@ -63,7 +63,7 @@
                                                                         if ($link_type == 'internal') {
                                                                             $link = $link_data['internal_link'] ? $link_data['internal_link'] : '';
                                                                         } elseif ($link_type == 'external') {
-                                                                            $link = $link_data['external_link'] ? $value['external_link'] : '';
+                                                                            $link = $link_data['external_link'] ? $link_data['external_link'] : '';
                                                                         } else {
                                                                             $link = '';
                                                                         }

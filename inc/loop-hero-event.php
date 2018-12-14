@@ -28,7 +28,6 @@
             $target = $external_button_group['target'] ? 'target="_blank"' : '';
         }
     }
-
 ?>
 
 <li>

@@ -20,6 +20,8 @@ $career = get_field('career');
                    $content                 = $career['content'];
                    $positions               = $career['positions_list'];
                    $positions_title         = $career['positions_title'];
+                   $benefits               = $career['benefits_list'];
+                   $benefits_title         = $career['benefits_title'];
                    $people_qualities        = $career['people_qualities'];
                    $people_qualities_title  = $career['people_qualities_title'];
                    $why_we                  = $career['why_we'];
@@ -88,6 +90,24 @@ $career = get_field('career');
                             </ul>
                             <?php
                         endif;
+                    endif;
+
+                    if ( $benefits_title || ( $benefits && is_array( $benefits ) && count( $benefits ) > 0 ) ) :
+                         if ( $benefits_title ) :
+                              ?>
+                                  <h2 class="group-title center"><?php echo $benefits_title; ?></h2>
+                              <?php
+                         endif;
+
+                         if ( $benefits ) :
+                              ?>
+                             <ul class="career-positions-list">
+                                  <?php foreach ( $benefits as $value ) : ?>
+                                      <li><?php echo $value['text']; ?></li>
+                                  <?php endforeach; ?>
+                              </ul>
+                              <?php
+                         endif;
                     endif;
 
                     if ( $why_we && is_array( $why_we ) && count( $why_we ) > 0 ) :

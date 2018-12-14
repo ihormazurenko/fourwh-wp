@@ -144,7 +144,8 @@
       }
     }
       .career-positions-list  {
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
         max-width: 1018px;
         margin: 0 auto 112px;
         font-size: $size-big;
@@ -155,6 +156,8 @@
           position: relative;
           margin-bottom: 0;
           padding-left: 48px;
+          display: block;
+
           &:before {
             position: absolute;
             z-index: 2;
@@ -172,6 +175,10 @@
             @include border-radius(2em);
             background-color: $light-blue;
             @include rotate(45deg);
+          }
+
+          @media (min-width: $screen-sm-min) {
+            width: 50%;
           }
         }
         @media all and (max-width: 1024px) {

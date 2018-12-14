@@ -31,7 +31,6 @@
 
 ?>
 
-<!--medium_large-->
 <li>
     <a href="<?php echo esc_url( $url ); ?>" class="itemlink" title="<?php echo esc_attr( $title ); ?>" <?php echo $target; ?> >
         <div class="event-box">

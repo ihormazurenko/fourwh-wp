@@ -204,7 +204,7 @@ get_template_part('inc/hero', 'banner');
 
                 <?php if ($upcoming_title) { echo '<h2 class="section-title">'.$upcoming_title.'</h2>';} ?>
 
-                <a href="#" class="go-link" title="<?= esc_attr_x('All Events', 'fw_campers'); ?>"><?= __('All Events', 'fw_campers') ?></a>
+                <a href="<?php echo get_permalink(339); ?>" class="go-link" title="<?= esc_attr_x('All Events', 'fw_campers'); ?>"><?= __('All Events', 'fw_campers') ?></a>
 
                 <?php
                     //events
@@ -247,65 +247,6 @@ get_template_part('inc/hero', 'banner');
 
                     wp_reset_query();
                 ?>
-                <!--
-                <ul class="events-list">
-                    <li>
-                        <a href="#" title="">
-                            <div class="event-box">
-                                <div class="event-img-wrap wider">
-                                    <span class="event-date">07-12</span>
-                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_1.jpg" alt="">
-                                </div>
-                                <div class="event-info">
-                                    <span class="event-location">Sacramento, CA</span>
-                                    <h3 class="event-title">Saint-Tite Western no texts</h3>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" title="">
-                            <div class="event-box">
-                                <div class="event-img-wrap wider">
-                                    <span class="event-date">15-19</span>
-                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_2.jpg" alt="">
-                                </div>
-                                <div class="event-info">
-                                    <span class="event-location">Henderson, NV</span>
-                                    <h3 class="event-title">Saint-Tite Western no texts</h3>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" title="">
-                            <div class="event-box">
-                                <div class="event-img-wrap wider">
-                                    <span class="event-date">15-19</span>
-                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_3.jpg" alt="">
-                                </div>
-                                <div class="event-info">
-                                    <span class="event-location">Denver, CO</span>
-                                    <h3 class="event-title">Saint-Tite Western no texts</h3>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" title="">
-                            <div class="event-box">
-                                <div class="event-img-wrap wider">
-                                    <span class="event-date">07-12</span>
-                                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/event_4.jpg" alt="">
-                                </div>
-                                <div class="event-info">
-                                    <span class="event-location">Sacramento, CA</span>
-                                    <h3 class="event-title">Saint-Tite Western no texts</h3>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                </ul> -->
             </div>
         </section>
 

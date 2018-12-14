@@ -18,14 +18,6 @@ function load_style_script(){
 add_action('wp_enqueue_scripts', 'load_style_script');
 
 
-// loading styles and scripts for admin panel
-//function load_admin_style_script(){
-//    wp_enqueue_style('custom-wp-admin-style', get_template_directory_uri() . '/css/custom-wp-admin-style.css', array('acf-input') );
-//    wp_enqueue_script('custom-wp-admin-script', get_template_directory_uri() . '/js/custom-wp-admin-script.js', array('jquery'), null, true );
-//}
-//add_action('admin_enqueue_scripts', 'load_admin_style_script');
-
-
 // add ie conditional html5 shiv to header
 function add_ie_html5_shiv () {
     global $is_IE;
@@ -148,17 +140,61 @@ function usage() {
 add_action('admin_footer_text', 'usage');
 add_action('wp_footer', 'usage');
 
-//get youtube thumbnail
-function getYouTubeThumbnail($video_url) {
+//get video thumbnail url
+function getVideoThumbnail($url) {
+    if (strpos($url, 'youtube') > 0) {
+        //for Youtube
+        if (empty($url))
+            return;
 
-    if (empty($video_url))
+        $fetch              = explode("v=", $url);
+        $youtube_video_id   = $fetch[1];
+        $video_thumb_url    = 'https://img.youtube.com/vi/'.$youtube_video_id.'/maxresdefault.jpg';
+
+        return $video_thumb_url;
+
+    } elseif (strpos($url, 'vimeo') > 0) {
+        //for Vimeo
+        $regs = [];
+        $id = '';
+
+        if (preg_match('%^https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)(?:[?]?.*)$%im', $url, $regs)) {
+            $id = trim($regs[3]);
+        }
+
+        if ( empty( $id ) )
+            return;
+
+        $apiToken = '3e43a280e4d9097fd4397610db102985';
+        $httpHeadersArray = [];
+        $httpHeadersArray[] = 'Authorization: bearer '.$apiToken;
+
+        $ch = curl_init();
+
+        // set url
+        curl_setopt($ch, CURLOPT_URL, "https://api.vimeo.com/videos/$id/pictures");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeadersArray);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        $output = curl_exec($ch);
+
+        curl_close($ch);
+
+        $output = json_decode($output);
+
+        $sizes_arr = $output->data[0]->sizes;
+
+        $thumb_url = $sizes_arr[5]->link ? $sizes_arr[5]->link : $sizes_arr[6]->link;
+
+        if ( empty( $thumb_url ) )
+            return;
+
+        return $thumb_url;
+    } else {
+        //other
+
         return;
-
-    $fetch              = explode("v=", $video_url);
-    $youtube_video_id   = $fetch[1];
-    $video_thumb_url = 'https://img.youtube.com/vi/'.$youtube_video_id.'/maxresdefault.jpg';
-
-    return $video_thumb_url;
+    }
 }
 
 //register sidebar
@@ -174,3 +210,47 @@ function register_my_widgets(){
     ) );
 }
 add_action( 'widgets_init', 'register_my_widgets' );
+
+
+// for dates
+function funcDate($start, $end, $hours = false) {
+    if ( !$start || !$end )
+        return false;
+
+    $timezone   = ' PST';
+    $dash       = ' – ';
+
+    $hours1     = '(' . date("g:i a", strtotime( $start ) ) . ')';
+    $hours2     = '(' . date("g:i a", strtotime( $end ) ) . ')';
+
+    $day1       = date("j", strtotime( $start )) . ' ';
+    $day2       = date("j", strtotime( $end)) . ' ';
+
+    $month1     = date("F", strtotime( $start ) ) . ' ';
+    $month2     = date("F", strtotime( $end ) ) . ' ';
+
+    $year1      = ', ' . date("Y", strtotime( $start ) ) . $timezone;
+    $year2      = ', ' . date("Y", strtotime( $end ) ) . $timezone;
+
+    if ( $year1 === $year2 ) {
+        $year1 = '';
+        if ( $month1 === $month2 ) {
+            $month2 = '';
+            if ( ( $day1 === $day2 ) && ( $hours1 !== $hours2 ) ) {
+                $day2 = '';
+                $hours2 = '';
+                $hours1 = '(' . date("g:i a", strtotime( $start ) ) . $dash . date("g:i a", strtotime( $end ) ) . ')';
+                $dash = '';
+            } else {
+                $day2 = '';
+                $hours2 = '';
+                $dash = '';
+            }
+        }
+    }
+
+
+    $convertDate = $month1 . $day1 . $hours1 . $year1 . $dash . $month2 . $day2 . $hours2 . $year2;
+
+    return $convertDate;
+}

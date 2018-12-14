@@ -197,7 +197,7 @@ get_template_part('inc/hero', 'banner');
 
     if ($show_upcoming_events) {
         $upcoming_title = $upcoming_events['title'];
-        $upcoming_event_count = $upcoming_events['event_count']; ?>
+        $upcoming_event_count = $upcoming_events['event_count'] ? $upcoming_events['event_count'] : 4 ; ?>
 
         <section class="section section-upcoming-events">
             <div class="container">
@@ -206,6 +206,48 @@ get_template_part('inc/hero', 'banner');
 
                 <a href="#" class="go-link" title="<?= esc_attr_x('All Events', 'fw_campers'); ?>"><?= __('All Events', 'fw_campers') ?></a>
 
+                <?php
+                    //events
+                    global $wp_query;
+
+                    date_default_timezone_set( get_option('timezone_string') );
+                    $currentTime = date('Y-m-d H:i:s');
+
+                    $args = array(
+                        'post_type'        => 'event',
+                        'post_status'      => 'publish',
+                        'posts_per_page'   => $upcoming_event_count,
+                        'meta_query'       => array(
+                            'relation' => 'AND',
+                            array(
+                                'key'     => 'dates_end_U',
+                                'value'   => $currentTime,
+                                'compare' => '>=',
+                                'type'    => 'DATE'
+                            ),
+                            'future_event' => array(
+                                'key'  => 'dates_start_U',
+                            )
+                        ),
+                        'orderby' => 'future_event',
+                        'order'   => 'ASC',
+                    );
+
+                    $new_query = new WP_Query( $args );
+
+                    if ($new_query->have_posts()) {
+                        echo '<ul class="events-list">';
+                        while ( $new_query->have_posts() ) : $new_query->the_post();
+
+                            get_template_part('inc/loop', 'hero-event');
+
+                        endwhile;
+                        echo "</ul>";
+                    }
+
+                    wp_reset_query();
+                ?>
+                <!--
                 <ul class="events-list">
                     <li>
                         <a href="#" title="">
@@ -263,7 +305,7 @@ get_template_part('inc/hero', 'banner');
                             </div>
                         </a>
                     </li>
-                </ul>
+                </ul> -->
             </div>
         </section>
 

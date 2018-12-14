@@ -1,6 +1,6 @@
 <?php
 get_header();
-//date_default_timezone_set( get_option('timezone_string') );
+
 $title                  = get_the_title();
 $dates_start_U          = get_field('dates_start_U');
 $dates_end_U            = get_field('dates_end_U');
@@ -33,7 +33,7 @@ $external_button_group  = get_field('external_button_group');
                         <?php if ( ( $dates_start_U && $dates_end_U ) || $country ) : ?>
                             <ul>
                                 <?php if ( $dates_start_U && $dates_end_U ) : ?>
-                                    <li><i class="far fa-calendar-alt"></i> <?php echo funcDate( $dates_start_U, $dates_end_U ); ?></li>
+                                    <li><i class="far fa-calendar-alt"></i> <?php echo funcDate( $dates_start_U, $dates_end_U, 'full'); ?></li>
                                 <?php endif; ?>
                                 <?php if ( $country ) : ?>
                                     <li><i class="fas fa-map-marker"></i> <?php echo $country; ?></li>

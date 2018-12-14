@@ -22,9 +22,7 @@ if (!get_field('show_hero_banner')) {
     <a class="btn-jump-to-content smooth-scroll" href="#main-content"><?php _e('Skip Navigation', 'fw_campers'); ?></a>
 
     <?php
-        if ( get_field('logo', 'option') ) {
-            $logo_url = get_field('logo', 'option');
-        } elseif ( has_custom_logo() ) {
+        if ( has_custom_logo() ) {
             $custom_logo = wp_get_attachment_image_src( get_theme_mod('custom_logo'), 'full' );
             $logo_url = $custom_logo[0];
         } else {

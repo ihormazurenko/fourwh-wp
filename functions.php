@@ -4,7 +4,7 @@ function load_style_script(){
     wp_enqueue_style('fonts', '//fonts.googleapis.com/css?family=Roboto:300,400,500', array(), null);
     wp_enqueue_style('font-awesome-5', '//use.fontawesome.com/releases/v5.5.0/css/all.css', array(), '5.5.0');
     wp_enqueue_style('swiper', '//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css', array(), '4.4.2');
-    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/screen.css', array(), null );
+    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/screen.css', array(), '1.4.2' );
     wp_enqueue_style('style', get_stylesheet_uri(), array(), null );
 
     wp_enqueue_script('modernizr.min', '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array(), '2.8.3', false );
@@ -82,7 +82,6 @@ if ( function_exists( 'add_theme_support' ) ) {
 if ( function_exists( 'register_nav_menus' ) ) {
     register_nav_menus(array(
         'main-menu'     => 'Main Menu',
-        'footer-menu'   => 'Footer Menu'
     ));
 }
 
@@ -213,64 +212,90 @@ add_action( 'widgets_init', 'register_my_widgets' );
 
 
 // for dates
-function funcDate($start, $end, $hours = false) {
-    if ( !$start || !$end )
-        return false;
+function funcDate($start, $end, $format = 'full') {
 
-    $dash           = ' – ';
-    $timezone       = date_default_timezone_set( get_option('timezone_string') );
-    $timezone_str   = ' '.date("T", $timezone );
-    $currentTime    = date('U');
+        if (!$start || !$end)
+            return false;
 
-    $hours1         = '(' . date("g:i a", $start ) . ')';
-    $hours2         = '(' . date("g:i a", $end ) . ')';
+        $dash = ' – ';
 
-    $day1           = date("j", $start ) . ' ';
-    $day2           = date("j", $end ) . ' ';
+        date_default_timezone_set(get_option('timezone_string'));
+        $start = strtotime($start);
+        $end = strtotime($end);
+        $currentTime = strtotime(date('Y-m-d H:i:s'));
+        $timezone_str = ' ' . date('T');
 
-    $month1         = date("F", $start ) . ' ';
-    $month2         = date("F", $end ) . ' ';
+        $wrong_text = is_user_logged_in() ? '<span class="warning">' . __('Something wrong, please check event dates !!!', 'fc_details') . '</span>' : '';
+        $over_text = __('Event is over – ', 'fc_details');
 
-    $year1          = ', ' . date("Y", $start ) . $timezone_str;
-    $year2          = ', ' . date("Y", $end ) . $timezone_str;
+    if ( $format == 'full') {
+        $hours1 = '(' . date("g:i a", $start) . ')';
+        $hours2 = '(' . date("g:i a", $end) . ')';
 
-    $wrong_text = is_user_logged_in() ? '<span class="warning">' . __('Something wrong, please check event dates !!!', 'fc_details') . '</span>' : '';
-    $over_text  = __('Event is over – ', 'fc_details');
+        $day1 = date("j", $start) . ' ';
+        $day2 = date("j", $end) . ' ';
 
-    if ( $year1 === $year2 ) {
-        $year1 = '';
-        if ( $month1 === $month2 ) {
-            $month2 = '';
-            if ( ( $day1 === $day2 ) && ( $hours1 !== $hours2 ) ) {
-                $day2 = '';
-                $hours2 = '';
-                $hours1 = '(' . date("g:i a", $start ) . $dash . date("g:i a", $end ) . ')';
-                $dash = '';
-            } else {
-                $day2 = '';
-                $hours2 = '';
+        $month1 = date("F", $start) . ' ';
+        $month2 = date("F", $end) . ' ';
+
+        $year1 = ', ' . date("Y", $start) . $timezone_str;
+        $year2 = ', ' . date("Y", $end) . $timezone_str;
+
+
+        if ($year1 === $year2) {
+            $year1 = '';
+            if ($month1 === $month2) {
+                $month2 = '';
+                if ( $day1 === $day2 && $hours1 !== $hours2 ) {
+                    $day2 = '';
+                    $hours2 = '';
+                    $hours1 = '(' . date("g:i a", $start) . $dash . date("g:i a", $end) . ')';
+                    $dash = '';
+                } else {
+                    $day2 = '';
+                    $hours2 = '';
+                    $dash = '';
+                }
+            }
+        }
+
+        // future even
+        $convertDate = $month1 . $day1 . $hours1 . $year1 . $dash . $month2 . $day2 . $hours2 . $year2;
+
+        if ($start !== $end && $start < $end) {
+            if ($currentTime >= $end) {
+                //finished event
+                $convertDate = $over_text . date("F j (g:i a), Y T", $end);
+            }
+        } elseif ($start !== $end && $start > $end) {
+            //if start date > end date
+            $convertDate = $wrong_text . ' ' . $convertDate;
+
+        } else {
+            if ($currentTime >= $end) {
+                //finished event
+                $convertDate = $over_text . date("F j (g:i a), Y T", $end);
+            }
+        }
+
+    } elseif ( $format === 'short' ) {
+        $day1 = date("d", $start);
+        $day2 = date("d", $end);
+
+        $month1 = '.' . date("m", $start);
+        $month2 = '.' . date("m", $end);
+
+        if ($month1 === $month2) {
+            $month1 = '';
+            if ( $day1 === $day2 ) {
+                $day1 = '';
                 $dash = '';
             }
         }
-    }
 
-    // future even
-    $convertDate = $month1 . $day1 . $hours1 . $year1 . $dash . $month2 . $day2 . $hours2 . $year2;
-
-    if ( $start !== $end && $start < $end ) {
-        if ($currentTime >= $end) {
-            //finished event
-            $convertDate = $over_text . date("F j (g:i a), Y T", $end);
-        }
-    } elseif ( $start !== $end && $start > $end ) {
-        //if start date > end date
-        $convertDate = $wrong_text;
-
+        $convertDate = $day1 . $month1 . $dash . $day2 . $month2;
     } else {
-        if ($currentTime >= $end) {
-            //finished event
-            $convertDate = $over_text . date("F j (g:i a), Y T", $end);
-        }
+        $convertDate = '';
     }
 
     return $convertDate;

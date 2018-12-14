@@ -1,6 +1,14 @@
 <?php
-$show_section_info = get_field('show_section_info');
-$section_info = get_field('section_info');
+if (is_post_type_archive('event') || is_tax('event_category')) {
+    $id = 339;
+} elseif (is_page()) {
+    $id = get_the_ID();
+} else {
+    $id = '';
+}
+
+$show_section_info = get_field('show_section_info', $id );
+$section_info = get_field('section_info', $id );
 
 if ($show_section_info) {
     if ($section_info && is_array($section_info) && count($section_info) > 0) {

@@ -1,7 +1,14 @@
 <?php
+if (is_post_type_archive('event') || is_tax('event_category')) {
+    $id = 339;
+} elseif (is_page()) {
+    $id = get_the_ID();
+} else {
+    $id = '';
+}
 
-$show_hero_banner   = get_field('show_hero_banner');
-$hero_banner        = get_field('hero_banner');
+$show_hero_banner   = get_field('show_hero_banner', $id );
+$hero_banner        = get_field('hero_banner', $id );
 $hero_classes       = '';
 
 if (is_front_page()) {

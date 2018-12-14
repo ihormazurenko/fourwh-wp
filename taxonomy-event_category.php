@@ -1,11 +1,11 @@
 <?php
-/**
- * Template Name: Events
- */
 get_header();
 
 date_default_timezone_set( get_option('timezone_string') );
 $currentTime = date('Y-m-d H:i:s');
+
+$event_page_id = 339;
+
 ?>
 
     <?php get_template_part('inc/hero', 'banner'); ?>
@@ -16,23 +16,29 @@ $currentTime = date('Y-m-d H:i:s');
             <?php get_template_part('inc/section', 'info'); ?>
 
             <?php
-                $args = array(
-                    'taxonomy' => 'event_category'
-                );
-                $terms = get_terms( $args );
+
+                $taxonomy = 'event_category';
+                $categories = get_terms($taxonomy, array('orderby' => 'term_order', 'parent' => 0));
 
                 //category
-                if ( is_array( $terms ) && count( $terms ) > 0) {
+                if ( is_array( $categories ) && count( $categories ) > 0) {
                     ?>
                     <div class="categories">
                         <ul>
                             <li>
-                                <a class="btn blue small <?php echo isset($_GET['event_cat']) ? 'inverse' : 'active'; ?>" href="<?php echo get_permalink(); ?>" title="<?php esc_attr_e('All', 'fw_campers'); ?>"><?php _e('All', 'fw_campers'); ?></a>
+                                <a class="btn blue small inverse" href="<?php echo get_permalink($event_page_id); ?>" title="<?php esc_attr_e('All', 'fw_campers'); ?>"><?php _e('All', 'fw_campers'); ?></a>
                             </li>
-                            <?php foreach ($terms as $value) {
-                                $category_class = ( $value->slug === $_GET['event_cat']) ? 'active' : 'inverse'; ?>
+                            <?php foreach ($categories as $term) {
+                                if (is_tax( $taxonomy, (int)$term->term_id )) {
+                                    $current_term_id = $term->term_id;
+                                    $category_class = 'active';
+                                } else {
+                                    $current_term = '';
+                                    $category_class = 'inverse';
+                                }
+                                ?>
                                 <li>
-                                    <a class="btn blue small <?php echo $category_class; ?>" href="<?php echo get_permalink() . '?event_cat=' . $value->slug; ?>" title="<?php echo esc_attr( $value->name ); ?>"><?php echo $value->name; ?></a>
+                                    <a class="btn blue small <?php echo $category_class; ?> " href="<?php echo get_term_link((int)$term->term_id, $taxonomy); ?>" title="<?php echo esc_attr( $term->name ); ?>"><?php echo $term->name; ?></a>
                                 </li>
                             <?php } ?>
                         </ul>
@@ -65,14 +71,12 @@ $currentTime = date('Y-m-d H:i:s');
                     'order'   => 'ASC',
                 );
 
-                if (isset($_GET['event_cat'])) {
-                    $slug = trim($_GET['event_cat']);
-
-                    $args['tax_query'] = array(
+                if (!empty($current_term_id)) {
+                    $args['tax_query'][] = array(
                         array(
-                            'taxonomy' => 'event_category',
-                            'field'    => 'slug',
-                            'terms'    => $slug
+                            'taxonomy' => $taxonomy,
+                            'field'    => 'id',
+                            'terms'    => $current_term_id
                         )
                     );
                 }

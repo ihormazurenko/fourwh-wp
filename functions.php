@@ -245,16 +245,18 @@ function funcDate($start, $end, $format = 'full') {
 
         if ( $day1 === $day2 ) {
             if ( $hours1 === $hours2 ) {
-                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . ' @ '.  $hours1 . $timezone_str . '</span></li>';
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . '</span></li>';
+                $convertDate .= '<li><span> <i class="far fa-clock"></i>' . $hours1 . $timezone_str . '</span></li>';
             } else {
-                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . ' @ '.  $hours1 . $dash . $hours2 . $timezone_str . '</span></li>';
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . '</span></li>';
+                $convertDate .= '<li><span> <i class="far fa-clock"></i>' .  $hours1 . $dash . $hours2 . $timezone_str . '</span></li>';
             }
         } else {
             $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . ' @ '.  $hours1 . $timezone_str . '</span></li>';
             $convertDate .= '<li><span> <i class="far fa-calendar-alt"></i>' . $separator . $month2 . $day2 . $year2 . ' @ '.  $hours2 . $timezone_str . '</span></li>';
         }
 
-
+        
         if ($start !== $end && $start < $end) {
             if ($currentTime >= $end) {
                 //finished event

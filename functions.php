@@ -225,58 +225,52 @@ function funcDate($start, $end, $format = 'full') {
         $currentTime = strtotime(date('Y-m-d H:i:s'));
         $timezone_str = ' ' . date('T');
 
-        $wrong_text = is_user_logged_in() ? '<span class="warning">' . __('Something wrong, please check event dates !!!', 'fc_details') . '</span>' : '';
+        $wrong_text = is_user_logged_in() ? '<span class="warning">' . __('Something wrong, please check event dates "end date less than the start date of the event" !!!', 'fc_details') . '</span>' : '';
         $over_text = __('Event is over – ', 'fc_details');
 
     if ( $format == 'full') {
-        $hours1 = '(' . date("g:i a", $start) . ')';
-        $hours2 = '(' . date("g:i a", $end) . ')';
+        $hours1 = date("g:i a", $start);
+        $hours2 = date("g:i a", $end);
 
-        $day1 = date("j", $start) . ' ';
-        $day2 = date("j", $end) . ' ';
+        $day1 = date("j", $start);
+        $day2 = date("j", $end);
 
         $month1 = date("F", $start) . ' ';
         $month2 = date("F", $end) . ' ';
 
-        $year1 = ', ' . date("Y", $start) . $timezone_str;
-        $year2 = ', ' . date("Y", $end) . $timezone_str;
+        $year1 = ', ' . date("Y", $start);
+        $year2 = ', ' . date("Y", $end);
 
+        $separator = __('to', 'fc_details') . ' ';
 
-        if ($year1 === $year2) {
-            $year1 = '';
-            if ($month1 === $month2) {
-                $month2 = '';
-                if ( $day1 === $day2 && $hours1 !== $hours2 ) {
-                    $day2 = '';
-                    $hours2 = '';
-                    $hours1 = '(' . date("g:i a", $start) . $dash . date("g:i a", $end) . ')';
-                    $dash = '';
-                } else {
-                    $day2 = '';
-                    $hours2 = '';
-                    $dash = '';
-                }
+        if ( $day1 === $day2 ) {
+            if ( $hours1 === $hours2 ) {
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . ' @ '.  $hours1 . $timezone_str . '</span></li>';
+            } else {
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . ' @ '.  $hours1 . $dash . $hours2 . $timezone_str . '</span></li>';
             }
+        } else {
+            $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . ' @ '.  $hours1 . $timezone_str . '</span></li>';
+            $convertDate .= '<li><span> <i class="far fa-calendar-alt"></i>' . $separator . $month2 . $day2 . $year2 . ' @ '.  $hours2 . $timezone_str . '</span></li>';
         }
 
-        // future even
-        $convertDate = $month1 . $day1 . $hours1 . $year1 . $dash . $month2 . $day2 . $hours2 . $year2;
 
         if ($start !== $end && $start < $end) {
             if ($currentTime >= $end) {
                 //finished event
-                $convertDate = $over_text . date("F j (g:i a), Y T", $end);
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $over_text . date("F j, Y @ g:i a T", $end) . '</span></li>';
             }
         } elseif ($start !== $end && $start > $end) {
             //if start date > end date
-            $convertDate = $wrong_text . ' ' . $convertDate;
+            $convertDate = '<li>' . $wrong_text . '</li>' . $convertDate;
 
         } else {
             if ($currentTime >= $end) {
                 //finished event
-                $convertDate = $over_text . date("F j (g:i a), Y T", $end);
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $over_text . date("F j, Y @ g:i a T", $end) . '</span></li>';
             }
         }
+
 
     } elseif ( $format === 'short' ) {
         $day1 = date("d", $start);

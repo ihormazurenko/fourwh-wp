@@ -309,6 +309,6 @@ function funcDate($start, $end, $format = 'full') {
 //
 //get_template_part('inc/admin', 'model-options-meta-box');
 //get_template_part('inc/admin', 'model-meta-box');
-//get_template_part('inc/admin', 'options-columns');
+get_template_part('inc/admin', 'options-columns');
 //
 //get_template_part('inc/register', 'model-customizer');

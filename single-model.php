@@ -4,18 +4,37 @@ get_header();
 $title = get_the_title();
 $show_section_floorplans        = get_field('show_section_floorplans');
 $floorplans                     = get_field('floorplans');
+
 $show_section_virtual_tour      = get_field('show_section_virtual_tour');
 $virtual_tour                   = get_field('virtual_tour');
+
 $show_section_specifications    = get_field('show_section_specifications');
 $specifications                 = get_field('specifications');
+
 $show_section_fabric_selection  = get_field('show_section_fabric_selection');
 $fabric_selection               = get_field('fabric_selection');
+
 $show_section_siding            = get_field('show_section_siding');
 $siding                         = get_field('siding');
+
 $show_section_key_benefits      = get_field('show_section_key_benefits');
 $key_benefits                   = get_field('key_benefits');
+
 $show_section_download          = get_field('show_section_download');
 $download                       = get_field('download');
+
+//from Theme Option
+$show_subscribe_section         = get_field('show_subscribe_section', 'option');
+$subscribe                      = get_field('subscribe', 'option');
+
+$show_info_box_1                = get_field('show_info_box_1', 'option');
+$info_box_1                     = get_field('info_box_1', 'option');
+
+$show_info_box_2                = get_field('show_info_box_2', 'option');
+$info_box_2                     = get_field('info_box_2', 'option');
+
+$show_info_box_3                = get_field('show_info_box_3', 'option');
+$info_box_3                     = get_field('info_box_3', 'option');
 
 
 ?>
@@ -26,6 +45,7 @@ $download                       = get_field('download');
         <div class="anchor-nav-box details">
             <div class="container">
                 <nav class="anchor-nav">
+
                     <ul class="anchor-btn-list">
                         <li>
                             <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Brochure', 'fw_campers') ?>"><?php _e('Brochure', 'fw_campers'); ?></a>
@@ -34,9 +54,10 @@ $download                       = get_field('download');
                             <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Get a Quote', 'fw_campers') ?>"><?php _e('Get a Quote', 'fw_campers'); ?></a>
                         </li>
                         <li>
-                            <a href="#" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
+                            <a href="<?php echo get_permalink(); ?>customizer/" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
                         </li>
                     </ul>
+
                     <ul>
                         <?php if ( $floorplans ) { ?>
                             <li>
@@ -433,60 +454,134 @@ $download                       = get_field('download');
             </div>
         <?php endif; ?>
 
-        <div class="detail-box" id="info-boxes">
-            <div class="container">
-                <div class="our-services-list-box">
-                    <div class="container">
-                        <ul class="our-services-list">
-                            <li>
-                                <div class="our-service-box">
-                                    <div class="inner-box">
-                                        <div class="our-service-img-wrap">
-                                            <img src="img/icon_topog.png" alt="Brochures">
+    <?php if ( $show_info_box_1 || $show_info_box_2 || $show_info_box_3 ) :
+        $info_boxes = [];
+
+        if ( $info_box_1 && is_array( $info_box_1 ) && count( $info_box_1 ) > 0 ) {
+            $info_box_1['default_icon'] = get_bloginfo('template_url') . '/img/icon_topog.png';
+            $info_boxes[] = $info_box_1;
+        }
+        if ( $info_box_2 && is_array( $info_box_2 ) && count( $info_box_2 ) > 0 ) {
+            $info_box_2['default_icon'] = get_bloginfo('template_url') . '/img/icon_build.png';
+            $info_boxes[] = $info_box_2;
+        }
+        if ( $info_box_3 && is_array( $info_box_3 ) && count( $info_box_3 ) > 0 ) {
+            $info_box_3['default_icon'] = get_bloginfo('template_url') . '/img/icon_search.png';
+            $info_boxes[] = $info_box_3;
+        }
+
+        ?>
+        <?php if ( $info_boxes && is_array( $info_boxes ) && count( $info_boxes ) > 0 ) : ?>
+            <div class="detail-box" id="info-boxes">
+                <div class="container">
+                    <div class="our-services-list-box">
+                        <div class="container">
+                            <ul class="our-services-list">
+                                <?php
+                                    foreach ( $info_boxes as $box ) :
+                                        $box_icon           = $box['icon'] ? $box['icon'] : $box['default_icon'];
+                                        $box_title          = $box['title'];
+                                        $box_description    = $box['description'];
+                                        $box_button         = $box['button'];
+                                        ?>
+                                    <li>
+                                        <div class="our-service-box">
+                                            <div class="inner-box">
+                                                <div class="our-service-img-wrap">
+                                                    <?php if ( $box_icon ) { ?>
+                                                        <img src="<?php echo esc_url( $box_icon ); ?>" alt="<?php esc_attr( $box_title ); ?>">
+                                                    <?php } ?>
+                                                </div>
+                                                <?php
+                                                    if ( $box_title ) {
+                                                        echo '<h4 class="our-service-title">' . $box_title . '</h4>';
+                                                    }
+
+                                                    if ( $box_title ) {
+                                                        echo ' <p class="our-services-desc">' . $box_description . '</p>';
+                                                    }
+
+                                                    if ( $box_button && is_array( $box_button ) && count( $box_button ) > 0 ) {
+                                                        $label = $box_button['label'];
+                                                        $link_type = $box_button['link_type'];
+                                                        $target = $box_button['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+
+                                                        if ($link_type == 'internal') {
+                                                            $link = $box_button['internal_link'] ? $box_button['internal_link'] : '';
+                                                        } elseif ($link_type == 'external') {
+                                                            $link = $box_button['external_link'] ? $box_button['external_link'] : '';
+                                                        } elseif ($link_type == 'build_page') {
+                                                            $link = get_permalink() . 'customizer/';
+                                                        } else {
+                                                            $link = '';
+                                                        }
+
+                                                        if ( !empty($label) && !empty($link) ) {
+                                                            echo '<a href="' . $link . '" class="btn blue inverse" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
+                                                        }
+                                                    }
+                                                ?>
+                                            </div>
                                         </div>
-                                        <h4 class="our-service-title">Brochures</h4>
-                                        <p class="our-services-desc">Request a brochure mailed to you</p>
-                                        <a href="#" class="btn blue inverse" title="Brochure">Brochure</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="our-service-box">
-                                    <div class="inner-box">
-                                        <div class="our-service-img-wrap">
-                                            <img src="img/icon_build.png" alt="Build & Price">
-                                        </div>
-                                        <h4 class="our-service-title">Build & Price</h4>
-                                        <p class="our-services-desc">Get a camper price and weight based on features and accessories you select</p>
-                                        <a href="#" class="btn blue inverse" title="Build Camper">Build Camper</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="our-service-box">
-                                    <div class="inner-box">
-                                        <div class="our-service-img-wrap">
-                                            <img src="img/icon_search.png" alt="Find a Dealer">
-                                        </div>
-                                        <h4 class="our-service-title">Find a Dealer</h4>
-                                        <p class="our-services-desc">Locate a  dealer located in the US, Canada, or other countries</p>
-                                        <a href="#" class="btn blue inverse" title="Find Dealer">Find Dealer</a>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                                    </li>
+                                <?php endforeach; ?>
+<!---->
+<!--                                <li>-->
+<!--                                    <div class="our-service-box">-->
+<!--                                        <div class="inner-box">-->
+<!--                                            <div class="our-service-img-wrap">-->
+<!--                                                <img src="img/icon_build.png" alt="Build & Price">-->
+<!--                                            </div>-->
+<!--                                            <h4 class="our-service-title">Build & Price</h4>-->
+<!--                                            <p class="our-services-desc">Get a camper price and weight based on features and accessories you select</p>-->
+<!--                                            <a href="#" class="btn blue inverse" title="Build Camper">Build Camper</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </li>-->
+<!--                                <li>-->
+<!--                                    <div class="our-service-box">-->
+<!--                                        <div class="inner-box">-->
+<!--                                            <div class="our-service-img-wrap">-->
+<!--                                                <img src="img/icon_search.png" alt="Find a Dealer">-->
+<!--                                            </div>-->
+<!--                                            <h4 class="our-service-title">Find a Dealer</h4>-->
+<!--                                            <p class="our-services-desc">Locate a  dealer located in the US, Canada, or other countries</p>-->
+<!--                                            <a href="#" class="btn blue inverse" title="Find Dealer">Find Dealer</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </li>-->
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <?php endif; ?>
+    <?php endif; ?>
 
-        <div class="detail-box" id="subscribe">
-            <h2 class="section-title smaller">Subscribe for latest news</h2>
-            <div class="section-desc content">
-                <p>Receive emails about upcoming events, new products, and adventure/camping news</p>
-            </div>
-        </div>
+    <?php
+        if ( $show_subscribe_section && $subscribe && is_array( $subscribe ) && count( $subscribe ) > 0) :
+            $subscribe_title       = $subscribe['title'];
+            $subscribe_description = $subscribe['description'];
 
+            if ( $siding_title || $siding_description ) :
+                ?>
+                <div class="detail-box" id="subscribe">
+                    <div class="container">
+                    <?php
+                        if ( $subscribe_title ) {
+                            echo '<h2 class="section-title smaller">' . $subscribe_title . '</h2>';
+                        }
+
+                        if ( $siding_description ) {
+                            echo '<div class="section-desc content">' . $subscribe_description . '</div>';
+                        }
+                    ?>
+                    </div>
+                </div>
+            <?php
+            endif;
+        endif;
+    ?>
     </section>
 
 <?php get_footer(); ?>

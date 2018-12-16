@@ -298,3 +298,17 @@ function funcDate($start, $end, $format = 'full') {
 
     return $convertDate;
 }
+
+
+//test admin page
+//add_action('admin_menu', function(){
+//	add_menu_page( 'All Test', 'All Test', 'manage_options', 'Test', function () {
+//		require_once (get_stylesheet_directory() . '/inc/admin-model-relationship.php');},
+//		'dashicons-universal-access-alt', 10 );
+//} );
+//
+//get_template_part('inc/admin', 'model-options-meta-box');
+//get_template_part('inc/admin', 'model-meta-box');
+//get_template_part('inc/admin', 'options-columns');
+//
+//get_template_part('inc/register', 'model-customizer');

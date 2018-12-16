@@ -307,7 +307,7 @@ function funcDate($start, $end, $format = 'full') {
 //		'dashicons-universal-access-alt', 10 );
 //} );
 //
-//get_template_part('inc/admin', 'model-options-meta-box');
+get_template_part('inc/admin', 'model-options-meta-box');
 //get_template_part('inc/admin', 'model-meta-box');
 get_template_part('inc/admin', 'options-columns');
 //

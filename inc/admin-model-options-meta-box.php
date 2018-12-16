@@ -1,54 +1,53 @@
 <?php
-//for Product Option Page
-global $wpdb, $fwc_products;
+//for Model Option Page
+global $wpdb, $fwc_models;
 
-$fwc_products = [];
+$fwc_models = [];
 $args = array(
-	'post_type'         => 'product',
+	'post_type'         => 'model',
 	'post_status'       => 'publish',
 	'posts_per_page'    => -1
 );
 
-$product_query = new WP_Query( $args );
+$model_query = new WP_Query( $args );
 
-if ( $product_query->have_posts() ) {
-	while ( $product_query->have_posts() ) : $product_query->the_post();
+if ( $model_query->have_posts() ) {
+	while ( $model_query->have_posts() ) : $model_query->the_post();
 		if (get_field('enable_customizer')) {
-			$product_id = $product_query->post->ID;
-			$product_name = get_the_title() ? get_the_title() : '';
-			$product_customizer = get_field('product_customizer');
+			$model_id           = $model_query->post->ID;
+			$model_name         = get_the_title() ? get_the_title() : '';
+			$model_customizer   = get_field('model_customizer');
 
-			if ($product_customizer && is_array($product_customizer) && count($product_customizer) > 0) {
-				$product_price = get_field('product_price') ? get_field('product_price') : '';
-				$product_customizer_price = $product_customizer['price'] ? '$'.number_format($product_customizer['price'], 2,'.', ',') : $product_price;
+			if ( $model_customizer && is_array($model_customizer) && count($model_customizer ) > 0) {
+				$model_price            = get_field('model_price') ? '$'.number_format( get_field('model_price'), 2,'.', ',') : '';
 
-				$fwc_products[] = [
-					'product_id'    => $product_id,
-					'name'          => $product_name,
-					'price'         => $product_customizer_price,
+				$fwc_models[] = [
+					'model_id'    => $model_id,
+					'name'          => $model_name,
+					'price'         => $model_price,
                     'status'        => ''
 				];
 			}
 		}
 	endwhile;
 } else {
-	$fwc_products = [];
+	$fwc_models = [];
 }
 
 
 
-if ($fwc_products && is_array($fwc_products) && count($fwc_products) > 0) {
+if ($fwc_models && is_array($fwc_models) && count($fwc_models) > 0) {
 
-	$names = array_column( $fwc_products, 'name' );
-	array_multisort( $names, SORT_NATURAL | SORT_FLAG_CASE, $fwc_products );
+	$names = array_column( $fwc_models, 'name' );
+	array_multisort( $names, SORT_NATURAL | SORT_FLAG_CASE, $fwc_models );
 
-	add_action( 'add_meta_boxes_product_option', 'adding_products_relationship_meta_boxes' );
-	function adding_products_relationship_meta_boxes( $post ) {
-		add_meta_box( 'fourwh-model-relationships', 'Model Relationships', 'render_products_relationship_box', 'product_option', 'normal', 'default' );
+	add_action( 'add_meta_boxes_model_option', 'adding_models_relationship_meta_boxes' );
+	function adding_models_relationship_meta_boxes( $post ) {
+		add_meta_box( 'fourwh-model-relationships', 'Model Relationships', 'render_models_relationship_box', 'model_option', 'normal', 'default' );
 	}
 
-	function render_products_relationship_box(){
-	    global $wpdb, $fwc_products;
+	function render_models_relationship_box(){
+	    global $wpdb, $fwc_models;
 
 	    $option_id = get_the_ID();
 		$table_name = 'fourwh_model_relationship';
@@ -56,27 +55,27 @@ if ($fwc_products && is_array($fwc_products) && count($fwc_products) > 0) {
 
 		if ($fwc_db_relationship && is_array($fwc_db_relationship) && count($fwc_db_relationship) > 0) {
 			foreach ($fwc_db_relationship as $relationship_obj) {
-				foreach ($fwc_products as $key => $value) {
-					if ($relationship_obj->product_id == $value['product_id'] && $relationship_obj->trash != 1) {
-						$fwc_products[$key]['status'] = $relationship_obj->status;
+				foreach ($fwc_models as $key => $value) {
+					if ($relationship_obj->model_id == $value['model_id'] && $relationship_obj->trash != 1) {
+						$fwc_models[$key]['status'] = $relationship_obj->status;
 					}
 				}
 			}
 		}
 
-		foreach ( $fwc_products as $value ) {
+		foreach ( $fwc_models as $value ) {
 			?>
             <div class="inside relationship-box">
                 <div class="relationship-inner">
                     <div class="relationship-label-box">
-                        <label for="relationship_product_<?php echo $value['product_id'].'_'.$option_id; ?>"><?= $value['name']; ?></label>
+                        <label for="relationship_model_<?php echo $value['model_id'].'_'.$option_id; ?>"><?= $value['name']; ?></label>
                         <p class="description"><?= $value['price'] ? "({$value['price']})" : "–"; ?></p>
                     </div>
                     <div class="relationship-input-box">
                         <ul class="relationship-radio-list">
-                            <li><label><input type="radio" name="relationship_product[<?= $value['product_id']; ?>][<?= $option_id; ?>]" <?= ($value['status'] == 'standard' ) ? 'checked' : ''; ?> value="standard">Standard</label></li>
-                            <li><label><input type="radio" id="relationship_product_<?php echo $value['product_id'].'_'.$option_id; ?>" name="relationship_product[<?= $value['product_id']; ?>][<?= $option_id; ?>]" <?= ($value['status'] == 'optional' ) ? 'checked' : ''; ?> value="optional">Optional</label></li>
-                            <li><label><input type="radio" name="relationship_product[<?= $value['product_id']; ?>][<?= $option_id; ?>]" <?= ($value['status'] == 'not_available' ) ? 'checked' : ''; ?> value="not_available">Not Available</label></li>
+                            <li><label><input type="radio" name="relationship_model[<?= $value['model_id']; ?>][<?= $option_id; ?>]" <?= ($value['status'] == 'standard' ) ? 'checked' : ''; ?> value="standard">Standard</label></li>
+                            <li><label><input type="radio" id="relationship_model_<?php echo $value['model_id'].'_'.$option_id; ?>" name="relationship_model[<?= $value['model_id']; ?>][<?= $option_id; ?>]" <?= ($value['status'] == 'optional' ) ? 'checked' : ''; ?> value="optional">Optional</label></li>
+                            <li><label><input type="radio" name="relationship_model[<?= $value['model_id']; ?>][<?= $option_id; ?>]" <?= ($value['status'] == 'not_available' ) ? 'checked' : ''; ?> value="not_available">Not Available</label></li>
                         </ul>
                     </div>
                 </div>
@@ -89,20 +88,20 @@ if ($fwc_products && is_array($fwc_products) && count($fwc_products) > 0) {
 
 wp_reset_postdata();
 
-//save Product Option meta box data
-add_action( 'save_post_product_option', 'save_products_relationship_meta' );
-function save_products_relationship_meta( $post_id ) {
+//save Model Option meta box data
+add_action( 'save_post_model_option', 'save_models_relationship_meta' );
+function save_models_relationship_meta( $post_id ) {
 
     global $wpdb;
 
 	$option_id = $post_id;
 	$table_name = 'fourwh_model_relationship';
 
-	if (isset($_REQUEST['relationship_product'])) {
-		foreach ( $_REQUEST['relationship_product'] as $key => $value ) {
+	if (isset($_REQUEST['relationship_model'])) {
+		foreach ( $_REQUEST['relationship_model'] as $key => $value ) {
 			$status = $value[$option_id] ? strtolower(trim($value[$option_id ])) : '';
 
-			$relationship_check = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . $table_name . ' WHERE product_id = %d AND option_id = %d', [ $key, $option_id ] ), OBJECT );
+			$relationship_check = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . $table_name . ' WHERE model_id = %d AND option_id = %d', [ $key, $option_id ] ), OBJECT );
 
 			if ( ! empty( $relationship_check ) ) {
 
@@ -115,7 +114,7 @@ function save_products_relationship_meta( $post_id ) {
 
 			} else {
 				$new_relationship = [
-					'product_id' => $key,
+					'model_id' => $key,
 					'option_id'  => $option_id,
 					'status'     => $status,
 					'trash'      => 0
@@ -136,7 +135,7 @@ function change_relationship_status_option( $post_id ){
 
 	$post = get_post( $post_id );
 
-	if( ! $post || $post->post_type !== 'product_option' ) {
+	if( ! $post || $post->post_type !== 'model_option' ) {
 		return;
 	}
 
@@ -158,7 +157,7 @@ function untrashed_relationship_status_option( $post_id ){
 
 	$post = get_post( $post_id );
 
-	if( ! $post || $post->post_type !== 'product_option' ) {
+	if( ! $post || $post->post_type !== 'model_option' ) {
 		return;
 	}
 
@@ -172,14 +171,14 @@ function untrashed_relationship_status_option( $post_id ){
 }
 
 //delete relationship from DB when Options delete
-add_action( 'before_delete_post', 'delete_product_options' );
-function delete_product_options( $post_id ){
+add_action( 'before_delete_post', 'delete_model_options' );
+function delete_model_options( $post_id ){
 
   global $wpdb;
 
 	$post = get_post( $post_id );
 
-	if( ! $post || $post->post_type !== 'product_option' ) {
+	if( ! $post || $post->post_type !== 'model_option' ) {
 		return;
 	}
 

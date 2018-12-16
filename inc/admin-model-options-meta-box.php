@@ -19,7 +19,7 @@ if ( $model_query->have_posts() ) {
 			$model_customizer   = get_field('model_customizer');
 
 			if ( $model_customizer && is_array($model_customizer) && count($model_customizer ) > 0) {
-				$model_price            = get_field('model_price') ? '$'.number_format( get_field('model_price'), 2,'.', ',') : '';
+				$model_price = get_field('model_price') ? '$'.number_format( get_field('model_price'), 2,'.', ',') : '';
 
 				$fwc_models[] = [
 					'model_id'    => $model_id,

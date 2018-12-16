@@ -35,7 +35,7 @@
         <div class="event-box">
             <div class="event-img-wrap <?php echo $thumbnail_class; ?>">
                 <?php if ( $dates_start_U && $dates_end_U ) : ?>
-                    <span class="event-date"><?php echo funcDate( $dates_start_U, $dates_end_U, 'short'); ?></span>
+                    <span class="event-date"><?php echo date( 'm.d.Y', strtotime($dates_start_U) ); ?></span>
                 <?php endif; ?>
                 <?php
                 if ($thumbnail_url) {

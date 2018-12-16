@@ -85,6 +85,27 @@
       box-shadow: none;
       @include border-radius(0);
     }
+    .direction-up.admin-bar & {
+      top: 114px;
+      @media all and (max-width: 1024px) {
+        top: 102px;
+      }
+      @media all and (max-width: 782px) {
+        top: 116px;
+      }
+      @media all and (max-width: 600px) {
+        top: 70px;
+      }
+    }
+    .admin-bar & {
+      top: 32px;
+      @media all and (max-width: 782px) {
+        top: 46px;
+      }
+      @media all and (max-width: 600px) {
+        top: 0;
+      }
+    }
   }
 }
 
@@ -200,7 +221,7 @@ ul.anchor-btn-list {
   .detail-box {
     overflow: hidden;
     margin-bottom: 115px;
-    > :last-child {
+    .container > :last-child {
       margin-bottom: 0;
     }
     .left-box,
@@ -329,7 +350,7 @@ ul.anchor-btn-list {
   .our-services-list {
     display: inline-block;
     width: 100%;
-    margin: 0 -15px -40px;
+    margin: 4px -15px -40px;
     > li {
       display: inline-block;
       width: 32%;
@@ -372,6 +393,7 @@ ul.anchor-btn-list {
         img {
           display: inline-block;
           vertical-align: middle;
+          max-height: 100%;
         }
       }
       .our-service-title {

@@ -1,9 +1,9 @@
 <?php
 // Adding fake page and rewrite rules
-add_filter('rewrite_rules_array', 'fp_camper_customizer_rule');
-function fp_camper_customizer_rule($rules) {
+add_filter('rewrite_rules_array', 'fp_camper_build_rule');
+function fp_camper_build_rule($rules) {
 	$newrules = [];
-	$newrules[ 'model/([^/]*)/(customizer)' ] = 'index.php?model=$matches[1]&fpage=$matches[2]';
+	$newrules[ 'model/([^/]*)/(build)' ] = 'index.php?model=$matches[1]&fpage=$matches[2]';
 	$rules = $newrules + $rules;
 
 	return $rules;
@@ -11,8 +11,8 @@ function fp_camper_customizer_rule($rules) {
 
 
 // Tell WordPress to accept our custom query variable
-add_filter('query_vars', 'fp_camper_customizer_qv');
-function fp_camper_customizer_qv($vars) {
+add_filter('query_vars', 'fp_camper_build_qv');
+function fp_camper_build_qv($vars) {
 	array_push($vars, 'fpage');
 
 	return $vars;

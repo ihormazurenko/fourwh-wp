@@ -1,30 +1,6 @@
 <?php
 get_header();
 
-$current_fp = get_query_var('fpage');
-
-?>
-
-<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-    <?php
-        if (!$current_fp) {
-            get_template_part( 'single', 'model-index' );
-        } else if ($current_fp == 'build') {
-            get_template_part( 'single', 'model-build' );
-        };
-    ?>
-<?php endwhile;  else:  ?>
-
-    <section class="section section-content content-wrapper">
-        <div class="container">
-            <p><?php  _e('Sorry, this page does not exist.', 'fw_campers'); ?></p>
-        </div>
-    </section>
-
-<?php endif;  ?>
-
-<?php
-/*
 $title = get_the_title();
 $show_section_floorplans        = get_field('show_section_floorplans');
 $floorplans                     = get_field('floorplans');
@@ -78,7 +54,7 @@ $info_box_3                     = get_field('info_box_3', 'option');
                             <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Get a Quote', 'fw_campers') ?>"><?php _e('Get a Quote', 'fw_campers'); ?></a>
                         </li>
                         <li>
-                            <a href="<?php echo get_permalink(); ?>customizer/" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
+                            <a href="<?php echo get_permalink(); ?>build/" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
                         </li>
                     </ul>
 
@@ -535,7 +511,7 @@ $info_box_3                     = get_field('info_box_3', 'option');
                                                         } elseif ($link_type == 'external') {
                                                             $link = $box_button['external_link'] ? $box_button['external_link'] : '';
                                                         } elseif ($link_type == 'build_page') {
-                                                            $link = get_permalink() . 'customizer/';
+                                                            $link = get_permalink() . 'build/';
                                                         } else {
                                                             $link = '';
                                                         }
@@ -608,4 +584,4 @@ $info_box_3                     = get_field('info_box_3', 'option');
     ?>
     </section>
 
-<?php */ get_footer(); ?>
+<?php get_footer(); ?>

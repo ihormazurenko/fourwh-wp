@@ -17,6 +17,12 @@ function load_style_script(){
 }
 add_action('wp_enqueue_scripts', 'load_style_script');
 
+// add custom styles and scripts for admin panel
+function load_admin_style_script(){
+    wp_enqueue_style('custom-wp-admin-style', get_stylesheet_directory_uri() . '/assets/css/custom-wp-admin-style.css', array() );
+}
+add_action('admin_enqueue_scripts', 'load_admin_style_script');
+
 
 // add ie conditional html5 shiv to header
 function add_ie_html5_shiv () {
@@ -310,5 +316,5 @@ function funcDate($start, $end, $format = 'full') {
 get_template_part('inc/admin', 'model-options-meta-box');
 get_template_part('inc/admin', 'model-meta-box');
 get_template_part('inc/admin', 'options-columns');
-//
-//get_template_part('inc/register', 'model-customizer');
+
+get_template_part('inc/register', 'model-customizer');

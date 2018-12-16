@@ -67,6 +67,7 @@ if ($fwc_options && is_array($fwc_options) && count($fwc_options) > 0) {
                         <p class="description"><?= $value['price'] ? "({$value['price']})" : "–"; ?></p>
                     </div>
                     <div class="relationship-input-box">
+<!--                        <div class="acf-tab-wrap -top"><ul class="acf-hl acf-tab-group"><li class="active"><a href="" class="acf-tab-button" data-placement="top" data-endpoint="0" data-key="field_5c150e9511a08">Content</a></li><li class=""><a href="" class="acf-tab-button" data-placement="top" data-endpoint="0" data-key="field_5c150ede11a09">Exterior Color</a></li><li class=""><a href="" class="acf-tab-button" data-placement="top" data-endpoint="0" data-key="field_5c150f0e11a0a">Interior Fabric</a></li></ul></div>-->
                         <ul class="relationship-radio-list">
                             <li><label><input type="radio" name="relationship_model[<?= $value['option_id']; ?>][<?= $model_id; ?>]" <?= ($value['status'] == 'standard' ) ? 'checked' : ''; ?> value="standard">Standard</label></li>
                             <li><label><input type="radio" id="relationship_model_<?php echo $value['option_id'].'_'.$model_id; ?>" name="relationship_model[<?= $value['option_id']; ?>][<?= $model_id; ?>]" <?= ($value['status'] == 'optional' ) ? 'checked' : ''; ?> value="optional">Optional</label></li>

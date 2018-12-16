@@ -1,0 +1,56 @@
+#fourwh-model-relationships .inside {
+    margin: 0;
+    padding: 0;
+}
+#fourwh-model-relationships > .inside {
+    overflow-x: auto;
+    min-height: 400px;
+    max-height: 90vh;
+    max-height: -webkit-calc(100vh - 100px);
+    max-height: calc(100vh - 100px);
+}
+#fourwh-model-relationships .inside > :first-child {
+    border-top: none;
+}
+#fourwh-model-relationships .relationship-box {
+    border-top: 1px solid #eeeeee;
+}
+    #fourwh-model-relationships .relationship-inner {
+        display: table;
+        width: 100%;
+        height: auto;
+    }
+        #fourwh-model-relationships .relationship-label-box,
+        #fourwh-model-relationships .relationship-input-box {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 15px 12px;
+        }
+        #fourwh-model-relationships .relationship-label-box {
+            width: 20%;
+            border-right: 1px solid #e1e1e1;
+            background-color: #F9F9F9;
+        }
+            #fourwh-model-relationships .relationship-label-box label {
+                cursor: pointer;
+                display: block;
+                font-weight: bold;
+                margin: 0 0 3px;
+                padding: 0;
+            }
+            #fourwh-model-relationships .relationship-label-box .description {
+                display: block;
+                font-size: 13px;
+                font-style: italic;
+                margin: 0;
+                padding: 0;
+            }
+            #fourwh-model-relationships .relationship-radio-list {}
+            #fourwh-model-relationships .relationship-radio-list > li {
+                display: inline-block;
+                margin-right: 20px;
+                vertical-align: top;
+            }
+            #fourwh-model-relationships .relationship-radio-list > li:last-child {
+                margin-right: 0;
+            }

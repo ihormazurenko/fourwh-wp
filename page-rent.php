@@ -109,6 +109,9 @@ $rental = get_field('rental');
                                   $rental_subtitle = $rental['subtitle'];
                                   $rental_description = $rental['description'];
                                   $rental_website = $rental['rental_website'];
+                                  $rental_photo = $rental['icon'];
+
+                                  $image_size = 'original';
 
                                   if($key % 2) :
                                   ?>
@@ -132,7 +135,7 @@ $rental = get_field('rental');
                                           </div>
                                           <div class="inner-box">
                                               <div class="centered-img wider">
-                                                  <img src="<?php echo esc_attr( $rental['icon'] )?>" alt="<?php echo esc_attr( $rental_title ); ?>">
+                                                  <?php print wp_get_attachment_image( $rental_photo, $image_size ); ?>
                                               </div>
                                           </div>
                                       </div>
@@ -140,9 +143,9 @@ $rental = get_field('rental');
                                   <?php else : ?>
                                   <li>
                                       <div class="inventory-box">
-                                          <div class="inner-box">
+                                          <div class="inner-box"> 
                                               <div class="centered-img wider">
-                                                  <img src="<?php echo esc_attr( $rental['icon'] )?>" alt="<?php echo esc_attr( $rental_title ); ?>">
+                                                  <?php print wp_get_attachment_image( $rental_photo, $image_size ); ?>
                                               </div>
                                           </div>
                                           <div class="inner-box">

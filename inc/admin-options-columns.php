@@ -16,11 +16,11 @@ add_filter( 'manage_model_option_posts_columns', function ( $columns ) {
 	return array_slice( $columns, 0, 3 ) + $my_columns + $columns;
 } );
 
-
 add_action( 'manage_model_option_posts_custom_column', function ( $column_name ) {
-    if ( $column_name === 'thumb' && get_field('photo') ) {
+    if ( $column_name === 'thumb' ) {
+        $no_image_available = get_bloginfo("template_url").'/img/no_image_available.jpg';
         $photo = get_field('photo');
-        $photo_url = $photo['sizes']['thumbnail'] ? $photo['sizes']['thumbnail'] : $photo['url'];
+        $photo_url = $photo['sizes']['thumbnail'] ? $photo['sizes']['thumbnail'] : $no_image_available;
         ?>
         <a href="<?php echo get_edit_post_link(); ?>">
             <img src="<?php echo $photo_url; ?>" width="100" alt="<?php esc_attr(the_title()); ?>">

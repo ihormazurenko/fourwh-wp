@@ -2,8 +2,8 @@
 //for Model Page
 global $wpdb, $fwc_options;
 
-add_action( 'current_screen', 'current_screen_hook' );
-function current_screen_hook( $current_screen ) {
+add_action( 'current_screen', 'current_screen_model_hook' );
+function current_screen_model_hook( $current_screen ) {
     if ('model' == $current_screen->post_type && 'post' == $current_screen->base) {
         global $wpdb, $fwc_options;
 

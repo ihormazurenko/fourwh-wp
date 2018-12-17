@@ -8,6 +8,7 @@ function current_screen_model_hook( $current_screen ) {
         global $wpdb, $fwc_options;
 
         $fwc_options = [];
+        $no_image_available = get_bloginfo("template_url").'/img/no_image_available.jpg';
         $option_args = array(
             'post_type' => 'model_option',
             'post_status' => 'publish',
@@ -19,9 +20,11 @@ function current_screen_model_hook( $current_screen ) {
         if ($option_query->have_posts()) {
             while ($option_query->have_posts()) : $option_query->the_post();
                 $option_id = $option_query->post->ID;
-                $option_name = get_the_title() ? get_the_title() : '';
-                $option_info = get_field('option_info');
-                $option_group = get_the_terms($option_id, 'groups');
+                $option_name        = get_the_title() ? get_the_title() : '';
+                $option_info        = get_field('option_info');
+                $option_photo       = get_field('photo');
+                $option_photo_url   = $option_photo['sizes']['thumbnail'] ? $option_photo['sizes']['thumbnail'] : $no_image_available ;
+                $option_group       = get_the_terms($option_id, 'groups');
 
                 if ($option_info && is_array($option_info) && count($option_info) > 0) {
                     $option_price = $option_info['price'] ? '$' . number_format($option_info['price'], 2, '.', ',') : '';
@@ -31,16 +34,18 @@ function current_screen_model_hook( $current_screen ) {
 
                         $fwc_options[$group_name][] = [
                             'option_id' => $option_id,
-                            'name' => $option_name,
-                            'price' => $option_price,
-                            'status' => '',
+                            'name'      => $option_name,
+                            'price'     => $option_price,
+                            'thumbnail' => $option_photo_url,
+                            'status'    => '',
                         ];
                     } else {
                         $fwc_options['other'][] = [
                             'option_id' => $option_id,
-                            'name' => $option_name,
-                            'price' => $option_price,
-                            'status' => '',
+                            'name'      => $option_name,
+                            'price'     => $option_price,
+                            'thumbnail' => $option_photo_url,
+                            'status'    => '',
                         ];
                     }
 
@@ -125,6 +130,13 @@ function render_options_relationship_box() {
                 ?>
                 <div class="inside relationship-box">
                     <div class="relationship-inner">
+                        <div class="relationship-thumbnail-box">
+                            <?php
+                                if ($value['thumbnail']) {
+                                    echo '<img src="'.esc_url($value['thumbnail']).'" alt="'.esc_attr($value['name']).'">';
+                                }
+                            ?>
+                        </div>
                         <div class="relationship-label-box">
                             <label for="relationship_model_<?php echo $value['option_id'] . '_' . $model_id; ?>"><?= $value['name']; ?></label>
                             <p class="description"><?= $value['price'] ? "({$value['price']})" : "–"; ?></p>

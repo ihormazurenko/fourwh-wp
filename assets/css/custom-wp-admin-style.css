@@ -22,6 +22,18 @@
             vertical-align: middle;
             padding: 15px 12px;
         }
+        #fourwh-model-relationships .relationship-thumbnail-box {
+            display: table-cell;
+            width: 150px;
+            vertical-align: middle;
+            margin: 0;
+            border: 1px solid #e2e4e7;
+            border-bottom: none;
+            border-top: none;
+        }
+        #fourwh-model-relationships .relationship-thumbnail-box img {
+            display: block;
+        }
         #fourwh-model-relationships .relationship-label-box {
             width: 20%;
             border-right: 1px solid #e1e1e1;

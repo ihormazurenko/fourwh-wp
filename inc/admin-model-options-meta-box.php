@@ -42,6 +42,7 @@ function current_screen_model_option_hook( $current_screen ) {
         wp_reset_postdata();
 
         if ($fwc_models && is_array($fwc_models) && count($fwc_models) > 0) {
+
             $names = array_column( $fwc_models, 'name' );
             array_multisort( $names, SORT_NATURAL | SORT_FLAG_CASE, $fwc_models );
 

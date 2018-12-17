@@ -329,9 +329,6 @@ h1, h2, h3, h4, h5, h6 {
   .white-header-bg & {
     padding-top: 132px;
   }
-  .single-model.white-header-bg & {
-    padding-top: 250px;
-  }
   @media all and (max-width: 1024px) {
     padding-top: 70px;
   }
@@ -350,4 +347,3 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
 }
-

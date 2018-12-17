@@ -1,7 +1,4 @@
 <?php
-get_header();
-//get_post_meta(get_the_ID());
-
 $title = get_the_title();
 $show_section_floorplans        = get_field('show_section_floorplans');
 $floorplans                     = get_field('floorplans');
@@ -526,31 +523,6 @@ $info_box_3                     = get_field('info_box_3', 'option');
                                         </div>
                                     </li>
                                 <?php endforeach; ?>
-<!---->
-<!--                                <li>-->
-<!--                                    <div class="our-service-box">-->
-<!--                                        <div class="inner-box">-->
-<!--                                            <div class="our-service-img-wrap">-->
-<!--                                                <img src="img/icon_build.png" alt="Build & Price">-->
-<!--                                            </div>-->
-<!--                                            <h4 class="our-service-title">Build & Price</h4>-->
-<!--                                            <p class="our-services-desc">Get a camper price and weight based on features and accessories you select</p>-->
-<!--                                            <a href="#" class="btn blue inverse" title="Build Camper">Build Camper</a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <div class="our-service-box">-->
-<!--                                        <div class="inner-box">-->
-<!--                                            <div class="our-service-img-wrap">-->
-<!--                                                <img src="img/icon_search.png" alt="Find a Dealer">-->
-<!--                                            </div>-->
-<!--                                            <h4 class="our-service-title">Find a Dealer</h4>-->
-<!--                                            <p class="our-services-desc">Locate a  dealer located in the US, Canada, or other countries</p>-->
-<!--                                            <a href="#" class="btn blue inverse" title="Find Dealer">Find Dealer</a>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </li>-->
                             </ul>
                         </div>
                     </div>
@@ -584,5 +556,3 @@ $info_box_3                     = get_field('info_box_3', 'option');
         endif;
     ?>
     </section>
-
-<?php get_footer(); ?>

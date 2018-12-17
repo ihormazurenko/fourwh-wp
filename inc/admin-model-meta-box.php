@@ -60,6 +60,8 @@ function current_screen_model_hook( $current_screen ) {
 
 
     if ($fwc_options && is_array($fwc_options) && count($fwc_options) > 0) {
+        ksort($fwc_options);
+
         add_action('add_meta_boxes_model', 'adding_options_relationship_meta_boxes');
 
         //save Model Option meta box data
@@ -104,7 +106,7 @@ function render_options_relationship_box() {
         }
     }
 
-    ksort($fwc_options);
+
 
     if ($fwc_options['other']) {
         $temp = $fwc_options['other'];
@@ -125,7 +127,12 @@ function render_options_relationship_box() {
                 echo '<div class="accordion active"><h3>' . ucwords($group ). '</h3></div>';
                 echo '<div class="panel" style="display: block">';
             }
+
             $count++;
+            $names = [];
+            $names = array_column( $items, 'name' );
+            array_multisort( $names, SORT_NATURAL | SORT_FLAG_CASE, $items );
+
             foreach ($items as $key => $value) {
                 ?>
                 <div class="inside relationship-box">

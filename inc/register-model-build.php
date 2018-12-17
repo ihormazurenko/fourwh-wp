@@ -54,3 +54,13 @@ function wpseo_canonical_exclude( $canonical ) {
 	return $canonical;
 }
 
+//ads class to body
+add_filter('body_class','build_camper_class_names');
+function build_camper_class_names( $classes ) {
+    // добавим класс 'class-name' в массив классов $classes
+    if( get_query_var('model') )
+        $classes[] = 'white-header-bg';
+
+    return $classes;
+}
+

@@ -11,6 +11,7 @@ function load_style_script(){
     wp_enqueue_script('swiper.min', '//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js', array(), '442', true );
     wp_enqueue_script('smooth-scroll.polyfills.min', '//cdnjs.cloudflare.com/ajax/libs/smooth-scroll/15.1.0/smooth-scroll.polyfills.min.js', array(), '15.1.0', true );
     wp_enqueue_script('jquery.nicescroll.min', '//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js', array(), '3.7.6', true );
+    wp_enqueue_script('tippy.all.min', '//unpkg.com/tippy.js@3/dist/tippy.all.min.js', array(), '3.3.0', true );
     wp_enqueue_script('magnific', get_template_directory_uri() . '/assets/js/magnific.js', array(), '1.1.0', true );
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom/scripts.js', array('jquery'), null, true );
     wp_enqueue_script('map', get_template_directory_uri() . '/assets/js/custom/map.js', array('jquery'), null, true );
@@ -317,4 +318,4 @@ get_template_part('inc/admin', 'model-options-meta-box');
 get_template_part('inc/admin', 'model-meta-box');
 get_template_part('inc/admin', 'options-columns');
 
-get_template_part('inc/register', 'model-customizer');
+get_template_part('inc/register', 'model-build');

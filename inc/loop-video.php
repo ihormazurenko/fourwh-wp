@@ -1,6 +1,13 @@
 <?php
     $title = get_the_title();
     $url = get_permalink();
+    $term = '';
+    $category = get_the_terms($post->ID, 'video_category');
+    
+    if(isset($category) && is_array($category)) :
+        $term = array_pop($category);
+    endif;
+
 
     
     $label                  = translate('Watch Video', 'fc_details');
@@ -16,11 +23,14 @@
            <div class="image">
                 <?php the_post_thumbnail('medium_large', array(
                     'alt'   => esc_attr($title)
-                )); ?>
+                )); ?><i class="fas fa-play-circle"></i>
             </div>
         <?php } ?>
 
         <div class="text">
+            <?php if($term) : ?>
+                <h6><?php print $term->name; ?></h6> 
+            <?php endif; ?>
             <h3><?php echo $title; ?></h3>
             
             <span href="<?php echo esc_url( $url ); ?>" class="btn blue inverse" title="<?php echo esc_attr( $label ); ?>"><?php echo $label; ?></span>

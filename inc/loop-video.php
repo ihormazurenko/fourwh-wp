@@ -8,8 +8,6 @@
         $term = array_pop($category);
     endif;
 
-
-    
     $label                  = translate('Watch Video', 'fc_details');
     $target                 = '';
 

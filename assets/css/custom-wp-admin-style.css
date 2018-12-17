@@ -4,10 +4,6 @@
 }
 #fourwh-model-relationships > .inside {
     overflow-x: auto;
-    min-height: 400px;
-    max-height: 90vh;
-    max-height: -webkit-calc(100vh - 100px);
-    max-height: calc(100vh - 100px);
 }
 #fourwh-model-relationships .inside > :first-child {
     border-top: none;
@@ -54,3 +50,48 @@
             #fourwh-model-relationships .relationship-radio-list > li:last-child {
                 margin-right: 0;
             }
+
+.fwc-accordion-wrap {
+    padding: 5px 20px 20px;
+}
+    .fwc-accordion-wrap .accordion {
+        box-sizing: border-box;
+        color: inherit;
+        font-weight: 600;
+        outline: 0;
+        padding: 15px 10px;
+        position: relative;
+        width: 100%;
+        border-bottom: 1px solid #e2e4e7;
+        cursor: pointer;
+    }
+
+        .fwc-accordion-wrap .accordion h3 {
+            position: relative;
+            display: block;
+            margin: 0;
+            font-size: 14px;
+        }
+        .fwc-accordion-wrap .accordion h3:after {
+            position: absolute;
+            width: 20px;
+            right: 0;
+            border-radius: 50%;
+            text-indent: -1px;
+            content: "\f140";
+            display: inline-block;
+            font: normal 20px/1 dashicons;
+            speak: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-decoration: none!important;
+            box-sizing: inherit;
+            color: #72777c;
+        }
+        .fwc-accordion-wrap .accordion.active h3:after {
+            content: '\f142';
+        }
+        .fwc-accordion-wrap .panel {
+            display: none;
+            border-bottom: 1px solid #e2e4e7;
+        }

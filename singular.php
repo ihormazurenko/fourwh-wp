@@ -8,7 +8,7 @@
     <section class="section section-content content-wrapper">
         <div class="container">
             <?php get_template_part('inc/section', 'info'); ?>
-            <?php print $section_info['title'];
+            <?php  
                   // If the section info content is included, and the title is included, don't show the page title
                   if (!$show_section_info) { 
                     the_title('<h1 class="section-title">', '</h1>');

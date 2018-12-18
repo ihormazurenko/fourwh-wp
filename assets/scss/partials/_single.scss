@@ -10,3 +10,10 @@
 		margin-bottom: 42px;
 	}
 }
+
+.content ul  .blocks-gallery-item { //photo gallery bullets
+	&:before {
+		display: none;
+	} 
+	margin-bottom: 30px;
+}

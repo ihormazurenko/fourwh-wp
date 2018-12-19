@@ -97,9 +97,48 @@
         .overflow & {
           z-index: 0;
         }
+        .admin-bar &,
+        .direction-down.admin-bar & {
+          top: 32px;
+        }
+        .direction-up.admin-bar & {
+          top: 114px;
+        }
+        @media all and (max-width: 1024px) {
+          .admin-bar &,
+          .direction-down.admin-bar & {
+            top: 32px;
+          }
+          .direction-up.admin-bar & {
+            top: 102px;
+          }
+        }
+        @media all and (max-width: 782px) {
+          .admin-bar &,
+          .direction-down.admin-bar & {
+            top: 46px;
+          }
+          .direction-up.admin-bar & {
+            top: 116px;
+          }
+        }
+        @media all and (max-width: 600px) {
+          .admin-bar &,
+          .direction-down.admin-bar & {
+            top: 0;
+          }
+          .direction-up.admin-bar & {
+            top: 70px;
+          }
+        }
       }
     }
 
+  #anchor-hor-hr {
+    @media all and (max-width: 1240px) {
+      left: 0 !important;
+    }
+  }
       a.back-link,
       .back-link {
         position: absolute;

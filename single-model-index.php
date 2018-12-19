@@ -34,6 +34,8 @@ $info_box_2                     = get_field('info_box_2', 'option');
 $show_info_box_3                = get_field('show_info_box_3', 'option');
 $info_box_3                     = get_field('info_box_3', 'option');
 
+$enable_customizer              = get_field('enable_customizer');
+$build_url                      = $enable_customizer ? 'build/' : '';
 
 ?>
 
@@ -52,7 +54,7 @@ $info_box_3                     = get_field('info_box_3', 'option');
                             <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Get a Quote', 'fw_campers') ?>"><?php _e('Get a Quote', 'fw_campers'); ?></a>
                         </li>
                         <li>
-                            <a href="<?php echo get_permalink(); ?>build/" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
+                            <a href="<?php echo get_permalink() . $build_url; ?>" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
                         </li>
                     </ul>
 
@@ -509,7 +511,7 @@ $info_box_3                     = get_field('info_box_3', 'option');
                                                         } elseif ($link_type == 'external') {
                                                             $link = $box_button['external_link'] ? $box_button['external_link'] : '';
                                                         } elseif ($link_type == 'build_page') {
-                                                            $link = get_permalink() . 'build/';
+                                                            $link = get_permalink() . $build_url;
                                                         } else {
                                                             $link = '';
                                                         }

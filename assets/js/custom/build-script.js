@@ -81,10 +81,16 @@ jQuery(document).ready(function($) {
             totalPriceInput = $('.customizer-form input[name="total-price"]'),
             totalWeightInput = $('.customizer-form input[name="total-weight"]');
 
+        var cf7Form = $('.form-quote-box'),
+            optionsInput = cf7Form.find('[name="your-options"]'),
+            priceInput = cf7Form.find('[name="your-total-price"]'),
+            weightInput = cf7Form.find('[name="your-total-weight"]');
+
 
         $('.customizer-form input').on('load change', function () {
             var price = productPrice,
-                weight = productWeight;
+                weight = productWeight,
+                optionsString = '';
 
             $('.customizer-form input[data-option]').each(function () {
                 var input = $(this);
@@ -101,10 +107,13 @@ jQuery(document).ready(function($) {
 
                 if( input.prop('checked') == true) {
                     var thisID = $(this).attr('id'),
-                        thisGroup = $(this).data('optionGroup');
+                        thisGroup = $(this).data('optionGroup'),
+                        thisName = input.data('optionName');
 
                     $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('li').hide(0);
                     $('[data-option-id="'+thisID+'"]').show(0);
+
+                    optionsString += ' – ' + thisName + '\n';
                 }
             });
 
@@ -135,14 +144,19 @@ jQuery(document).ready(function($) {
 
             totalPriceInput.val(price);
             totalWeightInput.val(weight);
+
+            optionsInput.val(optionsString);
+            priceInput.val('$' + number_format(price, 2, '.', ','));
+            weightInput.val(number_format(weight, 0, '.', ',') + 'lbs');
         });
 
         $(window).on('load', function () {
             $('.customizer-form input[data-option]').each(function () {
                 var input = $(this);
                 if( input.prop('checked') == true) {
-                    var thisID = $(this).attr('id'),
-                        thisGroup = $(this).data('optionGroup');
+                    var thisID = input.attr('id'),
+                        thisGroup = input.data('optionGroup'),
+                        thisName = input.data('optionName');
 
                     $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('li').hide(0);
                     $('[data-option-id="'+thisID+'"]').show(0);
@@ -163,9 +177,40 @@ jQuery(document).ready(function($) {
                         $('[data-exterior-preview]').attr('href', url).attr('title', alt).find('img')
                             .attr('src', url).attr('alt', alt);
                     }
+
+
                 }
             });
 
+            if ($('.form-quote-box').length) {
+                var cf7Form = $('.form-quote-box'),
+                    customizerForm = $('.customizer-form'),
+                    modelInput = cf7Form.find('[name="your-model"]'),
+                    optionsInput = cf7Form.find('[name="your-options"]'),
+                    priceInput = cf7Form.find('[name="your-total-price"]'),
+                    weightInput = cf7Form.find('[name="your-total-weight"]'),
+                    modelName = customizerForm.find('[data-model]').data('model'),
+                    modelPrice = customizerForm.find('[data-model-price]').data('modelPrice'),
+                    modelWeight = customizerForm.find('[data-model-weight]').data('modelWeight'),
+                    optionsString = '';
+
+                    modelInput.val(modelName);
+                    priceInput.val(modelPrice);
+                    weightInput.val(modelWeight);
+
+                    $('.customizer-form input[data-option]').each(function () {
+                        var input = $(this);
+
+                        if( input.prop('checked') == true) {
+                            var thisName = input.data('optionName');
+
+                            optionsString += ' – ' + thisName + '\n';
+                        }
+                    });
+
+                    optionsInput.val(optionsString);
+
+            };
         });
 
     }

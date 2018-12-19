@@ -22,7 +22,7 @@ else :
 
     if ($model_customizer && is_array($model_customizer) && count($model_customizer) > 0) {
         $customizer_title   = $model_customizer['title'] ? $model_customizer['title'] : __('Build My Camper', 'fw_campers');
-        $customizer_content = $model_customizer['content'] ? $model_customizer['content'] : '';
+        $customizer_content = $model_customizer['content'] ? trim($model_customizer['content']) : '';
     }
 
     $model_id = get_the_ID();
@@ -177,7 +177,7 @@ else :
                     <form action="" class="customizer-form">
 
                         <div class="no-display">
-                            <input type="hidden" name="model_id"  value="<?php echo $model_id; ?>" data-model-price="<?php echo $model_price; ?>" data-model-weight="<?php echo $model_weight; ?>">
+                            <input type="hidden" name="model_id" data-model="<?php echo get_the_title($model_id); ?>"  value="<?php echo $model_id; ?>" data-model-price="<?php echo $model_price; ?>" data-model-weight="<?php echo $model_weight; ?>">
                             <input type="hidden" name="total-price"  data-total-price value="<?php echo $model_price; ?>">
                             <input type="hidden" name="total-weight"  data-total-weight value="<?php echo $model_weight; ?>">
                         </div>
@@ -258,6 +258,7 @@ else :
                                                                            data-img-full="<?php echo esc_url($item_thumbnail_full); ?>"
                                                                            data-option-group="<?php echo $element_id; ?>"
                                                                            data-preview="<?php echo $data_attr; ?>"
+                                                                           data-option-name = "<?php echo trim($item_name); ?>"
                                                                            data-option>
                                                                     <label for="option_<?php echo $item_id; ?>" data-tippy-content="<?php echo $item_name . '<br>$' . $item_price; ?>">
                                                                         <span class="color centered-img">
@@ -303,6 +304,7 @@ else :
                                                                    data-price="<?php echo $item_price; ?>"
                                                                    data-weight="<?php echo $item_weight; ?>"
                                                                    data-option-group="<?php echo $element_id; ?>"
+                                                                   data-option-name = "<?php echo trim($item_name); ?>"
                                                                    data-option>
                                                         <?php } else { ?>
                                                             <input id="option_<?php echo $item_id; ?>"
@@ -313,6 +315,7 @@ else :
                                                                    data-price="<?php echo $item_price; ?>"
                                                                    data-weight="<?php echo $item_weight; ?>"
                                                                    data-option-group="<?php echo $element_id; ?>"
+                                                                   data-option-name = "<?php echo trim($item_name); ?>"
                                                                    data-option>
                                                         <?php } ?>
                                                         <label for="option_<?php echo $item_id; ?>">
@@ -360,6 +363,9 @@ else :
                                     </div>
                                 <?php endif; ?>
                         <?php endforeach; ?>
+                        <div class="no-display">
+                            <input type="submit" class="btn blue customizer-btn" value="<?php esc_attr_e('Submit', 'fw_campers'); ?>">
+                        </div>
                     </form>
                 </div>
             </div>
@@ -401,7 +407,7 @@ else :
                                     <span class="box-title small">Weight</span>
                                     <span class="weight value">975lbs</span>
                                 </div>
-                                <a href="#" class="btn blue inverse" title="Print Summary">Print Summary</a>
+                                <a href="#" onclick="window.print();return false;" class="btn blue inverse" title="Print Summary">Print Summary</a>
                                 <a href="#" class="btn blue inverse" title="Save as PDF">Save as PDF</a>
                             </div>
                         </div>
@@ -443,7 +449,7 @@ else :
                                             <li>
                                                 <div class="resume-group-item">
                                                     <span class="name"><?php _e('Subtotal','fw_campers') ?></span>
-                                                    <span class="price value">$<?php echo $model_price; ?></span>
+                                                    <span class="price value"><?php echo $model_price_print; ?></span>
                                                 </div>
                                             </li>
                                             <li>
@@ -455,7 +461,7 @@ else :
                                             <li>
                                                 <div class="resume-group-item">
                                                     <span class="name"><?php _e('Weight','fw_campers'); ?></span>
-                                                    <span class="weight value"><?php echo $model_weight; ?>lbs</span>
+                                                    <span class="weight value"><?php echo $model_weight_print; ?></span>
                                                 </div>
                                             </li>
                                         </ul>
@@ -467,7 +473,7 @@ else :
                                             <li>
                                                 <div class="resume-group-item">
                                                     <span class="name"><?php _e('Total Price','fw_campers'); ?></span>
-                                                    <span class="price value">$<?php echo $model_price; ?></span>
+                                                    <span class="price value"><?php echo $model_price_print; ?></span>
                                                 </div>
                                             </li>
                                         </ul>
@@ -478,25 +484,11 @@ else :
 
                         <div class="right-box">
                             <h4 class="group-title small">Request A Quote</h4>
-                            <form action="" class="form-quote">
-                                <ul class="form-quote-list">
-                                    <li>
-                                        <input name="your-name" type="text" class="input-style" placeholder="Name">
-                                    </li>
-                                    <li>
-                                        <input name="your-email" type="email" class="input-style" placeholder="Email">
-                                    </li>
-                                    <li>
-                                        <input name="subject" type="text" class="input-style" placeholder="Subject">
-                                    </li>
-                                    <li>
-                                        <textarea name="massege" class="input-style" placeholder="Massege"></textarea>
-                                    </li>
-                                </ul>
-                                <div class="form-quote-btn-box">
-                                    <input type="submit" value="Submit" class="btn blue">
-                                </div>
-                            </form>
+                            <?php
+                                if ( shortcode_exists( 'contact-form-7' ) ) {
+                                    echo do_shortcode('[contact-form-7 id="1129" title="Camper Build Form"]');
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>

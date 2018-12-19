@@ -47,8 +47,8 @@
                 topOnEmptyHash: false,
 
                 // Speed & Duration
-                speed: 500,
-                speedAsDuration: false,
+                speed: 1000,
+                speedAsDuration: true,
                 durationMax: null,
                 durationMin: null,
                 clip: true,
@@ -107,6 +107,7 @@
         if ($('.build .anchor-nav ul').length) {
             setTimeout(function () {
                 $('.build .anchor-nav ul').niceScroll({
+                    scrollbarid: 'anchor-hor',
                     horizrailenabled: true,
                     cursoropacitymin: 0,
                     cursoropacitymax: 0.8,

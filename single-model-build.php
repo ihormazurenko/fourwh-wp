@@ -399,7 +399,7 @@ else :
                                 <div class="total-price-row">
 
                                     <span class="box-title small">Weight</span>
-                                    <span class="value">975lbs</span>
+                                    <span class="weight value">975lbs</span>
                                 </div>
                                 <a href="#" class="btn blue inverse" title="Print Summary">Print Summary</a>
                                 <a href="#" class="btn blue inverse" title="Save as PDF">Save as PDF</a>

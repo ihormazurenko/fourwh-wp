@@ -77,7 +77,7 @@ jQuery(document).ready(function($) {
             productPrice = productInput.data('modelPrice'),
             productWeight = productInput.data('modelWeight'),
             totalPriceBox = $('.total-camper-box .price, .total-price-box .price.value, .total .price.value, .subtotal .price.value'),
-            totalWeightBox = $('.total-camper-box .weight, .subtotal .weight.value'),
+            totalWeightBox = $('.total-camper-box .weight, .total-price-box .weight.value, .subtotal .weight.value'),
             totalPriceInput = $('.customizer-form input[name="total-price"]'),
             totalWeightInput = $('.customizer-form input[name="total-weight"]');
 

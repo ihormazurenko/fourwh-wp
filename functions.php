@@ -18,7 +18,7 @@ function load_style_script(){
 
     if ( is_singular('model') && get_query_var('fpage') == 'build' ) {
         wp_enqueue_script('customizer', get_template_directory_uri() . '/assets/js/custom/build-script.js', array('jquery'), null, true );
-        wp_enqueue_script('custom-ajax', get_template_directory_uri() . '/assets/js/ajax.js' );
+        wp_enqueue_script('custom-ajax', get_template_directory_uri() . '/assets/js/custom/ajax.js' );
     }
 }
 add_action('wp_enqueue_scripts', 'load_style_script');

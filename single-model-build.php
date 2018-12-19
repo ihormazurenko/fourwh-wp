@@ -256,6 +256,7 @@ else :
                                                                            data-price="<?php echo $item_price; ?>"
                                                                            data-weight="<?php echo $item_weight; ?>"
                                                                            data-img-full="<?php echo esc_url($item_thumbnail_full); ?>"
+                                                                           data-group-name="<?php echo $group; ?>"
                                                                            data-option-group="<?php echo $element_id; ?>"
                                                                            data-preview="<?php echo $data_attr; ?>"
                                                                            data-option-name = "<?php echo trim($item_name); ?>"
@@ -303,6 +304,7 @@ else :
                                                                    value="<?php echo $item_id; ?>" <?php echo $item_standard; ?>
                                                                    data-price="<?php echo $item_price; ?>"
                                                                    data-weight="<?php echo $item_weight; ?>"
+                                                                   data-group-name="<?php echo $group; ?>"
                                                                    data-option-group="<?php echo $element_id; ?>"
                                                                    data-option-name = "<?php echo trim($item_name); ?>"
                                                                    data-option>
@@ -314,6 +316,7 @@ else :
                                                                    value="<?php echo $item_name; ?>" <?php echo $item_standard; ?>
                                                                    data-price="<?php echo $item_price; ?>"
                                                                    data-weight="<?php echo $item_weight; ?>"
+                                                                   data-group-name="<?php echo $group; ?>"
                                                                    data-option-group="<?php echo $element_id; ?>"
                                                                    data-option-name = "<?php echo trim($item_name); ?>"
                                                                    data-option>
@@ -408,7 +411,8 @@ else :
                                     <span class="weight value">975lbs</span>
                                 </div>
                                 <a href="#" onclick="window.print();return false;" class="btn blue inverse" title="Print Summary">Print Summary</a>
-                                <a href="#" class="btn blue inverse" title="Save as PDF">Save as PDF</a>
+                                <a href="#" class="btn blue inverse save-pdf-btn" title="Save as PDF">Save as PDF</a>
+                                <div id="ajax-pdf-content"></div>
                             </div>
                         </div>
                     </div>
@@ -450,12 +454,6 @@ else :
                                                 <div class="resume-group-item">
                                                     <span class="name"><?php _e('Subtotal','fw_campers') ?></span>
                                                     <span class="price value"><?php echo $model_price_print; ?></span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="resume-group-item">
-                                                    <span class="name"><?php _e('Placement Charge','fw_campers') ?></span>
-                                                    <span class="value">$0</span>
                                                 </div>
                                             </li>
                                             <li>

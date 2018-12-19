@@ -8,6 +8,7 @@ function current_screen_model_option_hook( $current_screen ) {
         global $wpdb, $fwc_models;
 
         $fwc_models = [];
+        $no_image_available = get_bloginfo("template_url").'/img/no_image_available.jpg';
         $args = array(
             'post_type'         => 'model',
             'post_status'       => 'publish',
@@ -21,15 +22,19 @@ function current_screen_model_option_hook( $current_screen ) {
                 if (get_field('enable_customizer')) {
                     $model_id           = $model_query->post->ID;
                     $model_name         = get_the_title() ? get_the_title() : '';
-                    $model_customizer   = get_field('model_customizer');
+                    $model_customizer   = get_field('customizer');
+                    $model_photo_id     = get_post_thumbnail_id($model_id);
+                    $model_photo        = image_downsize($model_photo_id,'thumbnail');
+                    $model_photo_url    = $model_photo[0] ? $model_photo[0] : $no_image_available ;
 
                     if ( $model_customizer && is_array($model_customizer) && count($model_customizer ) > 0) {
                         $model_price = get_field('model_price') ? '$'.number_format( get_field('model_price'), 2,'.', ',') : '';
 
                         $fwc_models[] = [
-                            'model_id'    => $model_id,
+                            'model_id'      => $model_id,
                             'name'          => $model_name,
                             'price'         => $model_price,
+                            'thumbnail'     => $model_photo_url,
                             'status'        => ''
                         ];
                     }
@@ -85,6 +90,13 @@ function render_models_relationship_box(){
         ?>
         <div class="inside relationship-box">
             <div class="relationship-inner">
+                <div class="relationship-thumbnail-box">
+                    <?php
+                    if ($value['thumbnail']) {
+                        echo '<img src="'.esc_url($value['thumbnail']).'" alt="'.esc_attr($value['name']).'">';
+                    }
+                    ?>
+                </div>
                 <div class="relationship-label-box">
                     <label for="relationship_model_<?php echo $value['model_id'].'_'.$option_id; ?>"><?= $value['name']; ?></label>
                     <p class="description"><?= $value['price'] ? "({$value['price']})" : "–"; ?></p>

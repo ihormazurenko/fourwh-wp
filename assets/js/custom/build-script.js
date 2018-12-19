@@ -1,0 +1,173 @@
+function number_format(number, decimals, dec_point, separator ) {
+    number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+
+    var n = !isFinite(+number) ? 0 : +number,
+        prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+        sep = (typeof separator === 'undefined') ? ',' : separator ,
+        dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+        s = '',
+
+        toFixedFix = function(n, prec) {
+            var k = Math.pow(10, prec);
+            return '' + (Math.round(n * k) / k)
+                .toFixed(prec);
+        };
+
+    // fix bug IE parseFloat(0.55).toFixed(0) = 0;
+    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
+        .split('.');
+
+    if (s[0].length > 3) {
+        s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+    }
+
+    if ((s[1] || '')
+
+        .length < prec) {
+        s[1] = s[1] || '';
+        s[1] += new Array(prec - s[1].length + 1)
+            .join('0');
+    }
+
+    return s.join(dec);
+}
+
+
+jQuery(document).ready(function($) {
+
+    //for change color
+    if ($('.color-box input').length) {
+        $('.color-box input').on('change', function () {
+            var parentBox = $(this).parents('.color-selector-box'),
+                url = $(this).data('imgFull'),
+                previewType = $(this).data('preview'),
+                alt = $(this).next('label').find('img').attr('alt'),
+                image = parentBox.find('.group-img-wrap img.active');
+
+            image.attr('src', url).attr('alt', alt);
+            image.attr('alt', alt);
+
+            if (previewType == 'interior') {
+                $('[data-interior-preview]').attr('href', url).attr('title', alt).find('img')
+                    .attr('src', url).attr('alt', alt);
+            } else if (previewType == 'exterior') {
+                $('[data-exterior-preview]').attr('href', url).attr('title', alt).find('img')
+                    .attr('src', url).attr('alt', alt);
+            }
+        })
+    }
+
+    //for tooltip
+    if ($('.color-box label').length) {
+        var tip = tippy('.color-box label', {
+            delay: 100,
+            arrow: true,
+            arrowType: 'round',
+            size: 'large',
+            duration: 500,
+            animation: 'scale'
+        });
+    }
+
+
+    //for customizer form
+    if ($('.customizer-form input').length) {
+
+        var productInput = $('.customizer-form input[name="model_id"]'),
+            productPrice = productInput.data('modelPrice'),
+            productWeight = productInput.data('modelWeight'),
+            totalPriceBox = $('.total-camper-box .price, .total-price-box .price.value, .total .price.value, .subtotal .price.value'),
+            totalWeightBox = $('.total-camper-box .weight, .subtotal .weight.value'),
+            totalPriceInput = $('.customizer-form input[name="total-price"]'),
+            totalWeightInput = $('.customizer-form input[name="total-weight"]');
+
+
+        $('.customizer-form input').on('load change', function () {
+            var price = productPrice,
+                weight = productWeight;
+
+            $('.customizer-form input[data-option]').each(function () {
+                var input = $(this);
+
+                if( input.prop('checked') == true && input.data('standard') != 'standard'){
+                    price += parseInt(input.data('price'));
+                    weight += parseInt(input.data('weight'));
+                }
+
+                if( input.prop('checked') == false && input.data('standard') == 'standard'){
+                    price -= parseInt(input.data('price'));
+                    weight -= parseInt(input.data('weight'));
+                }
+
+                if( input.prop('checked') == true) {
+                    var thisID = $(this).attr('id'),
+                        thisGroup = $(this).data('optionGroup');
+
+                    $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('li').hide(0);
+                    $('[data-option-id="'+thisID+'"]').show(0);
+                }
+            });
+
+
+
+            if (productWeight == 0) {
+                if (weight > 0) {
+                    totalWeightBox.text('+' + number_format(weight, 0, '.', ',') + 'lbs');
+                } else {
+                    totalWeightBox.text(number_format(weight, 0, '.', ',') + 'lbs');
+                }
+            } else {
+                totalWeightBox.text(number_format(weight, 0, '.', ',') + 'lbs');
+            }
+
+
+
+            if (productPrice == 0) {
+                if (price > 0) {
+                    totalPriceBox.text('+ $' + number_format(price, 2, '.', ','));
+                } else {
+                    totalPriceBox.text(number_format(price, 2, '.', ','));
+                }
+            } else {
+                totalPriceBox.text('$' + number_format(price, 2, '.', ','));
+            }
+
+
+            totalPriceInput.val(price);
+            totalWeightInput.val(weight);
+        });
+
+        $(window).on('load', function () {
+            $('.customizer-form input[data-option]').each(function () {
+                var input = $(this);
+                if( input.prop('checked') == true) {
+                    var thisID = $(this).attr('id'),
+                        thisGroup = $(this).data('optionGroup');
+
+                    $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('li').hide(0);
+                    $('[data-option-id="'+thisID+'"]').show(0);
+                }
+            });
+
+            $('.color-box input').each(function () {
+                var input = $(this);
+                if( input.prop('checked') == true) {
+                    var url = input.data('imgFull'),
+                        alt = input.next('label').find('img').attr('alt'),
+                        previewType = input.data('preview');
+
+                    if (previewType == 'interior') {
+                        $('[data-interior-preview]').attr('href', url).attr('title', alt).find('img')
+                            .attr('src', url).attr('alt', alt);
+                    } else if (previewType == 'exterior') {
+                        $('[data-exterior-preview]').attr('href', url).attr('title', alt).find('img')
+                            .attr('src', url).attr('alt', alt);
+                    }
+                }
+            });
+
+        });
+
+    }
+});
+

@@ -21,6 +21,6 @@ $current_fp = get_query_var('fpage');
         </div>
     </section>
 
-<?php endif;  ?>
+<?php endif; ?>
 
 <?php get_footer(); ?>

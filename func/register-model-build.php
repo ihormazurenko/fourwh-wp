@@ -58,7 +58,7 @@ function wpseo_canonical_exclude( $canonical ) {
 add_filter('body_class','build_camper_class_names');
 function build_camper_class_names( $classes ) {
     // добавим класс 'class-name' в массив классов $classes
-    if( get_query_var('model') )
+    if( get_query_var('fpage') == 'build' )
         $classes[] = 'white-header-bg';
 
     return $classes;

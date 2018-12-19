@@ -47,8 +47,8 @@
                 topOnEmptyHash: false,
 
                 // Speed & Duration
-                speed: 500,
-                speedAsDuration: false,
+                speed: 1000,
+                speedAsDuration: true,
                 durationMax: null,
                 durationMin: null,
                 clip: true,
@@ -97,6 +97,19 @@
             setTimeout(function () {
                 $('.inventory-list .inner-content-wrap').niceScroll({
                     cursoropacitymin: 0.5,
+                    cursoropacitymax: 0.8,
+                    cursorcolor:"#62666a",
+                    cursorwidth:"6px",
+                });
+            }, 50);
+        }
+
+        if ($('.build .anchor-nav ul').length) {
+            setTimeout(function () {
+                $('.build .anchor-nav ul').niceScroll({
+                    scrollbarid: 'anchor-hor',
+                    horizrailenabled: true,
+                    cursoropacitymin: 0,
                     cursoropacitymax: 0.8,
                     cursorcolor:"#62666a",
                     cursorwidth:"6px",
@@ -307,32 +320,6 @@
             });
         }
 
-
-        //for change color
-        if ($('.color-box input').length) {
-            $('.color-box input').on('change', function () {
-                var parentBox = $(this).parents('.color-selector-box'),
-                    color = $(this).data('color'),
-                    images = parentBox.find('.group-img-wrap img'),
-                    currentImg = parentBox.find('img[data-truck-color="'+color+'"]');
-
-                images.removeClass('active');
-                currentImg.addClass('active');
-            })
-
-        }
-
-        //for tooltip
-        if ($('.color-box label').length) {
-            var tip = tippy('.color-box label', {
-                delay: 100,
-                arrow: true,
-                arrowType: 'round',
-                size: 'large',
-                duration: 500,
-                animation: 'scale'
-            });
-        }
 
         // for anchor nav
         var stickyNav = $('.anchor-nav-box');

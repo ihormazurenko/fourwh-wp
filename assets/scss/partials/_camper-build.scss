@@ -32,7 +32,7 @@
             width: 195px;
             padding-left: 15px;
             text-align: right;
-            vertical-align: bottom;
+            vertical-align: top;
           }
         }
       @media all and (max-width: 1024px) {
@@ -97,8 +97,48 @@
         .overflow & {
           z-index: 0;
         }
+        .admin-bar &,
+        .direction-down.admin-bar & {
+          top: 32px;
+        }
+        .direction-up.admin-bar & {
+          top: 114px;
+        }
+        @media all and (max-width: 1024px) {
+          .admin-bar &,
+          .direction-down.admin-bar & {
+            top: 32px;
+          }
+          .direction-up.admin-bar & {
+            top: 102px;
+          }
+        }
+        @media all and (max-width: 782px) {
+          .admin-bar &,
+          .direction-down.admin-bar & {
+            top: 46px;
+          }
+          .direction-up.admin-bar & {
+            top: 116px;
+          }
+        }
+        @media all and (max-width: 600px) {
+          .admin-bar &,
+          .direction-down.admin-bar & {
+            top: 0;
+          }
+          .direction-up.admin-bar & {
+            top: 70px;
+          }
+        }
       }
     }
+
+  #anchor-hor-hr {
+    @media all and (max-width: 1240px) {
+      left: 0 !important;
+    }
+  }
       a.back-link,
       .back-link {
         position: absolute;
@@ -222,6 +262,7 @@
 
       }
       .total-camper-box {
+        margin-top: -10px;
         font-weight: 400;
         color: $color-text11;
         opacity: .8;
@@ -420,20 +461,20 @@
             }
             .color-list {
               overflow: hidden;
-              margin: 0 -15px -30px;
+              margin: 0 -15px -20px;
               > li {
                 float: left;
                 display: block;
                 width: 100px;
-                padding: 0 15px;
-                margin-bottom: 30px;
+                padding: 0 15px 10px;
+                margin-bottom: 20px;
               }
               @media all and (max-width: 991px) {
                 margin: 0 -10px -20px;
                 > li {
                   width: 80px;
-                  padding: 0 10px;
-                  margin-bottom: 20px;
+                  padding: 0 10px 10px;
+                  margin-bottom: 10px;
                 }
               }
             }
@@ -495,6 +536,18 @@
                       &.dusty-grey {
                         background-color: #9f8e8e;
                       }
+                      &.centered-img {
+                        overflow: visible;
+                        padding: 0;
+                      }
+                      img {
+                        overflow: hidden;
+                        display: block;
+                        max-width: 100%;
+                        height: auto;
+                        @include border-radius($radius-main);
+                      }
+
                     }
                     .color-name {
                       display: none;
@@ -990,6 +1043,9 @@
           max-width: 723px;
           > li {
             margin-bottom: 76px;
+            &:not(.subtotal):not(.total) {
+              display: none;
+            }
             &:last-child {
               margin-bottom: 0;
             }
@@ -1052,8 +1108,14 @@
             }
           }
             .resume-group-list {
-               > li:not(:last-child) {
-                  margin-bottom: 8px;
+               > li {
+                 &:not(:last-child) {
+                   margin-bottom: 8px;
+                 }
+                 //li:not(.total) &,
+                 //li:not(.subtotal) & {
+                 // display: none;
+                 //}
                }
             }
                   .resume-group-item {
@@ -1100,3 +1162,8 @@
               padding-bottom: 13px;
             }
           }
+.customizer-content-box {
+  padding-top: 100px;
+  margin-bottom: -40px;
+  background-color: #fafafa;
+}

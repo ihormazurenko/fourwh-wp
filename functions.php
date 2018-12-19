@@ -16,8 +16,9 @@ function load_style_script(){
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom/scripts.js', array('jquery'), null, true );
     wp_enqueue_script('map', get_template_directory_uri() . '/assets/js/custom/map.js', array('jquery'), null, true );
 
-    if (is_singular('model')) {
+    if ( is_singular('model') && get_query_var('fpage') == 'build' ) {
         wp_enqueue_script('customizer', get_template_directory_uri() . '/assets/js/custom/build-script.js', array('jquery'), null, true );
+        wp_enqueue_script('custom-ajax', get_template_directory_uri() . '/assets/js/ajax.js' );
     }
 }
 add_action('wp_enqueue_scripts', 'load_style_script');
@@ -318,9 +319,15 @@ function funcDate($start, $end, $format = 'full') {
 //		'dashicons-universal-access-alt', 10 );
 //} );
 
-get_template_part('inc/admin', 'model-options-meta-box');
-get_template_part('inc/admin', 'model-meta-box');
-get_template_part('inc/admin', 'model-columns');
-get_template_part('inc/admin', 'options-columns');
+get_template_part('func/admin', 'model-options-meta-box');
+get_template_part('func/admin', 'model-meta-box');
+get_template_part('func/admin', 'model-columns');
+get_template_part('func/admin', 'options-columns');
 
-get_template_part('inc/register', 'model-build');
+get_template_part('func/register', 'model-build');
+
+//add DomPdf
+get_template_part('func/generate', 'pdf');
+
+// add AJAX
+get_template_part('func/ajax');

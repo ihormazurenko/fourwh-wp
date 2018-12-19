@@ -494,6 +494,9 @@ else :
                 </div>
             </div>
         </section>
+        <script>
+            var ajaxurl = '<?php echo home_url(); ?>/wp-admin/admin-ajax.php';
+        </script>
         <?php
     endif;
  endif;

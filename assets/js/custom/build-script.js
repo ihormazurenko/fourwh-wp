@@ -87,10 +87,16 @@ jQuery(document).ready(function($) {
             weightInput = cf7Form.find('[name="your-total-weight"]');
 
 
-        $('.customizer-form input').on('load change', function () {
+        $('.customizer-form input').on('click', function () {
             var price = productPrice,
                 weight = productWeight,
                 optionsString = '';
+
+
+            if ($(this).data('checked') == 'selected') {
+                $(this).prop('checked', false);
+                $(this).data('checked', 'unselect');
+            }
 
             $('.customizer-form input[data-option]').each(function () {
                 var input = $(this);
@@ -116,6 +122,9 @@ jQuery(document).ready(function($) {
                     $('[data-option-id="'+thisID+'"]').show(0);
 
                     optionsString += ' – ' + thisName + '\n';
+                    input.data('checked', 'selected');
+                } else {
+                    input.data('checked', 'unselect');
                 }
             });
 
@@ -165,6 +174,10 @@ jQuery(document).ready(function($) {
                     $('[data-option-parent-resume-group="'+thisParentGroup+'"]').show(0);
                     $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('tr').hide(0);
                     $('[data-option-id="'+thisID+'"]').show(0);
+
+                    input.attr('data-checked','selected');
+                } else {
+                    input.attr('data-checked','unselect');
                 }
             });
 

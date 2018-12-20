@@ -104,18 +104,18 @@
             }, 50);
         }
 
-        if ($('.build .anchor-nav ul').length) {
-            setTimeout(function () {
-                $('.build .anchor-nav ul').niceScroll({
-                    scrollbarid: 'anchor-hor',
-                    horizrailenabled: true,
-                    cursoropacitymin: 0,
-                    cursoropacitymax: 0.8,
-                    cursorcolor:"#62666a",
-                    cursorwidth:"6px",
-                });
-            }, 50);
-        }
+        // if ($('.build .anchor-nav ul').length) {
+        //     setTimeout(function () {
+        //         $('.build .anchor-nav ul').niceScroll({
+        //             scrollbarid: 'anchor-hor',
+        //             horizrailenabled: true,
+        //             cursoropacitymin: 0,
+        //             cursoropacitymax: 0.8,
+        //             cursorcolor:"#62666a",
+        //             cursorwidth:"6px",
+        //         });
+        //     }, 50);
+        // }
 
         //for sliders
         if (typeof Swiper !== 'undefined') {

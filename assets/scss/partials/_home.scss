@@ -436,6 +436,7 @@
     min-height: 736px;
     &:after {
       position: absolute;
+      display: block;
       z-index: 5;
       content: '';
       top: 0;

@@ -23,6 +23,7 @@ else :
     if ($model_customizer && is_array($model_customizer) && count($model_customizer) > 0) {
         $customizer_title   = $model_customizer['title'] ? $model_customizer['title'] : __('Build My Camper', 'fw_campers');
         $customizer_content = $model_customizer['content'] ? trim($model_customizer['content']) : '';
+        $customize_exterior = $model_customizer['customize_exterior'] ? $model_customizer['customize_exterior'] : '';
     }
 
     $model_id = get_the_ID();
@@ -152,6 +153,54 @@ else :
             $options_arr['Other']['Other'] = $temp;
         endif;
 
+        //enable custom exterior
+        $exterior_arr = [];
+
+        if ($model_customizer) :
+            if ($customize_exterior && is_array($customize_exterior) && count($customize_exterior) > 0) :
+                foreach ($customize_exterior as $key => $value) {
+                    $exterior_price         = $value['price'] ? $value['price'] : '';
+                    $exterior_photo         = $value['photo'] ? $value['photo'] : '';
+                    $necessary_option_id    = $value['select_option'][0] ? $value['select_option'][0] : '';
+
+                    $exterior_arr[$necessary_option_id] = [
+                        'photo' => $exterior_photo,
+                        'price' => $exterior_price,
+                    ];
+                }
+
+                if (is_array($exterior_arr) && count($exterior_arr) > 0) :
+                    $options_exterior_arr = $options_arr['Exterior Options']['Exterior Siding'];
+                    if (isset($options_exterior_arr)) :
+
+                        foreach ($options_exterior_arr as $key => $value) {
+                            $opt_id = $value['option_id'];
+
+                            if (array_key_exists($opt_id, $exterior_arr)) {
+                                $new_price = $exterior_arr[$opt_id]['price'] ? $exterior_arr[$opt_id]['price'] : '';
+                                $new_photo = $exterior_arr[$opt_id]['photo'] ? $exterior_arr[$opt_id]['photo'] : '';
+                                $new_photo_url = $new_photo['sizes']['medium_large'] ? $new_photo['sizes']['medium_large'] : $new_photo['url'];
+                                $new_photo_small_url = $new_photo['sizes']['thumbnail'] ? $new_photo['sizes']['thumbnail'] : $new_photo['url'];
+                                $new_photo_class = $new_photo_url['width'] > $new_photo_url['height'] ? 'wider' : '';
+
+                                if ($new_price) {
+                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['price'] = $new_price;
+                                }
+
+                                if ($new_photo) {
+                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail']          = $new_photo_url;
+                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail_small']    = $new_photo_small_url;
+                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail_class']    = $new_photo_class;
+                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['custom']             = 'custom';
+                                }
+                            }
+                        }
+                    endif;
+                endif;
+
+            endif;
+        endif;
+
     else:
         $options_arr = [];
     endif;
@@ -207,7 +256,7 @@ else :
                     </div>
                 </div>
             <?php } ?>
-
+<?php //var_dump($options_exterior_arr); ?>
             <div class="camper-customizer-box">
                 <div class="container">
 
@@ -287,10 +336,16 @@ else :
                                                                         $item_price             = trim($value['price']);
                                                                         $item_weight            = trim($value['weight']);
                                                                         $item_class             = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
-                                                                        $item_thumbnail_arr     = get_field('photo', $item_id);
-                                                                        $item_thumbnail         = $item_thumbnail_arr['sizes']['thumbnail'] ? $item_thumbnail_arr['sizes']['thumbnail'] : $item_img_full;
-                                                                        $item_thumbnail_full    = trim($value['thumbnail']);
                                                                         $img_count++;
+
+                                                                        if ($value['custom'] != 'custom') {
+                                                                            $item_thumbnail_arr     = get_field('photo', $item_id);
+                                                                            $item_thumbnail_full    = trim($value['thumbnail']);
+                                                                            $item_thumbnail         = $item_thumbnail_arr['sizes']['thumbnail'] ? $item_thumbnail_arr['sizes']['thumbnail'] : $item_img_full;
+                                                                        } else {
+                                                                            $item_thumbnail =   trim($value['thumbnail_small']);
+                                                                            $item_thumbnail_full = trim($value['thumbnail']);
+                                                                        }
                                                                         ?>
                                                                         <li>
                                                                             <div class="color-box color-gainsboro">

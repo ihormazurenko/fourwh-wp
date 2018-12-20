@@ -537,6 +537,7 @@ $build_url                      = $enable_customizer ? 'build/' : '';
         if ( $show_subscribe_section && $subscribe && is_array( $subscribe ) && count( $subscribe ) > 0) :
             $subscribe_title       = $subscribe['title'];
             $subscribe_description = $subscribe['description'];
+            $subscribe_form        = $subscribe['form'];
 
             if ( $siding_title || $siding_description ) :
                 ?>
@@ -549,6 +550,10 @@ $build_url                      = $enable_customizer ? 'build/' : '';
 
                         if ( $siding_description ) {
                             echo '<div class="section-desc content">' . $subscribe_description . '</div>';
+                        }
+
+                        if ( $subscribe_form ) {
+                            echo do_shortcode($subscribe_form);
                         }
                     ?>
                     </div>

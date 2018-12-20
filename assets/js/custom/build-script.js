@@ -107,17 +107,20 @@ jQuery(document).ready(function($) {
 
                 if( input.prop('checked') == true) {
                     var thisID = $(this).attr('id'),
+                        thisParentGroup = input.data('optionParentGroup'),
                         thisGroup = $(this).data('optionGroup'),
                         thisName = input.data('optionName');
 
-                    $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('li').hide(0);
+                    $('[data-option-parent-resume-group="'+thisParentGroup+'"]').show(0);
+                    $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('tr').hide(0);
                     $('[data-option-id="'+thisID+'"]').show(0);
 
                     optionsString += ' – ' + thisName + '\n';
                 }
             });
 
-
+            //remove pdf link
+            $('#ajax-pdf-content').html('');
 
             if (productWeight == 0) {
                 if (weight > 0) {
@@ -155,10 +158,12 @@ jQuery(document).ready(function($) {
                 var input = $(this);
                 if( input.prop('checked') == true) {
                     var thisID = input.attr('id'),
+                        thisParentGroup = input.data('optionParentGroup'),
                         thisGroup = input.data('optionGroup'),
                         thisName = input.data('optionName');
 
-                    $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('li').hide(0);
+                    $('[data-option-parent-resume-group="'+thisParentGroup+'"]').show(0);
+                    $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('tr').hide(0);
                     $('[data-option-id="'+thisID+'"]').show(0);
                 }
             });
@@ -212,7 +217,6 @@ jQuery(document).ready(function($) {
 
             };
         });
-
     }
 });
 

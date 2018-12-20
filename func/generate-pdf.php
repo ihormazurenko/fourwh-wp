@@ -26,8 +26,12 @@ function generatePdf($build_data) {
                       -webkit-box-sizing: border-box;
                       -moz-box-sizing: border-box;
                       box-sizing: border-box; }
-                    .resume-list {}
+                    .resume-list {
+                        margin-left: 0;
+                        padding-left: 0;}
                       .resume-list > li {
+                          margin-left: 0;
+                          padding-left: 0;
                         list-style: none;
                         margin-bottom: 32px; }
                         .resume-list > li:not(.subtotal):not(.total) {
@@ -39,7 +43,11 @@ function generatePdf($build_data) {
                           margin-bottom: 30px;
                           padding: 30px 0 0;
                           border-top: 1px solid #62666a; }
-                          .resume-group-list > li {
+                          .resume-group-list {
+                            margin-left: 0;
+                            padding-left: 0;
+                          }
+                          .resume-group-list > li {                         
                            list-style: none;}
                           .resume-list > li.subtotal .resume-group-list > li:not(:last-child) {
                             margin-bottom: 20px; }
@@ -90,7 +98,28 @@ function generatePdf($build_data) {
                         letter-spacing: 0.02em;
                         line-height: 1.2;
                         text-align: right; }
-                      
+                      .resume-table {
+                          width: 100%; }
+                          .resume-table tbody tr td {
+                            padding: 5px;
+                            font-weight: 400;
+                            color: #62666a;
+                            letter-spacing: 0.02em;
+                            word-spacing: .05em;
+                            line-height: 1.2;
+                            opacity: .8; }
+                            @media all and (max-width: 767px) {
+                              .resume-table tbody tr td {
+                                font-size: 16px; } }
+                          .resume-table tbody tr > :first-child {
+                            padding-left: 0;
+                            width: 70%; }
+                          .resume-table tbody tr > :last-child {
+                            text-align: right;
+                            color: #3a3a3a;
+                            letter-spacing: 0.02em;
+                            line-height: 1.2;
+                            text-align: right; }
                     </style>';
 
         if ($model_name) {
@@ -101,23 +130,34 @@ function generatePdf($build_data) {
 
         if ( $summary && is_array( $summary ) && count( $summary ) > 0 ) {
             $html .= '<ul class="resume-list">';
-                foreach ( $summary as $group => $items) {
+
+                foreach ( $summary as $parent_group => $groups) {
                     $html .= '<li>';
-                        $html .= '<div class="resume-group">';
-                            $html .= '<h3 class="resume-title">'.$group.'</h3>
-                                      <ul class="resume-group-list">';
-                                        foreach ( $items as $key => $value) {
+                        $html .= '<div class="resume-parent-group">';
+                        $html .= '<h3 class="group-title parent">' . $parent_group . '</h3>
+                                  <ul class="resume-group-list">';
+                                    foreach ($groups as $group => $items) {
                                         $html .= '<li>
-                                                    <div class="resume-group-item">
-                                                        <span class="name">'.$value['name'].'</span>
-                                                        <span class="value">$'.number_format( $value['price'], 2, '.', ',' ).'</span>
+                                                    <div class="resume-group">
+                                                        <h4 class="resume-title">'.$group.'</h4>';
+                                                $html .='<table class="resume-table">
+                                                            <tbody>';
+                                                            foreach ($items as $key => $value) {
+                                                                $html .= '<tr>
+                                                                            <td>' . $value['name'] . '</td>
+                                                                            <td class="price">$' . number_format($value['price'], 2, '.', ',') . '</td>
+                                                                        </tr>';
+                                                            }
+                                                $html .= ' </tbody>
+                                                        </table>
                                                     </div>
                                                 </li>';
-                                        }
+                                    }
                             $html .= '</ul>';
                         $html .= '</div>';
                     $html .= '</li>';
                 }
+
                 if ($total_price || $total_weight) {
                     $html .= '    <li class="subtotal">
                                     <div class="resume-group">

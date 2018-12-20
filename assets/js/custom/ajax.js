@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
 
         submitBtn.on('click', function (e) {
             e.preventDefault();
-            $('#ajax-pdf-content').html('');
+            $('#ajax-pdf-content').html('<span class="ajax-pdf-loader is-active"></span>');
 
             var summary = {},
                 model = $('[data-model]').data('model'),
@@ -16,14 +16,17 @@ jQuery(document).ready(function($) {
 
                 if( input.prop('checked') == true) {
                     var thisId = $(this).attr('id'),
+                        thisParentGroup = input.data('optionParentGroup'),
                         thisGroup = $(this).data('groupName'),
                         thisName = input.data('optionName'),
                         thisPrice = input.data('optionPrice');
 
-                    summary[thisGroup] = {
-                        [thisId] : {
-                            name: thisName,
-                            price: thisPrice,
+                    summary[thisParentGroup] = {
+                        [thisGroup] : {
+                            [thisId] : {
+                                name: thisName,
+                                price: thisPrice,
+                            }
                         }
                     }
                 }

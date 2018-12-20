@@ -1,5 +1,6 @@
 @media print {
-  .header,
+  #header-main.header,
+  #header-scrolling.header,
   .anchor-nav-box,
   .camper-customizer-box,
   .camper-summary-top-box .right-box,
@@ -8,7 +9,9 @@
   .statistic-wp,
   #footer {
     display: none;
+    visibility: hidden;
   }
+
   #main-content,
   .white-header-bg #main-content,
   .section-build-my-camper,
@@ -21,9 +24,16 @@
     width: 100%;
     padding: 0;
   }
+  .camper-summary-box .group-title:not(.small) {
+    margin-bottom: 32px;
+  }
   .camper-summary-box {
+    .group-header {
+      margin-bottom: 0;
+    }
     .group-title {
-      margin-bottom: 36px;
+      display: none;
+      margin-bottom: 32px;
       padding-bottom: 0;
       &:after {
         content: none;
@@ -33,8 +43,17 @@
       }
     }
   }
+
+
+
   .camper-summary-top-box {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+  }
+  .my-customized-view-list {
+    margin-bottom: 0;
+    > li {
+      margin-bottom: 0;
+    }
   }
   .resume-title {
     margin-bottom: 12px;
@@ -44,7 +63,7 @@
   }
   .resume-list {
     > li {
-      margin-bottom: 32px;
+      margin-bottom: 26px;
       &.subtotal {
         margin-top: 0;
         margin-bottom: 30px;

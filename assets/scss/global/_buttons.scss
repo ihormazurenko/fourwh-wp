@@ -32,7 +32,6 @@ a.btn, .btn {
     border-color: $color-bg12;
     background-color: $color-bg12;
     @media all and (min-width: 769px) {
-      &.hover,
       &:hover,
       &:focus {
         color: $color-text12;
@@ -191,6 +190,39 @@ a.btn, .btn {
       opacity: 1;
       text-decoration: none;
       z-index: 9999;
+    }
+  }
+}
+
+#subscribe {
+  a.dms_embeded_button, .dms_embeded_button {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    min-width: 170px;
+    margin: 0;
+    padding: 11px 18px;
+    font-size: $size-smaller;
+    font-weight: $normal;
+    line-height: 1.4;
+    letter-spacing: $letter-spacing-20;
+    color: $white;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border-color: $color-bg12;
+    background-color: $color-bg12;
+    @include border-radius($radius-small);
+    @media all and (max-width: 767px) {
+      font-size: 16px;
+      padding: 12px 20px;
+    }
+    @media all and (min-width: 769px) {
+      &:hover,
+      &:focus {
+        color: $color-text12;
+        background-color: transparent;
+      }
     }
   }
 }

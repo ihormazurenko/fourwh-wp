@@ -82,7 +82,6 @@
                   overflow: hidden;
                   height: 85px;
                   color: $color-text11;
-                  opacity: .77;
                   letter-spacing: .03em;
                   border-top: 1px solid transparent;
                   @media all and (max-width: 767px) {
@@ -97,6 +96,9 @@
                     padding-bottom: 22px;
                     border-top-color: $color-bg11;
                     border-top-color: rgba($color-bg11, .2);
+                  }
+                  h4 {
+                    font-weight: 600;
                   }
                   a {
                     color: $color-text12;

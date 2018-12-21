@@ -46,8 +46,9 @@ $map_info_right = get_field('map_info_right');
                 $args = array(
                     'post_type'     => 'location',
                     'post_status'   => 'publish',
-                    'orderby'       => 'name',
-                    'order'         => 'DESC',
+                    'posts_per_page' => -1,
+                    'orderby'       => 'date',
+                    'order'         => 'ASC',
                     'paged'         => $paged,
                 );
                 $new_query = new WP_Query( $args );

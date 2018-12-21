@@ -56,7 +56,7 @@
     if ($marker_info && is_array($marker_info) && count($marker_info) > 0) {
         $marker_label = $marker_info['label'] ? $marker_info['label'] : get_the_title();
         $marker_description = $marker_info['description'] ? $marker_info['description'] : $short_description;
-        $marker_description = '';
+        $marker_description = preg_replace('/[\n\r]/', '', htmlentities($marker_description));
     }
 
     $fwc_coordinate[] = [$marker_label, $marker_description, $lat, $lng];

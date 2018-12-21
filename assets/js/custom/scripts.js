@@ -271,7 +271,7 @@
         if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
             $('.more-info-btn').on('click', function (e) {
                 e.preventDefault();
-                console.log('click');
+
                 if ($(this).hasClass('open')) {
                     $(this).removeClass('open').next('.more').slideUp(350);
                 } else {

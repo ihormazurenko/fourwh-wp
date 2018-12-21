@@ -1,4 +1,21 @@
 jQuery(document).ready(function($) {
+    function decodeEntities(encodedString) {
+        var translate_re = /&(nbsp|amp|quot|lt|gt);/g;
+        var translate = {
+            "nbsp":" ",
+            "amp" : "&",
+            "quot": "\"",
+            "lt"  : "<",
+            "gt"  : ">"
+        };
+        return encodedString.replace(translate_re, function(match, entity) {
+            return translate[entity];
+        }).replace(/&#(\d+);/gi, function(match, numStr) {
+            var num = parseInt(numStr, 10);
+            return String.fromCharCode(num);
+        });
+    }
+
     (function($) {
         var mapEl = document.getElementById('map');
 
@@ -45,7 +62,7 @@ jQuery(document).ready(function($) {
                         return function () {
                             infowindow.setContent('<div class="service-marker-box">' +
                                 '                           <h2 class="service-marker-title">' + beach[0] + '</h2>' +
-                                '<div class="service-marker-info">' + beach[1] + '</div>' +
+                                '<div class="service-marker-info">' + decodeEntities(beach[1]) + '</div>' +
                                 '</div>');
                             infowindow.open(map, marker);
                         }

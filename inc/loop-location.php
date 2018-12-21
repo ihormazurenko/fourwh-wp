@@ -19,7 +19,7 @@
                 </div>
                 <?php if ( $label ) : ?>
                     <div class="service-title-box">
-                        <h4 class="service-title"><?php echo $label; ?></h4>
+                        <h3 class="service-title"><?php echo $label; ?></h3>
                     </div>
                 <?php endif; ?>
             </div>
@@ -27,7 +27,7 @@
                 <div class="service-info-box">
                     <?php
                         if ( $title ) {
-                            echo '<h3>'.$title.'</h3>';
+                            echo '<h4>'.$title.'</h4>';
                         }
 
                         if ( $short_description ) {
@@ -60,6 +60,7 @@
     }
 
     $fwc_coordinate[] = [$marker_label, $marker_description, $lat, $lng];
+
 
 endif; ?>
 

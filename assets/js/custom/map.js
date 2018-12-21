@@ -13,17 +13,12 @@ jQuery(document).ready(function($) {
                 setMarkers(map);
             }
 
-            var beaches = [
-                ['San Francisco', '24335 Prielipp Road, # 124<br> Wildomar, CA 92595<br> Phone: 800-511-4159', 37.773972, -122.431297],
-                ['Los Angeles', '24335 Prielipp Road, # 124<br> Wildomar, CA 92595<br> Phone: 800-511-4159', 34.0522342, -118.2436849],
-                ['Las Vegas', '24335 Prielipp Road, # 124<br> Wildomar, CA 92595<br> Phone: 800-511-4159', 36.114647, -115.172813],
-                ['Chicago', '24335 Prielipp Road, # 124<br> Wildomar, CA 92595<br> Phone: 800-511-4159', 41.881832, -87.623177]
-            ];
+            var beaches = JSON.parse(fwc_arr);
 
             function setMarkers(map) {
                 // Adds markers to the map.
                 var image = {
-                    url: 'img/marker.png',
+                    url: fwc_marker_url,
                     size: new google.maps.Size(28, 37),
                     origin: new google.maps.Point(0, 0),
                     anchor: new google.maps.Point(14, 37)

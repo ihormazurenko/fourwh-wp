@@ -20,6 +20,9 @@ function load_style_script(){
         wp_enqueue_script('customizer', get_template_directory_uri() . '/assets/js/custom/build-script.js', array('jquery'), null, true );
         wp_enqueue_script('custom-ajax', get_template_directory_uri() . '/assets/js/custom/ajax.js' );
     }
+    if ( is_page(391) ) {
+        wp_enqueue_script('custom-map', get_template_directory_uri() . '/assets/js/custom/map.js' );
+    }
 }
 add_action('wp_enqueue_scripts', 'load_style_script');
 
@@ -331,3 +334,14 @@ get_template_part('func/generate', 'pdf');
 
 // add AJAX
 get_template_part('func/ajax');
+
+// ACF Google Maps
+global $fwc_google_map_key;
+
+$fwc_google_map_key = "AIzaSyDKgILIY7uNqZXPqoJqFopqATvOMOuTvFs";
+function my_acf_init() {
+    global $fwc_google_map_key;
+    acf_update_setting('google_api_key', $fwc_google_map_key);
+}
+
+add_action('acf/init', 'my_acf_init');

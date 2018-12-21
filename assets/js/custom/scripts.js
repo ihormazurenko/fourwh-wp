@@ -552,6 +552,20 @@
 
         });
 
+        //for subscribe form
+        $(function() {
+            if ($('.dms_embeded_form').length) {
+                var box = $('.dms_embeded_form'),
+                    firstNameWrap = box.find('#first_name').closest('.form-group'),
+                    emailWrap = box.find('.form-control.email').closest('.form-group'),
+                    btnWrap = box.find('.dms_embeded_button').closest('.form-group');
+
+                firstNameWrap.addClass('first-name-wrap');
+                emailWrap.addClass('email-wrap');
+                btnWrap.addClass('btn-box-wrap');
+            }
+        });
+
     });
 
 });

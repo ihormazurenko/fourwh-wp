@@ -1,8 +1,9 @@
 <?php
 // body classes
 $classes = '';
+$classes .= 'no-js';
 if (!get_field('show_hero_banner')) {
-    $classes = 'white-header-bg';
+    $classes .= ' white-header-bg';
 }
 
 ?>
@@ -18,6 +19,9 @@ if (!get_field('show_hero_banner')) {
 </head>
 
 <body <?php body_class($classes); ?>>
+<script type="text/javascript">
+    document.body.className = document.body.className.replace("no-js","js");
+</script>
 <div class="wrapper">
     <a class="btn-jump-to-content smooth-scroll" href="#main-content"><?php _e('Skip Navigation', 'fw_campers'); ?></a>
 

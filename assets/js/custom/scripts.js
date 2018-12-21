@@ -322,50 +322,51 @@
 
 
         // for anchor nav
-        var stickyNav = $('.anchor-nav-box');
+        $(function() {
+            var stickyNav = $('.anchor-nav-box');
 
-        if (stickyNav && stickyNav.length) {
-            var offset = stickyNav.offset().top,
-                stickyNavLinks = stickyNav.find('.anchor-nav').find('a');
+            if (stickyNav && stickyNav.length) {
+                var offset = stickyNav.offset().top,
+                    stickyNavLinks = stickyNav.find('.anchor-nav').find('a');
 
-            //Handle Active Link on Sroll
-            function onScroll(event) {
-                if (stickyNavLinks && stickyNavLinks.length) {
-                    var scrollPos = $(document).scrollTop();
-                    stickyNav.find('a[href^="#"]').each(function () {
-                        var currLink = $(this);
-                        var refElement = $(currLink.attr("href")),
-                            header = $('#header-main'),
-                            // anchorNav = $('.anchor-nav-box'),
-                            headerHeight = header.outerHeight(),
-                            anchorNavHeight = stickyNav.outerHeight(),
-                            anchorNavOffset = stickyNav.offset().top
+                //Handle Active Link on Sroll
+                function onScroll(event) {
+                    if (stickyNavLinks && stickyNavLinks.length) {
+                        var scrollPos = $(document).scrollTop();
+                        stickyNav.find('a[href^="#"]').each(function () {
+                            var currLink = $(this);
+                            var refElement = $(currLink.attr("href")),
+                                header = $('#header-main'),
+                                // anchorNav = $('.anchor-nav-box'),
+                                headerHeight = header.outerHeight(),
+                                anchorNavHeight = stickyNav.outerHeight(),
+                                anchorNavOffset = stickyNav.offset().top
                             offset = 0;
 
-                        if (refElement && refElement.length) {
-                            if ($('body').hasClass('direction-up')) {
-                                offset = anchorNavHeight + headerHeight;
-                            } else {
-                                offset =  anchorNavHeight + 50;
-                            }
+                            if (refElement && refElement.length) {
+                                if ($('body').hasClass('direction-up')) {
+                                    offset = anchorNavHeight + headerHeight;
+                                } else {
+                                    offset = anchorNavHeight + 50;
+                                }
 
-                            var currSection = (refElement.offset().top <= (scrollPos + offset)) && (refElement.offset().top + refElement.outerHeight(true)) > (scrollPos + offset);
+                                var currSection = (refElement.offset().top <= (scrollPos + offset)) && (refElement.offset().top + refElement.outerHeight(true)) > (scrollPos + offset);
 
 
-                            if (currSection) {
-                                stickyNavLinks.removeClass("active");
-                                currLink.addClass("active");
+                                if (currSection) {
+                                    stickyNavLinks.removeClass("active");
+                                    currLink.addClass("active");
+                                } else {
+                                    currLink.removeClass("active");
+                                }
                             }
-                            else {
-                                currLink.removeClass("active");
-                            }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
 
-            $(document).on("scroll", onScroll);
-        }
+                $(document).on("scroll", onScroll);
+            }
+        });
 
 
 

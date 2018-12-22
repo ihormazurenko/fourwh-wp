@@ -6,7 +6,7 @@ get_header(); ?>
 
     <?php get_template_part('inc/hero', 'banner'); ?>
 
-    <section class="section content-wrapper section-select-truck">
+    <section class="section content-wrapper section-select-truck" id="truck-search">
         <div class="container">
 
             <?php get_template_part('inc/section', 'info'); ?>
@@ -152,5 +152,5 @@ get_header(); ?>
             ?>
         </div>
     </section>
-    
+
 <?php get_footer(); ?>

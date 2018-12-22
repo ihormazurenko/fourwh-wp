@@ -281,21 +281,22 @@
         }
 
         //for select truck
-        if ($('.section-select-truck').length && $('.select-truck-list').length) {
-            $('.select-truck-list input').on('change', function () {
-                var listType = $(this).closest('ul.select-truck-list'),
-                    parentBox = $(this).parents('.section-select-truck'),
-                    bedLengthBoxes = parentBox.find('.choose-bed-length-box'),
-                    btnBox = parentBox.find('.select-truck-btn-box'),
-                    truckLengthList = parentBox.find('.select-truck-list.bed-length'),
-                    input = $(this),
-                    btnFind = $('a[data-find-truck]'),
-                    btnBuild = $('a[data-build-truck]');
+        $(function() {
+            if ($('.section-select-truck').length && $('.select-truck-list').length) {
+                $('.select-truck-list input').on('change', function () {
+                    var listType = $(this).closest('ul.select-truck-list'),
+                        parentBox = $(this).parents('.section-select-truck'),
+                        bedLengthBoxes = parentBox.find('.choose-bed-length-box'),
+                        btnBox = parentBox.find('.select-truck-btn-box'),
+                        truckLengthList = parentBox.find('.select-truck-list.bed-length'),
+                        input = $(this),
+                        btnFind = $('a[data-find-truck]'),
+                        btnBuild = $('a[data-build-truck]');
 
                     if (!(listType.hasClass('bed-length'))) {
                         //select truck
                         var type = $(this).data('truckType'),
-                            currentLengthBox = $('.choose-bed-length-box[data-truck-group="'+type+'"]');
+                            currentLengthBox = $('.choose-bed-length-box[data-truck-group="' + type + '"]');
 
                         btnBox.fadeOut();
                         bedLengthBoxes.fadeOut();
@@ -325,9 +326,9 @@
                             }, 1000);
                         }, 350);
                     }
-            });
-        }
-
+                });
+            }
+        });
 
         // for anchor nav
         $(function() {

@@ -43,6 +43,7 @@ if ($show_hero_banner && ($hero_banner && is_array($hero_banner) && count($hero_
 
             if ($hero_image_url || $hero_content_group || $hero_button) {
                 if ($hero_content_group && is_array($hero_content_group) && count($hero_content_group) > 0) {
+                    $hero_alignment = $hero_content_group['alignment'] ? $hero_content_group['alignment'] : 'align-left';
                     $hero_title = $hero_content_group['title'];
                     $hero_subtitle = $hero_content_group['subtitle'];
                     $hero_content = $hero_content_group['content'];
@@ -70,17 +71,16 @@ if ($show_hero_banner && ($hero_banner && is_array($hero_banner) && count($hero_
                     }
                 }
 
-                $hero_classes .= ($hero_title || $hero_subtitle || $hero_content || $hero_button) ? ' 
-                ' : ' without-content' ;
+                $hero_classes .= ($hero_title || $hero_subtitle || $hero_content || $hero_button) ? ' ' : ' without-content' ;
 
                 if ($hero_image_url) {
                     $hero_bg = 'style="background-image: url('.$hero_image['url'].')"';
                 }
 
                 if ($hero_slide_count > 1) {
-                    echo '<div class="swiper-slide" '.$hero_bg.'">';
+                    echo '<div class="swiper-slide '.$hero_alignment.'"  '.$hero_bg.'">';
                 } else {
-                    echo '<div class="section section-hero inverse '.$hero_classes.'" '.$hero_bg.'">';
+                    echo '<div class="section section-hero inverse '.$hero_alignment.' '.$hero_classes.'" '.$hero_bg.'">';
                 }
                 echo  '<div class="container">
                             <div class="hero-box">';

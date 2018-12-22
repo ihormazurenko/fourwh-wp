@@ -4,7 +4,7 @@
 }
 
   .custom-nav-box {
-    margin-top: 61px;
+    margin-top: 41px;
     text-align: center;
     @media all and (max-width: 540px) {
       margin-top: 40px;
@@ -36,8 +36,8 @@
 
     &:after {
       top: 50%;
-      width: 8px;
-      height: 8px;
+      width: 12px;
+      height: 12px;
       border: 2px solid #4e4e4e;
       @include css3-prefix('transform', 'translate(0, -50%) rotate(45deg)');
     }
@@ -90,4 +90,10 @@
       border-bottom: none;
     }
   }
-
+.swiper-video-title {
+  margin-top: 10px;
+  font-size: 24px;
+  color: $color-text11;
+  text-align: center;
+  text-decoration: none;
+}

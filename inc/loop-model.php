@@ -18,11 +18,11 @@
                     </div>
                 <?php } ?>
             </a>
-            <div class="see-improvement-box">
-                <span class="see-improvement"><?php _e('See Improvement','fw_campers'); ?></span>
-            </div>
             <?php if ( $description && is_array( $description ) && count( $description ) > 0 ) : ?>
                 <?php if ($description['short_description']) : ?>
+                    <div class="see-improvement-box">
+                        <span class="see-improvement"><?php _e('See Improvement','fw_campers'); ?></span>
+                    </div>
                     <div class="product-info-box content small">
                         <?php echo $description['short_description']; ?>
                     </div>

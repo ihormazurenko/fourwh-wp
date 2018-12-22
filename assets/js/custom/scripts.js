@@ -287,7 +287,10 @@
                     parentBox = $(this).parents('.section-select-truck'),
                     bedLengthBoxes = parentBox.find('.choose-bed-length-box'),
                     btnBox = parentBox.find('.select-truck-btn-box'),
-                    truckLengthList = parentBox.find('.select-truck-list.bed-length');
+                    truckLengthList = parentBox.find('.select-truck-list.bed-length'),
+                    input = $(this),
+                    btnFind = $('a[data-find-truck]'),
+                    btnBuild = $('a[data-build-truck]');
 
                     if (!(listType.hasClass('bed-length'))) {
                         //select truck
@@ -310,6 +313,11 @@
 
                     } else {
                         //select bed length
+                        var url = input.data('truckUrl');
+                        console.log(btnFind);
+                        btnFind.attr('href', url);
+                        btnBuild.attr('href', url + '/build');
+
                         btnBox.fadeIn(350);
                         setTimeout(function () {
                             $('html, body').animate({

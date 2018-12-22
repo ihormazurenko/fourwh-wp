@@ -27,6 +27,9 @@
     @include border-radius($radius-small);
     @include box-shadow(0 2px 15px 1px, rgba(27, 27, 27, .06));
   }
+  .white-header-bg & {
+    margin-top: 0;
+  }
   .anchor-nav {
     margin: 0;
     > ul {

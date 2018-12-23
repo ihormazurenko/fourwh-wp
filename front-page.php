@@ -155,6 +155,11 @@ get_template_part('inc/hero', 'banner');
                                 $slide_icon_alt         = 'Pinterest';
                                 $slide_icon_class       = 'pinterest';
                                 $slide_overlay_class    = 'orange-overlay';
+                            } elseif ($slide_style == 'youtube') {
+                                $slide_icon             = 'icon_youtube.png';
+                                $slide_icon_alt         = 'YouTube';
+                                $slide_icon_class       = 'youtube';
+                                $slide_overlay_class    = 'red-overlay';
                             } else {
                                 $slide_icon = $slide_icon_alt = $slide_overlay_class = $slide_icon_class = '';
                             }
@@ -171,7 +176,7 @@ get_template_part('inc/hero', 'banner');
                                                     <div class="slider-social-table '.$slide_without_title.'">
                                                         <div class="slider-social-table-body">';
                                                             if ($slide_style) {
-                                                                echo '<img src="'.$slide_icon_base.$slide_icon.'" alt="'.esc_attr($slide_icon_alt).'" class="'.$slide_icon_class.'">';
+                                                                echo '<img src="'.$slide_icon_base.$slide_icon.'" alt="'.esc_attr($slide_icon_alt).'" class="slide-icon '.$slide_icon_class.'">';
                                                             }
                                                             if ($slide_title) {
                                                                 echo '<h3 class="slide-title">'.$slide_title.'</h3>';

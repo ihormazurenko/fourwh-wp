@@ -236,6 +236,25 @@
                     }
                 });
             }
+
+            //for dealer slider
+            if ($('.dealer-slider .swiper-container').length) {
+                var dealerSliders = $('.dealer-slider .swiper-container');
+
+                dealerSliders.each(function () {
+                    new Swiper($(this), {
+                        effect: 'fade',
+                        loop: true,
+                        autoplay: {
+                            delay: 5000,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true
+                        },
+                    });
+                });
+            }
         }
 
         //for popup

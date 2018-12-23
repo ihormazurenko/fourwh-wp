@@ -32,7 +32,7 @@ get_header(); ?>
                     endwhile;
                     echo "</ul>";
                 } else {
-                    echo '<p class="no-results">' . __('Sorry, campers not found...', 'fw_campers') . '</p>';
+                    echo '<p class="no-results">' . __('Sorry, no models found...', 'fw_campers') . '</p>';
                 }
 
                 wp_reset_query();

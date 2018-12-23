@@ -316,11 +316,11 @@ function funcDate($start, $end, $format = 'full') {
 
 
 //test admin page
-add_action('admin_menu', function(){
-	add_menu_page( 'All Test', 'All Test', 'manage_options', 'Test', function () {
-		require_once (get_stylesheet_directory() . '/func/admin-product-relationship.php');},
-		'dashicons-universal-access-alt', 10 );
-} );
+//add_action('admin_menu', function(){
+//	add_menu_page( 'All Test', 'All Test', 'manage_options', 'Test', function () {
+//		require_once (get_stylesheet_directory() . '/func/admin-product-relationship.php');},
+//		'dashicons-universal-access-alt', 10 );
+//} );
 
 get_template_part('func/admin', 'model-options-meta-box');
 get_template_part('func/admin', 'model-meta-box');

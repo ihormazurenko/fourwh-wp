@@ -317,7 +317,7 @@
                         var url = input.data('truckUrl');
                         console.log(btnFind);
                         btnFind.attr('href', url);
-                        btnBuild.attr('href', url + '/build');
+                        btnBuild.attr('href', url);
 
                         btnBox.fadeIn(350);
                         setTimeout(function () {

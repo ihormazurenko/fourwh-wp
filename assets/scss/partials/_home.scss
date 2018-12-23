@@ -231,6 +231,7 @@
     }
 
     .hero-desc {
+      display: inline-block;
       margin-bottom: 34px;
       .home & {
         margin: 0 auto 34px;

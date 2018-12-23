@@ -1,7 +1,7 @@
 <?php
     $title = get_the_title();
     $url = get_permalink();
-    $description = get_field('description');
+    $general_list = get_field('general_list');
 ?>
 <li>
     <div class="product-wrap">
@@ -15,13 +15,13 @@
                         )); ?>
                     </div>
                 <?php } ?>
-                <?php if ( $description && is_array( $description ) && count( $description ) > 0 ) : ?>
-                    <?php if ($description['short_description']) : ?>
+                <?php if ( $general_list && is_array( $general_list ) && count( $general_list ) > 0 ) : ?>
+                    <?php if ($general_list['short_description']) : ?>
                         <div class="see-improvement-box">
                             <span class="see-improvement"><?php _e('See Improvement','fw_campers'); ?></span>
                         </div>
                         <div class="product-info-box content small">
-                            <?php echo $description['short_description']; ?>
+                            <?php echo $general_list['short_description']; ?>
                         </div>
                     <?php endif; ?>
                     <span class="more-info-btn"><?php _e('View Model','fw_campers'); ?></span>

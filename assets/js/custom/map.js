@@ -1,4 +1,21 @@
 jQuery(document).ready(function($) {
+    function decodeEntities(encodedString) {
+        var translate_re = /&(nbsp|amp|quot|lt|gt);/g;
+        var translate = {
+            "nbsp":" ",
+            "amp" : "&",
+            "quot": "\"",
+            "lt"  : "<",
+            "gt"  : ">"
+        };
+        return encodedString.replace(translate_re, function(match, entity) {
+            return translate[entity];
+        }).replace(/&#(\d+);/gi, function(match, numStr) {
+            var num = parseInt(numStr, 10);
+            return String.fromCharCode(num);
+        });
+    }
+
     (function($) {
         var mapEl = document.getElementById('map');
 
@@ -13,17 +30,12 @@ jQuery(document).ready(function($) {
                 setMarkers(map);
             }
 
-            var beaches = [
-                ['San Francisco', '24335 Prielipp Road, # 124<br> Wildomar, CA 92595<br> Phone: 800-511-4159', 37.773972, -122.431297],
-                ['Los Angeles', '24335 Prielipp Road, # 124<br> Wildomar, CA 92595<br> Phone: 800-511-4159', 34.0522342, -118.2436849],
-                ['Las Vegas', '24335 Prielipp Road, # 124<br> Wildomar, CA 92595<br> Phone: 800-511-4159', 36.114647, -115.172813],
-                ['Chicago', '24335 Prielipp Road, # 124<br> Wildomar, CA 92595<br> Phone: 800-511-4159', 41.881832, -87.623177]
-            ];
+            var beaches = JSON.parse(fwc_arr);
 
             function setMarkers(map) {
                 // Adds markers to the map.
                 var image = {
-                    url: 'img/marker.png',
+                    url: fwc_marker_url,
                     size: new google.maps.Size(28, 37),
                     origin: new google.maps.Point(0, 0),
                     anchor: new google.maps.Point(14, 37)
@@ -50,7 +62,7 @@ jQuery(document).ready(function($) {
                         return function () {
                             infowindow.setContent('<div class="service-marker-box">' +
                                 '                           <h2 class="service-marker-title">' + beach[0] + '</h2>' +
-                                '<div class="service-marker-info">' + beach[1] + '</div>' +
+                                '<div class="service-marker-info">' + decodeEntities(beach[1]) + '</div>' +
                                 '</div>');
                             infowindow.open(map, marker);
                         }

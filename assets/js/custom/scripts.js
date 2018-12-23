@@ -20,25 +20,27 @@
         prevent();
 
         // for burger menu
-        function burgerMenu() {
-            $('.mobile-menu-toggle').toggleClass('active');
-            $('.mobile-menu-wrap').toggleClass('showing');
-            $('#header-main').toggleClass('white-bg');
-            $('body').toggleClass('overflow');
-        }
-        $('.mobile-menu-toggle, .mobile-menu-overlay').on('click', function () {
-            burgerMenu();
-        });
-        $(window).on('resize', function () {
-            var windowWidth = $(window).width();
-            if (windowWidth > 1024 && $('.mobile-menu-toggle').hasClass('active')) {
-                burgerMenu();
+        $(function () {
+            function burgerMenu() {
+                $('.mobile-menu-toggle').toggleClass('active');
+                $('.mobile-menu-wrap').toggleClass('showing');
+                $('#header-main').toggleClass('white-bg');
+                $('body').toggleClass('overflow');
             }
-        });
 
+            $('.mobile-menu-toggle, .mobile-menu-overlay').on('click', function () {
+                burgerMenu();
+            });
+            $(window).on('resize', function () {
+                var windowWidth = $(window).width();
+                if (windowWidth > 1024 && $('.mobile-menu-toggle').hasClass('active')) {
+                    burgerMenu();
+                }
+            });
+        });
 
         //for smooth-scroll
-        // if (typeof smoothScroll !== 'undefined') {
+        if (typeof SmoothScroll !== 'undefined') {
             var scroll = new SmoothScroll('a[href*="#"]', {
 
                 // Selectors
@@ -80,41 +82,43 @@
                 emitEvents: true
 
             });
-        // }
+        }
 
         //for nicescroll
-        if ($('.specifications-accordion .inner-box').length) {
-            setTimeout(function () {
-                $('.specifications-accordion .inner-box').niceScroll({
-                    cursoropacitymax: 0.8,
-                    cursorcolor:"#62666a",
-                    cursorwidth:"6px",
-                });
-            }, 50);
-        }
+        if (typeof NiceScroll !== 'undefined') {
+            if ($('.specifications-accordion .inner-box').length) {
+                setTimeout(function () {
+                    $('.specifications-accordion .inner-box').niceScroll({
+                        cursoropacitymax: 0.8,
+                        cursorcolor: "#62666a",
+                        cursorwidth: "6px",
+                    });
+                }, 50);
+            }
 
-        if ($('.inventory-list .inner-content-wrap').length) {
-            setTimeout(function () {
-                $('.inventory-list .inner-content-wrap').niceScroll({
-                    cursoropacitymin: 0.5,
-                    cursoropacitymax: 0.8,
-                    cursorcolor:"#62666a",
-                    cursorwidth:"6px",
-                });
-            }, 50);
-        }
+            if ($('.inventory-list .inner-content-wrap').length) {
+                setTimeout(function () {
+                    $('.inventory-list .inner-content-wrap').niceScroll({
+                        cursoropacitymin: 0.5,
+                        cursoropacitymax: 0.8,
+                        cursorcolor: "#62666a",
+                        cursorwidth: "6px",
+                    });
+                }, 50);
+            }
 
-        if ($('.build .anchor-nav ul').length) {
-            setTimeout(function () {
-                $('.build .anchor-nav ul').niceScroll({
-                    scrollbarid: 'anchor-hor',
-                    horizrailenabled: true,
-                    cursoropacitymin: 0,
-                    cursoropacitymax: 0.8,
-                    cursorcolor:"#62666a",
-                    cursorwidth:"6px",
-                });
-            }, 50);
+            // if ($('.build .anchor-nav ul').length) {
+            //     setTimeout(function () {
+            //         $('.build .anchor-nav ul').niceScroll({
+            //             scrollbarid: 'anchor-hor',
+            //             horizrailenabled: true,
+            //             cursoropacitymin: 0,
+            //             cursoropacitymax: 0.8,
+            //             cursorcolor:"#62666a",
+            //             cursorwidth:"6px",
+            //         });
+            //     }, 50);
+            // }
         }
 
         //for sliders
@@ -215,84 +219,91 @@
 
             //for swatch slider
             if ($('.slider-swatch .swiper-container').length) {
-                    var heroSlider = new Swiper('.slider-swatch .swiper-container', {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                        navigation: {
-                            nextEl: '.swiper-swatch-button-next',
-                            prevEl: '.swiper-swatch-button-prev',
+                var heroSlider = new Swiper('.slider-swatch .swiper-container', {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    navigation: {
+                        nextEl: '.swiper-swatch-button-next',
+                        prevEl: '.swiper-swatch-button-prev',
+                    },
+                    breakpoints: {
+                        767: {
+                            slidesPerView: 2
                         },
-                        breakpoints: {
-                            767: {
-                                slidesPerView: 2
-                            },
-                            480: {
-                                slidesPerView: 1
-                            }
+                        480: {
+                            slidesPerView: 1
                         }
-                    });
-                }
+                    }
+                });
             }
-
+        }
 
         //for popup
-        if ($('.youtube-video').length && typeof $.fn.magnificPopup !== 'undefined') {
-            $('.youtube-video').magnificPopup({
-                disableOn: 700,
-                type: 'iframe',
-                mainClass: 'mfp-fade',
-                removalDelay: 350,
-                preloader: false,
-                fixedContentPos: false,
-                fixedBgPos: true
-            });
-        }
-        if ($('.my-customized-view-list img').length) {
-            $('.my-customized-view-list').magnificPopup({
-                delegate: 'a',
-                type: 'image',
-                tLoading: 'Loading image #%curr%...',
-                mainClass: 'mfp-img-mobile',
-                gallery: {
-                    enabled: true,
-                    navigateByImgClick: true,
-                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-                },
-                image: {
-                    tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-                    titleSrc: function (item) {
-                        return item.el.attr('title');
+        if (typeof $.fn.magnificPopup !== 'undefined') {
+            if ($('.youtube-video').length && typeof $.fn.magnificPopup !== 'undefined') {
+                $('.youtube-video').magnificPopup({
+                    disableOn: 700,
+                    type: 'iframe',
+                    mainClass: 'mfp-fade',
+                    removalDelay: 350,
+                    preloader: false,
+                    fixedContentPos: false,
+                    fixedBgPos: true
+                });
+            }
+            if ($('.my-customized-view-list img').length) {
+                $('.my-customized-view-list').magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    tLoading: 'Loading image #%curr%...',
+                    mainClass: 'mfp-img-mobile',
+                    gallery: {
+                        enabled: true,
+                        navigateByImgClick: true,
+                        preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                    },
+                    image: {
+                        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                        titleSrc: function (item) {
+                            return item.el.attr('title');
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         //for More Info btn
-        if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
-            $('.more-info-btn').on('click', function (e) {
-                e.preventDefault();
-                console.log('click');
-                if ($(this).hasClass('open')) {
-                    $(this).removeClass('open').next('.more').slideUp(350);
-                } else {
-                    $(this).addClass('open').next('.more').slideDown(350);
-                }
-            });
-        }
+        $(function() {
+            if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
+                $('.more-info-btn').on('click', function (e) {
+                    e.preventDefault();
+
+                    if ($(this).hasClass('open')) {
+                        $(this).removeClass('open').next('.more').slideUp(350);
+                    } else {
+                        $(this).addClass('open').next('.more').slideDown(350);
+                    }
+                });
+            }
+        });
 
         //for select truck
-        if ($('.section-select-truck').length && $('.select-truck-list').length) {
-            $('.select-truck-list input').on('change', function () {
-                var listType = $(this).closest('ul.select-truck-list'),
-                    parentBox = $(this).parents('.section-select-truck'),
-                    bedLengthBoxes = parentBox.find('.choose-bed-length-box'),
-                    btnBox = parentBox.find('.select-truck-btn-box'),
-                    truckLengthList = parentBox.find('.select-truck-list.bed-length');
+        $(function() {
+            if ($('.section-select-truck').length && $('.select-truck-list').length) {
+                $('.select-truck-list input').on('change', function () {
+                    var listType = $(this).closest('ul.select-truck-list'),
+                        parentBox = $(this).parents('.section-select-truck'),
+                        bedLengthBoxes = parentBox.find('.choose-bed-length-box'),
+                        btnBox = parentBox.find('.select-truck-btn-box'),
+                        truckLengthList = parentBox.find('.select-truck-list.bed-length'),
+                        input = $(this),
+                        btnFind = $('a[data-find-truck]'),
+                        btnBuild = $('a[data-build-truck]');
 
                     if (!(listType.hasClass('bed-length'))) {
                         //select truck
                         var type = $(this).data('truckType'),
-                            currentLengthBox = $('.choose-bed-length-box[data-truck-group="'+type+'"]');
+                            currentLengthBox = $('.choose-bed-length-box[data-truck-group="' + type + '"]');
 
                         btnBox.fadeOut();
                         bedLengthBoxes.fadeOut();
@@ -310,6 +321,11 @@
 
                     } else {
                         //select bed length
+                        var url = input.data('truckUrl');
+                        console.log(btnFind);
+                        btnFind.attr('href', url);
+                        btnBuild.attr('href', url);
+
                         btnBox.fadeIn(350);
                         setTimeout(function () {
                             $('html, body').animate({
@@ -317,55 +333,56 @@
                             }, 1000);
                         }, 350);
                     }
-            });
-        }
-
+                });
+            }
+        });
 
         // for anchor nav
-        var stickyNav = $('.anchor-nav-box');
+        $(function() {
+            var stickyNav = $('.anchor-nav-box');
 
-        if (stickyNav && stickyNav.length) {
-            var offset = stickyNav.offset().top,
-                stickyNavLinks = stickyNav.find('.anchor-nav').find('a');
+            if (stickyNav && stickyNav.length) {
+                var offset = stickyNav.offset().top,
+                    stickyNavLinks = stickyNav.find('.anchor-nav').find('a');
 
-            //Handle Active Link on Sroll
-            function onScroll(event) {
-                if (stickyNavLinks && stickyNavLinks.length) {
-                    var scrollPos = $(document).scrollTop();
-                    stickyNav.find('a[href^="#"]').each(function () {
-                        var currLink = $(this);
-                        var refElement = $(currLink.attr("href")),
-                            header = $('#header-main'),
-                            // anchorNav = $('.anchor-nav-box'),
-                            headerHeight = header.outerHeight(),
-                            anchorNavHeight = stickyNav.outerHeight(),
-                            anchorNavOffset = stickyNav.offset().top
+                //Handle Active Link on Sroll
+                function onScroll(event) {
+                    if (stickyNavLinks && stickyNavLinks.length) {
+                        var scrollPos = $(document).scrollTop();
+                        stickyNav.find('a[href^="#"]').each(function () {
+                            var currLink = $(this);
+                            var refElement = $(currLink.attr("href")),
+                                header = $('#header-main'),
+                                // anchorNav = $('.anchor-nav-box'),
+                                headerHeight = header.outerHeight(),
+                                anchorNavHeight = stickyNav.outerHeight(),
+                                anchorNavOffset = stickyNav.offset().top
                             offset = 0;
 
-                        if (refElement && refElement.length) {
-                            if ($('body').hasClass('direction-up')) {
-                                offset = anchorNavHeight + headerHeight;
-                            } else {
-                                offset =  anchorNavHeight + 50;
-                            }
+                            if (refElement && refElement.length) {
+                                if ($('body').hasClass('direction-up')) {
+                                    offset = anchorNavHeight + headerHeight;
+                                } else {
+                                    offset = anchorNavHeight + 50;
+                                }
 
-                            var currSection = (refElement.offset().top <= (scrollPos + offset)) && (refElement.offset().top + refElement.outerHeight(true)) > (scrollPos + offset);
+                                var currSection = (refElement.offset().top <= (scrollPos + offset)) && (refElement.offset().top + refElement.outerHeight(true)) > (scrollPos + offset);
 
 
-                            if (currSection) {
-                                stickyNavLinks.removeClass("active");
-                                currLink.addClass("active");
+                                if (currSection) {
+                                    stickyNavLinks.removeClass("active");
+                                    currLink.addClass("active");
+                                } else {
+                                    currLink.removeClass("active");
+                                }
                             }
-                            else {
-                                currLink.removeClass("active");
-                            }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
 
-            $(document).on("scroll", onScroll);
-        }
+                $(document).on("scroll", onScroll);
+            }
+        });
 
 
 
@@ -544,12 +561,28 @@
                 } else {
                     panel.slideDown();
                     if (panel.has('.inner-box')) {
-                        panel.find('.inner-box').niceScroll().resize();
+                        if (typeof NiceScroll !== 'undefined') {
+                            panel.find('.inner-box').niceScroll().resize();
+                        }
                     }
                 }
 
             });
 
+        });
+
+        //for subscribe form
+        $(function() {
+            if ($('.dms_embeded_form').length) {
+                var box = $('.dms_embeded_form'),
+                    firstNameWrap = box.find('#first_name').closest('.form-group'),
+                    emailWrap = box.find('.form-control.email').closest('.form-group'),
+                    btnWrap = box.find('.dms_embeded_button').closest('.form-group');
+
+                firstNameWrap.addClass('first-name-wrap');
+                emailWrap.addClass('email-wrap');
+                btnWrap.addClass('btn-box-wrap');
+            }
         });
 
     });

@@ -1,132 +1,140 @@
 <?php
-/*
-global $wpdb;
-
-$url = __DIR__.'/test_170.txt';
-$content = file_get_contents($url);
-$data = json_decode($content, true);
-
-echo '<pre>';
-	var_dump( $data['relationship_product'] );
-echo '</pre>';
-
-$new_relationship = [];
-$option_id = 4846;
-$table_name = 'fourwh_model_relationship';
-
-if (isset($data['relationship_product'])) {
-	foreach ( $data['relationship_product'] as $key => $value ) {
-		$status = strtolower(trim($value[$option_id]));
-
-		$relationship_check = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$wpdb->prefix.$table_name.' WHERE product_id = %d AND option_id = %d', [$key, $option_id]),OBJECT );
-
-		if (!empty($relationship_check)) {
-			if ($relationship_check->status != $status) {
-				echo '<h2>Update</h2>';
-
-				$update_relationship = [
-					'status' => $status
-				];
-
-				$wpdb->update($wpdb->prefix.$table_name, $update_relationship ,array('id' => $relationship_check->id));
-			} else {
-				echo '<h2>Current data</h2>';
-			}
-
-		} else {
-			//create new
-			echo '<h2>Create</h2>';
-			$new_relationship = [
-				'product_id' => $key,
-				'option_id'  => $option_id,
-				'status'     => strtolower(trim($value[$option_id]))
-			];
-			$wpdb->insert($wpdb->prefix.$table_name, $new_relationship, ['%d', '%d', '%s']);
-
-		}
-	};
-
-	$subscribers = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->prefix.$table_name));
-
-	echo '<pre>';
-	var_dump( $subscribers );
-	echo '</pre>';
-}
-
-global $wpdb;
-$table_name = 'fourwh_model_relationship';
-$option_id = 4846;
-$subscribers = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->prefix.$table_name), OBJECT);
-$fwc_db_relationship = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->prefix.$table_name.' WHERE option_id = %d',$option_id),OBJECT);
-
-//foreach ($fwc_db_relationship as $value) {
-//	echo '<pre>';
-//	var_dump( $value );
-//	echo '</pre>';
-//}
-if ($fwc_db_relationship && is_array($fwc_db_relationship) && count($fwc_db_relationship) > 0) {
-	foreach ($fwc_db_relationship as $relationship_obj) {
-//		foreach ($fwc_products as $key => $value) {
-//			$current_id = $value['id'];
-//
-//			if ($relationship_obj->product_id == $current_id) {
-//				$fwc_products[$current_id]['status'] = $relationship_obj->status;
-//			}
-//		}
-		echo '<pre>';
-		var_dump( $relationship_obj->product_id );
-		echo '</pre>';
-	}
-
-}
 
 global $wpdb, $fwc_options;
 
-$fwc_options    = [];
-$args = array(
-    'post_type'         => 'model_option',
-    'post_status'       => 'publish',
-    'posts_per_page'    => -1
+$fwc_options = [];
+$taxonomy = 'groups';
+$no_image_available = get_bloginfo("template_url").'/img/no_image_available.jpg';
+$option_args = array(
+    'post_type' => 'model_option',
+    'post_status' => 'publish',
+    'posts_per_page' => -1
 );
 
-$option_query = new WP_Query( $args );
+$option_query = new WP_Query($option_args);
 
-if ( $option_query->have_posts() ) {
-    while ( $option_query->have_posts() ) : $option_query->the_post();
+if ($option_query->have_posts()) {
+    while ($option_query->have_posts()) : $option_query->the_post();
         $option_id = $option_query->post->ID;
-        $option_name = get_the_title() ? get_the_title() : '';
-        $option_info = get_field('option_info');
-        $option_group = get_the_terms( $option_id, 'groups' );
+        $option_name        = get_the_title() ? get_the_title() : '';
+        $option_info        = get_field('option_info');
+        $option_photo       = get_field('photo');
+        $option_photo_url   = $option_photo['sizes']['thumbnail'] ? $option_photo['sizes']['thumbnail'] : $no_image_available ;
+        $option_group       = get_the_terms($option_id, $taxonomy);
+
 
         if ($option_info && is_array($option_info) && count($option_info) > 0) {
             $option_price = $option_info['price'] ? '$' . number_format($option_info['price'], 2, '.', ',') : '';
 
-            if ( is_array( $option_group ) ) {
+            if (is_array($option_group)) {
                 $group_name = trim($option_group[0]->name);
-//                $group_slug = $option_group[0]->slug;
+                $parent_group_id    = $option_group[0]->parent != 0 ? $option_group[0]->parent : '';
+                $parent_group_name = $parent_group_id ? get_term($parent_group_id) : 'other';
 
-                $fwc_options[$group_name][] = [
+                if ( $parent_group_name->name ) {
+                    $fwc_options[$parent_group_name->name][$group_name][] = [
+                        'option_id' => $option_id,
+                        'name' => $option_name,
+                        'price' => $option_price,
+                        'thumbnail' => $option_photo_url,
+                        'status' => '',
+                    ];
+                } else {
+                    $fwc_options['Other'][$group_name][] = [
+                        'option_id' => $option_id,
+                        'name'      => $option_name,
+                        'price'     => $option_price,
+                        'thumbnail' => $option_photo_url,
+                        'status'    => '',
+                    ];
+                }
+            } else {
+                $fwc_options['Other']['Other'][] = [
                     'option_id' => $option_id,
-                    'name' => $option_name,
-                    'price' => $option_price,
-                    'status' => '',
-                ];
-            }  else {
-                $fwc_options['Other'][] = [
-                    'option_id' => $option_id,
-                    'name' => $option_name,
-                    'price' => $option_price,
-                    'status' => '',
+                    'name'      => $option_name,
+                    'price'     => $option_price,
+                    'thumbnail' => $option_photo_url,
+                    'status'    => '',
                 ];
             }
 
         }
     endwhile;
+
+    //sort groups
+    $sort_options = [];
+    ksort($fwc_options);
+    foreach ($fwc_options as $parent => $groups) {
+        ksort($groups);
+        foreach ($groups as $group => $items) {
+            ksort($items);
+            foreach ($items as $key => $value) {
+                $sort_options[$parent][$group][$key] = $value;
+            }
+        }
+    }
+
+    $fwc_options = $sort_options;
+
+    //move "Cushion Fabric Colors" to the top of group
+    if ($fwc_options['Interior Options']['Cushion Fabric Colors']) {
+        $fwc_options['Interior Options'] = array('Cushion Fabric Colors' => $fwc_options['Interior Options']['Cushion Fabric Colors']) + $fwc_options['Interior Options'];
+    }
+
+    //move "Exterior Siding" to the top of group
+    if ($fwc_options['Exterior Options']['Exterior Siding']) {
+        $fwc_options['Exterior Options'] = array('Exterior Siding' => $fwc_options['Exterior Options']['Exterior Siding']) + $fwc_options['Exterior Options'];
+    }
+
+    //move parent Other to end
+    if ($fwc_options['Other']) {
+        $temp = $fwc_options['Other'];
+        unset($fwc_options['Other']);
+        $fwc_options['Other'] = $temp;
+    }
+    //move "Other" to the top of group
+    if ($fwc_options['Other']['Other']) {
+        $temp = $fwc_options['Other']['Other'];
+        unset($fwc_options['Other']['Other']);
+        $fwc_options['Other']['Other'] = $temp;
+    }
 } else {
     $fwc_options = [];
 }
 
+echo '<h1>Test</h1>';
+//echo '<pre>';
+//var_dump($fwc_options);
+//$sort_options = [];
+//ksort($fwc_options);
+//foreach ($fwc_options as $parent => $groups) {
+//    ksort($groups);
+//    foreach ($groups as $group => $items) {
+//        ksort($items);
+//        foreach ($items as $key => $value) {
+//            $sort_options[$parent][$group][$key] = $value;
+//        }
+//    }
+//}
 
+echo '<ul>';
+foreach ($fwc_options as $parent => $groups) {
+    echo '<li>'.$parent;
+        echo '<ul style="padding-left: 20px;">';
+        foreach ($groups as $group => $items) {
+            echo '<li>'.$group.'</li>';
+            echo '<ul style="padding-left: 20px;">';
+            foreach ($items as $key => $value) {
+                echo '<li>'.$value['name'].'---'.$value['price'].'</li>';
+            }
+            echo '</ul>';
+        }
+        echo '</ul>';
+    echo '</li>';
+}
+echo '</ul>';
+//echo '</pre>';
+/*
 echo '<h1>Test Page</h1>';
 
 if (is_array($fwc_options) && count($fwc_options) > 0) {

@@ -195,7 +195,7 @@
         }
         .inventory-info-box {
           overflow: hidden;
-          height: 89px;
+          min-height: 89px;
           &.content {
             margin-bottom: 15px;
             font-size: $size-main;

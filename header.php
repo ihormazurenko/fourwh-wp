@@ -1,8 +1,22 @@
 <?php
 // body classes
 $classes = '';
-if (!get_field('show_hero_banner')) {
-    $classes = 'white-header-bg';
+$classes .= 'no-js';
+
+if (is_post_type_archive('event') || is_tax('event_category')) {
+    $id = 339;
+} elseif (is_post_type_archive('video') || is_tax('video_category')) {
+    $id = 1020;
+} elseif (is_post_type_archive('model') || is_tax('model_sizes')) {
+    $id = 1236;
+} elseif (is_page()) {
+    $id = get_the_ID();
+} else {
+    $id = '';
+}
+
+if (!get_field('show_hero_banner', $id)) {
+    $classes .= ' white-header-bg';
 }
 
 ?>
@@ -18,6 +32,9 @@ if (!get_field('show_hero_banner')) {
 </head>
 
 <body <?php body_class($classes); ?>>
+<script type="text/javascript">
+    document.body.className = document.body.className.replace("no-js","js");
+</script>
 <div class="wrapper">
     <a class="btn-jump-to-content smooth-scroll" href="#main-content"><?php _e('Skip Navigation', 'fw_campers'); ?></a>
 

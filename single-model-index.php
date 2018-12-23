@@ -45,19 +45,6 @@ $build_url                      = $enable_customizer ? 'build/' : '';
         <div class="anchor-nav-box details">
             <div class="container">
                 <nav class="anchor-nav">
-
-                    <ul class="anchor-btn-list">
-                        <li>
-                            <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Brochure', 'fw_campers') ?>"><?php _e('Brochure', 'fw_campers'); ?></a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Get a Quote', 'fw_campers') ?>"><?php _e('Get a Quote', 'fw_campers'); ?></a>
-                        </li>
-                        <li>
-                            <a href="<?php echo get_permalink() . $build_url; ?>" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
-                        </li>
-                    </ul>
-
                     <ul>
                         <?php if ( $floorplans ) { ?>
                             <li>
@@ -89,6 +76,19 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                                 <a href="#key-benefits" title="<?php esc_attr_e('Key Benefits', 'fw_campers') ?>"><?php _e('Key Benefits', 'fw_campers'); ?></a>
                             </li>
                         <?php } ?>
+                        <li class="anchor-btn-list">
+                            <ul>
+                                <li>
+                                    <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Brochure', 'fw_campers') ?>"><?php _e('Brochure', 'fw_campers'); ?></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Get a Quote', 'fw_campers') ?>"><?php _e('Get a Quote', 'fw_campers'); ?></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo get_permalink() . $build_url; ?>" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -537,6 +537,7 @@ $build_url                      = $enable_customizer ? 'build/' : '';
         if ( $show_subscribe_section && $subscribe && is_array( $subscribe ) && count( $subscribe ) > 0) :
             $subscribe_title       = $subscribe['title'];
             $subscribe_description = $subscribe['description'];
+            $subscribe_form        = $subscribe['form'];
 
             if ( $siding_title || $siding_description ) :
                 ?>
@@ -549,6 +550,10 @@ $build_url                      = $enable_customizer ? 'build/' : '';
 
                         if ( $siding_description ) {
                             echo '<div class="section-desc content">' . $subscribe_description . '</div>';
+                        }
+
+                        if ( $subscribe_form ) {
+                            echo do_shortcode($subscribe_form);
                         }
                     ?>
                     </div>

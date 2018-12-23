@@ -30,22 +30,30 @@ get_template_part('inc/hero', 'banner');
                         $video_url = esc_url($slide['url']);
 
                         if (!empty($video_url)) {
-                            $video_thumb_url = $slide['img'] ? $slide['img']['url'] : getVideoThumbnail($video_url);
+                            $video_thumb_title  = $slide['title'] ? $slide['title'] : '';
+                            $video_thumb_alt    = $video_thumb_title ? $video_thumb_title : $video_title;
+                            $video_thumb_url    = $slide['img'] ? $slide['img']['url'] : getVideoThumbnail($video_url);
 
                             if ($video_slide_count > 1) {
                                 echo '<div class="swiper-slide">
-                                            <a href="'.$video_url.'" class="youtube-video" title="'.esc_attr($video_title).'">
+                                            <a href="'.$video_url.'" class="youtube-video" title="'.esc_attr($video_thumb_alt).'">
                                                 <div class="video-preview">
-                                                    <img src="'.$video_thumb_url.'" alt="'.esc_attr($video_title).'">
-                                                </div>
-                                            </a>
+                                                    <img src="'.$video_thumb_url.'" alt="'.esc_attr($video_thumb_alt).'">
+                                                </div>';
+                                                if ($video_thumb_title) {
+                                                    echo '<h3 class="swiper-video-title">' . $video_thumb_title . '</h3>';
+                                                }
+                                      echo '</a>
                                         </div>';
                             } else {
-                                echo '<a href="' . $video_url . '" class="youtube-video" title="' . esc_attr($video_title) . '">
+                                echo '<a href="' . $video_url . '" class="youtube-video" title="' . esc_attr($video_thumb_alt) . '">
                                         <div class="video-preview">
-                                            <img src="' . $video_thumb_url . '" alt="' . esc_attr($video_title) . '">
-                                        </div>
-                                    </a>';
+                                            <img src="' . $video_thumb_url . '" alt="' . esc_attr($video_thumb_alt) . '">
+                                        </div>';
+                                        if ($video_thumb_title) {
+                                            echo '<h3 class="swiper-video-title">' . $video_thumb_title . '</h3>';
+                                        }
+                                echo '</a>';
                             }
                         }
                     }
@@ -147,6 +155,11 @@ get_template_part('inc/hero', 'banner');
                                 $slide_icon_alt         = 'Pinterest';
                                 $slide_icon_class       = 'pinterest';
                                 $slide_overlay_class    = 'orange-overlay';
+                            } elseif ($slide_style == 'youtube') {
+                                $slide_icon             = 'icon_youtube.png';
+                                $slide_icon_alt         = 'YouTube';
+                                $slide_icon_class       = 'youtube';
+                                $slide_overlay_class    = 'red-overlay';
                             } else {
                                 $slide_icon = $slide_icon_alt = $slide_overlay_class = $slide_icon_class = '';
                             }
@@ -163,7 +176,7 @@ get_template_part('inc/hero', 'banner');
                                                     <div class="slider-social-table '.$slide_without_title.'">
                                                         <div class="slider-social-table-body">';
                                                             if ($slide_style) {
-                                                                echo '<img src="'.$slide_icon_base.$slide_icon.'" alt="'.esc_attr($slide_icon_alt).'" class="'.$slide_icon_class.'">';
+                                                                echo '<img src="'.$slide_icon_base.$slide_icon.'" alt="'.esc_attr($slide_icon_alt).'" class="slide-icon '.$slide_icon_class.'">';
                                                             }
                                                             if ($slide_title) {
                                                                 echo '<h3 class="slide-title">'.$slide_title.'</h3>';

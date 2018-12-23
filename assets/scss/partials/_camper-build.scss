@@ -201,6 +201,7 @@
           white-space: nowrap;
           > li {
             display: inline-block;
+            vertical-align: top;
             a {
               display: inline-block;
               position: relative;
@@ -1039,13 +1040,15 @@
 
         }
       }
+
         .resume-list {
           max-width: 723px;
           > li {
-            margin-bottom: 76px;
+            margin-bottom: 60px;
             &:not(.subtotal):not(.total) {
               display: none;
             }
+
             &:last-child {
               margin-bottom: 0;
             }
@@ -1079,8 +1082,8 @@
         }
           .resume-group {}
           .resume-title {
-            margin-bottom: 23px;
-            font-size: $size-big;
+            margin-bottom: 12px;
+            font-size: 22px;
             font-weight: $normal;
             line-height: $line-height-heading;
             letter-spacing: $letter-spacing-20;
@@ -1101,7 +1104,7 @@
               }
             }
             @media all and (max-width: 767px) {
-              font-size: 20px;
+              font-size: 18px;
               a {
                 font-size: 14px;
               }
@@ -1109,13 +1112,14 @@
           }
             .resume-group-list {
                > li {
+                 display: none;
                  &:not(:last-child) {
-                   margin-bottom: 8px;
+                   margin-bottom: 30px;
                  }
-                 //li:not(.total) &,
-                 //li:not(.subtotal) & {
-                 // display: none;
-                 //}
+                 .total &,
+                 .subtotal & {
+                  display: block;
+                 }
                }
             }
                   .resume-group-item {
@@ -1166,4 +1170,71 @@
   padding-top: 100px;
   margin-bottom: -40px;
   background-color: #fafafa;
+}
+
+#ajax-pdf-content {
+  color: $light-blue;
+  text-align: center;
+}
+.ajax-pdf-loader {
+  visibility: hidden;
+  display: inline-block;
+  background-image: url(../../img/ajax-loader.gif);
+  width: 16px;
+  height: 16px;
+  border: none;
+  padding: 0;
+  margin: 0 0 0 4px;
+  vertical-align: middle;
+  &.is-active {
+    visibility: visible;
+  }
+}
+.dms_embeded_button {
+  max-width: 150px !important;
+}
+
+.group-title {
+  &.parent {
+    margin-bottom: 32px !important;
+    padding-bottom: 12px;
+    font-size: $size-big;
+    &:after {
+      height: 1px;
+    }
+    @media all and (max-width: 767px) {
+      font-size: 20px;
+    }
+  }
+}
+.resume-table {
+  width: 100%;
+  tbody {
+    tr {
+      //display: none;
+      td {
+        padding: 5px;
+        font-weight: $normal;
+        color: $color-text11;
+        letter-spacing: $letter-spacing-20;
+        word-spacing: .05em;
+        line-height: 1.2;
+        opacity: .8;
+        @media all and (max-width: 767px) {
+          font-size: 16px;
+        }
+      }
+      > :first-child {
+        padding-left: 0;
+        width: 70%;
+      }
+      > :last-child {
+        text-align: right;
+        color: #3a3a3a;
+        letter-spacing: $letter-spacing-20;
+        line-height: 1.2;
+        text-align: right;
+      }
+    }
+  }
 }

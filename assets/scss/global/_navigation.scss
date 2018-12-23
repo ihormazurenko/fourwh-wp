@@ -70,7 +70,7 @@
           margin-left: 8px;
         }
       }
-
+      &.with-icon {}
     }
   }
   &.desktop {
@@ -243,6 +243,15 @@
     top: 48px;
     @media all and (max-width: 1440px) {
       top: 40px;
+    }
+  }
+}
+.main-nav .with-icon .sub-menu {
+  top: 48px;
+  .home & {
+    top: 52px;
+    @media all and (max-width: 1440px) {
+      top: 50px;
     }
   }
 }

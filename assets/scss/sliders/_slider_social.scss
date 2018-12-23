@@ -128,6 +128,22 @@
         opacity: .7;
       }
     }
+
+    &.red-overlay {
+      background-color: #e86177;
+
+      &:before {
+        @include background-gradient(bottom, #e86177);
+      }
+
+      &:after {
+        @include background-gradient(top, #e86177);
+      }
+
+      > img {
+        opacity: .7;
+      }
+    }
   }
 
   .slide-inner-box {
@@ -194,6 +210,9 @@
       &.pinterest {
         width: 41px;
       }
+      &.youtube {
+        width: 41px;
+      }
     }
   }
   .without-title .slide-icon {
@@ -255,8 +274,8 @@
 
     &:after {
       top: 50%;
-      width: 8px;
-      height: 8px;
+      width: 12px;
+      height: 12px;
       border: 2px solid #4e4e4e;
       @include css3-prefix('transform', 'translate(0, -50%) rotate(45deg)');
     }

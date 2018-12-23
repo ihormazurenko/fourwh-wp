@@ -32,7 +32,6 @@ a.btn, .btn {
     border-color: $color-bg12;
     background-color: $color-bg12;
     @media all and (min-width: 769px) {
-      &.hover,
       &:hover,
       &:focus {
         color: $color-text12;

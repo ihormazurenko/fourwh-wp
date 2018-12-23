@@ -161,40 +161,4 @@
         }
 
 
-.dealer-slider {
-  width: 100%;
-  padding-bottom: 77%;
-  .swiper-container {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-  }
-  .swiper-slide {
-    @include bg();
-    width: 100%;
-    //padding-bottom: 77%;
-  }
-  .swiper-pagination-bullets {
-    bottom: 0;
-    padding: 0 10px;
-    text-align: right;
-  }
-  .swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-    background-color: $white;
-    opacity: 1;
-    cursor: pointer;
-    &.swiper-pagination-bullet-active {
-      background-color: $light-blue;
-      opacity: 1;
-    }
-  }
-  .swiper-container-horizontal>.swiper-pagination-bullets,
-  .swiper-pagination-custom, .swiper-pagination-fraction {
-    bottom: 0;
-  }
-}
-
+@import "../sliders/slider_dealer";

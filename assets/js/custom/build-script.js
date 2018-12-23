@@ -36,181 +36,185 @@ function number_format(number, decimals, dec_point, separator ) {
 jQuery(document).ready(function($) {
 
     //for change color
-    if ($('.color-box input').length) {
-        $('.color-box input').on('change', function () {
-            var parentBox = $(this).parents('.color-selector-box'),
-                url = $(this).data('imgFull'),
-                previewType = $(this).data('preview'),
-                alt = $(this).next('label').find('img').attr('alt'),
-                image = parentBox.find('.group-img-wrap img.active');
+    $(function() {
+        if ($('.color-box input').length) {
+            $('.color-box input').on('change', function () {
+                var parentBox = $(this).parents('.color-selector-box'),
+                    url = $(this).data('imgFull'),
+                    previewType = $(this).data('preview'),
+                    alt = $(this).next('label').find('img').attr('alt'),
+                    image = parentBox.find('.group-img-wrap img.active');
 
-            image.attr('src', url).attr('alt', alt);
-            image.attr('alt', alt);
+                image.attr('src', url).attr('alt', alt);
+                image.attr('alt', alt);
 
-            if (previewType == 'interior') {
-                $('[data-interior-preview]').attr('href', url).attr('title', alt).find('img')
-                    .attr('src', url).attr('alt', alt);
-            } else if (previewType == 'exterior') {
-                $('[data-exterior-preview]').attr('href', url).attr('title', alt).find('img')
-                    .attr('src', url).attr('alt', alt);
-            }
-        })
-    }
+                if (previewType == 'interior') {
+                    $('[data-interior-preview]').attr('href', url).attr('title', alt).find('img')
+                        .attr('src', url).attr('alt', alt);
+                } else if (previewType == 'exterior') {
+                    $('[data-exterior-preview]').attr('href', url).attr('title', alt).find('img')
+                        .attr('src', url).attr('alt', alt);
+                }
+            })
+        }
+    });
 
     //for tooltip
-    if ($('.color-box label').length) {
-        var tip = tippy('.color-box label', {
-            delay: 100,
-            arrow: true,
-            arrowType: 'round',
-            size: 'large',
-            duration: 500,
-            animation: 'scale'
-        });
+    if (typeof tippy !== 'undefined') {
+        if ($('.color-box label').length) {
+            var tip = tippy('.color-box label', {
+                delay: 100,
+                arrow: true,
+                arrowType: 'round',
+                size: 'large',
+                duration: 500,
+                animation: 'scale'
+            });
+        }
     }
 
 
     //for customizer form
-    if ($('.customizer-form input').length) {
+    $(function() {
+        if ($('.customizer-form input').length) {
 
-        var productInput = $('.customizer-form input[name="model_id"]'),
-            productPrice = productInput.data('modelPrice'),
-            productWeight = productInput.data('modelWeight'),
-            totalPriceBox = $('.total-camper-box .price, .total-price-box .price.value, .total .price.value, .subtotal .price.value'),
-            totalWeightBox = $('.total-camper-box .weight, .total-price-box .weight.value, .subtotal .weight.value'),
-            totalPriceInput = $('.customizer-form input[name="total-price"]'),
-            totalWeightInput = $('.customizer-form input[name="total-weight"]');
+            var productInput = $('.customizer-form input[name="model_id"]'),
+                productPrice = productInput.data('modelPrice'),
+                productWeight = productInput.data('modelWeight'),
+                totalPriceBox = $('.total-camper-box .price, .total-price-box .price.value, .total .price.value, .subtotal .price.value'),
+                totalWeightBox = $('.total-camper-box .weight, .total-price-box .weight.value, .subtotal .weight.value'),
+                totalPriceInput = $('.customizer-form input[name="total-price"]'),
+                totalWeightInput = $('.customizer-form input[name="total-weight"]');
 
-        var cf7Form = $('.form-quote-box'),
-            optionsInput = cf7Form.find('[name="your-options"]'),
-            priceInput = cf7Form.find('[name="your-total-price"]'),
-            weightInput = cf7Form.find('[name="your-total-weight"]');
-
-
-        $('.customizer-form input').on('click', function () {
-            var price = productPrice,
-                weight = productWeight,
-                optionsString = '';
+            var cf7Form = $('.form-quote-box'),
+                optionsInput = cf7Form.find('[name="your-options"]'),
+                priceInput = cf7Form.find('[name="your-total-price"]'),
+                weightInput = cf7Form.find('[name="your-total-weight"]');
 
 
-            if ($(this).data('checked') == 'selected') {
-                $(this).prop('checked', false);
-                $(this).data('checked', 'unselect');
-            }
+            $('.customizer-form input').on('click', function () {
+                var price = productPrice,
+                    weight = productWeight,
+                    optionsString = '';
 
-            $('.customizer-form input[data-option]').each(function () {
-                var input = $(this);
 
-                if( input.prop('checked') == true && input.data('standard') != 'standard'){
-                    price += parseInt(input.data('price'));
-                    weight += parseInt(input.data('weight'));
+                if ($(this).data('checked') == 'selected') {
+                    $(this).prop('checked', false);
+                    $(this).data('checked', 'unselect');
                 }
 
-                if( input.prop('checked') == false && input.data('standard') == 'standard'){
-                    price -= parseInt(input.data('price'));
-                    weight -= parseInt(input.data('weight'));
-                }
+                $('.customizer-form input[data-option]').each(function () {
+                    var input = $(this);
 
-                if( input.prop('checked') == true) {
-                    var thisID = $(this).attr('id'),
-                        thisParentGroup = input.data('optionParentGroup'),
-                        thisGroup = $(this).data('optionGroup'),
-                        thisName = input.data('optionName');
+                    if (input.prop('checked') == true && input.data('standard') != 'standard') {
+                        price += parseInt(input.data('price'));
+                        weight += parseInt(input.data('weight'));
+                    }
 
-                    $('[data-option-parent-resume-group="'+thisParentGroup+'"]').show(0);
-                    $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('tr').hide(0);
-                    $('[data-option-id="'+thisID+'"]').show(0);
+                    if (input.prop('checked') == false && input.data('standard') == 'standard') {
+                        price -= parseInt(input.data('price'));
+                        weight -= parseInt(input.data('weight'));
+                    }
 
-                    optionsString += ' – ' + thisName + '\n';
-                    input.data('checked', 'selected');
-                } else {
-                    input.data('checked', 'unselect');
-                }
-            });
+                    if (input.prop('checked') == true) {
+                        var thisID = $(this).attr('id'),
+                            thisParentGroup = input.data('optionParentGroup'),
+                            thisGroup = $(this).data('optionGroup'),
+                            thisName = input.data('optionName');
 
-            //remove pdf link
-            $('#ajax-pdf-content').html('');
+                        $('[data-option-parent-resume-group="' + thisParentGroup + '"]').show(0);
+                        $('[data-option-resume-group="' + thisGroup + '"]').show(0).find('tr').hide(0);
+                        $('[data-option-id="' + thisID + '"]').show(0);
 
-            if (productWeight == 0) {
-                if (weight > 0) {
-                    totalWeightBox.text('+' + number_format(weight, 0, '.', ',') + 'lbs');
+                        optionsString += ' – ' + thisName + '\n';
+                        input.data('checked', 'selected');
+                    } else {
+                        input.data('checked', 'unselect');
+                    }
+                });
+
+                //remove pdf link
+                $('#ajax-pdf-content').html('');
+
+                if (productWeight == 0) {
+                    if (weight > 0) {
+                        totalWeightBox.text('+' + number_format(weight, 0, '.', ',') + 'lbs');
+                    } else {
+                        totalWeightBox.text(number_format(weight, 0, '.', ',') + 'lbs');
+                    }
                 } else {
                     totalWeightBox.text(number_format(weight, 0, '.', ',') + 'lbs');
                 }
-            } else {
-                totalWeightBox.text(number_format(weight, 0, '.', ',') + 'lbs');
-            }
 
 
-
-            if (productPrice == 0) {
-                if (price > 0) {
-                    totalPriceBox.text('+ $' + number_format(price, 2, '.', ','));
-                } else {
-                    totalPriceBox.text(number_format(price, 2, '.', ','));
-                }
-            } else {
-                totalPriceBox.text('$' + number_format(price, 2, '.', ','));
-            }
-
-
-            totalPriceInput.val(price);
-            totalWeightInput.val(weight);
-
-            optionsInput.val(optionsString);
-            priceInput.val('$' + number_format(price, 2, '.', ','));
-            weightInput.val(number_format(weight, 0, '.', ',') + 'lbs');
-        });
-
-        $(window).on('load', function () {
-            $('.customizer-form input[data-option]').each(function () {
-                var input = $(this);
-                if( input.prop('checked') == true) {
-                    var thisID = input.attr('id'),
-                        thisParentGroup = input.data('optionParentGroup'),
-                        thisGroup = input.data('optionGroup'),
-                        thisName = input.data('optionName');
-
-                    $('[data-option-parent-resume-group="'+thisParentGroup+'"]').show(0);
-                    $('[data-option-resume-group="'+thisGroup+'"]').show(0).find('tr').hide(0);
-                    $('[data-option-id="'+thisID+'"]').show(0);
-
-                    input.attr('data-checked','selected');
-                } else {
-                    input.attr('data-checked','unselect');
-                }
-            });
-
-            $('.color-box input').each(function () {
-                var input = $(this);
-                if( input.prop('checked') == true) {
-                    var url = input.data('imgFull'),
-                        alt = input.next('label').find('img').attr('alt'),
-                        previewType = input.data('preview');
-
-                    if (previewType == 'interior') {
-                        $('[data-interior-preview]').attr('href', url).attr('title', alt).find('img')
-                            .attr('src', url).attr('alt', alt);
-                    } else if (previewType == 'exterior') {
-                        $('[data-exterior-preview]').attr('href', url).attr('title', alt).find('img')
-                            .attr('src', url).attr('alt', alt);
+                if (productPrice == 0) {
+                    if (price > 0) {
+                        totalPriceBox.text('+ $' + number_format(price, 2, '.', ','));
+                    } else {
+                        totalPriceBox.text(number_format(price, 2, '.', ','));
                     }
-
-
+                } else {
+                    totalPriceBox.text('$' + number_format(price, 2, '.', ','));
                 }
+
+
+                totalPriceInput.val(price);
+                totalWeightInput.val(weight);
+
+                optionsInput.val(optionsString);
+                priceInput.val('$' + number_format(price, 2, '.', ','));
+                weightInput.val(number_format(weight, 0, '.', ',') + 'lbs');
             });
 
-            if ($('.form-quote-box').length) {
-                var cf7Form = $('.form-quote-box'),
-                    customizerForm = $('.customizer-form'),
-                    modelInput = cf7Form.find('[name="your-model"]'),
-                    optionsInput = cf7Form.find('[name="your-options"]'),
-                    priceInput = cf7Form.find('[name="your-total-price"]'),
-                    weightInput = cf7Form.find('[name="your-total-weight"]'),
-                    modelName = customizerForm.find('[data-model]').data('model'),
-                    modelPrice = customizerForm.find('[data-model-price]').data('modelPrice'),
-                    modelWeight = customizerForm.find('[data-model-weight]').data('modelWeight'),
-                    optionsString = '';
+            $(window).on('load', function () {
+                $('.customizer-form input[data-option]').each(function () {
+                    var input = $(this);
+                    if (input.prop('checked') == true) {
+                        var thisID = input.attr('id'),
+                            thisParentGroup = input.data('optionParentGroup'),
+                            thisGroup = input.data('optionGroup'),
+                            thisName = input.data('optionName');
+
+                        $('[data-option-parent-resume-group="' + thisParentGroup + '"]').show(0);
+                        $('[data-option-resume-group="' + thisGroup + '"]').show(0).find('tr').hide(0);
+                        $('[data-option-id="' + thisID + '"]').show(0);
+
+                        input.attr('data-checked', 'selected');
+                    } else {
+                        input.attr('data-checked', 'unselect');
+                    }
+                });
+
+                $('.color-box input').each(function () {
+                    var input = $(this);
+                    if (input.prop('checked') == true) {
+                        var url = input.data('imgFull'),
+                            alt = input.next('label').find('img').attr('alt'),
+                            previewType = input.data('preview');
+
+                        if (previewType == 'interior') {
+                            $('[data-interior-preview]').attr('href', url).attr('title', alt).find('img')
+                                .attr('src', url).attr('alt', alt);
+                        } else if (previewType == 'exterior') {
+                            $('[data-exterior-preview]').attr('href', url).attr('title', alt).find('img')
+                                .attr('src', url).attr('alt', alt);
+                        }
+
+
+                    }
+                });
+
+                if ($('.form-quote-box').length) {
+                    var cf7Form = $('.form-quote-box'),
+                        customizerForm = $('.customizer-form'),
+                        modelInput = cf7Form.find('[name="your-model"]'),
+                        optionsInput = cf7Form.find('[name="your-options"]'),
+                        priceInput = cf7Form.find('[name="your-total-price"]'),
+                        weightInput = cf7Form.find('[name="your-total-weight"]'),
+                        modelName = customizerForm.find('[data-model]').data('model'),
+                        modelPrice = customizerForm.find('[data-model-price]').data('modelPrice'),
+                        modelWeight = customizerForm.find('[data-model-weight]').data('modelWeight'),
+                        optionsString = '';
 
                     modelInput.val(modelName);
                     priceInput.val(modelPrice);
@@ -219,7 +223,7 @@ jQuery(document).ready(function($) {
                     $('.customizer-form input[data-option]').each(function () {
                         var input = $(this);
 
-                        if( input.prop('checked') == true) {
+                        if (input.prop('checked') == true) {
                             var thisName = input.data('optionName');
 
                             optionsString += ' – ' + thisName + '\n';
@@ -228,8 +232,10 @@ jQuery(document).ready(function($) {
 
                     optionsInput.val(optionsString);
 
-            };
-        });
-    }
+                }
+                ;
+            });
+        }
+    });
 });
 

@@ -20,25 +20,27 @@
         prevent();
 
         // for burger menu
-        function burgerMenu() {
-            $('.mobile-menu-toggle').toggleClass('active');
-            $('.mobile-menu-wrap').toggleClass('showing');
-            $('#header-main').toggleClass('white-bg');
-            $('body').toggleClass('overflow');
-        }
-        $('.mobile-menu-toggle, .mobile-menu-overlay').on('click', function () {
-            burgerMenu();
-        });
-        $(window).on('resize', function () {
-            var windowWidth = $(window).width();
-            if (windowWidth > 1024 && $('.mobile-menu-toggle').hasClass('active')) {
-                burgerMenu();
+        $(function () {
+            function burgerMenu() {
+                $('.mobile-menu-toggle').toggleClass('active');
+                $('.mobile-menu-wrap').toggleClass('showing');
+                $('#header-main').toggleClass('white-bg');
+                $('body').toggleClass('overflow');
             }
-        });
 
+            $('.mobile-menu-toggle, .mobile-menu-overlay').on('click', function () {
+                burgerMenu();
+            });
+            $(window).on('resize', function () {
+                var windowWidth = $(window).width();
+                if (windowWidth > 1024 && $('.mobile-menu-toggle').hasClass('active')) {
+                    burgerMenu();
+                }
+            });
+        });
 
         //for smooth-scroll
-        // if (typeof smoothScroll !== 'undefined') {
+        if (typeof SmoothScroll !== 'undefined') {
             var scroll = new SmoothScroll('a[href*="#"]', {
 
                 // Selectors
@@ -80,42 +82,44 @@
                 emitEvents: true
 
             });
-        // }
+        }
 
         //for nicescroll
-        if ($('.specifications-accordion .inner-box').length) {
-            setTimeout(function () {
-                $('.specifications-accordion .inner-box').niceScroll({
-                    cursoropacitymax: 0.8,
-                    cursorcolor:"#62666a",
-                    cursorwidth:"6px",
-                });
-            }, 50);
-        }
+        if (typeof NiceScroll !== 'undefined') {
+            if ($('.specifications-accordion .inner-box').length) {
+                setTimeout(function () {
+                    $('.specifications-accordion .inner-box').niceScroll({
+                        cursoropacitymax: 0.8,
+                        cursorcolor: "#62666a",
+                        cursorwidth: "6px",
+                    });
+                }, 50);
+            }
 
-        if ($('.inventory-list .inner-content-wrap').length) {
-            setTimeout(function () {
-                $('.inventory-list .inner-content-wrap').niceScroll({
-                    cursoropacitymin: 0.5,
-                    cursoropacitymax: 0.8,
-                    cursorcolor:"#62666a",
-                    cursorwidth:"6px",
-                });
-            }, 50);
-        }
+            if ($('.inventory-list .inner-content-wrap').length) {
+                setTimeout(function () {
+                    $('.inventory-list .inner-content-wrap').niceScroll({
+                        cursoropacitymin: 0.5,
+                        cursoropacitymax: 0.8,
+                        cursorcolor: "#62666a",
+                        cursorwidth: "6px",
+                    });
+                }, 50);
+            }
 
-        // if ($('.build .anchor-nav ul').length) {
-        //     setTimeout(function () {
-        //         $('.build .anchor-nav ul').niceScroll({
-        //             scrollbarid: 'anchor-hor',
-        //             horizrailenabled: true,
-        //             cursoropacitymin: 0,
-        //             cursoropacitymax: 0.8,
-        //             cursorcolor:"#62666a",
-        //             cursorwidth:"6px",
-        //         });
-        //     }, 50);
-        // }
+            // if ($('.build .anchor-nav ul').length) {
+            //     setTimeout(function () {
+            //         $('.build .anchor-nav ul').niceScroll({
+            //             scrollbarid: 'anchor-hor',
+            //             horizrailenabled: true,
+            //             cursoropacitymin: 0,
+            //             cursoropacitymax: 0.8,
+            //             cursorcolor:"#62666a",
+            //             cursorwidth:"6px",
+            //         });
+            //     }, 50);
+            // }
+        }
 
         //for sliders
         if (typeof Swiper !== 'undefined') {
@@ -215,70 +219,73 @@
 
             //for swatch slider
             if ($('.slider-swatch .swiper-container').length) {
-                    var heroSlider = new Swiper('.slider-swatch .swiper-container', {
-                        slidesPerView: 3,
-                        spaceBetween: 30,
-                        navigation: {
-                            nextEl: '.swiper-swatch-button-next',
-                            prevEl: '.swiper-swatch-button-prev',
+                var heroSlider = new Swiper('.slider-swatch .swiper-container', {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    navigation: {
+                        nextEl: '.swiper-swatch-button-next',
+                        prevEl: '.swiper-swatch-button-prev',
+                    },
+                    breakpoints: {
+                        767: {
+                            slidesPerView: 2
                         },
-                        breakpoints: {
-                            767: {
-                                slidesPerView: 2
-                            },
-                            480: {
-                                slidesPerView: 1
-                            }
+                        480: {
+                            slidesPerView: 1
                         }
-                    });
-                }
+                    }
+                });
             }
-
+        }
 
         //for popup
-        if ($('.youtube-video').length && typeof $.fn.magnificPopup !== 'undefined') {
-            $('.youtube-video').magnificPopup({
-                disableOn: 700,
-                type: 'iframe',
-                mainClass: 'mfp-fade',
-                removalDelay: 350,
-                preloader: false,
-                fixedContentPos: false,
-                fixedBgPos: true
-            });
-        }
-        if ($('.my-customized-view-list img').length) {
-            $('.my-customized-view-list').magnificPopup({
-                delegate: 'a',
-                type: 'image',
-                tLoading: 'Loading image #%curr%...',
-                mainClass: 'mfp-img-mobile',
-                gallery: {
-                    enabled: true,
-                    navigateByImgClick: true,
-                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-                },
-                image: {
-                    tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-                    titleSrc: function (item) {
-                        return item.el.attr('title');
+        if (typeof $.fn.magnificPopup !== 'undefined') {
+            if ($('.youtube-video').length && typeof $.fn.magnificPopup !== 'undefined') {
+                $('.youtube-video').magnificPopup({
+                    disableOn: 700,
+                    type: 'iframe',
+                    mainClass: 'mfp-fade',
+                    removalDelay: 350,
+                    preloader: false,
+                    fixedContentPos: false,
+                    fixedBgPos: true
+                });
+            }
+            if ($('.my-customized-view-list img').length) {
+                $('.my-customized-view-list').magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    tLoading: 'Loading image #%curr%...',
+                    mainClass: 'mfp-img-mobile',
+                    gallery: {
+                        enabled: true,
+                        navigateByImgClick: true,
+                        preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                    },
+                    image: {
+                        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                        titleSrc: function (item) {
+                            return item.el.attr('title');
+                        }
                     }
-                }
-            });
+                });
+            }
         }
 
         //for More Info btn
-        if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
-            $('.more-info-btn').on('click', function (e) {
-                e.preventDefault();
+        $(function() {
+            if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
+                $('.more-info-btn').on('click', function (e) {
+                    e.preventDefault();
 
-                if ($(this).hasClass('open')) {
-                    $(this).removeClass('open').next('.more').slideUp(350);
-                } else {
-                    $(this).addClass('open').next('.more').slideDown(350);
-                }
-            });
-        }
+                    if ($(this).hasClass('open')) {
+                        $(this).removeClass('open').next('.more').slideUp(350);
+                    } else {
+                        $(this).addClass('open').next('.more').slideDown(350);
+                    }
+                });
+            }
+        });
 
         //for select truck
         $(function() {
@@ -554,7 +561,9 @@
                 } else {
                     panel.slideDown();
                     if (panel.has('.inner-box')) {
-                        panel.find('.inner-box').niceScroll().resize();
+                        if (typeof NiceScroll !== 'undefined') {
+                            panel.find('.inner-box').niceScroll().resize();
+                        }
                     }
                 }
 

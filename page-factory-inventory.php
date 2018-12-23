@@ -34,8 +34,9 @@ $section_inventory = get_field('section_inventory');
                                 foreach ( $details_list as $detail ) :
                                     $title = $detail['title'];
                                     $description = $detail['description'];
-                                    $photo = $detail['photo'];
-                                    $photo_url = $photo['sizes']['medium_large'] ? $photo['sizes']['medium_large'] : $photo['url'];
+                                    $photos = $detail['photo'];
+                                    $photo_count = count($detail['photo']);
+//                                    $photo_url = $photo['sizes']['medium_large'] ? $photo['sizes']['medium_large'] : $photo['url'];
                                     $information_group = $detail['information_group'];
                                     $check_group = $detail['check_group'];
                                     $serial_number = '';
@@ -62,14 +63,38 @@ $section_inventory = get_field('section_inventory');
                                             <li class="full-inventory-info">
                                                 <div class="inventory-detail-box">
                                                     <div class="left-box">
-                                                        <div class="centered-img wider">
-                                                            <?php if ( $photo_url ) { ?>
-                                                                <img src="<?php echo esc_url( $photo_url ); ?>" alt="<?php echo esc_attr($title); ?>">
-                                                            <?php } ?>
-                                                            <?php if ( $latest_model ) { ?>
-                                                                <span class="centered-img-label"><?php _e('Latest Model','fw_campers'); ?></span>
-                                                            <?php } ?>
-                                                        </div>
+                                                        <?php
+                                                            if ($photos && is_array($photos) && count($photos) >  0) :
+                                                                if ($photo_count > 1) {
+                                                                    echo '<div class="dealer-slider">
+                                                                    <div class="swiper-container">
+                                                                        <div class="swiper-wrapper">';
+                                                                }
+                                                                foreach ($photos as $key => $photo) :
+                                                                    $image_url = $photo['sizes']['medium_large'] ? $photo['sizes']['medium_large'] : $photo['url'];
+                                                                    $image_class = $photo['width'] > $photo['height'] ? 'wider' : '';
+
+                                                                    if ($photo_count > 1) {
+                                                                        echo '<div class="swiper-slide" style="background-image: url('.$image_url .') "></div>';
+                                                                    } else {
+                                                                        ?>
+                                                                        <div class="centered-img <?php echo $image_class; ?>">
+                                                                            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                                                                            <?php if ( $latest_model ) { ?>
+                                                                                <span class="centered-img-label"><?php _e('Latest Model','fw_campers'); ?></span>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                        <?php
+                                                                    }
+                                                                endforeach;
+                                                                if ($photo_count > 1) {
+                                                                    echo '</div>
+                                                                  <div class="swiper-pagination"></div>
+                                                                </div>
+                                                            </div>';
+                                                                }
+                                                            endif;
+                                                            ?>
                                                     </div>
                                                     <div class="right-box">
                                                         <div class="inventory-info-wrap">
@@ -106,14 +131,38 @@ $section_inventory = get_field('section_inventory');
                                     <?php else : ?>
                                         <li>
                                             <div class="inventory-detail-box">
-                                                <div class="centered-img wider">
-                                                    <?php if ( $photo_url ) { ?>
-                                                        <img src="<?php echo esc_url( $photo_url ); ?>" alt="<?php echo esc_attr($title); ?>">
-                                                    <?php } ?>
-                                                    <?php if ( $latest_model ) { ?>
-                                                        <span class="centered-img-label"><?php _e('Latest Model','fw_campers'); ?></span>
-                                                    <?php } ?>
-                                                </div>
+                                            <?php
+                                                if ($photos && is_array($photos) && count($photos) >  0) :
+                                                    if ($photo_count > 1) {
+                                                        echo '<div class="dealer-slider">
+                                                                <div class="swiper-container">
+                                                                    <div class="swiper-wrapper">';
+                                                    }
+                                                    foreach ($photos as $key => $photo) :
+                                                        $image_url = $photo['sizes']['medium_large'] ? $photo['sizes']['medium_large'] : $photo['url'];
+                                                        $image_class = $photo['width'] > $photo['height'] ? 'wider' : '';
+
+                                                        if ($photo_count > 1) {
+                                                            echo '<div class="swiper-slide" style="background-image: url('.$image_url .') "></div>';
+                                                        } else {
+                                                            ?>
+                                                            <div class="centered-img <?php echo $image_class; ?>">
+                                                                <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                                                                <?php if ( $latest_model ) { ?>
+                                                                    <span class="centered-img-label"><?php _e('Latest Model','fw_campers'); ?></span>
+                                                                <?php } ?>
+                                                            </div>
+                                                            <?php
+                                                        }
+                                                    endforeach;
+                                                    if ($photo_count > 1) {
+                                                        echo '</div>
+                                                              <div class="swiper-pagination"></div>
+                                                            </div>
+                                                        </div>';
+                                                    }
+                                                    endif;
+                                                ?>
                                                 <div class="inventory-info-wrap">
                                                     <?php if ( $title ) { ?>
                                                         <h3 class="inventory-detail-title"><?php echo $title; ?></h3>

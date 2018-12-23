@@ -142,6 +142,11 @@
       @include border-radius($radius-small);
       border: 1px solid $color-text11;
       border: 1px solid rgba($color-text11, .2);
+      .dealer-slider {
+        overflow: hidden;
+        position: relative;
+        padding-bottom: 80.6%;
+      }
       .centered-img {
         padding-bottom: 80.6%;
         @include border-radius($radius-small $radius-small 0 0);

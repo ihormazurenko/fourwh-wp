@@ -336,6 +336,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 #main-content {
+  display: block;
   .white-header-bg & {
     padding-top: 132px;
     @media all and (max-width: 1024px) {

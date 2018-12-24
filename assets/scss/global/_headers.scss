@@ -61,6 +61,9 @@
     top: 0;
     @include box-shadow(0 5px 10px 0, rgba($black, .2));
   }
+  .direction-up.single-model & {
+    box-shadow: none;
+  }
   .direction-down & {
     top: -82px;
   }
@@ -75,7 +78,6 @@
       top: -70px;
     }
   }
-
   .admin-bar &,
   .direction-down.admin-bar & {
     top: -50px;

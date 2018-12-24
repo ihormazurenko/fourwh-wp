@@ -24,7 +24,7 @@
                             <?php echo $general_list['short_description']; ?>
                         </div>
                     <?php endif; ?>
-                    <span class="more-info-btn"><?php _e('View Model','fw_campers'); ?></span>
+                    <span class="view-more-btn"><?php _e('View Model','fw_campers'); ?></span>
                 <?php endif; ?>
             </div>
         </a>

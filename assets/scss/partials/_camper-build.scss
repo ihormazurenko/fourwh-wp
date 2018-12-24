@@ -76,7 +76,7 @@
       }
       &.affix {
         position: fixed;
-        z-index: 1050;
+        z-index: 1010;
         top: 0;
         left: 0;
         width: 100%;
@@ -478,7 +478,51 @@
                   margin-bottom: 10px;
                 }
               }
+              @media all and (max-width: 767px) {
+                > li {
+                  width: 120px;
+                  &:nth-child(6n + 1) {
+                    clear: both;
+                  }
+                }
+              }
+              @media all and (max-width: 739px) {
+                > li {
+                  &:nth-child(6n + 1) {
+                    clear: none;
+                  }
+                  &:nth-child(5n + 1) {
+                    clear: both;
+                  }
+                }
+              }
+              @media all and (max-width: 619px) {
+                > li {
+                  &:nth-child(5n + 1) {
+                    clear: none;
+                  }
+                  &:nth-child(4n + 1) {
+                    clear: both;
+                  }
+                }
+              }
+              @media all and (max-width: 499px) {
+                > li {
+                  width: 100px;
+                }
+              }
+              @media all and (max-width: 419px) {
+                > li {
+                  &:nth-child(4n + 1) {
+                    clear: none;
+                  }
+                  &:nth-child(3n + 1) {
+                    clear: both;
+                  }
+                }
+              }
             }
+
                 .color-box {
                   position: relative;
                   input {
@@ -556,9 +600,12 @@
                       font-size: 14px;
                       line-height: 1.2;
                       text-align: center;
-                      word-break: break-all;
+                      //word-break: break-all;
                       @media all and (max-width: 767px) {
                         display: block;
+                      }
+                      @media all and (max-width: 499px) {
+                        font-size: 13px;
                       }
                     }
                   }
@@ -568,6 +615,22 @@
                       .color {
                         width: 60px;
                         height: 60px;
+                      }
+                    }
+                  }
+                  @media all and (max-width: 767px) {
+                    label {
+                      .color {
+                        width: 100px;
+                        height: 100px;
+                      }
+                    }
+                  }
+                  @media all and (max-width: 767px) {
+                    label {
+                      .color {
+                        width: 80px;
+                        height: 80px;
                       }
                     }
                   }

@@ -127,6 +127,7 @@
             if ($('.slider-hero .swiper-container').length) {
                 var heroSlider = new Swiper('.slider-hero .swiper-container', {
                     effect: 'fade',
+                    autoHeight: true,
                     loop: true,
                     autoplay: {
                         delay: 5000,
@@ -295,14 +296,12 @@
         $(function() {
             if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
                 $('.more-info-btn').on('click', function (e) {
-                    if (!($(this).closest('.product-box'))) {
-                        e.preventDefault();
+                    e.preventDefault();
 
-                        if ($(this).hasClass('open')) {
-                            $(this).removeClass('open').next('.more').slideUp(350);
-                        } else {
-                            $(this).addClass('open').next('.more').slideDown(350);
-                        }
+                    if ($(this).hasClass('open')) {
+                        $(this).removeClass('open').next('.more').slideUp(350);
+                    } else {
+                        $(this).addClass('open').next('.more').slideDown(350);
                     }
                 });
             }

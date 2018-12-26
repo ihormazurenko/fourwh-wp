@@ -9,7 +9,6 @@ function fp_camper_build_rule($rules) {
 	return $rules;
 }
 
-
 // Tell WordPress to accept our custom query variable
 add_filter('query_vars', 'fp_camper_build_qv');
 function fp_camper_build_qv($vars) {

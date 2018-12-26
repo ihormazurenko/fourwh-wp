@@ -1,6 +1,11 @@
 <?php
     $title = get_the_title();
-    $url = get_permalink();
+    $type = isset($_GET['type']) ? $_GET['type'] : '';
+    if ( $type == 'build' ) {
+        $url = get_permalink().'build';
+    } else {
+        $url = get_permalink();
+    }
     $general_list = get_field('general_list');
 ?>
 <li>

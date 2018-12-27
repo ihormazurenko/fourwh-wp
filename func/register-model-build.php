@@ -1,20 +1,16 @@
 <?php
 // Adding fake page and rewrite rules
-add_filter('rewrite_rules_array', 'fp_camper_build_rule');
-function fp_camper_build_rule($rules) {
-	$newrules = [];
-	$newrules[ 'model/([^/]*)/(build)' ] = 'index.php?model=$matches[1]&fpage=$matches[2]';
-	$rules = $newrules + $rules;
+add_action('init', 'do_rewrite');
+function do_rewrite(){
+    add_rewrite_rule( '^(model)/([^/]*)/(build)/?$', 'index.php?model=$matches[2]&fpage=$matches[3]', 'top' );
+//    add_rewrite_rule( '^(model)/([^/]*)/([^/]*)/(build)/?$', 'index.php?model=$matches[3]&fpage=$matches[4]', 'top' );
 
-	return $rules;
-}
+    add_rewrite_rule( 'model/(([^/]*)/([^/]*))/(build)/?$', 'index.php?model=$matches[1]&fpage=$matches[4]', 'top' );
 
-// Tell WordPress to accept our custom query variable
-add_filter('query_vars', 'fp_camper_build_qv');
-function fp_camper_build_qv($vars) {
-	array_push($vars, 'fpage');
-
-	return $vars;
+    add_filter( 'query_vars', function( $vars ){
+        $vars[] = 'fpage';
+        return $vars;
+    } );
 }
 
 
@@ -46,7 +42,7 @@ add_filter( 'wpseo_canonical', 'wpseo_canonical_exclude' );
 function wpseo_canonical_exclude( $canonical ) {
 	global $post;
 
-	if (is_singular('model')) {
+	if (is_singular('model') || is_tax('model_sizes')) {
 		$canonical = false;
 	}
 

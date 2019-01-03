@@ -82,10 +82,10 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                                     <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Brochure', 'fw_campers') ?>"><?php _e('Brochure', 'fw_campers'); ?></a>
                                 </li>
                                 <li>
-                                    <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Get a Quote', 'fw_campers') ?>"><?php _e('Get a Quote', 'fw_campers'); ?></a>
+                                    <a href="<?php print get_site_url(); ?>/contact-us/" class="btn blue inverse" title="<?php esc_attr_e('Contact Us', 'fw_campers') ?>"><?php _e('Contact Us', 'fw_campers'); ?></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo get_permalink() . $build_url; ?>" class="btn blue" title="<?php esc_attr_e('Build', 'fw_campers') ?>"><?php _e('Build', 'fw_campers'); ?></a>
+                                    <a href="<?php echo get_permalink() . $build_url; ?>" class="btn blue" title="<?php esc_attr_e('Build &amp; Price', 'fw_campers') ?>"><?php _e('Build &amp; Price', 'fw_campers'); ?></a>
                                 </li>
                             </ul>
                         </li>

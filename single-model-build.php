@@ -486,23 +486,23 @@ else :
             <div id="summary" class="camper-summary-box">
                 <div class="container">
                     <div class="group-header">
-                        <h2 class="group-title">Summary</h2>
+                        <h2 class="group-title"><?php _e('Summary','fw_campers') ?></h2>
                     </div>
                     <div class="camper-summary-top-box">
                         <div class="left-box">
-                            <h3 class="box-title">My Customized Camper</h3>
+                            <h3 class="box-title"><?php _e('My Customized Camper','fw_campers') ?></h3>
                             <ul class="my-customized-view-list">
                                 <li>
-                                    <a href="img/exterior_color.jpg" title="Exterior Color" data-exterior-preview>
+                                    <a href="" title="" data-exterior-preview>
                                         <div class="my-customized-view-img-wrap centered-img wider">
-                                            <img src="img/exterior_color.jpg" alt="Exterior Color">
+                                            <img src="" alt="">
                                         </div>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="img/interior_fabric.jpg" title="Interior Fabric" data-interior-preview>
+                                    <a href="" title="" data-interior-preview>
                                         <div class="my-customized-view-img-wrap centered-img wider">
-                                            <img  src="img/interior_fabric.jpg" alt="Interior Fabric">
+                                            <img  src="" alt="">
                                         </div>
                                     </a>
                                 </li>
@@ -511,17 +511,16 @@ else :
                         <div class="right-box">
                             <div class="total-price-box">
                                 <div class="total-price-row">
-                                    <span class="box-title small">Total Camper Price</span>
-                                    <span class="price value">$17,995.00</span>
+                                    <span class="box-title small"><?php _e('Total Camper Price','fw_campers') ?></span>
+                                    <span class="price value"><?php echo $model_price_print; ?></span>
 
                                 </div>
                                 <div class="total-price-row">
-
-                                    <span class="box-title small">Weight</span>
-                                    <span class="weight value">975lbs</span>
+                                    <span class="box-title small"><?php _e('Weight','fw_campers') ?></span>
+                                    <span class="weight value"><?php echo $model_weight_print; ?></span>
                                 </div>
-                                <a href="#" onclick="window.print();return false;" class="btn blue inverse" title="Print Summary">Print Summary</a>
-                                <a href="#" class="btn blue inverse save-pdf-btn" title="Save as PDF">Save as PDF</a>
+                                <a href="#" onclick="window.print();return false;" class="btn blue inverse" title="<?php esc_attr_e('Print Summary','fw_campers') ?>"><?php _e('Print Summary','fw_campers') ?></a>
+                                <a href="#" class="btn blue inverse save-pdf-btn" title="<?php esc_attr_e('Save as PDF','fw_campers') ?>"><?php _e('Save as PDF','fw_campers') ?></a>
                                 <div id="ajax-pdf-content">
 
                                 </div>

@@ -127,6 +127,7 @@
             if ($('.slider-hero .swiper-container').length) {
                 var heroSlider = new Swiper('.slider-hero .swiper-container', {
                     effect: 'fade',
+                    autoHeight: true,
                     loop: true,
                     autoplay: {
                         delay: 5000,
@@ -236,6 +237,25 @@
                     }
                 });
             }
+
+            //for dealer slider
+            if ($('.dealer-slider .swiper-container').length) {
+                var dealerSliders = $('.dealer-slider .swiper-container');
+
+                dealerSliders.each(function () {
+                    new Swiper($(this), {
+                        effect: 'fade',
+                        loop: true,
+                        autoplay: {
+                            delay: 5000,
+                        },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true
+                        },
+                    });
+                });
+            }
         }
 
         //for popup
@@ -276,12 +296,14 @@
         $(function() {
             if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
                 $('.more-info-btn').on('click', function (e) {
-                    e.preventDefault();
+                    if (!($(this).closest('.product-box'))) {
+                        e.preventDefault();
 
-                    if ($(this).hasClass('open')) {
-                        $(this).removeClass('open').next('.more').slideUp(350);
-                    } else {
-                        $(this).addClass('open').next('.more').slideDown(350);
+                        if ($(this).hasClass('open')) {
+                            $(this).removeClass('open').next('.more').slideUp(350);
+                        } else {
+                            $(this).addClass('open').next('.more').slideDown(350);
+                        }
                     }
                 });
             }
@@ -321,10 +343,18 @@
 
                     } else {
                         //select bed length
-                        var url = input.data('truckUrl');
-                        console.log(btnFind);
-                        btnFind.attr('href', url);
-                        btnBuild.attr('href', url);
+                        var url     = input.data('truckUrl'),
+                            urlType = input.data('truckBtn');
+
+                            btnFind.attr('href', url);
+
+                            if ( urlType == 'single' ) {
+                                btnBuild.attr('href', url + 'build');
+                            } else if (  urlType == 'multiple' ) {
+                                btnBuild.attr('href', url + '?type=build');
+                            } else {
+                                btnBuild.attr('href', url);
+                            }
 
                         btnBox.fadeIn(350);
                         setTimeout(function () {

@@ -18,8 +18,14 @@ get_header(); ?>
                     'post_type'         => 'model',
                     'post_status'       => 'publish',
                     'posts_per_page'    => -1,
-                    'orderby'           => 'date',
-                    'order'             => 'DESC',
+                    'orderby'           => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
+                    'meta_query' => array(
+                        array(
+                            'key'       => 'general_list_show',
+                            'compare'   => '=',
+                            'value'     => 1
+                        )
+                    ),
                 );
                 $new_query = new WP_Query( $args );
 

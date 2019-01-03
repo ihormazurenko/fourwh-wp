@@ -24,62 +24,118 @@ $rows = get_field('rows');
                             $subtitle = $row['subtitle'];
                             $description = $row['description'];
                             $website = $row['website'];
-                            $image = $row['image'];
-                            $image_size = 'original';
+                            $images = $row['image'];
+                            $images_count = count($images);
 
                             if($key % 2) :
-                            ?>
-                            <li>
-                                <div class="inventory-box">
-                                    <div class="inner-box">
-                                        <div class="inner-content-wrap">
-                                            <h3 class="inventory-title"><?php print $title; ?></h3>
-                                            <?php if($subtitle) : ?>
-                                              <h4 class="inventory-subtitle"><?php print $subtitle; ?></h4>
-                                            <?php endif; ?>
+                                ?>
+                                <li>
+                                    <div class="inventory-box">
+                                        <div class="inner-box">
+                                            <div class="inner-wrap">
+                                                <div class="inner-content-wrap">
+                                                    <h3 class="inventory-title"><?php print $title; ?></h3>
+                                                    <?php if($subtitle) : ?>
+                                                      <h4 class="inventory-subtitle"><?php print $subtitle; ?></h4>
+                                                    <?php endif; ?>
 
-                                            <?php if($description) : ?>
-                                              <div class="content">
-                                                  <?php echo $description; ?>
-                                              </div>
-                                            <?php endif; ?>
+                                                    <?php if($description) : ?>
+                                                      <div class="content">
+                                                          <?php echo $description; ?>
+                                                      </div>
+                                                    <?php endif; ?>
 
+                                                </div>
+                                                <a target="_blank" rel="nofollow" href="<?php echo $website; ?>" class="btn blue inverse" title="Go Store">Learn More</a>
+                                            </div>
                                         </div>
-                                        <a target="_blank" href="<?php echo $website; ?>" class="btn blue inverse" title="Go Store">Learn More</a>
-                                    </div>
-                                    <div class="inner-box">
-                                        <div class="centered-img wider">
-                                            <?php print wp_get_attachment_image( $image, $image_size ); ?>
+                                        <div class="inner-box">
+                                            <?php
+                                            if ($images && is_array($images) && count($images) >  0) :
+                                                if ($images_count > 1) {
+                                                    echo '<div class="dealer-slider">
+                                                                <div class="swiper-container">
+                                                                    <div class="swiper-wrapper">';
+                                                }
+                                                foreach ($images as $key => $image) :
+                                                    $image_url = $image['sizes']['medium_large'] ? $image['sizes']['medium_large'] : $image['url'];
+                                                    $image_class = $image['width'] > $image['height'] ? 'wider' : '';
+
+                                                    if ($images_count > 1) {
+                                                        echo '<div class="swiper-slide" style="background-image: url('.$image_url .') "></div>';
+                                                    } else {
+                                                        ?>
+                                                        <div class="centered-img <?php echo $image_class; ?>">
+                                                            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                endforeach;
+                                                if ($images_count > 1) {
+                                                    echo '</div>
+                                                              <div class="swiper-pagination"></div>
+                                                            </div>
+                                                        </div>';
+                                                }
+                                            endif;
+                                            ?>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
                             <?php else : ?>
-                            <li>
-                                <div class="inventory-box">
-                                    <div class="inner-box">
-                                        <div class="centered-img wider">
-                                            <?php print wp_get_attachment_image( $image, $image_size ); ?>
+                                <li>
+                                    <div class="inventory-box">
+                                        <div class="inner-box">
+                                            <?php
+                                                if ($images && is_array($images) && count($images) >  0) :
+                                                    if ($images_count > 1) {
+                                                        echo '<div class="dealer-slider">
+                                                                <div class="swiper-container">
+                                                                    <div class="swiper-wrapper">';
+                                                    }
+                                                        foreach ($images as $key => $image) :
+                                                            $image_url = $image['sizes']['medium_large'] ? $image['sizes']['medium_large'] : $image['url'];
+                                                            $image_class = $image['width'] > $image['height'] ? 'wider' : '';
+
+                                                                if ($images_count > 1) {
+                                                                    echo '<div class="swiper-slide" style="background-image: url('.$image_url .') "></div>';
+                                                                } else {
+                                                                    ?>
+                                                                    <div class="centered-img <?php echo $image_class; ?>">
+                                                                        <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>">
+                                                                    </div>
+                                                                    <?php
+                                                                }
+                                                        endforeach;
+                                                    if ($images_count > 1) {
+                                                        echo '</div>
+                                                              <div class="swiper-pagination"></div>
+                                                            </div>
+                                                        </div>';
+                                                    }
+                                                endif;
+                                            ?>
+                                        </div>
+                                        <div class="inner-box">
+                                            <div class="inner-wrap">
+                                                <div class="inner-content-wrap">
+                                                    <h3 class="inventory-title"><?php print $title; ?></h3>
+                                                    <?php if($subtitle) : ?>
+                                                      <h4 class="inventory-subtitle"><?php print $subtitle; ?></h4>
+                                                    <?php endif; ?>
+
+                                                    <?php if($description) : ?>
+                                                      <div class="content">
+                                                          <?php echo $description; ?>
+                                                      </div>
+                                                    <?php endif; ?>
+
+                                                </div>
+                                                <a target="_blank" rel="nofollow" href="<?php echo $website; ?>" class="btn blue inverse" title="Go Store">Learn More</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="inner-box">
-                                        <div class="inner-content-wrap">
-                                            <h3 class="inventory-title"><?php print $title; ?></h3>
-                                            <?php if($subtitle) : ?>
-                                              <h4 class="inventory-subtitle"><?php print $subtitle; ?></h4>
-                                            <?php endif; ?>
-
-                                            <?php if($description) : ?>
-                                              <div class="content">
-                                                  <?php echo $description; ?>
-                                              </div>
-                                            <?php endif; ?>
-
-                                        </div>
-                                        <a target="_blank" href="<?php echo $website; ?>" class="btn blue inverse" title="Go Store">Learn More</a>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
                             <?php endif; ?>
                           <?php endforeach; ?>
                       </ul>

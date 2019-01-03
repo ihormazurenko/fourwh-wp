@@ -206,6 +206,9 @@ h1, h2, h3, h4, h5, h6 {
   &.small {
     * {
       margin-bottom: 10px;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
     font-size: 16px;
     h1 { font-size: (55px) * 0.8; }
@@ -318,6 +321,13 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   display: block;
 }
+
+.content ul > li.blocks-gallery-item {
+  padding-left: 0;
+  &:before {
+    content: none !important;
+  }
+}
 /*----------------------------------------------------------------------------------*/
 /*-------------------------------------WRAPPER--------------------------------------*/
 /*----------------------------------------------------------------------------------*/
@@ -326,6 +336,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 #main-content {
+  display: block;
   .white-header-bg & {
     padding-top: 132px;
     @media all and (max-width: 1024px) {

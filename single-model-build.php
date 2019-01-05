@@ -31,10 +31,11 @@ else :
     $table_name = 'fourwh_model_relationship';
     $model_relationship = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->prefix.$table_name.' WHERE model_id = %d',$model_id),OBJECT);
 
-    $options_ids = [];
-    $options_arr = [];
-    $status_arr  = [];
-
+    $options_ids    = [];
+    $options_arr    = [];
+    $group_desc_arr = [];
+    $status_arr     = [];
+    $taxonomy       = 'groups';
 
     foreach ($model_relationship as $key => $value) {
         if ($value->status != 'not_available' && $value->status != '' && $value->trash != 1) {
@@ -72,9 +73,13 @@ else :
             $option_photo_class = ($option_photo_arr[1] > $option_photo_arr[2]) ? 'wider' : '';
 
             if (is_array($option_group)) {
+                $group_id         = trim($option_group[0]->term_id);
                 $group_name         = trim($option_group[0]->name);
+                $group_desc         = trim($option_group[0]->description);
                 $parent_group_id    = $option_group[0]->parent != 0 ? $option_group[0]->parent : '';
                 $parent_group_name  = $parent_group_id ? get_term($parent_group_id) : 'other';
+
+                $group_check_type = get_field('people_select', $taxonomy.'_'.$group_id);
 
                 if ( $parent_group_name->name ) {
                     $options_arr[$parent_group_name->name][$group_name][] = [
@@ -99,6 +104,9 @@ else :
                         'desc' => $option_desc,
                     ];
                 }
+
+                $group_desc_arr[$group_name]['desc']        = $group_desc;
+                $group_desc_arr[$group_name]['check-type']  = $group_check_type;
             } else {
                 $options_arr['Other']['Other'][] = [
                     'option_id'         => $option_id,
@@ -110,6 +118,9 @@ else :
                     'status'            => $option_status,
                     'desc'              => $option_desc,
                 ];
+
+                $group_desc_arr['Other']['desc'] = '';
+                $group_desc_arr['Other']['check-type'] = 'multiple';
             }
 
         endwhile;
@@ -201,6 +212,46 @@ else :
             endif;
         endif;
 
+        //group Cushion Fabric Colors
+        $options_fabric_arr = $options_arr['Interior Options']['Cushion Fabric Colors'];
+
+        if (isset($options_fabric_arr)) :
+            $fabric_price_arr = array_column( $options_fabric_arr, 'price' );
+            $fabric_name_arr = array_column( $options_fabric_arr, 'name' );
+            $fabric_status_arr = array_column( $options_fabric_arr, 'status' );
+
+            array_multisort( $fabric_price_arr, SORT_NUMERIC , $fabric_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_fabric_arr );
+
+            if ( ! in_array( $fabric_status_arr, 'standard' ) ) {
+                $options_fabric_arr[0]['status'] = 'standard';
+            }
+
+            $options_arr['Interior Options']['Cushion Fabric Colors'] = $options_fabric_arr;
+
+        endif;
+
+        //group Exterior Siding
+        $options_exterior_opt_arr = $options_arr['Exterior Options']['Exterior Siding'];
+
+        if (isset($options_exterior_opt_arr)) :
+            $exterior_opt_price_arr = array_column( $options_exterior_opt_arr, 'price' );
+            $exterior_opt_name_arr = array_column( $options_exterior_opt_arr, 'name' );
+            $exterior_opt_status_arr = array_column( $options_exterior_opt_arr, 'status' );
+
+            array_multisort( $exterior_opt_price_arr, SORT_NUMERIC , $exterior_opt_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_exterior_opt_arr );
+
+            if ( ! in_array( $exterior_opt_status_arr, 'standard' ) ) {
+                $options_exterior_opt_arr[0]['status'] = 'standard';
+            }
+
+            $options_arr['Exterior Options']['Exterior Siding'] = $options_exterior_opt_arr;
+
+        endif;
+
+//        if (get_current_user_id() == 1) :
+//            var_dump($group_desc_arr);
+//        endif;
+
     else:
         $options_arr = [];
     endif;
@@ -256,7 +307,7 @@ else :
                     </div>
                 </div>
             <?php } ?>
-<?php //var_dump($options_exterior_arr); ?>
+
             <div class="camper-customizer-box">
                 <div class="container">
 
@@ -269,18 +320,24 @@ else :
                         </div>
                         <?php
                             foreach ($options_arr as $parent_group => $groups) :
-                                $parent_id = preg_replace('/[^\w]/','-', strtolower(strip_tags(trim($parent_group))) );
-                                $parent_id = preg_replace('/(-)\1+/','-', $parent_id );
+                                $parent_id         = preg_replace('/[^\w]/','-', strtolower(strip_tags(trim($parent_group))) );
+                                $parent_id         = preg_replace('/(-)\1+/','-', $parent_id );
+                                $parent_group_desc = $group_desc_arr[$parent_group]['desc'];
                                 ?>
                                 <div class="group-parent-box" id="<?php echo $parent_id; ?>">
                                     <div class="group-header">
                                         <h2 class="section-title small line"><?php echo ucwords($parent_group); ?></h2>
+                                        <?php if ($parent_group_desc) : ?>
+                                            <div class="section-desc content"><?php echo $parent_group_desc; ?></div>
+                                        <?php endif; ?>
                                     </div>
                                     <?php if (is_array($groups) && count($groups) > 0) : ?>
                                         <?php
                                             foreach ($groups as $group => $items) :
-                                                $element_id = preg_replace('/[^\w]/','-', strtolower(strip_tags(trim($group))) );
-                                                $element_id = preg_replace('/(-)\1+/','-', $element_id );
+                                                $element_id  = preg_replace('/[^\w]/','-', strtolower(strip_tags(trim($group))) );
+                                                $element_id  = preg_replace('/(-)\1+/','-', $element_id );
+                                                $group_desc  = $group_desc_arr[$group]['desc'];
+                                                $group_check = $group_desc_arr[$group]['check-type'];
 
                                                 if ( strtolower($group) === strtolower('Cushion Fabric Colors') || strtolower($group) === strtolower('Exterior Siding') ) :
                                                     $data_attr = (strtolower($group) === strtolower('Cushion Fabric Colors')) ? 'interior' : 'exterior';
@@ -288,38 +345,31 @@ else :
                                                     <div id="<?php echo $element_id; ?>" class="group-box color-selector-box">
                                                         <div class="group-header">
                                                             <h2 class="group-title"><?php echo ucwords($group); ?></h2>
+                                                            <?php if ($group_desc) : ?>
+                                                                <div class="section-desc content small"><?php echo $group_desc; ?></div>
+                                                            <?php endif; ?>
                                                         </div>
                                                         <?php
                                                         if (is_array($items) && count($items) > 0) :
-                                                            $img_count = 0;
                                                             $items_count = count($items);
                                                             ?>
                                                             <div class="left-box">
-                                                                <div class="group-img-wrap centered-img wider">
+                                                                <div class="group-img-wrap centered-img">
                                                                     <?php
                                                                     foreach ($items as $key => $value) :
-                                                                        $img_count++;
                                                                         if ( strtolower($value['status']) == strtolower('standard') ) {
                                                                             $item_id                = trim($value['option_id']);
                                                                             $item_name              = trim($value['name']);
                                                                             $item_thumbnail         = trim($value['thumbnail']);
-                                                                            ?>
-                                                                            <img src="<?php echo esc_url( $item_thumbnail ); ?>"
-                                                                                 class="group-img active"
-                                                                                 alt="<?php echo esc_attr( $item_name ); ?>">
-                                                                            <?php
-                                                                        } else {
-                                                                            if ($img_count == $items_count) {
-                                                                                $item_id                = trim($value['option_id']);
-                                                                                $item_name              = trim($value['name']);
-                                                                                $item_thumbnail         = trim($value['thumbnail']);
-                                                                                ?>
-                                                                                <img src="" class="group-img active" alt="" >
-                                                                                <?php
-                                                                            }
                                                                         }
                                                                     endforeach;
                                                                     ?>
+                                                                    <?php if ( $item_thumbnail ) { ?>
+                                                                        <a class="icon-zoom"
+                                                                           href="<?php echo esc_url($item_thumbnail); ?>"
+                                                                           title="<?php echo esc_attr($item_name); ?>"></a>
+                                                                    <?php } ?>
+                                                                    <img src="<?php echo esc_url( $item_thumbnail ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
                                                                 </div>
                                                             </div>
                                                         <?php endif; ?>
@@ -328,24 +378,55 @@ else :
                                                             ?>
                                                             <div class="right-box">
                                                                 <h3 class="box-title"><?php echo ucwords($group); ?></h3>
-                                                                <ul class="color-list">
                                                                     <?php
+                                                                    $img_count   = 0;
+                                                                    $items_count = count($items);
+                                                                    $item_prev_price = 0;
+
                                                                     foreach ($items as $key => $value) :
                                                                         $item_id                = trim($value['option_id']);
                                                                         $item_name              = trim($value['name']);
                                                                         $item_price             = trim($value['price']);
                                                                         $item_weight            = trim($value['weight']);
                                                                         $item_class             = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
-                                                                        $img_count++;
 
                                                                         if ($value['custom'] != 'custom') {
                                                                             $item_thumbnail_arr     = get_field('photo', $item_id);
                                                                             $item_thumbnail_full    = trim($value['thumbnail']);
                                                                             $item_thumbnail         = $item_thumbnail_arr['sizes']['thumbnail'] ? $item_thumbnail_arr['sizes']['thumbnail'] : $item_img_full;
+                                                                            $item_thumbnail_class   = trim($value['thumbnail_class']);
                                                                         } else {
                                                                             $item_thumbnail =   trim($value['thumbnail_small']);
                                                                             $item_thumbnail_full = trim($value['thumbnail']);
+                                                                            $item_thumbnail_class   = trim($value['thumbnail_class']);
                                                                         }
+
+                                                                        if ($img_count == 0) {
+                                                                            ?>
+                                                                            <div class="color-title-box">
+                                                                                <h4 class="box-title"><?php _e('Standard Options', 'fw_campers'); ?></h4>
+                                                                            </div>
+                                                                            <ul class="color-list">
+                                                                            <?php
+                                                                        }
+                                                                        if ($item_price != 0 && $item_prev_price == 0) {
+                                                                            ?>
+                                                                            </ul>
+                                                                            <div class="color-title-box">
+                                                                                <h4 class="box-title"><?php _e('Premium Options', 'fw_campers'); ?></h4>
+                                                                            </div>
+                                                                            <ul class="color-list">
+                                                                            <?php
+                                                                        }
+                                                                        if ($img_count == $items_count) {
+                                                                            ?>
+                                                                            </ul>
+                                                                            <?php
+                                                                        }
+
+                                                                        $img_count++;
+                                                                        $item_prev_price = $item_price;
+
                                                                         ?>
                                                                         <li>
                                                                             <div class="color-box color-gainsboro">
@@ -358,6 +439,7 @@ else :
                                                                                        data-price="<?php echo $item_price; ?>"
                                                                                        data-weight="<?php echo $item_weight; ?>"
                                                                                        data-img-full="<?php echo esc_url($item_thumbnail_full); ?>"
+                                                                                       data-img-full-class="<?php echo esc_url($item_thumbnail_class); ?>"
                                                                                        data-group-name="<?php echo $group; ?>"
                                                                                        data-option-parent-group="<?php echo $parent_group; ?>"
                                                                                        data-option-group="<?php echo $element_id; ?>"
@@ -381,13 +463,15 @@ else :
                                                 <div id="<?php echo $element_id; ?>" class="group-box">
                                                     <div class="group-header">
                                                         <h2 class="group-title"><?php echo ucwords($group); ?></h2>
+                                                        <?php if ($group_desc) : ?>
+                                                            <div class="section-desc content small"><?php echo $group_desc; ?></div>
+                                                        <?php endif; ?>
                                                     </div>
                                                     <?php if (is_array($items) && count($items) > 0) : ?>
                                                         <ul class="item-list">
                                                             <?php foreach ($items as $key => $value) : ?>
                                                                 <li>
-                                                                    <div class="item-box">
-                                                                        <?php
+                                                                    <?php
                                                                         $item_id                = trim($value['option_id']);
                                                                         $item_name              = trim($value['name']);
                                                                         $item_price             = trim($value['price']);
@@ -397,8 +481,14 @@ else :
                                                                         $item_desc              = $value['desc'];
                                                                         $item_status            = $value['status'];
                                                                         $item_standard          = ($item_status == 'standard') ? 'checked data-standard="standard"' : '';
-                                                                        ?>
-                                                                        <?php if ($group != 'other') { ?>
+                                                                    ?>
+                                                                    <div class="item-box <?php if ( !$item_thumbnail ) { echo 'without-image'; } ?>">
+                                                                        <?php if ( $item_thumbnail ) { ?>
+                                                                            <a class="icon-zoom"
+                                                                               href="<?php echo esc_url($item_thumbnail); ?>"
+                                                                               title="<?php echo esc_attr($item_name); ?>"></a>
+                                                                        <?php } ?>
+                                                                        <?php if ($group != 'other' && $group_check == 'single') { ?>
                                                                             <input id="option_<?php echo $item_id; ?>"
                                                                                    class="radio-item"
                                                                                    type="radio"

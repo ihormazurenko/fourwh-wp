@@ -348,6 +348,11 @@
               padding: 0;
             }
           }
+          .section-desc {
+            max-width: 600px;
+            margin: -25px 0 50px;
+            text-align: left;
+          }
         }
           .group-header {}
             .group-title {
@@ -461,6 +466,12 @@
               border-bottom: 1px solid $color-bg11;
               border-color: rgba($color-bg11, .2);
             }
+            .color-title-box .box-title {
+              margin-bottom: 10px;
+              padding-bottom: 0;
+              font-size: 18px;
+              border: none;
+            }
             .color-list {
               overflow: hidden;
               margin: 0 -15px -20px;
@@ -470,6 +481,13 @@
                 width: 100px;
                 padding: 0 15px 10px;
                 margin-bottom: 20px;
+                &.color-title-box {
+                  width: 100%;
+                  padding-bottom: 0;
+                }
+              }
+              & + .color-title-box {
+                margin-top: 20px;
               }
               @media all and (max-width: 991px) {
                 margin: 0 -10px -20px;
@@ -632,6 +650,7 @@
                       .color {
                         width: 80px;
                         height: 80px;
+                        margin: 0 auto;
                       }
                     }
                   }
@@ -674,6 +693,7 @@
                         }
                         &:after {
                           opacity: 1;
+                          background-color: $color-bg12;
                           background-image: url(../../img/icon_check.png);
                         }
                       }
@@ -693,7 +713,7 @@
                     &:focus {
                       .item-img-wrap {
                         &:after {
-                          opacity: .7;
+                          //opacity: .7;
                         }
                         img {
                           @include scale(1.1)
@@ -702,7 +722,6 @@
                     }
                   }
                 }
-
                 &.without-image {
                   min-height: 195px;
                   input {
@@ -732,12 +751,12 @@
                     }
                     @media all and (min-width: 769px) {
                       &:after {
-                        opacity: 0;
+                        opacity: .7;
                       }
                       &:hover,
                       &:focus {
                         &:after {
-                          opacity: .3;
+                          opacity: 1;
                         }
                       }
                     }
@@ -748,6 +767,27 @@
                   margin-top: 0;
                   margin-bottom: 0;
                   padding-bottom: 25px;
+                }
+              }
+              .icon-zoom {
+                position: absolute;
+                z-index: 10;
+                top: 20px;
+                right: 20px;
+                width: 32px;
+                height: 32px;
+                text-align: center;
+                font-weight: 400;
+                color: #ffffff;
+                @include border-radius(2em);
+                background-color: $color-bg12;
+                background-image: url(../../img/icon_expand.png);
+                background-position: center;
+                background-size: 17px 17px;
+                background-repeat: no-repeat;
+                &:hover,
+                &:focus {
+                  background-color: #0093CA;
                 }
               }
                 .radio-item,
@@ -780,13 +820,15 @@
                     width: 32px;
                     height: 32px;
                     background-color: $color-bg12;
+
+                    background-color: $white;
                     //background-image: url(../../img/icon_check.png);
                     @include bg(center, 15px 13px, no-repeat);
                     @include border-radius(50%);
                     @include transition($transition-other);
-                    opacity: .7;
+                    //opacity: .7;
                     @media all and (min-width: 769px) {
-                      opacity: 0;
+                      //opacity: 0;
                     }
                   }
                   &:before {

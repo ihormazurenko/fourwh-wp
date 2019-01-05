@@ -40,13 +40,27 @@ jQuery(document).ready(function($) {
         if ($('.color-box input').length) {
             $('.color-box input').on('change', function () {
                 var parentBox = $(this).parents('.color-selector-box'),
+                    parentInnerBox = parentBox.find('.group-img-wrap'),
+                    parentInnerBoxClass = $(this).data('imgFullClass'),
                     url = $(this).data('imgFull'),
                     previewType = $(this).data('preview'),
                     alt = $(this).next('label').find('img').attr('alt'),
-                    image = parentBox.find('.group-img-wrap img.active');
+                    zoomLink = parentInnerBox.find('.icon-zoom'),
+                    image = parentInnerBox.find('img.active');
 
+                zoomLink.attr('href', url).attr('title', alt);
                 image.attr('src', url).attr('alt', alt);
-                image.attr('alt', alt);
+
+
+                if (parentInnerBoxClass == 'wider') {
+                    if (!(parentInnerBox.hasClass('wider'))) {
+                        parentInnerBox.addClass('wider');
+                    }
+                } else {
+                    if (parentInnerBox.hasClass('wider')) {
+                        parentInnerBox.removeClass('wider');
+                    }
+                }
 
                 if (previewType == 'interior') {
                     $('[data-interior-preview]').attr('href', url).attr('title', alt).find('img')
@@ -188,9 +202,22 @@ jQuery(document).ready(function($) {
                 $('.color-box input').each(function () {
                     var input = $(this);
                     if (input.prop('checked') == true) {
-                        var url = input.data('imgFull'),
+                        var parentBox = input.parents('.color-selector-box'),
+                            parentInnerBox = parentBox.find('.group-img-wrap'),
+                            parentInnerBoxClass = $(this).data('imgFullClass'),
+                            url = input.data('imgFull'),
                             alt = input.next('label').find('img').attr('alt'),
                             previewType = input.data('preview');
+
+                        if (parentInnerBoxClass == 'wider') {
+                            if (!(parentInnerBox.hasClass('wider'))) {
+                                parentInnerBox.addClass('wider');
+                            }
+                        } else {
+                            if (parentInnerBox.hasClass('wider')) {
+                                parentInnerBox.removeClass('wider');
+                            }
+                        }
 
                         if (previewType == 'interior') {
                             $('[data-interior-preview]').attr('href', url).attr('title', alt).find('img')
@@ -199,8 +226,6 @@ jQuery(document).ready(function($) {
                             $('[data-exterior-preview]').attr('href', url).attr('title', alt).find('img')
                                 .attr('src', url).attr('alt', alt);
                         }
-
-
                     }
                 });
 

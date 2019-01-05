@@ -290,20 +290,47 @@
                     }
                 });
             }
+            if ($('.item-box img').length || $('.group-img-wrap img').length) {
+                $('.item-box:not(.without-image), .group-img-wrap').magnificPopup({
+                    delegate: 'a.icon-zoom',
+                    type: 'image',
+                    tLoading: 'Loading image #%curr%...',
+                    mainClass: 'mfp-img-mobile',
+                    image: {
+                        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                        titleSrc: function (item) {
+                            return item.el.attr('title');
+                        }
+                    }
+                });
+
+                // $('.image-popup-no-margins').magnificPopup({
+                //     type: 'image',
+                //     closeOnContentClick: true,
+                //     closeBtnInside: false,
+                //     fixedContentPos: true,
+                //     mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+                //     image: {
+                //         verticalFit: true
+                //     },
+                //     zoom: {
+                //         enabled: true,
+                //         duration: 300 // don't foget to change the duration also in CSS
+                //     }
+                // });
+            }
         }
 
         //for More Info btn
         $(function() {
             if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
                 $('.more-info-btn').on('click', function (e) {
-                    if (!($(this).closest('.product-box'))) {
-                        e.preventDefault();
+                    e.preventDefault();
 
-                        if ($(this).hasClass('open')) {
-                            $(this).removeClass('open').next('.more').slideUp(350);
-                        } else {
-                            $(this).addClass('open').next('.more').slideDown(350);
-                        }
+                    if ($(this).hasClass('open')) {
+                        $(this).removeClass('open').next('.more').slideUp(350);
+                    } else {
+                        $(this).addClass('open').next('.more').slideDown(350);
                     }
                 });
             }

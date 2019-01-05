@@ -67,10 +67,15 @@ else :
             $option_status      = $status_arr[$option_id];
             $option_group       = get_the_terms($option_id, 'groups');
 
-            $option_photo_id    = $meta->photo ? $meta->photo : '';
-            $option_photo_arr   = $option_photo_id ? image_downsize($option_photo_id, 'medium_large') : '';
-            $option_photo_url   = $option_photo_arr[0] ? $option_photo_arr[0] : '';
-            $option_photo_class = ($option_photo_arr[1] > $option_photo_arr[2]) ? 'wider' : '';
+            $option_thumb_id    = $meta->thumbnail ? $meta->thumbnail : $meta->photo;
+            $option_thumb_arr   = $option_thumb_id ? image_downsize($option_thumb_id, 'medium_large') : '';
+            $option_thumb_url   = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
+            $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
+
+            $option_full_photo_id    = $meta->photo ? $meta->photo : $option_thumb_id;
+            $option_full_photo_arr   = $option_full_photo_id ? image_downsize($option_full_photo_id, 'medium_large') : '';
+            $option_full_photo_url   = $option_full_photo_arr[0] ? $option_full_photo_arr[0] : '';
+            $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
 
             if (is_array($option_group)) {
                 $group_id         = trim($option_group[0]->term_id);
@@ -78,30 +83,33 @@ else :
                 $group_desc         = trim($option_group[0]->description);
                 $parent_group_id    = $option_group[0]->parent != 0 ? $option_group[0]->parent : '';
                 $parent_group_name  = $parent_group_id ? get_term($parent_group_id) : 'other';
-
-                $group_check_type = get_field('people_select', $taxonomy.'_'.$group_id);
+                $group_check_type   = get_field('people_select', $taxonomy.'_'.$group_id);
 
                 if ( $parent_group_name->name ) {
                     $options_arr[$parent_group_name->name][$group_name][] = [
-                        'option_id' => $option_id,
-                        'name' => $option_name,
-                        'price' => $option_price,
-                        'weight' => $option_weight,
-                        'thumbnail' => $option_photo_url,
-                        'thumbnail_class' => $option_photo_class,
-                        'status' => $option_status,
-                        'desc' => $option_desc,
+                        'option_id'         => $option_id,
+                        'name'              => $option_name,
+                        'price'             => $option_price,
+                        'weight'            => $option_weight,
+                        'full_photo'        => $option_full_photo_url,
+                        'full_photo_class'  => $option_full_photo_class,
+                        'thumbnail'         => $option_thumb_url,
+                        'thumbnail_class'   => $option_thumb_class,
+                        'status'            => $option_status,
+                        'desc'              => $option_desc,
                     ];
                 } else {
                     $options_arr['Other'][$group_name][] = [
-                        'option_id' => $option_id,
-                        'name' => $option_name,
-                        'price' => $option_price,
-                        'weight' => $option_weight,
-                        'thumbnail' => $option_photo_url,
-                        'thumbnail_class' => $option_photo_class,
-                        'status' => $option_status,
-                        'desc' => $option_desc,
+                        'option_id'         => $option_id,
+                        'name'              => $option_name,
+                        'price'             => $option_price,
+                        'weight'            => $option_weight,
+                        'full_photo'        => $option_full_photo_url,
+                        'full_photo_class'  => $option_full_photo_class,
+                        'thumbnail'         => $option_thumb_url,
+                        'thumbnail_class'   => $option_thumb_class,
+                        'status'            => $option_status,
+                        'desc'              => $option_desc,
                     ];
                 }
 
@@ -113,14 +121,16 @@ else :
                     'name'              => $option_name,
                     'price'             => $option_price,
                     'weight'            => $option_weight,
-                    'thumbnail'         => $option_photo_url,
-                    'thumbnail_class'   => $option_photo_class,
+                    'full_photo'        => $option_full_photo_url,
+                    'full_photo_class'  => $option_full_photo_class,
+                    'thumbnail'         => $option_thumb_url,
+                    'thumbnail_class'   => $option_thumb_class,
                     'status'            => $option_status,
                     'desc'              => $option_desc,
                 ];
 
-                $group_desc_arr['Other']['desc'] = '';
-                $group_desc_arr['Other']['check-type'] = 'multiple';
+                $group_desc_arr['Other']['desc']        = '';
+                $group_desc_arr['Other']['check-type']  = 'multiple';
             }
 
         endwhile;
@@ -360,16 +370,16 @@ else :
                                                                         if ( strtolower($value['status']) == strtolower('standard') ) {
                                                                             $item_id                = trim($value['option_id']);
                                                                             $item_name              = trim($value['name']);
-                                                                            $item_thumbnail         = trim($value['thumbnail']);
+                                                                            $item_full_photo        = trim($value['full_photo']);
                                                                         }
                                                                     endforeach;
                                                                     ?>
-                                                                    <?php if ( $item_thumbnail ) { ?>
+                                                                    <?php if ( $item_full_photo ) { ?>
                                                                         <a class="icon-zoom"
-                                                                           href="<?php echo esc_url($item_thumbnail); ?>"
+                                                                           href="<?php echo esc_url($item_full_photo); ?>"
                                                                            title="<?php echo esc_attr($item_name); ?>"></a>
                                                                     <?php } ?>
-                                                                    <img src="<?php echo esc_url( $item_thumbnail ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
+                                                                    <img src="<?php echo esc_url( $item_full_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
                                                                 </div>
                                                             </div>
                                                         <?php endif; ?>
@@ -388,6 +398,8 @@ else :
                                                                         $item_name              = trim($value['name']);
                                                                         $item_price             = trim($value['price']);
                                                                         $item_weight            = trim($value['weight']);
+                                                                        $item_full_photo        = trim($value['full_photo']);
+                                                                        $item_full_photo_class  = trim($value['full_photo_class']);
                                                                         $item_class             = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
 
                                                                         if ($value['custom'] != 'custom') {
@@ -438,8 +450,8 @@ else :
                                                                                        data-color="truck_color_<?php echo $item_id; ?>"
                                                                                        data-price="<?php echo $item_price; ?>"
                                                                                        data-weight="<?php echo $item_weight; ?>"
-                                                                                       data-img-full="<?php echo esc_url($item_thumbnail_full); ?>"
-                                                                                       data-img-full-class="<?php echo esc_url($item_thumbnail_class); ?>"
+                                                                                       data-img-full="<?php echo esc_url($item_full_photo); ?>"
+                                                                                       data-img-full-class="<?php echo esc_url($item_full_photo_class); ?>"
                                                                                        data-group-name="<?php echo $group; ?>"
                                                                                        data-option-parent-group="<?php echo $parent_group; ?>"
                                                                                        data-option-group="<?php echo $element_id; ?>"
@@ -476,6 +488,8 @@ else :
                                                                         $item_name              = trim($value['name']);
                                                                         $item_price             = trim($value['price']);
                                                                         $item_weight            = trim($value['weight']);
+                                                                        $item_full_photo        = trim($value['full_photo']);
+                                                                        $item_full_photo_class  = trim($value['full_photo_class']);
                                                                         $item_thumbnail         = trim($value['thumbnail']);
                                                                         $item_thumbnail_class   = trim($value['thumbnail_class']);
                                                                         $item_desc              = $value['desc'];
@@ -485,7 +499,7 @@ else :
                                                                     <div class="item-box <?php if ( !$item_thumbnail ) { echo 'without-image'; } ?>">
                                                                         <?php if ( $item_thumbnail ) { ?>
                                                                             <a class="icon-zoom"
-                                                                               href="<?php echo esc_url($item_thumbnail); ?>"
+                                                                               href="<?php echo esc_url($item_full_photo); ?>"
                                                                                title="<?php echo esc_attr($item_name); ?>"></a>
                                                                         <?php } ?>
                                                                         <?php if ($group != 'other' && $group_check == 'single') { ?>

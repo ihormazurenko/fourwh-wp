@@ -19,7 +19,7 @@ add_filter( 'manage_model_option_posts_columns', function ( $columns ) {
 add_action( 'manage_model_option_posts_custom_column', function ( $column_name ) {
     if ( $column_name === 'thumb' ) {
         $no_image_available = get_bloginfo("template_url").'/img/no_image_available.jpg';
-        $photo = get_field('photo');
+        $photo = get_field('thumbnail');
         $photo_url = $photo['sizes']['thumbnail'] ? $photo['sizes']['thumbnail'] : $no_image_available;
         ?>
         <a href="<?php echo get_edit_post_link(); ?>">

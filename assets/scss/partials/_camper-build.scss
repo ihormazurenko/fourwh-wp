@@ -321,7 +321,11 @@
         //  margin-bottom: 0;
         //}
       }
-
+      .group-parent-box {
+        .section-desc {
+          margin-bottom: 50px;
+        }
+      }
         .group-box {
           overflow: hidden;
           margin-bottom: 118px;
@@ -467,7 +471,7 @@
               border-color: rgba($color-bg11, .2);
             }
             .color-title-box .box-title {
-              margin-bottom: 10px;
+              margin-bottom: 15px;
               padding-bottom: 0;
               font-size: 18px;
               border: none;

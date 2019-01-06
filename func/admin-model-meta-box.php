@@ -22,7 +22,7 @@ function current_screen_model_hook( $current_screen ) {
                 $option_id = $option_query->post->ID;
                 $option_name        = get_the_title() ? get_the_title() : '';
                 $option_info        = get_field('option_info');
-                $option_photo       = get_field('photo');
+                $option_photo       = get_field('thumbnail');
                 $option_photo_url   = $option_photo['sizes']['thumbnail'] ? $option_photo['sizes']['thumbnail'] : $no_image_available ;
                 $option_group       = get_the_terms($option_id, 'groups');
 

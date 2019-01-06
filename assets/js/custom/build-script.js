@@ -41,15 +41,16 @@ jQuery(document).ready(function($) {
             $('.color-box input').on('change', function () {
                 var parentBox = $(this).parents('.color-selector-box'),
                     parentInnerBox = parentBox.find('.group-img-wrap'),
-                    parentInnerBoxClass = $(this).data('imgFullClass'),
+                    parentInnerBoxClass = $(this).data('imgMediumLargeClass'),
                     url = $(this).data('imgFull'),
+                    urlMediumLarge = $(this).data('imgMediumLarge'),
                     previewType = $(this).data('preview'),
                     alt = $(this).next('label').find('img').attr('alt'),
                     zoomLink = parentInnerBox.find('.icon-zoom'),
                     image = parentInnerBox.find('img.active');
 
                 zoomLink.attr('href', url).attr('title', alt);
-                image.attr('src', url).attr('alt', alt);
+                image.attr('src', urlMediumLarge).attr('alt', alt);
 
 
                 if (parentInnerBoxClass == 'wider') {
@@ -77,11 +78,11 @@ jQuery(document).ready(function($) {
     if (typeof tippy !== 'undefined') {
         if ($('.color-box label').length) {
             var tip = tippy('.color-box label', {
-                delay: 100,
+                delay: 50,
                 arrow: true,
                 arrowType: 'round',
                 size: 'large',
-                duration: 500,
+                duration: 350,
                 animation: 'scale'
             });
         }
@@ -204,7 +205,7 @@ jQuery(document).ready(function($) {
                     if (input.prop('checked') == true) {
                         var parentBox = input.parents('.color-selector-box'),
                             parentInnerBox = parentBox.find('.group-img-wrap'),
-                            parentInnerBoxClass = $(this).data('imgFullClass'),
+                            parentInnerBoxClass = $(this).data('imgMediumLargeClass'),
                             url = input.data('imgFull'),
                             alt = input.next('label').find('img').attr('alt'),
                             previewType = input.data('preview');

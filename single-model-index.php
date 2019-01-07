@@ -185,14 +185,26 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                             }
 
                             if ( $virtual_tour_video_url || $virtual_tour_thumb_url ) {
-//                                echo '<div class="detail-img-wrap">
-//                                        <img src="' . $virtual_tour_img_url . '" alt="' . esc_attr( $virtual_tour_img_alt ) . '">
-//                                    </div>';
-                                echo '<div class="video-wrap-box">
-                                            <div class="video-wrap">
-                                                <img src="' . $virtual_tour_thumb_url . '" alt="' . esc_attr($virtual_tour_title) . '">                                                                                       
-                                            </div>
+                                if ( !$virtual_tour_video_url && $virtual_tour_thumb_url ) {
+                                    echo '<div class="detail-img-wrap">
+                                            <img src="' . $virtual_tour_thumb_url . '" alt="' . esc_attr( $virtual_tour_title ) . '">
                                         </div>';
+                                } elseif ($virtual_tour_video_url || $virtual_tour_thumb_url) {
+                                    echo '<div class="video-wrap-box">
+                                            <div class="video-wrap">';
+                                                if ( $virtual_tour_thumb_url ) {
+                                                    echo '<img src="' . $virtual_tour_thumb_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
+                                                }
+                                                if ( $virtual_tour_video_url ) {
+                                                    if (getVideoType($virtual_tour_video_url) == 'youtube') {
+                                                        echo '<iframe src="https://www.youtube.com/embed/'.getVideoId($virtual_tour_video_url).'?rel=0&autoplay=1&loop=1&mute=1&playlist='.getVideoId($virtual_tour_video_url).'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+                                                    }   elseif (getVideoType($virtual_tour_video_url) == 'vimeo') {
+                                                        echo '<iframe src="https://player.vimeo.com/video/'.getVideoId($virtual_tour_video_url).'?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                                    }
+                                                }
+                                    echo '</div>
+                                        </div>';
+                                }
                             }
                         ?>
                         </div>

@@ -154,6 +154,52 @@ function usage() {
 add_action('admin_footer_text', 'usage');
 add_action('wp_footer', 'usage');
 
+//get video type
+function getVideoType($url) {
+    if (empty($url))
+        return;
+
+    if (strpos($url, 'youtube') > 0) {
+        return 'youtube';
+    } elseif (strpos($url, 'vimeo') > 0) {
+        return 'vimeo';
+    } else {
+        return;
+    }
+}
+
+//get video id
+function getVideoId($url) {
+    if (strpos($url, 'youtube') > 0) {
+        //for Youtube
+        if (empty($url))
+            return;
+
+        $fetch              = explode("v=", $url);
+        $youtube_video_id   = $fetch[1];
+
+        return $youtube_video_id;
+
+    } elseif (strpos($url, 'vimeo') > 0) {
+        //for Vimeo
+        $regs = [];
+        $vimeo_id = '';
+
+        if (preg_match('%^https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)(?:[?]?.*)$%im', $url, $regs)) {
+            $vimeo_id = trim($regs[3]);
+        }
+
+        if ( empty( $vimeo_id ) )
+            return;
+
+        return $vimeo_id;
+    } else {
+        //other
+
+        return;
+    }
+}
+
 //get video thumbnail url
 function getVideoThumbnail($url) {
     if (strpos($url, 'youtube') > 0) {

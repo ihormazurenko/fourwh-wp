@@ -168,8 +168,8 @@ $build_url                      = $enable_customizer ? 'build/' : '';
             if ( $show_section_virtual_tour && $virtual_tour && is_array( $virtual_tour ) && count( $virtual_tour ) > 0) :
                 $virtual_tour_title       = $virtual_tour['title'];
                 $virtual_tour_description = $virtual_tour['description'];
-                $virtual_tour_img_url     = $virtual_tour['image']['url'];
-                $virtual_tour_img_alt     = $virtual_tour_title ? $virtual_tour_title :  $virtual_tour['image']['title'];
+                $virtual_tour_video_url   = $virtual_tour['url'];
+                $virtual_tour_thumb_url   = $virtual_tour['image'] ? $virtual_tour['image']['url'] : getVideoThumbnail($virtual_tour_video_url);
 
                 if ($virtual_tour_title || $virtual_tour_description || $virtual_tour_img_url) :
                     ?>
@@ -184,10 +184,15 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                                 echo '<div class="section-desc content">' . $virtual_tour_description . '</div>';
                             }
 
-                            if ( $virtual_tour_img_url ) {
-                                echo '<div class="detail-img-wrap">
-                                        <img src="' . $virtual_tour_img_url . '" alt="' . esc_attr( $virtual_tour_img_alt ) . '">
-                                    </div>';
+                            if ( $virtual_tour_video_url || $virtual_tour_thumb_url ) {
+//                                echo '<div class="detail-img-wrap">
+//                                        <img src="' . $virtual_tour_img_url . '" alt="' . esc_attr( $virtual_tour_img_alt ) . '">
+//                                    </div>';
+                                echo '<div class="video-wrap-box">
+                                            <div class="video-wrap">
+                                                <img src="' . $virtual_tour_thumb_url . '" alt="' . esc_attr($virtual_tour_title) . '">                                                                                       
+                                            </div>
+                                        </div>';
                             }
                         ?>
                         </div>
@@ -218,7 +223,7 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                                     echo '<div class="section-desc content">' . $specifications_description . '</div>';
                                 }
 
-                                if ( $virtual_tour_img_url ) {
+                                if ( $specifications_img_url ) {
                                     echo '<div class="left-box">
                                             <div class="detail-img-wrap">
                                                 <img src="' . $specifications_img_url . '" alt="' . esc_attr( $specifications_img_alt ) . '">
@@ -231,25 +236,46 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                                     <div class="right-box">
                                         <div class="specifications-accordion content">
                                             <?php
+                                                $accordion_count = 0;
                                                 foreach ($specifications_accordion as $item ) {
                                                     $item_title     = $item['title'];
                                                     $item_content   = $item['content'];
+                                                    $accordion_count++;
 
                                                     if ($item_title || $item_content) {
-                                                        ?>
+                                                        if ($accordion_count == 1) {
+                                                            ?>
                                                             <div class="accordion-box">
-                                                                <?php if ( $item_title ) { ?>
-                                                                    <h4 class="accordion active"><?php echo $item_title; ?> <i class="fa fa-chevron-down"></i></h4>
+                                                                <?php if ($item_title) { ?>
+                                                                    <h4 class="accordion active"><?php echo $item_title; ?> <i
+                                                                                class="fa fa-chevron-down"></i></h4>
                                                                 <?php } ?>
-                                                                <?php if ( $item_content ) { ?>
-                                                                    <div class="panel">
+                                                                <?php if ($item_content) { ?>
+                                                                    <div class="panel" style="display: block;">
                                                                         <div class="inner-box">
-                                                                          <?php echo $item_content; ?>
+                                                                            <?php echo $item_content; ?>
                                                                         </div>
                                                                     </div>
                                                                 <?php } ?>
                                                             </div>
-                                                        <?php
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <div class="accordion-box">
+                                                                <?php if ($item_title) { ?>
+                                                                    <h4 class="accordion"><?php echo $item_title; ?> <i
+                                                                                class="fa fa-chevron-down"></i></h4>
+                                                                <?php } ?>
+                                                                <?php if ($item_content) { ?>
+                                                                    <div class="panel">
+                                                                        <div class="inner-box">
+                                                                            <?php echo $item_content; ?>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                                            <?php
+                                                        }
                                                     }
                                                 }
                                             ?>

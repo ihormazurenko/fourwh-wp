@@ -433,7 +433,7 @@ else :
                                                                     <?php if ( $item_full_photo ) { ?>
                                                                         <a class="icon-zoom"
                                                                            href="<?php echo esc_url($item_full_photo); ?>"
-                                                                           title="<?php echo esc_attr($item_name); ?>"></a>
+                                                                           title="<?php esc_attr_e('Zoom', 'fw_campers'); ?>"></a>
                                                                     <?php } ?>
                                                                     <img src="<?php echo esc_url( $item_medium_large_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
                                                                 </div>
@@ -550,7 +550,7 @@ else :
                                                                         <?php if ( $item_thumbnail ) { ?>
                                                                             <a class="icon-zoom"
                                                                                href="<?php echo esc_url($item_full_photo); ?>"
-                                                                               title="<?php echo esc_attr($item_name); ?>"></a>
+                                                                               title="<?php esc_attr_e('Zoom', 'fw_campers'); ?>"></a>
                                                                         <?php } ?>
                                                                         <?php if ($group != 'other' && $group_check == 'single') { ?>
                                                                             <input id="option_<?php echo $item_id; ?>"

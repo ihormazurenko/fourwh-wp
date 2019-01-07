@@ -645,7 +645,7 @@ wp_reset_postdata();
                                             $group_desc  = $group_desc_arr[$group]['desc'];
                                             $group_check = $group_desc_arr[$group]['check-type'];
 
-                                            if ( strtolower($group) === strtolower('Cushion Fabric Colors') || strtolower($group) === strtolower('Exterior Siding') ) :
+                                            if ( strtolower($group) === strtolower('Cushion Fabric Colors') ) :
                                                 $data_attr = (strtolower($group) === strtolower('Cushion Fabric Colors')) ? 'interior' : 'exterior';
                                                 ?>
                                                 <div id="<?php echo $element_id; ?>" class="group-box color-selector-box">

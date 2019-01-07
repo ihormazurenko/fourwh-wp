@@ -17,7 +17,7 @@ $section_info = get_field('section_info', $id );
 if ($show_section_info) {
     if ($section_info && is_array($section_info) && count($section_info) > 0) {
         $section_description = $section_info['description'];
-        if (is_post_type_archive('model') || is_tax('model_sizes')) {
+        if (is_post_type_archive('model') || is_tax('model_sizes') || is_tax('model_categories')) {
             $section_title = get_the_archive_title();
         } else {
             $section_title = $section_info['title'];

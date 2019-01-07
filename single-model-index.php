@@ -170,6 +170,7 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                 $virtual_tour_description = $virtual_tour['description'];
                 $virtual_tour_video_url   = $virtual_tour['url'];
                 $virtual_tour_thumb_url   = $virtual_tour['image'] ? $virtual_tour['image']['url'] : getVideoThumbnail($virtual_tour_video_url);
+                $virtual_tour_link        = $virtual_tour['link'];
 
                 if ($virtual_tour_title || $virtual_tour_description || $virtual_tour_img_url) :
                     ?>
@@ -204,6 +205,29 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                                                 }
                                     echo '</div>
                                         </div>';
+                                }
+                            }
+                            if ( $virtual_tour_link && is_array( $virtual_tour_link ) && count( $virtual_tour_link ) > 0) {
+                                $virtual_label = $virtual_tour_link['label'];
+                                $virtual_link_type = $virtual_tour_link['link_type'];
+                                $virtual_target = $virtual_tour_link['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+
+                                if ($virtual_link_type == 'internal') {
+                                    $virtual_link = $virtual_tour_link['internal_link'] ? $virtual_tour_link['internal_link'] : '';
+                                } elseif ($virtual_link_type == 'external') {
+                                    $virtual_link = $virtual_tour_link['external_link'] ? $virtual_tour_link['external_link'] : '';
+                                } else {
+                                    $virtual_link = '';
+                                }
+
+                                if (!empty($virtual_label)) {
+                                    echo '<div class="videotour-link-box">';
+                                        if (!empty($virtual_link)) {
+                                            echo '<a href="' . $virtual_link . '" class="video-title" title="' . esc_attr($virtual_label) . '" ' . $virtual_target . '>' . $virtual_label . '</a>';
+                                        } else {
+                                            echo '<span>' . $virtual_label . '</span>';
+                                        }
+                                    echo '</div>';
                                 }
                             }
                         ?>

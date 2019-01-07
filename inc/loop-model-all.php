@@ -19,7 +19,7 @@
             $url = get_permalink();
         }
 //    }
-
+        $general_list = get_field('general_list');
 ?>
 <li>
     <div class="product-wrap">

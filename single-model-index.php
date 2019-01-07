@@ -37,6 +37,295 @@ $info_box_3                     = get_field('info_box_3', 'option');
 $enable_customizer              = get_field('enable_customizer');
 $build_url                      = $enable_customizer ? 'build/' : '';
 
+
+$model_id = get_the_ID();
+$model_name = get_the_title();
+$table_name = 'fourwh_model_relationship';
+$model_relationship = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->prefix.$table_name.' WHERE model_id = %d',$model_id),OBJECT);
+
+$options_ids    = [];
+$options_arr    = [];
+$group_desc_arr = [];
+$status_arr     = [];
+$taxonomy       = 'groups';
+
+foreach ($model_relationship as $key => $value) {
+    if ($value->status != 'not_available' && $value->status != '' && $value->trash != 1) {
+        $options_ids[]                  = $value->option_id;
+        $status_arr[$value->option_id]  = $value->status;
+    }
+}
+
+$option_args = array(
+    'post_type'         => 'model_option',
+    'post_status'       => 'publish',
+    'post__in'          => $options_ids,
+    'posts_per_page'    => -1,
+    'orderby'           => 'post__in'
+);
+
+$option_query = new WP_Query( $option_args );
+if ( $option_query->have_posts() )  :
+    while ( $option_query->have_posts()) : $option_query->the_post();
+        $option_id          = $option_query->post->ID;
+
+        $meta = new stdClass;
+        foreach( (array) get_post_meta($option_id ) as $k => $v ) $meta->$k = $v[0];
+
+        $option_name        = get_the_title() ? get_the_title() : '';
+        $option_price       = $meta->option_info_price ? $meta->option_info_price : 0;
+        $option_weight      = $meta->option_info_weight ? $meta->option_info_weight : 0;
+        $option_desc        = $meta->description ? $meta->description : '';
+        $option_status      = $status_arr[$option_id];
+        $option_group       = get_the_terms($option_id, 'groups');
+
+
+        if ( strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') ) {
+            $option_thumb_id = $meta->thumbnail ? $meta->thumbnail : '';
+            $option_thumb_arr = $option_thumb_id ? image_downsize($option_thumb_id, 'thumbnail') : '';
+            $option_thumb_url = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
+            $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
+
+            $option_medium_large_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
+            $option_medium_large_photo_arr = $option_medium_large_photo_id ? image_downsize($option_medium_large_photo_id, 'medium_large') : '';
+            $option_medium_large_photo_url = $option_medium_large_photo_arr[0] ? $option_medium_large_photo_arr[0] : '';
+            $option_medium_large_photo_class = ($option_medium_large_photo_arr[1] > $option_medium_large_photo_arr[2]) ? 'wider' : '';
+
+            $option_full_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
+            $option_full_photo_arr = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
+            $option_full_photo_url = $option_full_photo_arr[0] ? $option_full_photo_arr[0] : '';
+            $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
+
+            if (is_array($option_group)) {
+                $group_id = trim($option_group[0]->term_id);
+                $group_name = trim($option_group[0]->name);
+//                $group_desc = trim($option_group[0]->description);
+//                $parent_group_id = $option_group[0]->parent != 0 ? $option_group[0]->parent : '';
+//                $parent_group_name = $parent_group_id ? get_term($parent_group_id) : 'other';
+//                $group_check_type = get_field('people_select', $taxonomy . '_' . $group_id);
+
+//                if ($parent_group_name->name) {
+//                    if (strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') || strtolower($option_group[0]->name) === strtolower('Exterior Siding')) {
+//                        $options_arr[$parent_group_name->name][$group_name][] = [
+//                            'option_id' => $option_id,
+//                            'name' => $option_name,
+//                            'price' => $option_price,
+//                            'weight' => $option_weight,
+//                            'full_photo' => $option_full_photo_url,
+//                            'full_photo_class' => $option_full_photo_class,
+//                            'medium_large_photo' => $option_medium_large_photo_url,
+//                            'medium_large_photo_class' => $option_medium_large_photo_class,
+//                            'thumbnail' => $option_thumb_url,
+//                            'thumbnail_class' => $option_thumb_class,
+//                            'status' => $option_status,
+//                            'desc' => $option_desc,
+//                        ];
+//                    } else {
+//                        $options_arr[$parent_group_name->name][$group_name][] = [
+//                            'option_id' => $option_id,
+//                            'name' => $option_name,
+//                            'price' => $option_price,
+//                            'weight' => $option_weight,
+//                            'full_photo' => $option_full_photo_url,
+//                            'full_photo_class' => $option_full_photo_class,
+//                            'thumbnail' => $option_thumb_url,
+//                            'thumbnail_class' => $option_thumb_class,
+//                            'status' => $option_status,
+//                            'desc' => $option_desc,
+//                        ];
+//                    }
+//                } else {
+                    $options_arr[$group_name][] = [
+                        'option_id' => $option_id,
+                        'name' => $option_name,
+                        'price' => $option_price,
+                        'weight' => $option_weight,
+                        'full_photo' => $option_full_photo_url,
+                        'full_photo_class' => $option_full_photo_class,
+                        'medium_large_photo' => $option_medium_large_photo_url,
+                        'medium_large_photo_class' => $option_medium_large_photo_class,
+                        'thumbnail' => $option_thumb_url,
+                        'thumbnail_class' => $option_thumb_class,
+                        'status' => $option_status,
+                        'desc' => $option_desc,
+                    ];
+//                }
+
+//                $group_desc_arr[$group_name]['desc'] = $group_desc;
+//                $group_desc_arr[$group_name]['check-type'] = $group_check_type;
+//            } else {
+//                $options_arr['Other']['Other'][] = [
+//                    'option_id' => $option_id,
+//                    'name' => $option_name,
+//                    'price' => $option_price,
+//                    'weight' => $option_weight,
+//                    'full_photo' => $option_full_photo_url,
+//                    'full_photo_class' => $option_full_photo_class,
+//                    'thumbnail' => $option_thumb_url,
+//                    'thumbnail_class' => $option_thumb_class,
+//                    'status' => $option_status,
+//                    'desc' => $option_desc,
+//                ];
+//
+//                $group_desc_arr['Other']['desc'] = '';
+//                $group_desc_arr['Other']['check-type'] = 'multiple';
+            }
+        }
+
+    endwhile;
+
+    //sort groups
+//    $sort_options = [];
+//    ksort($options_arr);
+//    foreach ($options_arr as $parent => $groups) {
+//        ksort($groups);
+//        foreach ($groups as $group => $items) {
+//            ksort($items);
+//            foreach ($items as $key => $value) {
+//                $sort_options[$parent][$group][$key] = $value;
+//            }
+//        }
+//    }
+//
+//    $options_arr = $sort_options;
+
+    //move "Cushion Fabric Colors" to the top of group
+//    if ( $options_arr['Interior Options']['Cushion Fabric Colors'] ) :
+//        $options_arr['Interior Options'] = array('Cushion Fabric Colors' => $options_arr['Interior Options']['Cushion Fabric Colors']) + $options_arr['Interior Options'];
+//    endif;
+
+    //move "Exterior Siding" to the top of group
+//    if ($options_arr['Exterior Options']['Exterior Siding']) :
+//        $options_arr['Exterior Options'] = array('Exterior Siding' => $options_arr['Exterior Options']['Exterior Siding']) + $options_arr['Exterior Options'];
+//    endif;
+
+    //move parent Other to end
+//    if ($options_arr['Other']) :
+//        $temp = $options_arr['Other'];
+//        unset($options_arr['Other']);
+//        $options_arr['Other'] = $temp;
+//    endif;
+
+    //move "Other" to the top of group
+//    if ($options_arr['Other']['Other']) :
+//        $temp = $options_arr['Other']['Other'];
+//        unset($options_arr['Other']['Other']);
+//        $options_arr['Other']['Other'] = $temp;
+//    endif;
+
+    //enable custom exterior
+//    $exterior_arr = [];
+
+//    if ($model_customizer) :
+//        if ($customize_exterior && is_array($customize_exterior) && count($customize_exterior) > 0) :
+//            foreach ($customize_exterior as $key => $value) {
+//                $exterior_price         = $value['price'] ? $value['price'] : '';
+//                $exterior_full_photo    = $value['photo'] ? $value['photo'] : '';
+//                $exterior_thumbnail     = $value['thumbnail'] ? $value['thumbnail'] : '';
+//                $necessary_option_id    = $value['select_option'][0] ? $value['select_option'][0] : '';
+//
+//                $exterior_arr[$necessary_option_id] = [
+//                    'full_photo'    => $exterior_full_photo,
+//                    'thumbnail'     => $exterior_thumbnail,
+//                    'price'         => $exterior_price,
+//                ];
+//            }
+//
+//            if (is_array($exterior_arr) && count($exterior_arr) > 0) :
+//                $options_exterior_arr = $options_arr['Exterior Options']['Exterior Siding'];
+//                if (isset($options_exterior_arr)) :
+//
+//                    foreach ($options_exterior_arr as $key => $value) {
+//                        $opt_id = $value['option_id'];
+//
+//                        if (array_key_exists($opt_id, $exterior_arr)) {
+//                            $new_price      = $exterior_arr[$opt_id]['price'] ? $exterior_arr[$opt_id]['price'] : '';
+//
+//                            $new_thumbnail = $exterior_arr[$opt_id]['thumbnail'] ? $exterior_arr[$opt_id]['thumbnail'] : '';
+//                            $new_thumbnail_url = $new_thumbnail['sizes']['thumbnail'] ? $new_thumbnail['sizes']['thumbnail'] : $new_thumbnail['url'];
+//                            $new_thumbnail_class = $new_thumbnail_url['width'] > $new_thumbnail_url['height'] ? 'wider' : '';
+//
+//                            $new_medium_large = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
+//                            $new_medium_large_url = $new_medium_large['sizes']['medium_large'] ? $new_medium_large['sizes']['medium_large'] : $new_medium_large['url'];
+//                            $new_medium_large_class = $new_medium_large_url['width'] > $new_medium_large_url['height'] ? 'wider' : '';
+//
+//                            $new_full_photo = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
+//                            $new_full_photo_url = $new_full_photo['sizes']['full'] ? $new_full_photo['sizes']['full'] : $new_full_photo['url'];
+//                            $new_full_photo_class = $new_full_photo_class['width'] > $new_full_photo_class['height'] ? 'wider' : '';
+//
+//
+//                            if ($new_price) {
+//                                $options_arr['Exterior Options']['Exterior Siding'][$key]['price'] = $new_price;
+//                            }
+//
+//                            if ($new_thumbnail) {
+//                                $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail']                = $new_thumbnail_url;
+//                                $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail_class']          = $new_thumbnail_class;
+//                            }
+//
+//                            if ($new_medium_large) {
+//                                $options_arr['Exterior Options']['Exterior Siding'][$key]['medium_large_photo']       = $new_medium_large_url;
+//                                $options_arr['Exterior Options']['Exterior Siding'][$key]['medium_large_photo_class'] = $new_medium_large_class;
+//                            }
+//
+//                            if ($new_full_photo) {
+//                                $options_arr['Exterior Options']['Exterior Siding'][$key]['full_photo']               = $new_full_photo_url;
+//                                $options_arr['Exterior Options']['Exterior Siding'][$key]['full_photo_class']         = $new_full_photo_class;
+//                            }
+//                        }
+//                    }
+//                endif;
+//            endif;
+//
+//        endif;
+//    endif;
+
+    //group Cushion Fabric Colors
+    $options_fabric_arr = $options_arr['Cushion Fabric Colors'];
+
+    if (isset($options_fabric_arr)) :
+        $fabric_price_arr = array_column( $options_fabric_arr, 'price' );
+        $fabric_name_arr = array_column( $options_fabric_arr, 'name' );
+        $fabric_status_arr = array_column( $options_fabric_arr, 'status' );
+
+        array_multisort( $fabric_price_arr, SORT_NUMERIC , $fabric_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_fabric_arr );
+
+        if ( ! in_array( $fabric_status_arr, 'standard' ) ) {
+            $options_fabric_arr[0]['status'] = 'standard';
+        }
+
+        $options_arr['Cushion Fabric Colors'] = $options_fabric_arr;
+
+    endif;
+
+    //group Exterior Siding
+//    $options_exterior_opt_arr = $options_arr['Exterior Options']['Exterior Siding'];
+//
+//    if (isset($options_exterior_opt_arr)) :
+//        $exterior_opt_price_arr = array_column( $options_exterior_opt_arr, 'price' );
+//        $exterior_opt_name_arr = array_column( $options_exterior_opt_arr, 'name' );
+//        $exterior_opt_status_arr = array_column( $options_exterior_opt_arr, 'status' );
+//
+//        array_multisort( $exterior_opt_price_arr, SORT_NUMERIC , $exterior_opt_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_exterior_opt_arr );
+//
+//        if ( ! in_array( $exterior_opt_status_arr, 'standard' ) ) {
+//            $options_exterior_opt_arr[0]['status'] = 'standard';
+//        }
+//
+//        $options_arr['Exterior Options']['Exterior Siding'] = $options_exterior_opt_arr;
+//
+//    endif;
+
+//        if (get_current_user_id() == 1) :
+//            var_dump($group_desc_arr);
+//        endif;
+
+else:
+    $options_arr = [];
+endif;
+
+wp_reset_postdata();
+
 ?>
 
     <?php get_template_part('inc/hero', 'banner'); ?>
@@ -343,7 +632,313 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                                     if ( $fabric_description ) {
                                         echo '<div class="section-desc content">' . $fabric_description . '</div>';
                                     }
+                                    ?>
 
+                                <?php
+
+                                ?>
+                                <?php
+                                    if( $options_arr && is_array( $options_arr ) && count( $options_arr ) > 0 ) :
+                                        foreach ($options_arr as $group => $items) :
+                                            $element_id  = preg_replace('/[^\w]/','-', strtolower(strip_tags(trim($group))) );
+                                            $element_id  = preg_replace('/(-)\1+/','-', $element_id );
+                                            $group_desc  = $group_desc_arr[$group]['desc'];
+                                            $group_check = $group_desc_arr[$group]['check-type'];
+
+                                            if ( strtolower($group) === strtolower('Cushion Fabric Colors') || strtolower($group) === strtolower('Exterior Siding') ) :
+                                                $data_attr = (strtolower($group) === strtolower('Cushion Fabric Colors')) ? 'interior' : 'exterior';
+                                                ?>
+                                                <div id="<?php echo $element_id; ?>" class="group-box color-selector-box">
+                                                    <?php
+                                                    if (is_array($items) && count($items) > 0) :
+                                                        $items_count = count($items);
+                                                        ?>
+                                                        <div class="left-box">
+                                                            <div class="group-img-wrap centered-img">
+                                                                <?php
+                                                                foreach ($items as $key => $value) :
+                                                                    if ( strtolower($value['status']) == strtolower('standard') ) {
+                                                                        $item_id                    = trim($value['option_id']);
+                                                                        $item_name                  = trim($value['name']);
+                                                                        $item_full_photo            = trim($value['full_photo']);
+                                                                        $item_medium_large_photo    = $value['medium_large_photo'] ? trim($value['medium_large_photo']) : $item_full_photo;
+                                                                    }
+                                                                endforeach;
+                                                                ?>
+                                                                <?php if ( $item_full_photo ) { ?>
+                                                                    <a class="icon-zoom"
+                                                                       href="<?php echo esc_url($item_full_photo); ?>"
+                                                                       title="<?php esc_attr_e('Zoom', 'fw_campers'); ?>"></a>
+                                                                <?php } ?>
+                                                                <img src="<?php echo esc_url( $item_medium_large_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                    <?php
+                                                    if (is_array($items) && count($items) > 0) :
+                                                        ?>
+                                                        <div class="right-box">
+                                                            <?php
+                                                            $img_count   = 0;
+                                                            $items_count = count($items);
+                                                            $item_prev_price = 0;
+
+                                                            foreach ($items as $key => $value) :
+                                                                $item_id                        = trim($value['option_id']);
+                                                                $item_name                      = trim($value['name']);
+                                                                $item_price                     = trim($value['price']);
+                                                                $item_weight                    = trim($value['weight']);
+                                                                $item_full_photo                = trim($value['full_photo']);
+                                                                $item_full_photo_class          = trim($value['full_photo_class']);
+                                                                $item_medium_large_photo        = trim($value['medium_large_photo']);
+                                                                $item_medium_large_photo_class  = trim($value['medium_large_photo_class']);
+                                                                $item_thumbnail                 = trim($value['thumbnail']);
+                                                                $item_thumbnail_class           = trim($value['thumbnail_class']);
+                                                                $item_class                     = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
+
+                                                                if ($img_count == 0) {
+                                                                    ?>
+                                                                    <div class="color-title-box">
+                                                                        <h4 class="box-title"><?php _e('Standard Options', 'fw_campers'); ?></h4>
+                                                                    </div>
+                                                                    <ul class="color-list">
+                                                                    <?php
+                                                                }
+                                                                if ($item_price != 0 && $item_prev_price == 0) {
+                                                                    ?>
+                                                                    </ul>
+                                                                    <div class="color-title-box">
+                                                                        <h4 class="box-title"><?php _e('Premium Options', 'fw_campers'); ?></h4>
+                                                                    </div>
+                                                                    <ul class="color-list">
+                                                                    <?php
+                                                                }
+                                                                if ($img_count == $items_count) {
+                                                                    ?>
+                                                                    </ul>
+                                                                    <?php
+                                                                }
+
+                                                                $img_count++;
+                                                                $item_prev_price = $item_price;
+
+                                                                ?>
+                                                                <li>
+                                                                    <div class="color-box color-gainsboro">
+                                                                        <input class="color-selector"
+                                                                               type="radio"
+                                                                               name="option_group[<?php echo $element_id; ?>]"
+                                                                               id="option_<?php echo $item_id; ?>"
+                                                                               value="<?php echo $item_name; ?>" <?php echo $item_class; ?>
+                                                                               data-color="truck_color_<?php echo $item_id; ?>"
+                                                                               data-price="<?php echo $item_price; ?>"
+                                                                               data-weight="<?php echo $item_weight; ?>"
+                                                                               data-img-full="<?php echo esc_url($item_full_photo); ?>"
+                                                                               data-img-medium-large="<?php echo esc_url($item_medium_large_photo); ?>"
+                                                                               data-img-medium-large-class="<?php echo esc_url($item_medium_large_photo_class); ?>"
+                                                                               data-group-name="<?php echo $group; ?>"
+                                                                               data-option-parent-group="<?php echo $parent_group; ?>"
+                                                                               data-option-group="<?php echo $element_id; ?>"
+                                                                               data-preview="<?php echo $data_attr; ?>"
+                                                                               data-option-name = "<?php echo trim($item_name); ?>"
+                                                                               data-option>
+                                                                        <label for="option_<?php echo $item_id; ?>" data-tippy-content="<?php echo $item_name . '<br>$' . $item_price; ?>">
+                                                                                                <span class="color centered-img <?php echo $item_thumbnail_class; ?>">
+                                                                                                    <img src="<?php echo esc_url( $item_thumbnail ); ?>" alt="<?php echo esc_attr( $item_name ); ?>">
+                                                                                                </span>
+                                                                            <span class="color-name"><?php echo $item_name; ?></span>
+                                                                        </label>
+                                                                    </div>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                            </ul>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <?php
+                                            endif;
+                                        endforeach;
+                                    endif;
+                                ?>
+<!--
+                                <div id="cushion-fabric-colors" class="group-box color-selector-box">
+
+                                    <div class="left-box">
+                                        <div class="group-img-wrap centered-img">
+                                            <a class="icon-zoom" href="https://acsdm.com/fwc/wp-content/uploads/2018/12/Abbington-Black-Fabric.jpg" title="Abbington Black Fabric"></a>
+                                            <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Abbington-Black-Fabric-768x768.jpg" class="group-img active" alt="Abbington Black Fabric">
+                                        </div>
+                                    </div>
+                                    <div class="right-box">
+                                        <div class="color-title-box">
+                                            <h4 class="box-title">Standard Options</h4>
+                                        </div>
+                                        <ul class="color-list">
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_901" value="Deer Valley Canyon Fabric" checked="" data-color="truck_color_901" data-price="0" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Deer-Valley-Canyon-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Deer-Valley-Canyon-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Deer Valley Canyon Fabric" data-option="" data-checked="selected">
+                                                    <label for="option_901" data-tippy-content="Deer Valley Canyon Fabric<br>$0" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Deer-Valley-Canyon-Fabric-150x150.jpg" alt="Deer Valley Canyon Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Deer Valley Canyon Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_900" value="Dovetail Greystone Fabric" data-color="truck_color_900" data-price="0" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Dovetail-Greystone-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Dovetail-Greystone-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Dovetail Greystone Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_900" data-tippy-content="Dovetail Greystone Fabric<br>$0" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Dovetail-Greystone-Fabric-150x150.jpg" alt="Dovetail Greystone Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Dovetail Greystone Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_899" value="Etta Fog Fabric" data-color="truck_color_899" data-price="0" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Etta-Fog-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Etta-Fog-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Etta Fog Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_899" data-tippy-content="Etta Fog Fabric<br>$0" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Etta-Fog-Fabric-150x150.jpg" alt="Etta Fog Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Etta Fog Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_904" value="Jazzy Ink Fabric" data-color="truck_color_904" data-price="0" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Jazzy-Ink-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Jazzy-Ink-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Jazzy Ink Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_904" data-tippy-content="Jazzy Ink Fabric<br>$0" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Jazzy-Ink-Fabric-150x150.jpg" alt="Jazzy Ink Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Jazzy Ink Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_903" value="Solo Truffle Fabric" data-color="truck_color_903" data-price="0" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Solo-Truffle-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Solo-Truffle-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Solo Truffle Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_903" data-tippy-content="Solo Truffle Fabric<br>$0" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Solo-Truffle-Fabric-150x150.jpg" alt="Solo Truffle Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Solo Truffle Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="color-title-box">
+                                            <h4 class="box-title">Premium Options</h4>
+                                        </div>
+                                        <ul class="color-list">
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_907" value="Abbington Black Fabric" data-color="truck_color_907" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Abbington-Black-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Abbington-Black-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Abbington Black Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_907" data-tippy-content="Abbington Black Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Abbington-Black-Fabric-150x150.jpg" alt="Abbington Black Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Abbington Black Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_906" value="Artistry Ash Fabric" data-color="truck_color_906" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Artistry-Ash-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Artistry-Ash-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Artistry Ash Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_906" data-tippy-content="Artistry Ash Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Artistry-Ash-Fabric-150x150.jpg" alt="Artistry Ash Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Artistry Ash Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_905" value="Artistry Indigo Fabric" data-color="truck_color_905" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Artistry-Indigo.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Artistry-Indigo-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Artistry Indigo Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_905" data-tippy-content="Artistry Indigo Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Artistry-Indigo-150x150.jpg" alt="Artistry Indigo Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Artistry Indigo Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_908" value="Berenson Tuxedo Fabric" data-color="truck_color_908" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Berenson-Tuxedo-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Berenson-Tuxedo-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Berenson Tuxedo Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_908" data-tippy-content="Berenson Tuxedo Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Berenson-Tuxedo-Fabric-150x150.jpg" alt="Berenson Tuxedo Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Berenson Tuxedo Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_909" value="Gatlinburg Mesa Fabric" data-color="truck_color_909" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Gatlinburg-Mesa.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Gatlinburg-Mesa-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Gatlinburg Mesa Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_909" data-tippy-content="Gatlinburg Mesa Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Gatlinburg-Mesa-150x150.jpg" alt="Gatlinburg Mesa Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Gatlinburg Mesa Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_910" value="Gatlinburg Mineral Fabric" data-color="truck_color_910" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Gatlinburg-Mineral.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Gatlinburg-Mineral-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Gatlinburg Mineral Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_910" data-tippy-content="Gatlinburg Mineral Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Gatlinburg-Mineral-150x150.jpg" alt="Gatlinburg Mineral Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Gatlinburg Mineral Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_911" value="Heritage Denim Fabric" data-color="truck_color_911" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Heritage-Denim-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Heritage-Denim-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Heritage Denim Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_911" data-tippy-content="Heritage Denim Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Heritage-Denim-Fabric-150x150.jpg" alt="Heritage Denim Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Heritage Denim Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_912" value="Peyton Grey Fabric" data-color="truck_color_912" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Peyton-Grey-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Peyton-Grey-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Peyton Grey Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_912" data-tippy-content="Peyton Grey Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Peyton-Grey-Fabric-150x150.jpg" alt="Peyton Grey Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Peyton Grey Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="color-box color-gainsboro">
+                                                    <input class="color-selector" type="radio" name="option_group[cushion-fabric-colors]" id="option_902" value="Spectrum Cherry Fabric" data-color="truck_color_902" data-price="295" data-weight="0" data-img-full="https://acsdm.com/fwc/wp-content/uploads/2018/12/Spectrum-Cherry-Fabric.jpg" data-img-medium-large="https://acsdm.com/fwc/wp-content/uploads/2018/12/Spectrum-Cherry-Fabric-768x768.jpg" data-img-medium-large-class="" data-group-name="Cushion Fabric Colors" data-option-parent-group="Interior Options" data-option-group="cushion-fabric-colors" data-preview="interior" data-option-name="Spectrum Cherry Fabric" data-option="" data-checked="unselect">
+                                                    <label for="option_902" data-tippy-content="Spectrum Cherry Fabric<br>$295" tabindex="0">
+                                                                                    <span class="color centered-img ">
+                                                                                        <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/Spectrum-Cherry-Fabric-150x150.jpg" alt="Spectrum Cherry Fabric">
+                                                                                    </span>
+                                                        <span class="color-name">Spectrum Cherry Fabric</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                -->
+                                <?php
+/*
                                     if ( $fabric_slider && is_array( $fabric_slider ) && count( $fabric_slider ) > 0 ) :
                                         ?>
                                         <div class="slider-vertical">
@@ -381,7 +976,7 @@ $build_url                      = $enable_customizer ? 'build/' : '';
                                             </div>
                                         </div>
                                     </div>
-                                    <?php endif; ?>
+                                    <?php endif; */ ?>
                             </div>
                         </div>
                     <?php

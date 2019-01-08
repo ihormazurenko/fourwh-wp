@@ -61,22 +61,16 @@
           @include border-radius($radius-small);
           a {
             text-decoration: none;
-            //@media all and (min-width: 769px){
-            //  &:hover,
-            //  &:focus {
-            //    .product-img-wrap {
-            //      img {
-            //        @include scale(1.1);
-            //      }
-            //    }
-            //  }
-            //}
           }
           a.view-more-btn,
           .view-more-btn {
-            margin-top: 10px;
+            margin-top: 20px;
             margin-bottom: 20px;
             @include transition($transition-other);
+          }
+          .product-info-box + a.view-more-btn,
+          .product-info-box + .view-more-btn {
+            margin-top: 10px;
           }
         }
             .product-img-wrap {

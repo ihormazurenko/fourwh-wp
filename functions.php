@@ -392,3 +392,18 @@ function my_acf_init() {
 }
 
 add_action('acf/init', 'my_acf_init');
+
+
+add_action('pre_get_posts','model_cat_query');
+function model_cat_query($query) {
+    //gets the global query var object
+
+    global $wp_query;
+
+    if (is_tax('model_categories')) {
+        if (!$query->is_main_query())
+            return;
+
+        $query->set('orderby', array( 'menu_order' => 'DESC', 'date' => 'ASC' ));
+	}
+}

@@ -23,13 +23,17 @@
                 <?php if ( $general_list && is_array( $general_list ) && count( $general_list ) > 0 ) : ?>
                     <?php if ($general_list['short_description']) : ?>
                         <div class="see-improvement-box">
-                            <span class="see-improvement"><?php _e('See Improvement','fw_campers'); ?></span>
+                            <span class="see-improvement"><?php _e('Details','fw_campers'); ?></span>
                         </div>
                         <div class="product-info-box content small">
                             <?php echo $general_list['short_description']; ?>
                         </div>
                     <?php endif; ?>
-                    <span class="view-more-btn"><?php _e('View Model','fw_campers'); ?></span>
+                    <?php if (is_tax('model_categories')) : ?>
+                        <span class="view-more-btn"><?php _e('Build & Price','fw_campers'); ?></span>
+                    <?php else: ?>
+                        <span class="view-more-btn"><?php _e('View Model','fw_campers'); ?></span>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </a>

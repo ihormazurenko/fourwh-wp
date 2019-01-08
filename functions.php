@@ -1,7 +1,7 @@
 <?php
 // loading styles and scripts
 function load_style_script(){
-    wp_enqueue_style('fonts', '//fonts.googleapis.com/css?family=Roboto:300,400,500', array(), null);
+    wp_enqueue_style('fonts', '//fonts.googleapis.com/css?family=Roboto:100,300,400,500', array(), null);
     wp_enqueue_style('font-awesome-5', '//use.fontawesome.com/releases/v5.5.0/css/all.css', array(), '5.5.0');
     wp_enqueue_style('swiper', '//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css', array(), '4.4.2');
     wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/screen.css', array(), '1.4.2' );

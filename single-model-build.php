@@ -288,7 +288,7 @@ else :
             array_multisort( $fabric_price_arr, SORT_NUMERIC , $fabric_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_fabric_arr );
 
             if ( ! in_array( $fabric_status_arr, 'standard' ) ) {
-                $options_fabric_arr[0]['status'] = 'standard';
+                $options_fabric_arr[1]['status'] = 'standard';
             }
 
             $options_arr['Interior Options']['Cushion Fabric Colors'] = $options_fabric_arr;

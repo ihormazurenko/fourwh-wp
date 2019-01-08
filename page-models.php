@@ -27,7 +27,7 @@ get_header(); ?>
                     'post_type'         => 'model',
                     'post_status'       => 'publish',
                     'posts_per_page'    => -1,
-                    'orderby'           => array( 'menu_order' => 'ASC', 'date' => 'DESC' ),
+                    'orderby'           => array( 'menu_order' => 'DESC', 'date' => 'ASC' ),
                     'post_parent'       => 0
 
                 );
@@ -37,7 +37,7 @@ get_header(); ?>
                     echo '<ul class="products-list">';
                     while ( $new_query->have_posts() ) : $new_query->the_post();
 
-                        get_template_part('inc/loop', 'model-all');
+                        get_template_part('inc/loop', 'model');
 
                     endwhile;
                     echo "</ul>";

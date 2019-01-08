@@ -247,7 +247,9 @@
 
   .detail-box {
     overflow: hidden;
-    margin-bottom: 115px;
+    //margin-bottom: 115px;
+
+    padding: 60px 0;
     .container > :last-child {
       margin-bottom: 0;
     }
@@ -324,15 +326,81 @@
 
 .videotour {
     background: #f7f7f7;
-    padding-top: 105px;
-    padding-bottom: 705px;
-    margin-bottom: -550px;
+    //padding-top: 105px;
+    //padding-bottom: 705px;
+    //margin-bottom: -550px;
 }
   .videotour-link-box {
     max-width: 1030px;
     margin: -25px auto 0;
     text-align: center;
   }
+
+.testimonial {
+  //height: 600px;
+  background-color: $white;
+  background: -webkit-linear-gradient(20deg, rgb(239, 246, 249) 25%, rgb(198, 235, 246) 80%, rgb(198, 235, 246) 100%);
+  background: -o-linear-gradient(20deg, rgb(239, 246, 249) 25%, rgb(198, 235, 246) 80%, rgb(198, 235, 246) 100%);
+  background: -ms-linear-gradient(20deg, rgb(239, 246, 249) 25%, rgb(198, 235, 246) 80%, rgb(198, 235, 246) 100%);
+  background: -moz-linear-gradient(20deg, rgb(239, 246, 249) 25%, rgb(198, 235, 246) 80%, rgb(198, 235, 246) 100%);
+  background: linear-gradient(70deg, rgb(239, 246, 249) 25%, rgb(198, 235, 246) 80%, rgb(198, 235, 246) 100%);
+  .container {
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+  .testimonial-box {
+    position: relative;
+    max-width: 830px;
+    margin: 0 auto 20px;
+    padding-top: 58px;
+    &:before {
+      display: block;
+      position: absolute;
+      content: '‘‘';
+      top: 0;
+      left: 50%;
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      font-family: 'Serif';
+      font-size: 110px;
+      line-height: 1;
+      letter-spacing: -.07em;
+      @include translate(-50%, 0);
+    }
+    .content {
+      margin-bottom: 40px;
+      font-family: $font-roboto !important;
+      font-size: 32px;
+      font-weight: $light;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+  }
+    .testimonial-author-box {
+      text-align: center;
+      .centered-img {
+        overflow: hidden;
+        width: 80px;
+        height: 80px;
+        padding: 0;
+        margin: 0 auto 20px;
+        @include border-radius(3em);
+        img {
+          @include border-radius(3em);
+        }
+      }
+    }
+    .author-name {}
+    .author-position {
+    }
+
+
+
+
+
 
 @import "../sliders/slider_vertical";
 

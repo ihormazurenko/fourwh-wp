@@ -9,6 +9,9 @@ $floorplans                     = get_field('floorplans_parent_data') ? get_fiel
 $show_section_virtual_tour      = get_field('show_section_virtual_tour');
 $virtual_tour                   = get_field('virtual_tour_parent_data') ? get_field('virtual_tour', $parent_id) : get_field('virtual_tour', $id);
 
+$show_section_testimonial      = get_field('show_section_testimonial');
+$testimonial                   = get_field('testimonial_parent_data') ? get_field('testimonial', $parent_id) : get_field('testimonial', $id);
+
 $show_section_specifications    = get_field('show_section_specifications');
 $specifications                 = get_field('specifications_parent_data') ? get_field('specifications', $parent_id) : get_field('specifications', $id);
 
@@ -40,6 +43,13 @@ $info_box_3                     = get_field('info_box_3', 'option');
 $enable_customizer              = get_field('enable_customizer');
 $build_url                      = $enable_customizer ? 'build/' : '';
 
+
+$childrens = get_children( array(
+    'post_parent' => $id,
+    'post_type'   => 'model',
+    'numberposts' => -1,
+    'post_status' => 'publish'
+) );
 
 $model_id = get_the_ID();
 $model_name = get_the_title();
@@ -132,7 +142,7 @@ if ( $option_query->have_posts() )  :
         array_multisort( $fabric_price_arr, SORT_NUMERIC , $fabric_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_fabric_arr );
 
         if ( ! in_array( $fabric_status_arr, 'standard' ) ) {
-            $options_fabric_arr[0]['status'] = 'standard';
+            $options_fabric_arr[1]['status'] = 'standard';
         }
 
         $options_arr['Cushion Fabric Colors'] = $options_fabric_arr;
@@ -192,8 +202,16 @@ wp_reset_postdata();
                                 <li>
                                     <a href="<?php print get_site_url(); ?>/contact-us/" class="btn blue inverse" title="<?php esc_attr_e('Contact Us', 'fw_campers') ?>"><?php _e('Contact Us', 'fw_campers'); ?></a>
                                 </li>
+                                    <?php
+                                        if ($childrens && is_array($childrens) && count($childrens) > 0 ) {
+                                            $term_id = wp_get_post_terms($model_id, 'model_categories', array('fields' => 'ids'));
+                                            $build_price_url = get_term_link((int)$term_id[0], 'model_categories').'?type=build';
+                                        } else {
+                                            $build_price_url = get_permalink() . $build_url;
+                                        }
+                                    ?>
                                 <li>
-                                    <a href="<?php echo get_permalink() . $build_url; ?>" class="btn blue" title="<?php esc_attr_e('Build &amp; Price', 'fw_campers') ?>"><?php _e('Build &amp; Price', 'fw_campers'); ?></a>
+                                    <a href="<?php echo $build_price_url; ?>" class="btn blue" title="<?php esc_attr_e('Build &amp; Price', 'fw_campers') ?>"><?php _e('Build &amp; Price', 'fw_campers'); ?></a>
                                 </li>
                             </ul>
                         </li>
@@ -342,6 +360,80 @@ wp_reset_postdata();
                         </div>
                     </div>
                     <?php
+                endif;
+            endif;
+        ?>
+
+        <?php
+            if (get_current_user_id() == 1) :
+                if ( $show_section_testimonial && $testimonial && is_array( $testimonial ) && count( $testimonial ) > 0) :
+                    $testimonial_info        = $testimonial['info'];
+                    if ( $testimonial_info && is_array( $testimonial_info ) && count( $testimonial_info ) > 0) {
+                        $author_name         = $testimonial_info['name'];
+                        $author_position     = $testimonial_info['position'];
+
+                    }
+                    $testimonial_content     = $testimonial['content'];
+                    $testimonial_thumb_url   = $testimonial['photo'] ? $testimonial['photo']['sizes']['thumbnail'] :$testimonial['photo']['url'];
+                    $testimonial_thumb_class = $testimonial['photo']['width'] > $testimonial['photo']['height'] ? 'wider' : '';
+                    $testimonial_thumb_alt   = $author_position ? $author_name : 'avatar';
+                    $testimonial_link        = $testimonial['link'];
+
+                    ?>
+                    <?php if ($author_name || $author_position || $testimonial_content || $testimonial_thumb_url || $testimonial_link) : ?>
+                        <div class="detail-box testimonial" id="testimonial">
+                            <div class="container">
+                                <div class="testimonial-box align-center">
+                                    <?php if ($testimonial_content) : ?>
+                                        <div class="content">
+                                            <?php echo $testimonial_content; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ($author_name || $author_position || $testimonial_thumb_url) : ?>
+                                        <div class="testimonial-author-box">
+                                            <?php if ( $testimonial_thumb_url ) { ?>
+                                                <div class="centered-img <?php echo $testimonial_thumb_class; ?>">
+                                                    <img src="<?php echo esc_url($testimonial_thumb_url); ?>" alt="<?php echo esc_attr($testimonial_thumb_alt); ?>">
+                                                </div>
+                                            <?php } ?>
+                                            <?php if ($author_name) { ?>
+                                                <h4 class="author-name"><?php echo $author_name; ?></h4>
+                                            <?php } ?>
+                                            <?php if ($author_position) { ?>
+                                                <span class="author-position"><?php echo $author_position; ?></span>
+                                            <?php } ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php
+                                        if ( $testimonial_link && is_array( $testimonial_link ) && count( $testimonial_link ) > 0) {
+                                            $testimonial_label = $testimonial_link['label'];
+                                            $testimonial_link_type = $testimonial_link['link_type'];
+                                            $testimonial_target = $testimonial_link['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+
+                                            if ($testimonial_link_type == 'internal') {
+                                                $testimonial_link = $testimonial_link['internal_link'] ? $testimonial_link['internal_link'] : '';
+                                            } elseif ($testimonial_link_type == 'external') {
+                                                $testimonial_link = $testimonial_link['external_link'] ? $testimonial_link['external_link'] : '';
+                                            } else {
+                                                $testimonial_link = '';
+                                            }
+
+                                            if (!empty($testimonial_label)) {
+                                                echo '<div class="videotour-link-box">';
+                                                if (!empty($testimonial_link)) {
+                                                    echo '<a href="' . $testimonial_link . '" class="testimonial-read-more" title="' . esc_attr($testimonial_label) . '" ' . $testimonial_target . '>' . $testimonial_label . '</a>';
+                                                } else {
+                                                    echo '<span>' . $testimonial_label . '</span>';
+                                                }
+                                                echo '</div>';
+                                            }
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    endif;
                 endif;
             endif;
         ?>

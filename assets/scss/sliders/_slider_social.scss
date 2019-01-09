@@ -183,9 +183,13 @@
 
   .slide-desc {
     overflow: hidden;
-    height: 110px;
-    @media all and (max-width: 1366px) {
-      max-height: 115px;
+    height: 120px;
+    @media all and (max-width: 1280px) {
+      max-height: 105px;
+    }
+    @media all and (max-width: 1280px) {
+      max-height: 110px;
+      font-size: 18px;
     }
     @media all and (max-width: 1024px) {
       max-height: 78px;
@@ -196,7 +200,16 @@
 
   .slide-icon {
     margin-bottom: 7px;
-
+    &.facebook {}
+    &.instagram {
+      width: 41px;
+    }
+    &.pinterest {
+      width: 41px;
+    }
+    &.youtube {
+      width: 41px;
+    }
     @media all and (max-width: 1024px) {
       margin-bottom: 4px;
     }
@@ -224,11 +237,12 @@
     overflow: hidden;
     margin-bottom: 10px;
     max-height: 95px;
-    font-size: $size-big;
+    //font-size: $size-big;
+    font-size: 20px;
     font-weight: $medium;
     line-height: 1.25;
-    @media all and (max-width: 1366px) {
-      max-height: 80px;
+    @media all and (max-width: 1200px) {
+      max-height: 100px;
       font-size: 22px;
     }
     @media all and (max-width: 1024px) {
@@ -239,6 +253,7 @@
   }
 
   .slide-desc {
+    font-size: 16px;
   }
 
   .social-nav-box {

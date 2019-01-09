@@ -154,7 +154,7 @@
             //for social slider
             if ($('.social-slider').length) {
                 var socilaSlider = new Swiper('.social-slider', {
-                    slidesPerView: 3,
+                    slidesPerView: 4,
                     spaceBetween: 30,
                     navigation: {
                         nextEl: '.swiper-social-button-next',
@@ -166,6 +166,9 @@
                         },
                         767: {
                             slidesPerView: 2
+                        },
+                        1200: {
+                            slidesPerView: 3
                         }
                     }
                 });

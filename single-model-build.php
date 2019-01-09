@@ -21,7 +21,7 @@ else :
     $model_weight_print = $model_weight ? number_format( $model_weight, 0, '.', ',' ) . 'lbs' : '0lbs';
 
     if ($model_customizer && is_array($model_customizer) && count($model_customizer) > 0) {
-        $customizer_title   = $model_customizer['title'] ? $model_customizer['title'] : __('Build My Camper', 'fw_campers');
+        $customizer_title   = $model_customizer['title'] ? $model_customizer['title'] : __('Build My Camper: ', 'fw_campers').get_the_title();
         $customizer_content = $model_customizer['content'] ? trim($model_customizer['content']) : '';
         $customize_exterior = $model_customizer['customize_exterior'] ? $model_customizer['customize_exterior'] : '';
     }
@@ -646,20 +646,24 @@ else :
                         <div class="left-box">
                             <h3 class="box-title"><?php _e('My Customized Camper','fw_campers') ?></h3>
                             <ul class="my-customized-view-list">
-                                <li>
-                                    <a href="" title="" data-exterior-preview>
-                                        <div class="my-customized-view-img-wrap centered-img wider">
-                                            <img src="" alt="">
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="" title="" data-interior-preview>
-                                        <div class="my-customized-view-img-wrap centered-img wider">
-                                            <img  src="" alt="">
-                                        </div>
-                                    </a>
-                                </li>
+                                <?php //if ( $options_arr['Exterior Options']['Exterior Siding'] ) : ?>
+                                    <li>
+                                        <a href="" title="" data-exterior-preview>
+                                            <div class="my-customized-view-img-wrap centered-img wider">
+                                                <img src="" alt="">
+                                            </div>
+                                        </a>
+                                    </li>
+                                <?php //endif; ?>
+                                <?php //if ( $options_arr['Interior Options']['Cushion Fabric Colors'] ) : ?>
+                                    <li>
+                                        <a href="" title="" data-interior-preview>
+                                            <div class="my-customized-view-img-wrap centered-img wider">
+                                                <img  src="" alt="">
+                                            </div>
+                                        </a>
+                                    </li>
+                                <?php //endif; ?>
                             </ul>
                         </div>
                         <div class="right-box">

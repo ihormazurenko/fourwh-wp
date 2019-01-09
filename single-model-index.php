@@ -636,7 +636,9 @@ wp_reset_postdata();
                                                             $img_count   = 0;
                                                             $items_count = count($items);
                                                             $item_prev_price = 0;
-
+                                                            ?>
+                                                            <ul class="color-list">
+                                                            <?php
                                                             foreach ($items as $key => $value) :
                                                                 $item_id                        = trim($value['option_id']);
                                                                 $item_name                      = trim($value['name']);
@@ -649,29 +651,6 @@ wp_reset_postdata();
                                                                 $item_thumbnail                 = trim($value['thumbnail']);
                                                                 $item_thumbnail_class           = trim($value['thumbnail_class']);
                                                                 $item_class                     = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
-
-                                                                if ($img_count == 0) {
-                                                                    ?>
-                                                                    <div class="color-title-box">
-                                                                        <h4 class="box-title"><?php _e('Standard Options', 'fw_campers'); ?></h4>
-                                                                    </div>
-                                                                    <ul class="color-list">
-                                                                    <?php
-                                                                }
-                                                                if ($item_price != 0 && $item_prev_price == 0) {
-                                                                    ?>
-                                                                    </ul>
-                                                                    <div class="color-title-box">
-                                                                        <h4 class="box-title"><?php _e('Premium Options', 'fw_campers'); ?></h4>
-                                                                    </div>
-                                                                    <ul class="color-list">
-                                                                    <?php
-                                                                }
-                                                                if ($img_count == $items_count) {
-                                                                    ?>
-                                                                    </ul>
-                                                                    <?php
-                                                                }
 
                                                                 $img_count++;
                                                                 $item_prev_price = $item_price;
@@ -696,7 +675,7 @@ wp_reset_postdata();
                                                                                data-preview="<?php echo $data_attr; ?>"
                                                                                data-option-name = "<?php echo trim($item_name); ?>"
                                                                                data-option>
-                                                                        <label for="option_<?php echo $item_id; ?>" data-tippy-content="<?php echo $item_name . '<br>$' . $item_price; ?>">
+                                                                        <label for="option_<?php echo $item_id; ?>" data-tippy-content="<?php echo $item_name; ?>">
                                                                                                 <span class="color centered-img <?php echo $item_thumbnail_class; ?>">
                                                                                                     <img src="<?php echo esc_url( $item_thumbnail ); ?>" alt="<?php echo esc_attr( $item_name ); ?>">
                                                                                                 </span>

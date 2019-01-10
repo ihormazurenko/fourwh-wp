@@ -200,7 +200,9 @@
 
   .slide-icon {
     margin-bottom: 7px;
-    &.facebook {}
+    &.facebook {
+      width: 41px;
+    }
     &.instagram {
       width: 41px;
     }
@@ -215,7 +217,7 @@
     }
     @media all and (max-width: 767px) {
       &.facebook {
-        width: 22px;
+        width: 41px;
       }
       &.instagram {
         width: 41px;

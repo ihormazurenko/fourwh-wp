@@ -369,7 +369,7 @@ wp_reset_postdata();
         ?>
 
         <?php
-            if (get_current_user_id() == 1) :
+            if (get_current_user_id() == 1) : /*
                 if ( $show_section_virtual_tour && $virtual_tour && is_array( $virtual_tour ) && count( $virtual_tour ) > 0) :
                     $virtual_tour_title       = $virtual_tour['title'];
                     $virtual_tour_description = $virtual_tour['description'];
@@ -390,26 +390,91 @@ wp_reset_postdata();
                                 }
 
                                 if ( $virtual_tour_slider && is_array($virtual_tour_slider) && count($virtual_tour_slider) > 0 ) {
-//                                    if ( !$virtual_tour_video_url && $virtual_tour_thumb_url ) {
-//                                        echo '<div class="detail-img-wrap">
-//                                                    <img src="' . $virtual_tour_thumb_url . '" alt="' . esc_attr( $virtual_tour_title ) . '">
-//                                                </div>';
-//                                    } elseif ($virtual_tour_video_url || $virtual_tour_thumb_url) {
-//                                        echo '<div class="video-wrap-box">
-//                                                    <div class="video-wrap">';
-//                                        if ( $virtual_tour_thumb_url ) {
-//                                            echo '<img src="' . $virtual_tour_thumb_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
-//                                        }
-//                                        if ( $virtual_tour_video_url ) {
-//                                            if (getVideoType($virtual_tour_video_url) == 'youtube') {
-//                                                echo '<iframe src="https://www.youtube.com/embed/'.getVideoId($virtual_tour_video_url).'?rel=0&autoplay=1&loop=1&mute=1&playlist='.getVideoId($virtual_tour_video_url).'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-//                                            }   elseif (getVideoType($virtual_tour_video_url) == 'vimeo') {
-//                                                echo '<iframe src="https://player.vimeo.com/video/'.getVideoId($virtual_tour_video_url).'?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-//                                            }
-//                                        }
-//                                        echo '</div>
-//                                                </div>';
-//                                    }
+                                    if (count($virtual_tour_slider) == 1) {
+                                            foreach ( $virtual_tour_slider as $slide ) :
+                                                $virtual_slider_video_arr = $slide['video'];
+                                                $virtual_slider_thumb_group_arr = $slide['thumb_group'];
+
+                                                if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
+                                                    $virtual_url = $virtual_slider_video_arr['url'];
+                                                    $virtual_image = $virtual_slider_video_arr['image'];
+                                                    $virtual_image_url = $virtual_image ? $virtual_image['url'] : '';
+                                                }
+
+                                                if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
+                                                    $virtual_title = $virtual_slider_thumb_group_arr['title'];
+                                                    $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
+                                                }
+
+                                                if ($virtual_url || $virtual_image) {
+                                                    echo '<div class="video-wrap-box">
+                                                            <div class="video-wrap">';
+                                                    if ($virtual_image_url) {
+                                                        echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
+                                                    }
+                                                    if (getVideoType($virtual_tour_video_url) == 'youtube') {
+                                                        echo '<iframe src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=1&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+                                                    } elseif (getVideoType($virtual_tour_video_url) == 'vimeo') {
+                                                        echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                                    }
+                                                    echo '</div>
+                                                    </div>';
+                                                }
+                                            endforeach;
+                                    } else {
+                                            ?>
+                                            <div class="slider-plan">
+                                                <div class="swiper-container gallery-top">
+                                                    <div class="swiper-wrapper">
+                                                    <?php
+                                                        foreach ( $virtual_tour_slider as $slide ) :
+                                                            $virtual_slider_video_arr = $slide['video'];
+                                                            $virtual_slider_thumb_group_arr = $slide['thumb_group'];
+
+                                                            if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
+                                                                $virtual_url = $virtual_slider_video_arr['url'];
+                                                                $virtual_image = $virtual_slider_video_arr['image'];
+                                                                $virtual_image_url = $virtual_image ? $virtual_image['url'] : '';
+                                                            }
+
+                                                            if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
+                                                                $virtual_title = $virtual_slider_thumb_group_arr['title'];
+                                                                $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
+                                                            }
+                                                            ?>
+                                                            <div class="swiper-slide">
+                                                                <img src="<?php ?>"
+                                                                     alt="Side">
+                                                            </div>
+                                                            <?php
+                                                        endforeach;
+                                                    ?>
+                                                    </div>
+                                                </div>
+                                                <div class="swiper-container gallery-thumbs">
+                                                    <div class="swiper-wrapper">
+                                                    <?php
+                                                        foreach ( $virtual_tour_slider as $slide ) :
+                                                            $virtual_slider_video_arr = $slide['video'];
+                                                            $virtual_slider_thumb_group_arr = $slide['thumb_group'];
+                                                            ?>
+                                                            <div class="swiper-slide">
+                                                                <div class="slide-img-wrap wider">
+                                                                    <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/fwc-rollover-couch-floorplan-side-web-300x175.jpg"
+                                                                         alt="Side">
+                                                                </div>
+                                                                <div class="slide-title-box">
+                                                                    <h3 class="slide-title">Side</h3>
+                                                                </div>
+                                                            </div>
+                                                        <?php
+                                                        endforeach;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        }
                                 }
                                 if ( $virtual_tour_link && is_array( $virtual_tour_link ) && count( $virtual_tour_link ) > 0) {
                                     $virtual_label = $virtual_tour_link['label'];
@@ -439,7 +504,7 @@ wp_reset_postdata();
                         </div>
                     <?php
                     endif;
-                endif;
+                endif; */
             endif;
         ?>
 

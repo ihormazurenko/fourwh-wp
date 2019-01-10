@@ -178,16 +178,126 @@
             if ($('.slider-plan .gallery-thumbs').length && $('.slider-plan .gallery-top').length) {
                 var planGalleryThumbs = new Swiper('.slider-plan .gallery-thumbs', {
                     spaceBetween: 20,
-                    slidesPerView: 3,
+                    slidesPerView: 5,
+                    centerInsufficientSlides: true,
+                    watchOverflow: true,
                 });
 
                 var planGalleryTop = new Swiper('.slider-plan .gallery-top', {
                     spaceBetween: 10,
-                    centeredSlides: true,
+                    effect: 'fade',
+                    autoHeight: true,
                     thumbs: {
                         swiper: planGalleryThumbs
                     }
                 });
+
+                if ($('.swiper-inner-images-box img').length) {
+                    $('.swiper-inner-images-box img').on('click', function () {
+                       var currentImg = $(this),
+                           newImgUrl  = currentImg.data('planUrl'),
+                           newImgAlt  = currentImg.attr('alt'),
+                           parentBox  = currentImg.closest('.swiper-slide'),
+                           img        = parentBox.find('[data-plan]'),
+                           allImg     = parentBox.find('.swiper-inner-images-box img');
+
+                            if (!(currentImg.hasClass('active'))) {
+                                allImg.removeClass('active');
+                                currentImg.addClass('active');
+                                img.fadeOut();
+                                setTimeout(function () {
+                                    img.attr('src', newImgUrl);
+                                    img.attr('alt', newImgAlt);
+                                },350);
+                                img.fadeIn(200);
+                                // console.log('chahdge');
+                            }
+
+
+                    });
+                }
+            }
+
+            //for virtual tour slider
+            if ($('.slider-virtual-tour .gallery-thumbs').length && $('.slider-virtual-tour .gallery-top').length) {
+                var slideList = $('.slider-virtual-tour .gallery-top .swiper-slide'),
+                    vimeoFrames = slideList.find('iframe'),
+                    jqueryPlayer = {};
+
+                var virtualGalleryThumbs = new Swiper('.slider-virtual-tour .gallery-thumbs', {
+                    spaceBetween: 20,
+                    slidesPerView: 5,
+                    centerInsufficientSlides: true,
+                    watchOverflow: true,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+
+                var virtualGalleryTop = new Swiper('.slider-virtual-tour .gallery-top', {
+                    spaceBetween: 10,
+                    centeredSlides: true,
+                    effect: 'fade',
+                    thumbs: {
+                        swiper: virtualGalleryThumbs
+                    },
+                    on: {
+                        init: function () {
+                            vimeoFrames.each(function (i) {
+                                var videoType = $(this).data('video');
+                                if (videoType == 'vimeo') {
+                                    jqueryPlayer[i] = new Vimeo.Player($(this));
+                                } else {
+                                    // jqueryPlayer[i] = new YT.Player($(this));
+                                }
+                            });
+
+                            slideList.each(function (i) {
+                                if ($(this).hasClass('swiper-slide-active')) {
+                                    var videoType = $(this).find('iframe').data('video');
+                                    setTimeout(function () {
+                                        if (videoType == 'vimeo') {
+                                            jqueryPlayer[i].play();
+                                        } else {
+
+                                        }
+                                    }, 100);
+                                }
+                            });
+                            // console.log(jqueryPlayer);
+                            // console.log('swiper initialized');
+                        },
+                        slideChangeTransitionEnd: function () {
+                            stopVideo();
+                            slideList.each(function (i) {
+                                if ($(this).hasClass('swiper-slide-active')) {
+                                    var videoType = $(this).find('iframe').data('video');
+                                    setTimeout(function () {
+                                        if (videoType == 'vimeo') {
+                                            jqueryPlayer[i].play();
+                                        } else {
+
+                                        }
+                                    }, 100);
+                                }
+                            });
+
+                            // console.log('play');
+                        }
+                    },
+                });
+
+                function stopVideo() {
+                    vimeoFrames.each(function (i) {
+                        var videoType = $(this).data('video');
+                        if (videoType == 'vimeo') {
+                            jqueryPlayer[i].pause();
+                        } else {
+
+                        }
+                    });
+                }
             }
 
             //for vertical slider

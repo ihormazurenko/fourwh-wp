@@ -252,11 +252,49 @@ wp_reset_postdata();
                                         <div class="swiper-wrapper">
                                             <?php
                                                 foreach ( $floorplans_slider as $slide ) {
-                                                    $slide_url = $slide['image']['url'];
-                                                    $slide_alt = $slide['short_title'] ? $slide['short_title'] :  $slide['image']['title'];
+                                                    $slide_inner_images = $slide['inner_images'];
+//                                                    $slide_url = $slide['image']['url'];
+//                                                    $slide_alt = $slide['short_title'] ? $slide['short_title'] :  $slide['image']['title'];
                                                     ?>
                                                     <div class="swiper-slide">
-                                                        <img src="<?php echo esc_url( $slide_url ); ?>" alt="<?php echo esc_attr( $slide_alt );?>">
+                                                        <?php
+                                                            if ($slide_inner_images && is_array($slide_inner_images) && count($slide_inner_images) > 0 ) {
+                                                                ?>
+                                                                <div class="swiper-main-img-box">
+                                                                    <?php
+                                                                        $slide_inner_count = 0;
+                                                                        foreach ($slide_inner_images as $image) {
+                                                                            $slide_inner_count++;
+                                                                            $image_url          = $image['url'] ? $image['url'] : '';
+                                                                            $image_title        = $image['title'] ? $image['title'] : '';
+                                                                            $image_thumb_url    = $image['sizes']['medium_large'] ? $image['sizes']['medium_large'] : '';
+                                                                            if ($slide_inner_count == 1) {
+                                                                                ?>
+                                                                                <img src="<?php echo esc_url($image_url); ?>"
+                                                                                     alt="<?php echo esc_attr($image_title); ?>"
+                                                                                     data-plan>
+                                                                                <?php
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                </div>
+                                                                <div class="swiper-inner-images-box">
+                                                                    <?php
+                                                                    foreach ($slide_inner_images as $image) {
+    //                                                                    var_dump($image);
+                                                                        $image_url          = $image['url'] ? $image['url'] : '';
+                                                                        $image_title        = $image['title'] ? $image['title'] : '';
+                                                                        $image_thumb_url    = $image['sizes']['medium_large'] ? $image['sizes']['medium_large'] : '';
+                                                                        ?>
+                                                                            <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_title );?>" data-plan-url="<?php echo esc_url($image_url); ?>">
+                                                                        <?php
+                                                                    }
+                                                                    ?>
+                                                                </div>
+                                                                <?php
+                                                            }
+                                                        ?>
                                                     </div>
                                             <?php } ?>
                                         </div>
@@ -266,22 +304,29 @@ wp_reset_postdata();
                                         <div class="swiper-wrapper">
                                             <?php
                                                 foreach ( $floorplans_slider as $slide ) {
-                                                    $slide_url = $slide['image']['sizes']['medium'] ? $slide['image']['sizes']['medium'] : $slide['image']['url'];
-                                                    $slide_alt = $slide['short_title'] ? $slide['short_title'] :  $slide['image']['title'];
-                                                    $slide_title = $slide['short_title'];
-                                                    $slide_class = $slide['image']['width'] > $slide['image']['height'] ? 'wider' : '' ;
-                                                    ?>
-                                                    <div class="swiper-slide">
-                                                        <div class="slide-img-wrap <?php echo $slide_class; ?>">
-                                                            <img src="<?php echo esc_url( $slide_url ); ?>" alt="<?php echo esc_attr( $slide_alt );?>">
-                                                        </div>
-                                                        <?php if ( $slide_title ) { ?>
-                                                            <div class="slide-title-box">
-                                                                <h3 class="slide-title"><?php echo $slide_title; ?></h3>
+                                                    $main_slide = $slide['main_slide'];
+                                                    if ($main_slide && is_array($main_slide) && count($main_slide) > 0) {
+                                                        $slide_url = $main_slide['image']['sizes']['medium'] ? $main_slide['image']['sizes']['medium'] : $main_slide['image']['url'];
+                                                        $slide_alt = $main_slide['short_title'] ? $main_slide['short_title'] :  $main_slide['image']['title'];
+                                                        $slide_title = $main_slide['short_title'];
+                                                        $slide_class = $main_slide['image']['width'] > $main_slide['image']['height'] ? 'wider' : '' ;
+
+
+                                                        ?>
+                                                        <div class="swiper-slide">
+                                                            <div class="slide-img-wrap <?php echo $slide_class; ?>">
+                                                                <img src="<?php echo esc_url( $slide_url ); ?>" alt="<?php echo esc_attr( $slide_alt );?>">
                                                             </div>
-                                                        <?php } ?>
-                                                    </div>
-                                            <?php } ?>
+                                                            <?php if ( $slide_title ) { ?>
+                                                                <div class="slide-title-box">
+                                                                    <h3 class="slide-title"><?php echo $slide_title; ?></h3>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -293,7 +338,7 @@ wp_reset_postdata();
             endif;
         ?>
 
-        <?php
+        <?php /*
             if ( $show_section_virtual_tour && $virtual_tour && is_array( $virtual_tour ) && count( $virtual_tour ) > 0) :
                 $virtual_tour_title       = $virtual_tour['title'];
                 $virtual_tour_description = $virtual_tour['description'];
@@ -365,11 +410,11 @@ wp_reset_postdata();
                     </div>
                     <?php
                 endif;
-            endif;
+            endif; */
         ?>
 
         <?php
-            if (get_current_user_id() == 1) : /*
+            //if (get_current_user_id() == 1) :
                 if ( $show_section_virtual_tour && $virtual_tour && is_array( $virtual_tour ) && count( $virtual_tour ) > 0) :
                     $virtual_tour_title       = $virtual_tour['title'];
                     $virtual_tour_description = $virtual_tour['description'];
@@ -398,7 +443,7 @@ wp_reset_postdata();
                                                 if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
                                                     $virtual_url = $virtual_slider_video_arr['url'];
                                                     $virtual_image = $virtual_slider_video_arr['image'];
-                                                    $virtual_image_url = $virtual_image ? $virtual_image['url'] : '';
+                                                    $virtual_image_url = $virtual_image ? $virtual_image['url'] : getVideoThumbnail($virtual_url);
                                                 }
 
                                                 if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
@@ -423,54 +468,91 @@ wp_reset_postdata();
                                             endforeach;
                                     } else {
                                             ?>
-                                            <div class="slider-plan">
+                                            <div class="slider-virtual-tour">
                                                 <div class="swiper-container gallery-top">
                                                     <div class="swiper-wrapper">
                                                     <?php
+                                                        $virtula_count = 0;
                                                         foreach ( $virtual_tour_slider as $slide ) :
                                                             $virtual_slider_video_arr = $slide['video'];
                                                             $virtual_slider_thumb_group_arr = $slide['thumb_group'];
+                                                            $virtula_count++;
 
                                                             if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
                                                                 $virtual_url = $virtual_slider_video_arr['url'];
                                                                 $virtual_image = $virtual_slider_video_arr['image'];
-                                                                $virtual_image_url = $virtual_image ? $virtual_image['url'] : '';
+                                                                $virtual_image_url = $virtual_image ? $virtual_image['url'] : getVideoThumbnail($virtual_url);
                                                             }
 
                                                             if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
                                                                 $virtual_title = $virtual_slider_thumb_group_arr['title'];
                                                                 $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
+                                                                $virtual_thumb_url = $virtual_thumb ? $virtual_thumb['sizes']['medium_large'] : getVideoThumbnail($virtual_url);
                                                             }
+
+                                                            if ($virtula_count == 0) {
+                                                                $vimeo_setings = 'background=1';
+                                                            } else {
+                                                                $vimeo_setings = 'autoplay=0&loop=1&muted=1&autopause=0';
+                                                            }
+
+                                                            $virtual_bg = $virtual_image_url ? 'style="background-image: url('.$virtual_image_url.')"' : '';
                                                             ?>
-                                                            <div class="swiper-slide">
-                                                                <img src="<?php ?>"
-                                                                     alt="Side">
+                                                            <div class="swiper-slide" <?php echo $virtual_bg; ?>>
+                                                                <?php
+//                                                                    if ($virtual_image_url) {
+//                                                                        echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
+//                                                                    }
+                                                                    if (getVideoType($virtual_url) == 'youtube') {
+                                                                        echo '<iframe data-video="youtube" src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=0&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+//                                                                        echo '<iframe src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=1&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+                                                                    } elseif (getVideoType($virtual_url) == 'vimeo') {
+                                                                        echo '<iframe data-video="vimeo" src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?'.$vimeo_setings.'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+//                                                                        echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                                                    }
+                                                                ?>
                                                             </div>
                                                             <?php
                                                         endforeach;
                                                     ?>
                                                     </div>
                                                 </div>
-                                                <div class="swiper-container gallery-thumbs">
-                                                    <div class="swiper-wrapper">
-                                                    <?php
-                                                        foreach ( $virtual_tour_slider as $slide ) :
-                                                            $virtual_slider_video_arr = $slide['video'];
-                                                            $virtual_slider_thumb_group_arr = $slide['thumb_group'];
-                                                            ?>
-                                                            <div class="swiper-slide">
-                                                                <div class="slide-img-wrap wider">
-                                                                    <img src="https://acsdm.com/fwc/wp-content/uploads/2018/12/fwc-rollover-couch-floorplan-side-web-300x175.jpg"
-                                                                         alt="Side">
-                                                                </div>
-                                                                <div class="slide-title-box">
-                                                                    <h3 class="slide-title">Side</h3>
-                                                                </div>
-                                                            </div>
+                                                <div class="gallery-thumbs-wrap">
+                                                    <div class="swiper-container gallery-thumbs">
+                                                        <div class="swiper-wrapper">
                                                         <?php
-                                                        endforeach;
-                                                        ?>
+                                                            foreach ( $virtual_tour_slider as $slide ) :
+                                                                $virtual_slider_video_arr = $slide['video'];
+                                                                $virtual_slider_thumb_group_arr = $slide['thumb_group'];
+
+                                                                if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
+                                                                    $virtual_url = $virtual_slider_video_arr['url'];
+                                                                    $virtual_image = $virtual_slider_video_arr['image'];
+                                                                    $virtual_image_url = $virtual_image ? $virtual_image['url'] : getVideoThumbnail($virtual_url);
+                                                                }
+
+                                                                if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
+                                                                    $virtual_title = $virtual_slider_thumb_group_arr['title'];
+                                                                    $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
+                                                                    $virtual_thumb_url = $virtual_thumb ? $virtual_thumb['sizes']['medium_large'] : getVideoThumbnail($virtual_url);
+                                                                }
+                                                                ?>
+                                                                <div class="swiper-slide">
+                                                                    <div class="slide-img-wrap wider">
+                                                                        <img src="<?php echo esc_url($virtual_thumb_url); ?>" alt="<?php echo esc_attr($virtual_title); ?>">
+                                                                    </div>
+                                                                    <div class="slide-title-box">
+                                                                        <h3 class="slide-title"><?php echo $virtual_title; ?></h3>
+                                                                    </div>
+                                                                </div>
+                                                            <?php
+                                                            endforeach;
+                                                            ?>
+                                                        </div>
                                                     </div>
+                                                    <!-- Add Arrows -->
+                                                    <div class="swiper-button-next swiper-button-black"></div>
+                                                    <div class="swiper-button-prev swiper-button-black"></div>
                                                 </div>
                                             </div>
                                             <?php
@@ -504,8 +586,8 @@ wp_reset_postdata();
                         </div>
                     <?php
                     endif;
-                endif; */
-            endif;
+                endif;
+           // endif;
         ?>
 
         <?php

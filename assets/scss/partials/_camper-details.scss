@@ -247,9 +247,7 @@
 
   .detail-box {
     overflow: hidden;
-    //margin-bottom: 115px;
-
-    padding: 60px 0;
+    padding: 120px 0;
     .container > :last-child {
       margin-bottom: 0;
     }
@@ -497,6 +495,35 @@
   background-color: #f5f7f9;
 }
 
+.detail-box {
+  &#floorplans {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  &.videotour {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  &.testimonial {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  &#fabric-selection {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  &#siding {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  &.key-benefits {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  &#download {
+    padding-top: 60px;
+  }
+}
 
 @import "../sliders/slider_vertical";
 

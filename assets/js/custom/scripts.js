@@ -281,7 +281,9 @@
                                 var videoType = $(this).data('video');
                                 if (videoType == 'vimeo') {
                                     jqueryPlayer[i] = new Vimeo.Player($(this));
-                                    jqueryPlayer[i].pause();
+                                    setTimeout(function () {
+                                        jqueryPlayer[i].pause();
+                                    }, 50);
                                 } else {
                                     // var youDivId = $(this).attr('id');
                                 }

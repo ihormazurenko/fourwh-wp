@@ -299,35 +299,39 @@ wp_reset_postdata();
                                             <?php } ?>
                                         </div>
                                     </div>
+                                    <div class="plan-thumbs-wrap">
+                                        <div class="swiper-container gallery-thumbs">
+                                            <div class="swiper-wrapper">
+                                                <?php
+                                                    foreach ( $floorplans_slider as $slide ) {
+                                                        $main_slide = $slide['main_slide'];
+                                                        if ($main_slide && is_array($main_slide) && count($main_slide) > 0) {
+                                                            $slide_url = $main_slide['image']['sizes']['medium'] ? $main_slide['image']['sizes']['medium'] : $main_slide['image']['url'];
+                                                            $slide_alt = $main_slide['short_title'] ? $main_slide['short_title'] :  $main_slide['image']['title'];
+                                                            $slide_title = $main_slide['short_title'];
+                                                            $slide_class = $main_slide['image']['width'] > $main_slide['image']['height'] ? 'wider' : '' ;
 
-                                    <div class="swiper-container gallery-thumbs">
-                                        <div class="swiper-wrapper">
-                                            <?php
-                                                foreach ( $floorplans_slider as $slide ) {
-                                                    $main_slide = $slide['main_slide'];
-                                                    if ($main_slide && is_array($main_slide) && count($main_slide) > 0) {
-                                                        $slide_url = $main_slide['image']['sizes']['medium'] ? $main_slide['image']['sizes']['medium'] : $main_slide['image']['url'];
-                                                        $slide_alt = $main_slide['short_title'] ? $main_slide['short_title'] :  $main_slide['image']['title'];
-                                                        $slide_title = $main_slide['short_title'];
-                                                        $slide_class = $main_slide['image']['width'] > $main_slide['image']['height'] ? 'wider' : '' ;
 
-
-                                                        ?>
-                                                        <div class="swiper-slide">
-                                                            <div class="slide-img-wrap <?php echo $slide_class; ?>">
-                                                                <img src="<?php echo esc_url( $slide_url ); ?>" alt="<?php echo esc_attr( $slide_alt );?>">
-                                                            </div>
-                                                            <?php if ( $slide_title ) { ?>
-                                                                <div class="slide-title-box">
-                                                                    <h3 class="slide-title"><?php echo $slide_title; ?></h3>
+                                                            ?>
+                                                            <div class="swiper-slide">
+                                                                <div class="slide-img-wrap <?php echo $slide_class; ?>">
+                                                                    <img src="<?php echo esc_url( $slide_url ); ?>" alt="<?php echo esc_attr( $slide_alt );?>">
                                                                 </div>
-                                                            <?php } ?>
-                                                        </div>
-                                                        <?php
+                                                                <?php if ( $slide_title ) { ?>
+                                                                    <div class="slide-title-box">
+                                                                        <h3 class="slide-title"><?php echo $slide_title; ?></h3>
+                                                                    </div>
+                                                                <?php } ?>
+                                                            </div>
+                                                            <?php
+                                                        }
                                                     }
-                                                }
-                                            ?>
+                                                ?>
+                                            </div>
                                         </div>
+                                        <!-- Add Arrows -->
+                                        <div class="swiper-button-next swiper-button-black"></div>
+                                        <div class="swiper-button-prev swiper-button-black"></div>
                                     </div>
                                 </div>
                             <?php } ?>
@@ -434,6 +438,10 @@ wp_reset_postdata();
                                     echo '<div class="section-desc content">' . $virtual_tour_description . '</div>';
                                 }
 
+                                if (get_current_user_id() == 1) {
+                                    echo '<div id="player-div"></div>';
+                                }
+
                                 if ( $virtual_tour_slider && is_array($virtual_tour_slider) && count($virtual_tour_slider) > 0 ) {
                                     if (count($virtual_tour_slider) == 1) {
                                             foreach ( $virtual_tour_slider as $slide ) :
@@ -504,10 +512,11 @@ wp_reset_postdata();
 //                                                                        echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
 //                                                                    }
                                                                     if (getVideoType($virtual_url) == 'youtube') {
-                                                                        echo '<iframe data-video="youtube" src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=0&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+//                                                                        echo '<div id="youtube_'.getVideoId($virtual_url).'" data-youtube-id="'.getVideoId($virtual_url).'" data-video="youtube"></div>';
+//                                                                            echo '<iframe id="" data-video="youtube" src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=0&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
 //                                                                        echo '<iframe src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=1&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
                                                                     } elseif (getVideoType($virtual_url) == 'vimeo') {
-                                                                        echo '<iframe data-video="vimeo" src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?'.$vimeo_setings.'" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                                                        echo '<iframe data-video="vimeo" src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?background=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 //                                                                        echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
                                                                     }
                                                                 ?>
@@ -581,6 +590,7 @@ wp_reset_postdata();
                                         echo '</div>';
                                     }
                                 }
+
                                 ?>
                             </div>
                         </div>
@@ -673,7 +683,7 @@ wp_reset_postdata();
 
                 if ($specifications_title || $specifications_description || $specifications_img_url || $specifications_accordion) :
                     ?>
-                    <div class="detail-box specifications" id="new-specifications">
+                    <div class="detail-box specifications" id="specifications">
                         <?php
                             if ( $specifications_title ) {
                                 echo '<div class="detail-header-box">
@@ -1079,7 +1089,6 @@ wp_reset_postdata();
         if ( $show_subscribe_section && $subscribe && is_array( $subscribe ) && count( $subscribe ) > 0) :
             $subscribe_title       = $subscribe['title'];
             $subscribe_description = $subscribe['description'];
-            $subscribe_form        = $subscribe['form'];
 
             if ( $siding_title || $siding_description ) :
                 ?>
@@ -1094,8 +1103,20 @@ wp_reset_postdata();
                             echo '<div class="section-desc content">' . $subscribe_description . '</div>';
                         }
 
-                        if ( $subscribe_form ) {
-                            echo do_shortcode($subscribe_form);
+                        if (get_current_user_id() == 1) {
+                            ?>
+                            <form class="subscribe-form" method="post" action="http://oi.vresp.com?fid=0fccd530a0" target="vr_optin_popup" onsubmit="window.open( 'http://www.verticalresponse.com', 'vr_optin_popup', 'scrollbars=yes,width=600,height=450' ); return true;" >
+                                <ul class="subscribe-list">
+                                    <li class="email-wrap">
+                                        <input class="form-control" name="email_address" type="email" required placeholder="Enter your email">
+                                    </li>
+                                    <li class="btn-wrap">
+                                        <input type="submit" value="Subscribe" class="btn-subscribe" />
+                                    </li>
+                                </ul>
+                            </form>
+
+                            <?php
                         }
                     ?>
                     </div>

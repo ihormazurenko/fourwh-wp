@@ -181,11 +181,30 @@
                     slidesPerView: 5,
                     centerInsufficientSlides: true,
                     watchOverflow: true,
+                    freeMode: true,
+                    watchSlidesVisibility: true,
+                    watchSlidesProgress: true,
+                    navigation: {
+                        nextEl: '.slider-plan .swiper-button-next',
+                        prevEl: '.slider-plan .swiper-button-prev',
+                    },
+                    breakpoints: {
+                        1024: {
+                            slidesPerView: 4
+                        },
+                        860: {
+                            slidesPerView: 3
+                        },
+                        480: {
+                            slidesPerView: 2
+                        }
+                    }
                 });
 
                 var planGalleryTop = new Swiper('.slider-plan .gallery-top', {
                     spaceBetween: 10,
                     effect: 'fade',
+                    centeredSlides: true,
                     autoHeight: true,
                     thumbs: {
                         swiper: planGalleryThumbs
@@ -221,7 +240,7 @@
             //for virtual tour slider
             if ($('.slider-virtual-tour .gallery-thumbs').length && $('.slider-virtual-tour .gallery-top').length) {
                 var slideList = $('.slider-virtual-tour .gallery-top .swiper-slide'),
-                    vimeoFrames = slideList.find('iframe'),
+                    vimeoFrames = slideList.find('[data-video]'),
                     jqueryPlayer = {};
 
                 var virtualGalleryThumbs = new Swiper('.slider-virtual-tour .gallery-thumbs', {
@@ -229,10 +248,24 @@
                     slidesPerView: 5,
                     centerInsufficientSlides: true,
                     watchOverflow: true,
+                    freeMode: true,
+                    watchSlidesVisibility: true,
+                    watchSlidesProgress: true,
                     navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
+                        nextEl: '.slider-virtual-tour .swiper-button-next',
+                        prevEl: '.slider-virtual-tour .swiper-button-prev',
                     },
+                    breakpoints: {
+                        1024: {
+                            slidesPerView: 4
+                        },
+                        860: {
+                            slidesPerView: 3
+                        },
+                        480: {
+                            slidesPerView: 2
+                        }
+                    }
                 });
 
                 var virtualGalleryTop = new Swiper('.slider-virtual-tour .gallery-top', {
@@ -248,9 +281,11 @@
                                 var videoType = $(this).data('video');
                                 if (videoType == 'vimeo') {
                                     jqueryPlayer[i] = new Vimeo.Player($(this));
+                                    jqueryPlayer[i].pause();
                                 } else {
-                                    // jqueryPlayer[i] = new YT.Player($(this));
+                                    // var youDivId = $(this).attr('id');
                                 }
+
                             });
 
                             slideList.each(function (i) {
@@ -260,7 +295,8 @@
                                         if (videoType == 'vimeo') {
                                             jqueryPlayer[i].play();
                                         } else {
-
+                                            // jqueryPlayer[i].play();
+                                            // console.log(jqueryPlayer[i])
                                         }
                                     }, 100);
                                 }
@@ -277,7 +313,7 @@
                                         if (videoType == 'vimeo') {
                                             jqueryPlayer[i].play();
                                         } else {
-
+                                            // jqueryPlayer[i].playVideo();
                                         }
                                     }, 100);
                                 }
@@ -294,7 +330,7 @@
                         if (videoType == 'vimeo') {
                             jqueryPlayer[i].pause();
                         } else {
-
+                            // jqueryPlayer[i].stopVideo();
                         }
                     });
                 }
@@ -336,6 +372,8 @@
                 var heroSlider = new Swiper('.slider-swatch .swiper-container', {
                     slidesPerView: 3,
                     spaceBetween: 30,
+                    centerInsufficientSlides: true,
+                    watchOverflow: true,
                     navigation: {
                         nextEl: '.swiper-swatch-button-next',
                         prevEl: '.swiper-swatch-button-prev',
@@ -797,7 +835,6 @@
         // });
 
     });
-
 });
 
 

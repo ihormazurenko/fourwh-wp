@@ -1,18 +1,32 @@
 .slider-plan {
   .gallery-top {
     margin-bottom: 60px;
+    @media all and (max-width: 640px) {
+      margin-top: 40px;
+    }
     .swiper-slide {
       position: relative;
       background-color: #e2e4f0;
     }
   }
+  .plan-thumbs-wrap {
+    position: relative;
+    .swiper-button-next, .swiper-button-prev {
+      top: 36%;
+    }
+  }
   .gallery-thumbs {
+    margin: 0 60px;
     .swiper-slide {
-      opacity: .6;
+      text-align: center;
+      opacity: .8;
       cursor: pointer;
       &.swiper-slide-thumb-active {
         opacity: 1;
       }
+    }
+    @media all and (max-width: 640px) {
+      margin: 0 40px;
     }
   }
 
@@ -21,12 +35,14 @@
       font-weight: $normal;
       line-height: 1.2;
       color: $color-text11;
+      @media all and (max-width: 767px) {
+        font-size: 14px;
+      }
   }
   .swiper-main-img-box {
     text-align: center;
     img {
       display: block;
-      //max-width: 100%;
       min-width: 100%;
       width: auto;
       height: auto;
@@ -39,6 +55,9 @@
     width: 100%;
     padding: 15px;
     text-align: center;
+    @media all and (max-width: 767px) {
+      padding: 5px;
+    }
     img {
       display: inline-block;
       max-width: 130px;
@@ -50,6 +69,10 @@
       &.active {
         opacity: 1;
       }
+      @media all and (max-width: 767px) {
+        max-width: 80px;
+        max-height: 46px;
+      }
     }
   }
 
@@ -59,6 +82,9 @@
       width: 100%;
       padding-bottom: 71.5%;
       margin-bottom: 24px;
+      @media all and (max-width: 767px) {
+        margin-bottom: 14px;
+      }
       img {
         position: absolute;
         z-index: 3;

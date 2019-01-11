@@ -134,3 +134,115 @@
     }
   }
 }
+
+.subscribe-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.subscribe-list {
+  margin: 0 -15px;
+  > li {
+    padding: 0 15px;
+    display: inline-block;
+    vertical-align: top;
+    &.email-wrap {
+      width: -webkit-calc(100% - #{185px});
+      width: calc(100% - #{185px});
+    }
+    &.btn-wrap {
+      width: 180px;
+    }
+  }
+  @media all and (max-width: 480px) {
+    > li {
+      &.email-wrap {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      &.btn-wrap {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  margin: 0;
+  padding: 10px 20px 10px 45px !important;
+  text-align: left;
+  @include font($normal, $size-main, $font-roboto, 1);
+  letter-spacing: $letter-spacing-20;
+  color: $color-text11;
+  background-color: $white;
+  border: 1px solid $color-bg11;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-color: rgba($color-bg11, .2);
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  @include border-radius(0);
+  @include transition($transition-other);
+}
+.email-wrap {
+  position: relative;
+  &:after {
+    position: absolute;
+    z-index: 5;
+    top: 16px;
+    left: 18px;
+    font-family: "Font Awesome 5 Free";
+    content: "\f0e0";
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+    font-weight: 900;
+    font-size: 18px;
+    color: $color-text11;
+  }
+}
+a.btn-subscribe,
+.btn-subscribe {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  min-width: 100px;
+  width: 100%;
+  margin: 0;
+  padding: 13px 18px;
+  font-size: $size-smaller;
+  font-weight: $normal;
+  line-height: 1.4;
+  letter-spacing: $letter-spacing-20;
+  color: $white;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1px solid $color-bg12;
+  background-color: $color-bg12;
+  @include border-radius($radius-small);
+  @include transition($transition-link);
+  @media all and (max-width: 767px) {
+    font-size: 16px;
+    padding: 12px 20px;
+  }
+  @media all and (min-width: 769px) {
+    &:hover,
+    &:focus {
+      color: $color-text12;
+      border-color: $color-bg12;
+      background-color: transparent;
+    }
+  }
+}

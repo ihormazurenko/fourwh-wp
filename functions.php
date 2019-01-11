@@ -20,8 +20,6 @@ function load_style_script(){
     if ( is_singular('model')) {
         wp_enqueue_script('customizer', get_template_directory_uri() . '/assets/js/custom/build-script.js', array('jquery'), null, true );
         wp_enqueue_script('vimeo-player', '//player.vimeo.com/api/player.js' );
-//        wp_enqueue_script('youtube-player', get_template_directory_uri() . '/assets/js/custom/YTplayer.js' );
-//        wp_enqueue_script('youtube-player','https://www.youtube.com/iframe_api' );
         wp_enqueue_script('custom-ajax', get_template_directory_uri() . '/assets/js/custom/ajax.js' );
     }
     if ( is_page(391) ) {

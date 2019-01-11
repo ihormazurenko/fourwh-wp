@@ -1102,8 +1102,6 @@ wp_reset_postdata();
                         if ( $siding_description ) {
                             echo '<div class="section-desc content">' . $subscribe_description . '</div>';
                         }
-
-                        if (get_current_user_id() == 1) {
                             ?>
                             <form class="subscribe-form" method="post" action="http://oi.vresp.com?fid=0fccd530a0" target="vr_optin_popup" onsubmit="window.open( 'http://www.verticalresponse.com', 'vr_optin_popup', 'scrollbars=yes,width=600,height=450' ); return true;" >
                                 <ul class="subscribe-list">
@@ -1117,7 +1115,6 @@ wp_reset_postdata();
                             </form>
 
                             <?php
-                        }
                     ?>
                     </div>
                 </div>

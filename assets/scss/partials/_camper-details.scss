@@ -280,9 +280,6 @@
         margin: 0 auto 20px;
       }
     }
-    @media all and (max-width: 767px) {
-      padding: 80px 0;
-    }
   }
     .detail-img-wrap {
       max-width: 1030px;
@@ -539,31 +536,48 @@
 
 .detail-box {
   &#floorplans {
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 0;
+    //padding-bottom: 60px;
   }
-  &.videotour {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-  &.testimonial {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-  &#fabric-selection {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-  &#siding {
-    padding-top: 60px;
-    padding-bottom: 60px;
-  }
-  &.key-benefits {
-    padding-top: 60px;
-    padding-bottom: 60px;
+  &.specifications {
+    padding-bottom: 120px;
   }
   &#download {
+    padding-bottom: 60px;
+  }
+  &#subscribe,
+  &#info-boxes {
     padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  //&.videotour {
+  //  padding-top: 60px;
+  //  padding-bottom: 60px;
+  //}
+  //&.testimonial {
+  //  padding-top: 60px;
+  //  padding-bottom: 60px;
+  //}
+  //&#fabric-selection {
+  //  padding-top: 60px;
+  //  padding-bottom: 60px;
+  //}
+  //&#siding {
+  //  padding-top: 60px;
+  //  padding-bottom: 60px;
+  //}
+  //&.key-benefits {
+  //  padding-top: 60px;
+  //  padding-bottom: 60px;
+  //}
+  //&#download {
+  //  padding-top: 60px;
+  //}
+  @media all and (max-width: 767px) {
+    padding: 60px 0;
+    &.specifications {
+      padding-bottom: 60px;
+    }
   }
 }
 

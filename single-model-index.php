@@ -438,10 +438,6 @@ wp_reset_postdata();
                                     echo '<div class="section-desc content">' . $virtual_tour_description . '</div>';
                                 }
 
-                                if (get_current_user_id() == 1) {
-                                    echo '<div id="player-div"></div>';
-                                }
-
                                 if ( $virtual_tour_slider && is_array($virtual_tour_slider) && count($virtual_tour_slider) > 0 ) {
                                     if (count($virtual_tour_slider) == 1) {
                                             foreach ( $virtual_tour_slider as $slide ) :
@@ -615,7 +611,7 @@ wp_reset_postdata();
                 $testimonial_link        = $testimonial['link'];
 
                 ?>
-                <?php if ($author_name || $author_position || $testimonial_content || $testimonial_thumb_url || $testimonial_link) : ?>
+                <?php if ($author_name || $author_position || $testimonial_content || $testimonial_thumb_url) : ?>
                     <div class="detail-box testimonial" id="testimonial">
                         <div class="container">
                             <div class="testimonial-box align-center">

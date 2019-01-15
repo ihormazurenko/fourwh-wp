@@ -337,6 +337,43 @@ function funcDate($start, $end, $format = 'full') {
         }
 
 
+    } elseif ( $format == 'large') {
+        $day1 = date("j", $start);
+        $day2 = date("j", $end);
+
+        $month1 = date("F", $start) . ' ';
+        $month2 = date("F", $end) . ' ';
+
+        $year1 = ', ' . date("Y", $start);
+        $year2 = ', ' . date("Y", $end);
+
+        $separator = __('to', 'fc_details') . ' ';
+
+        if ( $day1 === $day2 ) {
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . '</span></li>';
+        } else {
+            $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $month1 . $day1 . $year1 . '</span></li>';
+            $convertDate .= '<li><span> <i class="far fa-calendar-alt"></i>' . $separator . $month2 . $day2 . $year2 . '</span></li>';
+        }
+
+
+        if ($start !== $end && $start < $end) {
+            if ($currentTime >= $end) {
+                //finished event
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $over_text . date("F j, Y", $end) . '</span></li>';
+            }
+        } elseif ($start !== $end && $start > $end) {
+            //if start date > end date
+            $convertDate = '<li>' . $wrong_text . '</li>' . $convertDate;
+
+        } else {
+            if ($currentTime >= $end) {
+                //finished event
+                $convertDate = '<li><span> <i class="far fa-calendar-alt"></i>' . $over_text . date("F j, Y", $end) . '</span></li>';
+            }
+        }
+
+
     } elseif ( $format === 'short' ) {
         $day1 = date("d", $start);
         $day2 = date("d", $end);

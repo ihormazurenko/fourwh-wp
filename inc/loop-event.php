@@ -35,8 +35,8 @@
             <h3><?php echo $title; ?></h3>
             <?php if ( ( $dates_start_U && $dates_end_U ) || $country ) : ?>
                 <ul>
-                    <?php if ( $dates_start_U ) : ?>
-                        <li><i class="far fa-calendar-alt"></i> <?php echo date( 'F j, Y', strtotime($dates_start_U) ); ?></li>
+                    <?php if ( $dates_start_U || $dates_end_U) : ?>
+                        <?php echo funcDate( $dates_start_U, $dates_end_U, 'large'); ?>
                     <?php endif; ?>
                     <?php if ( $country ) : ?>
                         <li><i class="fas fa-map-marker"></i> <?php echo $country; ?></li>

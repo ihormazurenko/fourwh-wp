@@ -15,7 +15,7 @@
             <div class="product-box">
                 <?php if (has_post_thumbnail()) { ?>
                     <div class="product-img-wrap centered-img">
-                        <?php the_post_thumbnail('medium_large', array(
+                        <?php the_post_thumbnail('large', array(
                             'alt'   => esc_attr($title)
                         )); ?>
                     </div>

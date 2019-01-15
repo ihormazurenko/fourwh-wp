@@ -274,6 +274,17 @@ function register_my_widgets(){
 add_action( 'widgets_init', 'register_my_widgets' );
 
 
+//add image sizes
+if ( function_exists( 'add_image_size' ) ) {
+    add_image_size( 'max-width-2800', 2800, 9999 ); // 300 в ширину и без ограничения в высоту
+    add_image_size( 'size-860_680', 880, 680, array( 'center', 'center' ) ); // Кадрирование изображения
+    add_image_size( 'size-720_720', 720, 720, array( 'center', 'center' ) ); // Кадрирование изображения
+}
+
+//if (get_current_user_id() == 1 ) {
+//    var_dump($slide_image);
+//}
+
 // for dates
 function funcDate($start, $end, $format = 'full') {
 

@@ -32,7 +32,7 @@ get_template_part('inc/hero', 'banner');
                         if (!empty($video_url)) {
                             $video_thumb_title  = $slide['title'] ? $slide['title'] : '';
                             $video_thumb_alt    = $video_thumb_title ? $video_thumb_title : $video_title;
-                            $video_thumb_url    = $slide['img'] ? $slide['img']['url'] : getVideoThumbnail($video_url);
+                            $video_thumb_url    = $slide['img'] ? $slide['img']['sizes']['max-width-2800'] : getVideoThumbnail($video_url);
 
                             if ($video_slide_count > 1) {
                                 echo '<div class="swiper-slide">
@@ -131,7 +131,15 @@ get_template_part('inc/hero', 'banner');
                         $slide_without_title    = $slide_title ? '' : 'without-title';
                         $slide_description      = $slide['description'];
                         $slide_image            = $slide['image'];
-                        $slide_image_class      = ($slide_image['width'] > $slide_image['height']) ? 'wider' : '';
+
+                        if ($slide_image['sizes']['size-720_720']) {
+                            $slide_image_url = $slide_image['sizes']['size-720_720'];
+                            $slide_image_class = ($slide_image['sizes']['size-720_720-width'] > $slide_image['sizes']['size-720_720-height']) ? 'wider' : '';
+                        } else {
+                            $slide_image_url = $slide_image['url'];
+                            $slide_image_class = ($slide_image['width'] > $slide_image['height']) ? 'wider' : '';
+                        }
+
                         $slide_style            = $slide['slide_style'];
                         $slide_icon_base        = get_bloginfo('template_url').'/img/';
                         $slide_icon             = '';
@@ -169,8 +177,8 @@ get_template_part('inc/hero', 'banner');
                             echo '<div class="swiper-slide">
                                     <a href="#" title="'.esc_attr($slide_title).'">
                                         <div class="slide-box '.$slide_image_class.' '.$slide_overlay_class.'">';
-                                            if ($slide_image) {
-                                                echo '<img src="'.$slide_image['url'].'" alt="'.esc_attr($slide_title).'">';
+                                            if ($slide_image_url) {
+                                                echo '<img src="'.$slide_image_url.'" alt="'.esc_attr($slide_title).'">';
                                             }
                                             echo '<div class="slide-inner-box">
                                                     <div class="slider-social-table '.$slide_without_title.'">

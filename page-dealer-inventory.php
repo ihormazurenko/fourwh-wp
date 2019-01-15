@@ -58,7 +58,7 @@ $rows = get_field('rows');
                                                                     <div class="swiper-wrapper">';
                                                 }
                                                 foreach ($images as $key => $image) :
-                                                    $image_url = $image['sizes']['medium_large'] ? $image['sizes']['medium_large'] : $image['url'];
+                                                    $image_url = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                     $image_class = $image['width'] > $image['height'] ? 'wider' : '';
 
                                                     if ($images_count > 1) {
@@ -94,7 +94,7 @@ $rows = get_field('rows');
                                                                     <div class="swiper-wrapper">';
                                                     }
                                                         foreach ($images as $key => $image) :
-                                                            $image_url = $image['sizes']['medium_large'] ? $image['sizes']['medium_large'] : $image['url'];
+                                                            $image_url = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                             $image_class = $image['width'] > $image['height'] ? 'wider' : '';
 
                                                                 if ($images_count > 1) {

@@ -23,7 +23,7 @@ $external_button_group  = get_field('external_button_group');
 
                     <?php if (has_post_thumbnail()) { ?>
                         <div class="image">
-                            <?php the_post_thumbnail('large', array(
+                            <?php the_post_thumbnail('max-width-2800', array(
                                 'alt'   => esc_attr($title)
                             )); ?>
                         </div>

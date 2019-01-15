@@ -18,18 +18,19 @@ $truck_sizes = get_field('truck_sizes');
                 if ( $truck_sizes && is_array( $truck_sizes ) && count( $truck_sizes ) > 0 ) :
                     echo '<ul class="select-truck-list">';
                     foreach ($truck_sizes as $key => $truck_size) :
-                        $group_label    = $truck_size['label'];
-                        $group_photo    = $truck_size['photo'];
-                        $group_slug     = preg_replace('/[^\w]/','-', strtolower(strip_tags(trim($group_label))) );
-                        $group_slug     = preg_replace('/(-)\1+/','-', $group_slug );
+                        $group_label        = $truck_size['label'];
+                        $group_photo        = $truck_size['photo'];
+                        $group_photo_url    = $group_photo['sizes']['medium_large'] ? $group_photo['sizes']['medium_large'] : $group_photo['url'];
+                        $group_slug         = preg_replace('/[^\w]/','-', strtolower(strip_tags(trim($group_label))) );
+                        $group_slug         = preg_replace('/(-)\1+/','-', $group_slug );
                         ?>
                         <li>
                             <div class="select-truck-box">
                                 <input type="radio" id="truck-<?php echo esc_attr( $key ); ?>" name="your-truck" class="radio-truck" data-truck-type="<?php echo esc_attr( $group_slug ); ?>" value="<?php echo esc_attr( $group_slug ); ?>">
                                 <label for="truck-<?php echo esc_attr( $key ); ?>">
                                     <div class="select-truck-img-wrap">
-                                        <?php if ( $group_photo ) : ?>
-                                            <img src="<?php echo esc_url( $group_photo ); ?>" alt="<?php echo esc_attr( $group_label ); ?>">
+                                        <?php if ( $group_photo_url ) : ?>
+                                            <img src="<?php echo esc_url( $group_photo_url ); ?>" alt="<?php echo esc_attr( $group_label ); ?>">
                                         <?php endif; ?>
                                     </div>
                                     <?php if ( $group_label ) { ?>
@@ -72,6 +73,7 @@ $truck_sizes = get_field('truck_sizes');
                                                 foreach ($bed_length as $key => $group ) :
                                                     $group_label            = $group['label'];
                                                     $group_photo            = $group['photo'];
+                                                    $group_photo_url        = $group_photo['sizes']['medium_large'] ? $group_photo['sizes']['medium_large'] : $group_photo['url'];
                                                     $group_selector_type    = $group['selector_type'];
                                                     $group_single_model     = $group['single_model'][0];
                                                     $group_multiple_models  = $group['multiple_models'];
@@ -116,8 +118,8 @@ $truck_sizes = get_field('truck_sizes');
                                                                 <input type="radio" id="<?php echo $bed_length_slug.'_'.$key; ?>" name="your-bed-length" class="radio-truck" data-truck-btn="<?php echo $group_btn_type; ?>" data-truck-url="<?php echo esc_url($group_url); ?>" value="<?php echo esc_attr($group_label); ?>">
                                                                 <label for="<?php echo $bed_length_slug.'_'.$key; ?>">
                                                                     <div class="select-truck-img-wrap">
-                                                                        <?php if ($group_photo) { ?>
-                                                                            <img src="<?php echo esc_url($group_photo); ?>" alt="<?php echo esc_attr($group_label); ?>">
+                                                                        <?php if ($group_photo_url) { ?>
+                                                                            <img src="<?php echo esc_url($group_photo_url); ?>" alt="<?php echo esc_attr($group_label); ?>">
                                                                         <?php } ?>
                                                                     </div>
                                                                     <?php if ( $group_label ) : ?>

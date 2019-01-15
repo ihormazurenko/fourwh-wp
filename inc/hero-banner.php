@@ -54,8 +54,14 @@ if (is_tax('model_categories')) {
 
         foreach ($hero_banner as $slide) {
             $hero_image = $slide['image'];
-            $hero_image_url = $slide['image'];
-            $hero_image_class = ($hero_image['width'] > $hero_image['height']) ? 'wider' : '';
+            if ($hero_image['sizes']['max-width-2800']) {
+                $hero_image_url = $hero_image['sizes']['max-width-2800'];
+                $hero_image_class = ($hero_image['sizes']['max-width-2800-width'] > $hero_image['sizes']['max-width-2800-height']) ? 'wider' : '';
+            } else {
+                $hero_image_url = $hero_image['url'];
+                $hero_image_class = ($hero_image['width'] > $hero_image['height']) ? 'wider' : '';
+            }
+
             $hero_content_group = $slide['title_group'];
             $hero_button_group = $slide['show_button'] ? $slide['button'] : '';
             $hero_button = '';
@@ -93,7 +99,7 @@ if (is_tax('model_categories')) {
                 $hero_classes .= ($hero_title || $hero_subtitle || $hero_content || $hero_button) ? ' ' : ' without-content';
 
                 if ($hero_image_url) {
-                    $hero_bg = 'style="background-image: url(' . $hero_image['url'] . ')"';
+                    $hero_bg = 'style="background-image: url(' . $hero_image_url . ')"';
                 }
 
                 if ($hero_slide_count > 1) {

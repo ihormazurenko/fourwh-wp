@@ -16,7 +16,7 @@ $rental = get_field('rental');
 
             <?php
                 if ( $rental && is_array( $rental ) && count( $rental ) > 0 ) :
-                   $image                   = $rental['image'];
+                   $image                   = $rental['image']['sizes']['large'] ? $rental['image']['sizes']['large'] : $rental['image']['url'];
                    $content                 = $rental['content'];
                    $provide               = $rental['provide_list'];
                    $provide_title         = $rental['provide_title'];
@@ -111,7 +111,7 @@ $rental = get_field('rental');
                                   $rental_website = $rental['rental_website'];
                                   $rental_photo = $rental['icon'];
 
-                                  $image_size = 'original';
+                                  $image_size = 'max-width-2800';
 
                                   if($key % 2) :
                                   ?>

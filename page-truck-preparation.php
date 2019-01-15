@@ -24,7 +24,7 @@ $bottom_content = get_field('bottom_content');
                       <?php foreach ( $steps as $key=>$step ) : 
                         $title = $step['title'];
                         $image = $step['image'];
-                        $image_size = 'original';
+                        $image_size = 'max-width-2800';
                         $text = $step['text'];
 
                         ?>

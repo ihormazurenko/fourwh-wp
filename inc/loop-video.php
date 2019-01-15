@@ -19,7 +19,7 @@
     <div class="list-item">
         <?php if (has_post_thumbnail()) { ?>
            <div class="image">
-                <?php the_post_thumbnail('medium_large', array(
+                <?php the_post_thumbnail('max-width-2800', array(
                     'alt'   => esc_attr($title)
                 )); ?><i class="fas fa-play-circle"></i>
             </div>

@@ -102,10 +102,10 @@ if ( $option_query->have_posts() )  :
             $option_thumb_url = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
             $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
 
-            $option_medium_large_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
-            $option_medium_large_photo_arr = $option_medium_large_photo_id ? image_downsize($option_medium_large_photo_id, 'medium_large') : '';
-            $option_medium_large_photo_url = $option_medium_large_photo_arr[0] ? $option_medium_large_photo_arr[0] : '';
-            $option_medium_large_photo_class = ($option_medium_large_photo_arr[1] > $option_medium_large_photo_arr[2]) ? 'wider' : '';
+            $option_large_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
+            $option_large_photo_arr = $option_large_photo_id ? image_downsize($option_large_photo_id, 'large') : '';
+            $option_large_photo_url = $option_large_photo_arr[0] ? $option_large_photo_arr[0] : '';
+            $option_large_photo_class = ($option_large_photo_arr[1] > $option_large_photo_arr[2]) ? 'wider' : '';
 
             $option_full_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
             $option_full_photo_arr = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
@@ -122,8 +122,8 @@ if ( $option_query->have_posts() )  :
                         'weight' => $option_weight,
                         'full_photo' => $option_full_photo_url,
                         'full_photo_class' => $option_full_photo_class,
-                        'medium_large_photo' => $option_medium_large_photo_url,
-                        'medium_large_photo_class' => $option_medium_large_photo_class,
+                        'large_photo' => $option_large_photo_url,
+                        'large_photo_class' => $option_large_photo_class,
                         'thumbnail' => $option_thumb_url,
                         'thumbnail_class' => $option_thumb_class,
                         'status' => $option_status,
@@ -253,8 +253,6 @@ wp_reset_postdata();
                                             <?php
                                                 foreach ( $floorplans_slider as $slide ) {
                                                     $slide_inner_images = $slide['inner_images'];
-//                                                    $slide_url = $slide['image']['url'];
-//                                                    $slide_alt = $slide['short_title'] ? $slide['short_title'] :  $slide['image']['title'];
                                                     ?>
                                                     <div class="swiper-slide">
                                                         <?php
@@ -265,9 +263,8 @@ wp_reset_postdata();
                                                                         $slide_inner_count = 0;
                                                                         foreach ($slide_inner_images as $image) {
                                                                             $slide_inner_count++;
-                                                                            $image_url          = $image['url'] ? $image['url'] : '';
+                                                                            $image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                                             $image_title        = $image['title'] ? $image['title'] : '';
-                                                                            $image_thumb_url    = $image['sizes']['medium_large'] ? $image['sizes']['medium_large'] : '';
                                                                             if ($slide_inner_count == 1) {
                                                                                 ?>
                                                                                 <img src="<?php echo esc_url($image_url); ?>"
@@ -282,12 +279,11 @@ wp_reset_postdata();
                                                                 <div class="swiper-inner-images-box">
                                                                     <?php
                                                                     foreach ($slide_inner_images as $image) {
-    //                                                                    var_dump($image);
-                                                                        $image_url          = $image['url'] ? $image['url'] : '';
+                                                                        $image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                                         $image_title        = $image['title'] ? $image['title'] : '';
-                                                                        $image_thumb_url    = $image['sizes']['medium_large'] ? $image['sizes']['medium_large'] : '';
+                                                                        $image_thumb_url    = $image['sizes']['medium'] ? $image['sizes']['medium'] : $image['sizes']['medium_large'];
                                                                         ?>
-                                                                            <img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_title );?>" data-plan-url="<?php echo esc_url($image_url); ?>">
+                                                                            <img src="<?php echo esc_url( $image_thumb_url ); ?>" alt="<?php echo esc_attr( $image_title );?>" data-plan-url="<?php echo esc_url($image_url); ?>">
                                                                         <?php
                                                                     }
                                                                     ?>
@@ -309,9 +305,7 @@ wp_reset_postdata();
                                                             $slide_url = $main_slide['image']['sizes']['medium'] ? $main_slide['image']['sizes']['medium'] : $main_slide['image']['url'];
                                                             $slide_alt = $main_slide['short_title'] ? $main_slide['short_title'] :  $main_slide['image']['title'];
                                                             $slide_title = $main_slide['short_title'];
-                                                            $slide_class = $main_slide['image']['width'] > $main_slide['image']['height'] ? 'wider' : '' ;
-
-
+                                                            $slide_class = $main_slide['image']['sizes']['medium-width'] > $main_slide['image']['sizes']['medium-height'] ? 'wider' : '' ;
                                                             ?>
                                                             <div class="swiper-slide">
                                                                 <div class="slide-img-wrap <?php echo $slide_class; ?>">
@@ -342,12 +336,10 @@ wp_reset_postdata();
             endif;
         ?>
 
-        <?php /*
+        <?php
             if ( $show_section_virtual_tour && $virtual_tour && is_array( $virtual_tour ) && count( $virtual_tour ) > 0) :
                 $virtual_tour_title       = $virtual_tour['title'];
                 $virtual_tour_description = $virtual_tour['description'];
-                $virtual_tour_video_url   = $virtual_tour['url'];
-                $virtual_tour_thumb_url   = $virtual_tour['image'] ? $virtual_tour['image']['url'] : getVideoThumbnail($virtual_tour_video_url);
                 $virtual_tour_link        = $virtual_tour['link'];
                 $virtual_tour_slider      = $virtual_tour['slider'];
 
@@ -355,7 +347,7 @@ wp_reset_postdata();
                     ?>
                     <div class="detail-box videotour" id="virtual-tour">
                         <div class="container">
-                        <?php
+                            <?php
                             if ( $virtual_tour_title ) {
                                 echo '<h2 class="section-title smaller">' . $virtual_tour_title . '</h2>';
                             }
@@ -364,27 +356,119 @@ wp_reset_postdata();
                                 echo '<div class="section-desc content">' . $virtual_tour_description . '</div>';
                             }
 
-                            if ( $virtual_tour_video_url || $virtual_tour_thumb_url ) {
-                                if ( !$virtual_tour_video_url && $virtual_tour_thumb_url ) {
-                                    echo '<div class="detail-img-wrap">
-                                            <img src="' . $virtual_tour_thumb_url . '" alt="' . esc_attr( $virtual_tour_title ) . '">
-                                        </div>';
-                                } elseif ($virtual_tour_video_url || $virtual_tour_thumb_url) {
-                                    echo '<div class="video-wrap-box">
-                                            <div class="video-wrap">';
-                                                if ( $virtual_tour_thumb_url ) {
-                                                    echo '<img src="' . $virtual_tour_thumb_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
+                            if ( $virtual_tour_slider && is_array($virtual_tour_slider) && count($virtual_tour_slider) > 0 ) {
+                                if (count($virtual_tour_slider) == 1) {
+                                        foreach ( $virtual_tour_slider as $slide ) :
+                                            $virtual_slider_video_arr = $slide['video'];
+                                            $virtual_slider_thumb_group_arr = $slide['thumb_group'];
+
+                                            if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
+                                                $virtual_url = $virtual_slider_video_arr['url'];
+                                                $virtual_image = $virtual_slider_video_arr['image'];
+                                                $virtual_image_url = $virtual_image ? $virtual_image['sizes']['max-width-2800'] : getVideoThumbnail($virtual_url);
+                                            }
+
+                                            if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
+                                                $virtual_title = $virtual_slider_thumb_group_arr['title'];
+                                                $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
+                                            }
+
+                                            if ($virtual_url || $virtual_image) {
+                                                echo '<div class="video-wrap-box">
+                                                        <div class="video-wrap">';
+                                                if ($virtual_image_url) {
+                                                    echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
                                                 }
-                                                if ( $virtual_tour_video_url ) {
-                                                    if (getVideoType($virtual_tour_video_url) == 'youtube') {
-                                                        echo '<iframe src="https://www.youtube.com/embed/'.getVideoId($virtual_tour_video_url).'?rel=0&autoplay=1&loop=1&mute=1&playlist='.getVideoId($virtual_tour_video_url).'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-                                                    }   elseif (getVideoType($virtual_tour_video_url) == 'vimeo') {
-                                                        echo '<iframe src="https://player.vimeo.com/video/'.getVideoId($virtual_tour_video_url).'?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-                                                    }
+                                                if (getVideoType($virtual_tour_video_url) == 'youtube') {
+                                                    echo '<iframe src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=1&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+                                                } elseif (getVideoType($virtual_tour_video_url) == 'vimeo') {
+                                                    echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
                                                 }
-                                    echo '</div>
-                                        </div>';
-                                }
+                                                echo '</div>
+                                                </div>';
+                                            }
+                                        endforeach;
+                                } else {
+                                        ?>
+                                        <div class="slider-virtual-tour">
+                                            <div class="swiper-container gallery-top">
+                                                <div class="swiper-wrapper">
+                                                <?php
+                                                    $virtula_count = 0;
+                                                    foreach ( $virtual_tour_slider as $slide ) :
+                                                        $virtual_slider_video_arr = $slide['video'];
+                                                        $virtual_slider_thumb_group_arr = $slide['thumb_group'];
+                                                        $virtula_count++;
+
+                                                        if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
+                                                            $virtual_url = $virtual_slider_video_arr['url'];
+                                                            $virtual_image = $virtual_slider_video_arr['image'];
+                                                            $virtual_image_url = $virtual_image ? $virtual_image['sizes']['max-width-2800'] : getVideoThumbnail($virtual_url);
+                                                        }
+
+
+                                                        if ($virtula_count == 0) {
+                                                            $vimeo_setings = 'background=1';
+                                                        } else {
+                                                            $vimeo_setings = 'autoplay=0&loop=1&muted=1&autopause=0';
+                                                        }
+
+                                                        $virtual_bg = $virtual_image_url ? 'style="background-image: url('.$virtual_image_url.')"' : '';
+                                                        ?>
+                                                        <div class="swiper-slide" <?php echo $virtual_bg; ?>>
+                                                            <?php
+                                                                if (getVideoType($virtual_url) == 'youtube') {
+
+                                                                } elseif (getVideoType($virtual_url) == 'vimeo') {
+                                                                    echo '<iframe data-video="vimeo" src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?background=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                                                }
+                                                            ?>
+                                                        </div>
+                                                        <?php
+                                                    endforeach;
+                                                ?>
+                                                </div>
+                                            </div>
+                                            <div class="gallery-thumbs-wrap">
+                                                <div class="swiper-container gallery-thumbs">
+                                                    <div class="swiper-wrapper">
+                                                    <?php
+                                                        foreach ( $virtual_tour_slider as $slide ) :
+                                                            $virtual_slider_video_arr = $slide['video'];
+                                                            $virtual_slider_thumb_group_arr = $slide['thumb_group'];
+
+                                                            if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
+                                                                $virtual_url = $virtual_slider_video_arr['url'];
+                                                                $virtual_image = $virtual_slider_video_arr['image'];
+                                                                $virtual_image_url = $virtual_image ? $virtual_image['sizes']['max-width-2800'] : getVideoThumbnail($virtual_url);
+                                                            }
+
+                                                            if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
+                                                                $virtual_title = $virtual_slider_thumb_group_arr['title'];
+                                                                $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
+                                                                $virtual_thumb_url = $virtual_thumb ? $virtual_thumb['sizes']['medium'] : getVideoThumbnail($virtual_url);
+                                                            }
+                                                            ?>
+                                                            <div class="swiper-slide">
+                                                                <div class="slide-img-wrap wider">
+                                                                    <img src="<?php echo esc_url($virtual_thumb_url); ?>" alt="<?php echo esc_attr($virtual_title); ?>">
+                                                                </div>
+                                                                <div class="slide-title-box">
+                                                                    <h3 class="slide-title"><?php echo $virtual_title; ?></h3>
+                                                                </div>
+                                                            </div>
+                                                        <?php
+                                                        endforeach;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <!-- Add Arrows -->
+                                                <div class="swiper-button-next swiper-button-black"></div>
+                                                <div class="swiper-button-prev swiper-button-black"></div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
                             }
                             if ( $virtual_tour_link && is_array( $virtual_tour_link ) && count( $virtual_tour_link ) > 0) {
                                 $virtual_label = $virtual_tour_link['label'];
@@ -401,199 +485,21 @@ wp_reset_postdata();
 
                                 if (!empty($virtual_label)) {
                                     echo '<div class="videotour-link-box">';
-                                        if (!empty($virtual_link)) {
-                                            echo '<a href="' . $virtual_link . '" class="video-title" title="' . esc_attr($virtual_label) . '" ' . $virtual_target . '>' . $virtual_label . '</a>';
-                                        } else {
-                                            echo '<span>' . $virtual_label . '</span>';
-                                        }
+                                    if (!empty($virtual_link)) {
+                                        echo '<a href="' . $virtual_link . '" class="video-title" title="' . esc_attr($virtual_label) . '" ' . $virtual_target . '>' . $virtual_label . '</a>';
+                                    } else {
+                                        echo '<span>' . $virtual_label . '</span>';
+                                    }
                                     echo '</div>';
                                 }
                             }
-                        ?>
+
+                            ?>
                         </div>
                     </div>
-                    <?php
+                <?php
                 endif;
-            endif; */
-        ?>
-
-        <?php
-            //if (get_current_user_id() == 1) :
-                if ( $show_section_virtual_tour && $virtual_tour && is_array( $virtual_tour ) && count( $virtual_tour ) > 0) :
-                    $virtual_tour_title       = $virtual_tour['title'];
-                    $virtual_tour_description = $virtual_tour['description'];
-                    $virtual_tour_link        = $virtual_tour['link'];
-                    $virtual_tour_slider      = $virtual_tour['slider'];
-
-                    if ($virtual_tour_title || $virtual_tour_description || $virtual_tour_img_url) :
-                        ?>
-                        <div class="detail-box videotour" id="virtual-tour">
-                            <div class="container">
-                                <?php
-                                if ( $virtual_tour_title ) {
-                                    echo '<h2 class="section-title smaller">' . $virtual_tour_title . '</h2>';
-                                }
-
-                                if ( $virtual_tour_description ) {
-                                    echo '<div class="section-desc content">' . $virtual_tour_description . '</div>';
-                                }
-
-                                if ( $virtual_tour_slider && is_array($virtual_tour_slider) && count($virtual_tour_slider) > 0 ) {
-                                    if (count($virtual_tour_slider) == 1) {
-                                            foreach ( $virtual_tour_slider as $slide ) :
-                                                $virtual_slider_video_arr = $slide['video'];
-                                                $virtual_slider_thumb_group_arr = $slide['thumb_group'];
-
-                                                if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
-                                                    $virtual_url = $virtual_slider_video_arr['url'];
-                                                    $virtual_image = $virtual_slider_video_arr['image'];
-                                                    $virtual_image_url = $virtual_image ? $virtual_image['url'] : getVideoThumbnail($virtual_url);
-                                                }
-
-                                                if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
-                                                    $virtual_title = $virtual_slider_thumb_group_arr['title'];
-                                                    $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
-                                                }
-
-                                                if ($virtual_url || $virtual_image) {
-                                                    echo '<div class="video-wrap-box">
-                                                            <div class="video-wrap">';
-                                                    if ($virtual_image_url) {
-                                                        echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
-                                                    }
-                                                    if (getVideoType($virtual_tour_video_url) == 'youtube') {
-                                                        echo '<iframe src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=1&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-                                                    } elseif (getVideoType($virtual_tour_video_url) == 'vimeo') {
-                                                        echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-                                                    }
-                                                    echo '</div>
-                                                    </div>';
-                                                }
-                                            endforeach;
-                                    } else {
-                                            ?>
-                                            <div class="slider-virtual-tour">
-                                                <div class="swiper-container gallery-top">
-                                                    <div class="swiper-wrapper">
-                                                    <?php
-                                                        $virtula_count = 0;
-                                                        foreach ( $virtual_tour_slider as $slide ) :
-                                                            $virtual_slider_video_arr = $slide['video'];
-                                                            $virtual_slider_thumb_group_arr = $slide['thumb_group'];
-                                                            $virtula_count++;
-
-                                                            if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
-                                                                $virtual_url = $virtual_slider_video_arr['url'];
-                                                                $virtual_image = $virtual_slider_video_arr['image'];
-                                                                $virtual_image_url = $virtual_image ? $virtual_image['url'] : getVideoThumbnail($virtual_url);
-                                                            }
-
-                                                            if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
-                                                                $virtual_title = $virtual_slider_thumb_group_arr['title'];
-                                                                $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
-                                                                $virtual_thumb_url = $virtual_thumb ? $virtual_thumb['sizes']['medium_large'] : getVideoThumbnail($virtual_url);
-                                                            }
-
-                                                            if ($virtula_count == 0) {
-                                                                $vimeo_setings = 'background=1';
-                                                            } else {
-                                                                $vimeo_setings = 'autoplay=0&loop=1&muted=1&autopause=0';
-                                                            }
-
-                                                            $virtual_bg = $virtual_image_url ? 'style="background-image: url('.$virtual_image_url.')"' : '';
-                                                            ?>
-                                                            <div class="swiper-slide" <?php echo $virtual_bg; ?>>
-                                                                <?php
-//                                                                    if ($virtual_image_url) {
-//                                                                        echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
-//                                                                    }
-                                                                    if (getVideoType($virtual_url) == 'youtube') {
-//                                                                        echo '<div id="youtube_'.getVideoId($virtual_url).'" data-youtube-id="'.getVideoId($virtual_url).'" data-video="youtube"></div>';
-//                                                                            echo '<iframe id="" data-video="youtube" src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=0&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-//                                                                        echo '<iframe src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=1&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
-                                                                    } elseif (getVideoType($virtual_url) == 'vimeo') {
-                                                                        echo '<iframe data-video="vimeo" src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?background=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-//                                                                        echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-                                                                    }
-                                                                ?>
-                                                            </div>
-                                                            <?php
-                                                        endforeach;
-                                                    ?>
-                                                    </div>
-                                                </div>
-                                                <div class="gallery-thumbs-wrap">
-                                                    <div class="swiper-container gallery-thumbs">
-                                                        <div class="swiper-wrapper">
-                                                        <?php
-                                                            foreach ( $virtual_tour_slider as $slide ) :
-                                                                $virtual_slider_video_arr = $slide['video'];
-                                                                $virtual_slider_thumb_group_arr = $slide['thumb_group'];
-
-                                                                if ($virtual_slider_video_arr && is_array($virtual_slider_video_arr) && count($virtual_slider_video_arr) > 0) {
-                                                                    $virtual_url = $virtual_slider_video_arr['url'];
-                                                                    $virtual_image = $virtual_slider_video_arr['image'];
-                                                                    $virtual_image_url = $virtual_image ? $virtual_image['url'] : getVideoThumbnail($virtual_url);
-                                                                }
-
-                                                                if ($virtual_slider_thumb_group_arr && is_array($virtual_slider_thumb_group_arr) && count($virtual_slider_thumb_group_arr) > 0) {
-                                                                    $virtual_title = $virtual_slider_thumb_group_arr['title'];
-                                                                    $virtual_thumb = $virtual_slider_thumb_group_arr['thumb'];
-                                                                    $virtual_thumb_url = $virtual_thumb ? $virtual_thumb['sizes']['medium_large'] : getVideoThumbnail($virtual_url);
-                                                                }
-                                                                ?>
-                                                                <div class="swiper-slide">
-                                                                    <div class="slide-img-wrap wider">
-                                                                        <img src="<?php echo esc_url($virtual_thumb_url); ?>" alt="<?php echo esc_attr($virtual_title); ?>">
-                                                                    </div>
-                                                                    <div class="slide-title-box">
-                                                                        <h3 class="slide-title"><?php echo $virtual_title; ?></h3>
-                                                                    </div>
-                                                                </div>
-                                                            <?php
-                                                            endforeach;
-                                                            ?>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Add Arrows -->
-                                                    <div class="swiper-button-next swiper-button-black"></div>
-                                                    <div class="swiper-button-prev swiper-button-black"></div>
-                                                </div>
-                                            </div>
-                                            <?php
-                                        }
-                                }
-                                if ( $virtual_tour_link && is_array( $virtual_tour_link ) && count( $virtual_tour_link ) > 0) {
-                                    $virtual_label = $virtual_tour_link['label'];
-                                    $virtual_link_type = $virtual_tour_link['link_type'];
-                                    $virtual_target = $virtual_tour_link['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
-
-                                    if ($virtual_link_type == 'internal') {
-                                        $virtual_link = $virtual_tour_link['internal_link'] ? $virtual_tour_link['internal_link'] : '';
-                                    } elseif ($virtual_link_type == 'external') {
-                                        $virtual_link = $virtual_tour_link['external_link'] ? $virtual_tour_link['external_link'] : '';
-                                    } else {
-                                        $virtual_link = '';
-                                    }
-
-                                    if (!empty($virtual_label)) {
-                                        echo '<div class="videotour-link-box">';
-                                        if (!empty($virtual_link)) {
-                                            echo '<a href="' . $virtual_link . '" class="video-title" title="' . esc_attr($virtual_label) . '" ' . $virtual_target . '>' . $virtual_label . '</a>';
-                                        } else {
-                                            echo '<span>' . $virtual_label . '</span>';
-                                        }
-                                        echo '</div>';
-                                    }
-                                }
-
-                                ?>
-                            </div>
-                        </div>
-                    <?php
-                    endif;
-                endif;
-           // endif;
+            endif;
         ?>
 
         <?php
@@ -768,7 +674,7 @@ wp_reset_postdata();
                                                                         $item_id                    = trim($value['option_id']);
                                                                         $item_name                  = trim($value['name']);
                                                                         $item_full_photo            = trim($value['full_photo']);
-                                                                        $item_medium_large_photo    = $value['medium_large_photo'] ? trim($value['medium_large_photo']) : $item_full_photo;
+                                                                        $item_large_photo           = $value['large_photo'] ? trim($value['large_photo']) : $item_full_photo;
                                                                     }
                                                                 endforeach;
                                                                 ?>
@@ -777,7 +683,7 @@ wp_reset_postdata();
                                                                        href="<?php echo esc_url($item_full_photo); ?>"
                                                                        title="<?php esc_attr_e('Zoom', 'fw_campers'); ?>"></a>
                                                                 <?php } ?>
-                                                                <img src="<?php echo esc_url( $item_medium_large_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
+                                                                <img src="<?php echo esc_url( $item_large_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
                                                             </div>
                                                         </div>
                                                     <?php endif; ?>
@@ -799,8 +705,8 @@ wp_reset_postdata();
                                                                 $item_weight                    = trim($value['weight']);
                                                                 $item_full_photo                = trim($value['full_photo']);
                                                                 $item_full_photo_class          = trim($value['full_photo_class']);
-                                                                $item_medium_large_photo        = trim($value['medium_large_photo']);
-                                                                $item_medium_large_photo_class  = trim($value['medium_large_photo_class']);
+                                                                $item_large_photo               = trim($value['large_photo']);
+                                                                $item_large_photo_class         = trim($value['large_photo_class']);
                                                                 $item_thumbnail                 = trim($value['thumbnail']);
                                                                 $item_thumbnail_class           = trim($value['thumbnail_class']);
                                                                 $item_class                     = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
@@ -820,8 +726,8 @@ wp_reset_postdata();
                                                                                data-price="<?php echo $item_price; ?>"
                                                                                data-weight="<?php echo $item_weight; ?>"
                                                                                data-img-full="<?php echo esc_url($item_full_photo); ?>"
-                                                                               data-img-medium-large="<?php echo esc_url($item_medium_large_photo); ?>"
-                                                                               data-img-medium-large-class="<?php echo esc_url($item_medium_large_photo_class); ?>"
+                                                                               data-img-medium-large="<?php echo esc_url($item_large_photo); ?>"
+                                                                               data-img-medium-large-class="<?php echo esc_url($item_large_photo_class); ?>"
                                                                                data-group-name="<?php echo $group; ?>"
                                                                                data-option-parent-group="<?php echo $parent_group; ?>"
                                                                                data-option-group="<?php echo $element_id; ?>"
@@ -855,13 +761,14 @@ wp_reset_postdata();
 
         <?php
             if ( $show_section_full_width_image && $full_width && is_array( $full_width ) && count( $full_width ) > 0) :
-                $full_width_title = $full_width['title'];
-                $full_width_img = $full_width['image'];
-                $full_width_img_url = $full_width_img['url'] ? 'style="background-image: url('.$full_width_img['url'].');"' : '';
+                $full_width_title   = $full_width['title'];
+                $full_width_img     = $full_width['image'];
+                $full_width_img_url = $full_width_img['sizes']['max-width-2800'] ? $full_width_img['sizes']['max-width-2800'] : $full_width_img['url'];
+                $full_width_bg      = $full_width_img_url ? 'style="background-image: url('.$full_width_img_url.');"' : '';
                 $full_width_img_alt = $full_width_title ? $full_width_title : $full_width_img['title'];
                 ?>
                 <?php if ($full_width_title || $full_width_img ) : ?>
-                    <div class="detail-box full-width-img" id="full-width-img" <?php echo $full_width_img_url; ?>>
+                    <div class="detail-box full-width-img" id="full-width-img" <?php echo $full_width_bg; ?>>
                         <?php if ( $full_width_title ) : ?>
                             <div class="full-width-bottom-box">
                                 <div class="container">
@@ -901,9 +808,15 @@ wp_reset_postdata();
                                     <div class="swiper-wrapper">
                                         <?php
                                             foreach ( $siding_slider as $slide ) {
-                                                $slide_url = $slide['sizes']['medium_large'] ? $slide['sizes']['medium_large'] : $slide['url'];
-                                                $slide_alt = $slide['title'];
-                                                $slide_class = $slide['width'] > $slide['height'] ? 'wider' : '' ;
+                                                if ($slide_url = $slide['sizes']['size-860_680']) {
+                                                    $slide_url = $slide['sizes']['size-860_680'] ? $slide['sizes']['size-860_680'] : '';
+                                                    $slide_alt = $slide['title'];
+                                                    $slide_class = $slide['sizes']['size-860_680-width'] > $slide['sizes']['size-860_680-height'] ? 'wider' : '' ;
+                                                } else {
+                                                    $slide_url = $slide['url'] ? $slide['url'] : '';
+                                                    $slide_alt = $slide['title'];
+                                                    $slide_class = $slide['width'] > $slide['height'] ? 'wider' : '' ;
+                                                }
                                                 ?>
                                                     <div class="swiper-slide">
                                                         <div class="slide-img-wrap <?php echo $slide_class; ?>">

@@ -71,7 +71,7 @@ $section_inventory = get_field('section_inventory');
                                                                         <div class="swiper-wrapper">';
                                                                 }
                                                                 foreach ($photos as $key => $photo) :
-                                                                    $image_url = $photo['sizes']['medium_large'] ? $photo['sizes']['medium_large'] : $photo['url'];
+                                                                    $image_url = $photo['sizes']['max-width-2800'] ? $photo['sizes']['max-width-2800'] : $photo['url'];
                                                                     $image_class = $photo['width'] > $photo['height'] ? 'wider' : '';
 
                                                                     if ($photo_count > 1) {
@@ -139,7 +139,7 @@ $section_inventory = get_field('section_inventory');
                                                                     <div class="swiper-wrapper">';
                                                     }
                                                     foreach ($photos as $key => $photo) :
-                                                        $image_url = $photo['sizes']['medium_large'] ? $photo['sizes']['medium_large'] : $photo['url'];
+                                                        $image_url = $photo['sizes']['large'] ? $photo['sizes']['large'] : $photo['url'];
                                                         $image_class = $photo['width'] > $photo['height'] ? 'wider' : '';
 
                                                         if ($photo_count > 1) {

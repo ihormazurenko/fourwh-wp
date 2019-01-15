@@ -24,7 +24,7 @@ $archive_day   = get_the_time('d');
                         <div class="article-box">
                             <?php if (has_post_thumbnail()) { ?>
                                 <div class="article-img-wrap">
-                                    <?php the_post_thumbnail('large', array(
+                                    <?php the_post_thumbnail('max-width-2800', array(
                                         'alt'   => esc_attr($title)
                                     )); ?>
                                 </div>

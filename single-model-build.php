@@ -75,10 +75,10 @@ else :
                 $option_thumb_url   = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
                 $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
 
-                $option_medium_large_photo_id    = $meta->photo ? $meta->photo : $meta->thumbnail;
-                $option_medium_large_photo_arr   = $option_medium_large_photo_id ? image_downsize($option_medium_large_photo_id, 'medium_large') : '';
-                $option_medium_large_photo_url   = $option_medium_large_photo_arr[0] ? $option_medium_large_photo_arr[0] : '';
-                $option_medium_large_photo_class = ($option_medium_large_photo_arr[1] > $option_medium_large_photo_arr[2]) ? 'wider' : '';
+                $option_large_photo_id    = $meta->photo ? $meta->photo : $meta->thumbnail;
+                $option_large_photo_arr   = $option_large_photo_id ? image_downsize($option_large_photo_id, 'large') : '';
+                $option_large_photo_url   = $option_large_photo_arr[0] ? $option_large_photo_arr[0] : '';
+                $option_large_photo_class = ($option_large_photo_arr[1] > $option_large_photo_arr[2]) ? 'wider' : '';
 
                 $option_full_photo_id    = $meta->photo ? $meta->photo : $meta->thumbnail;
                 $option_full_photo_arr   = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
@@ -86,7 +86,7 @@ else :
                 $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
             } else {
                 $option_thumb_id    = $meta->thumbnail ? $meta->thumbnail : '';
-                $option_thumb_arr   = $option_thumb_id ? image_downsize($option_thumb_id, 'medium_large') : '';
+                $option_thumb_arr   = $option_thumb_id ? image_downsize($option_thumb_id, 'large') : '';
                 $option_thumb_url   = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
                 $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
 
@@ -113,8 +113,8 @@ else :
                             'weight'                    => $option_weight,
                             'full_photo'                => $option_full_photo_url,
                             'full_photo_class'          => $option_full_photo_class,
-                            'medium_large_photo'        => $option_medium_large_photo_url,
-                            'medium_large_photo_class'  => $option_medium_large_photo_class,
+                            'large_photo'               => $option_large_photo_url,
+                            'large_photo_class'         => $option_large_photo_class,
                             'thumbnail'                 => $option_thumb_url,
                             'thumbnail_class'           => $option_thumb_class,
                             'status'                    => $option_status,
@@ -242,9 +242,9 @@ else :
                                 $new_thumbnail_url = $new_thumbnail['sizes']['thumbnail'] ? $new_thumbnail['sizes']['thumbnail'] : $new_thumbnail['url'];
                                 $new_thumbnail_class = $new_thumbnail_url['width'] > $new_thumbnail_url['height'] ? 'wider' : '';
 
-                                $new_medium_large = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
-                                $new_medium_large_url = $new_medium_large['sizes']['medium_large'] ? $new_medium_large['sizes']['medium_large'] : $new_medium_large['url'];
-                                $new_medium_large_class = $new_medium_large_url['width'] > $new_medium_large_url['height'] ? 'wider' : '';
+                                $new_large = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
+                                $new_large_url = $new_large['sizes']['large'] ? $new_large['sizes']['large'] : $new_large['url'];
+                                $new_large_class = $new_large['width'] > $new_large['height'] ? 'wider' : '';
 
                                 $new_full_photo = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
                                 $new_full_photo_url = $new_full_photo['sizes']['full'] ? $new_full_photo['sizes']['full'] : $new_full_photo['url'];
@@ -260,9 +260,9 @@ else :
                                     $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail_class']          = $new_thumbnail_class;
                                 }
 
-                                if ($new_medium_large) {
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['medium_large_photo']       = $new_medium_large_url;
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['medium_large_photo_class'] = $new_medium_large_class;
+                                if ($new_large) {
+                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['large_photo']       = $new_large_url;
+                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['large_photo_class'] = $new_large_class;
                                 }
 
                                 if ($new_full_photo) {
@@ -426,7 +426,7 @@ else :
                                                                             $item_id                    = trim($value['option_id']);
                                                                             $item_name                  = trim($value['name']);
                                                                             $item_full_photo            = trim($value['full_photo']);
-                                                                            $item_medium_large_photo    = $value['medium_large_photo'] ? trim($value['medium_large_photo']) : $item_full_photo;
+                                                                            $item_large_photo           = $value['large_photo'] ? trim($value['large_photo']) : $item_full_photo;
                                                                         }
                                                                     endforeach;
                                                                     ?>
@@ -435,7 +435,7 @@ else :
                                                                            href="<?php echo esc_url($item_full_photo); ?>"
                                                                            title="<?php esc_attr_e('Zoom', 'fw_campers'); ?>"></a>
                                                                     <?php } ?>
-                                                                    <img src="<?php echo esc_url( $item_medium_large_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
+                                                                    <img src="<?php echo esc_url( $item_large_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
                                                                 </div>
                                                             </div>
                                                         <?php endif; ?>
@@ -456,8 +456,8 @@ else :
                                                                         $item_weight                    = trim($value['weight']);
                                                                         $item_full_photo                = trim($value['full_photo']);
                                                                         $item_full_photo_class          = trim($value['full_photo_class']);
-                                                                        $item_medium_large_photo        = trim($value['medium_large_photo']);
-                                                                        $item_medium_large_photo_class  = trim($value['medium_large_photo_class']);
+                                                                        $item_large_photo               = trim($value['large_photo']);
+                                                                        $item_large_photo_class         = trim($value['large_photo_class']);
                                                                         $item_thumbnail                 = trim($value['thumbnail']);
                                                                         $item_thumbnail_class           = trim($value['thumbnail_class']);
                                                                         $item_class                     = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
@@ -500,8 +500,8 @@ else :
                                                                                        data-price="<?php echo $item_price; ?>"
                                                                                        data-weight="<?php echo $item_weight; ?>"
                                                                                        data-img-full="<?php echo esc_url($item_full_photo); ?>"
-                                                                                       data-img-medium-large="<?php echo esc_url($item_medium_large_photo); ?>"
-                                                                                       data-img-medium-large-class="<?php echo esc_url($item_medium_large_photo_class); ?>"
+                                                                                       data-img-medium-large="<?php echo esc_url($item_large_photo); ?>"
+                                                                                       data-img-medium-large-class="<?php echo esc_url($item_large_photo_class); ?>"
                                                                                        data-group-name="<?php echo $group; ?>"
                                                                                        data-option-parent-group="<?php echo $parent_group; ?>"
                                                                                        data-option-group="<?php echo $element_id; ?>"

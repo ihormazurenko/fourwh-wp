@@ -26,7 +26,7 @@
         echo '</ul>
             </div>';
 
-        get_template_part('inc/pagination');
+//        get_template_part('inc/pagination');
 
     }
 

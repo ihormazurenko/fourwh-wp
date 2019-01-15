@@ -23,6 +23,7 @@
     @media all and (max-width: 767px) {
       display: table;
       width: 100%;
+      table-layout: fixed;
      .content-box {
        float: none;
        width: 100%;

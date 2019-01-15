@@ -6,7 +6,7 @@
     $thumbnail_url = '';
 
     if( ! is_null( $thumbnail_id ) ) {
-        $thumbnail_arr = image_downsize($thumbnail_id, 'medium_large');
+        $thumbnail_arr = image_downsize($thumbnail_id, 'large');
         $thumbnail_url = $thumbnail_arr[0];
         $thumbnail_class = ($thumbnail_arr[1] > $thumbnail_arr[2]) ? 'wider' : '';
     }

@@ -108,6 +108,7 @@ $rental = get_field('rental');
                                   $rental_title = $rental['title'];
                                   $rental_subtitle = $rental['subtitle'];
                                   $rental_description = $rental['description'];
+                                  $group_button = $rental['link'];
                                   $rental_website = $rental['rental_website'];
                                   $rental_photo = $rental['icon'];
 
@@ -131,7 +132,27 @@ $rental = get_field('rental');
                                                   <?php endif; ?>
 
                                               </div>
-                                              <a href="<?php echo $rental_website; ?>" class="btn blue inverse" title="Go Store">Learn More</a>
+                                              <?php
+                                              if ($group_button && is_array($group_button) && count($group_button) > 0) {
+                                                  $label = $group_button['label'];
+                                                  $link_type = $group_button['link_type'];
+                                                  $target = $group_button['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+
+                                                  if ($link_type == 'internal') {
+                                                      $link = $group_button['internal_link'] ? $group_button['internal_link'] : '';
+                                                  } elseif ($link_type == 'external') {
+                                                      $link = $group_button['external_link'] ? $group_button['external_link'] : '';
+                                                  } elseif ($link_type == 'not_link') {
+                                                      $link = '';
+                                                  }
+
+                                                  if (!empty($label)) {
+                                                      if (!empty($link)) {
+                                                          echo '<a href="' . $link . '" class="btn blue inverse" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
+                                                      }
+                                                  }
+                                              }
+                                              ?>
                                           </div>
                                           <div class="inner-box">
                                               <div class="centered-img wider">
@@ -162,7 +183,27 @@ $rental = get_field('rental');
                                                   <?php endif; ?>
 
                                               </div>
-                                              <a href="<?php echo $rental_website; ?>" class="btn blue inverse" title="Go Store">Learn More</a>
+                                              <?php
+                                              if ($group_button && is_array($group_button) && count($group_button) > 0) {
+                                                  $label = $group_button['label'];
+                                                  $link_type = $group_button['link_type'];
+                                                  $target = $group_button['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+
+                                                  if ($link_type == 'internal') {
+                                                      $link = $group_button['internal_link'] ? $group_button['internal_link'] : '';
+                                                  } elseif ($link_type == 'external') {
+                                                      $link = $group_button['external_link'] ? $group_button['external_link'] : '';
+                                                  } elseif ($link_type == 'not_link') {
+                                                      $link = '';
+                                                  }
+
+                                                  if (!empty($label)) {
+                                                      if (!empty($link)) {
+                                                          echo '<a href="' . $link . '" class="btn blue inverse" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
+                                                      }
+                                                  }
+                                              }
+                                              ?>
                                           </div>
                                       </div>
                                   </li>

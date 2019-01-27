@@ -43,6 +43,7 @@
                 </div>
             <?php endif; ?>
         </div>
+<!--        <a href="http://" target="_blank" rel="nofollow"></a>-->
     </li>
     <?php
 

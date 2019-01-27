@@ -295,7 +295,8 @@ wp_reset_postdata();
                                             <?php } ?>
                                         </div>
                                     </div>
-                                    <div class="plan-thumbs-wrap">
+                                    
+                                    <div class="plan-thumbs-wrap" <?php print (count($floorplans_slider) > 1) ? '' : 'style="display: none;"' ?>>
                                         <div class="swiper-container gallery-thumbs">
                                             <div class="swiper-wrapper">
                                                 <?php
@@ -327,6 +328,7 @@ wp_reset_postdata();
                                         <div class="swiper-button-next swiper-button-black"></div>
                                         <div class="swiper-button-prev swiper-button-black"></div>
                                     </div>
+                                    
                                 </div>
                             <?php } ?>
                         </div>

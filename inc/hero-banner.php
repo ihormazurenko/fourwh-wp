@@ -104,7 +104,8 @@ if (is_tax('model_categories')) {
                 
 
                 if ($hero_image_url) {
-                    $hero_bg = 'style="background-image: url(' . $hero_image_url . ')"';
+                    // $hero_bg = 'style="background-image: url(' . $hero_image_url . ')"';
+                    $hero_bg = '';
                 }
 
                 if ($hero_slide_count > 1) {
@@ -112,6 +113,9 @@ if (is_tax('model_categories')) {
                 } else {
                     echo '<div class="section section-hero inverse ' . $hero_alignment . ' ' . $hero_classes . '" ' . $hero_bg . '">';
                 }
+                
+                echo wp_get_attachment_image( $hero_image['ID'], 'max-width-2800' ); 
+
                 echo '<div class="container">
                                 <div class="hero-box">';
                 if ($hero_title) {

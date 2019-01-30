@@ -37,9 +37,8 @@ get_template_part('inc/hero', 'banner');
                             if ($video_slide_count > 1) {
                                 echo '<div class="swiper-slide">
                                             <a href="'.$video_url.'" class="youtube-video" title="'.esc_attr($video_thumb_alt).'">
-                                                <div class="video-preview">
-                                                    <img src="'.$video_thumb_url.'" alt="'.esc_attr($video_thumb_alt).'">
-                                                </div>';
+                                                <div class="video-preview">'. wp_get_attachment_image( $slide['img']['ID'], 'max-width-2800' ).
+                                                '</div>';
                                       echo '</a>';
                                             if ($video_thumb_title) {
                                                 echo '<h3 class="swiper-video-title">' . $video_thumb_title . '</h3>';

@@ -865,6 +865,15 @@
 
         $('.testimonial_item p').readmore();
 
+
+        //hero image cover
+        $(".section-hero img").cover({
+            backgroundPosition:"bottom",
+            checkWindowResize:true,
+            loadHidden:true,
+            callbacks: {}
+        });
+
         //for youtube and vimeo play
         // $(function() {
         //     if ($('.video-wrap').length) {

@@ -123,6 +123,32 @@
     }
   }
 }
+
+// Full width hero image code
+.section-hero > img {
+  position: absolute;
+  top: 0;
+  height: 100%; 
+  width: auto;
+  opacity: 0;
+}
+
+.greenishCover {
+  position:absolute;
+  height:100%;
+  width:100%;
+  overflow:hidden;
+  /*added */
+  top:0;
+}
+
+.greenishCover img {
+  
+}
+
+// end full width hero image code
+
+
   .hero-box {
     display: inline-block;
     width: 100%;

@@ -507,6 +507,16 @@
                 // });
         }
 
+        //insert Model url to Brochure Form
+        $(function () {
+           if ($('.brochure-popup-form').length && $('#brochure-form input.model-url-input').length) {
+               $('.brochure-popup-form').on('click', function () {
+                   var url = window.location.href;
+                   $('#brochure-form input.model-url-input').val(url);
+               });
+           }
+        });
+
         //for More Info btn
         $(function() {
             if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {

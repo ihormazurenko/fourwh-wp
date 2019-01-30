@@ -38,7 +38,7 @@
 
 .section-hero {
   overflow: hidden;
-  min-height: 640px;
+  min-height: 740px;
   padding: 210px 0 104px;
   position: relative;
   color: $white;
@@ -67,10 +67,13 @@
     background: -webkit-linear-gradient(top, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.34) 30%,rgba(0,0,0,0) 93%); /* Chrome10-25,Safari5.1-6 */
     background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.34) 30%,rgba(0,0,0,0) 93%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
-}
+  }
 
 
-
+  @media all and (max-width: 1440px) {
+    min-height: 640px;
+    padding: 210px 0 104px;
+  }
   @media all and (max-width: 1024px) {
     padding-top: 140px;
     padding-bottom: 80px;

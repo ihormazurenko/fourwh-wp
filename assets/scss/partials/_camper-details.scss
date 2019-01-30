@@ -632,7 +632,7 @@
   }
     .benefits {
       position: relative;
-      padding: 5px 46px 5px 56px;
+      padding: 25px 46px 25px 56px;
       font-size: $size-small;
       line-height: 1.45;
       color: #3a3a3a;
@@ -706,7 +706,7 @@
     .our-service-box {
       padding: 32px 20px 50px;
       background-color: $white;
-      @include box-shadow(0 0 6px, rgba(0, 0, 0, .08));
+      @include box-shadow(0 0 6px, rgba(0, 0, 0, .16));
       @include border-radius($radius-small);
       .inner-box {
         max-width: 250px;

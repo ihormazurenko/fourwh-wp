@@ -456,7 +456,21 @@
                         }
                     }
                 });
-
+            }
+            if ($('.section-camper-details .group-box .zoom-img').length) {
+                $('.section-camper-details .group-box').magnificPopup({
+                    delegate: 'a.zoom-img',
+                    type: 'image',
+                    tLoading: 'Loading image #%curr%...',
+                    mainClass: 'mfp-img-mobile',
+                    image: {
+                        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                        titleSrc: function (item) {
+                            return item.el.attr('title');
+                        }
+                    }
+                });
+            }
                 // $('.image-popup-no-margins').magnificPopup({
                 //     type: 'image',
                 //     closeOnContentClick: true,
@@ -471,7 +485,6 @@
                 //         duration: 300 // don't foget to change the duration also in CSS
                 //     }
                 // });
-            }
         }
 
         //for More Info btn
@@ -794,6 +807,8 @@
                 btnWrap.addClass('btn-box-wrap');
             }
         });
+
+        $('.testimonial_item p').readmore();
 
         //for youtube and vimeo play
         // $(function() {

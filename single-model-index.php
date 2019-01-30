@@ -668,25 +668,22 @@ wp_reset_postdata();
                                                     if (is_array($items) && count($items) > 0) :
                                                         $items_count = count($items);
                                                         ?>
+                                                        <?php
+                                                        foreach ($items as $key => $value) :
+                                                            if ( strtolower($value['status']) == strtolower('standard') ) {
+                                                                $item_id                    = trim($value['option_id']);
+                                                                $item_name                  = trim($value['name']);
+                                                                $item_full_photo            = trim($value['full_photo']);
+                                                                $item_large_photo           = $value['large_photo'] ? trim($value['large_photo']) : $item_full_photo;
+                                                            }
+                                                        endforeach;
+                                                        ?>
                                                         <div class="left-box">
-                                                            <div class="group-img-wrap centered-img">
-                                                                <?php
-                                                                foreach ($items as $key => $value) :
-                                                                    if ( strtolower($value['status']) == strtolower('standard') ) {
-                                                                        $item_id                    = trim($value['option_id']);
-                                                                        $item_name                  = trim($value['name']);
-                                                                        $item_full_photo            = trim($value['full_photo']);
-                                                                        $item_large_photo           = $value['large_photo'] ? trim($value['large_photo']) : $item_full_photo;
-                                                                    }
-                                                                endforeach;
-                                                                ?>
-                                                                <?php if ( $item_full_photo ) { ?>
-                                                                    <a class="icon-zoom"
-                                                                       href="<?php echo esc_url($item_full_photo); ?>"
-                                                                       title="<?php esc_attr_e('Zoom', 'fw_campers'); ?>"></a>
-                                                                <?php } ?>
-                                                                <img src="<?php echo esc_url( $item_large_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
-                                                            </div>
+                                                            <a class="zoom-img" href="<?php echo esc_url($item_full_photo); ?>" title="<?php esc_attr_e('Zoom', 'fw_campers'); ?>">
+                                                                <div class="group-img-wrap centered-img">
+                                                                    <img src="<?php echo esc_url( $item_large_photo ); ?>" class="group-img active" alt="<?php echo esc_attr( $item_name ); ?>">
+                                                                </div>
+                                                            </a>
                                                         </div>
                                                     <?php endif; ?>
                                                     <?php

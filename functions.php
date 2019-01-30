@@ -4,7 +4,7 @@ function load_style_script(){
     wp_enqueue_style('fonts', '//fonts.googleapis.com/css?family=Roboto:100,300,400,500', array(), null);
     wp_enqueue_style('font-awesome-5', '//use.fontawesome.com/releases/v5.5.0/css/all.css', array(), '5.5.0');
     wp_enqueue_style('swiper', '//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css', array(), '4.4.2');
-    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/screen.css', array(), '1.4.2' );
+    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/screen.css', array(), '1.4.3' );
     wp_enqueue_style('style', get_stylesheet_uri(), array(), null );
 
 //    wp_enqueue_script('modernizr.min', '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array(), '2.8.3', false );
@@ -13,6 +13,8 @@ function load_style_script(){
     wp_enqueue_script('jquery.nicescroll.min', '//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js', array(), '3.7.6', true );
     wp_enqueue_script('tippy.all.min', '//unpkg.com/tippy.js@3/dist/tippy.all.min.js', array(), '3.3.0', true );
     wp_enqueue_script('magnific', get_template_directory_uri() . '/assets/js/magnific.js', array(), '1.1.0', true );
+    wp_enqueue_script('readmore_js', get_template_directory_uri() . '/assets/js/readmore.min.js', array(), '2.2.1', true );
+    
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom/scripts.js', array('jquery'), null, true );
     wp_enqueue_script('map', get_template_directory_uri() . '/assets/js/custom/map.js', array('jquery'), null, true );
 
@@ -276,9 +278,9 @@ add_action( 'widgets_init', 'register_my_widgets' );
 
 //add image sizes
 if ( function_exists( 'add_image_size' ) ) {
-    add_image_size( 'max-width-2800', 2800, 9999 ); // 300 в ширину и без ограничения в высоту
-    add_image_size( 'size-860_680', 880, 680, array( 'center', 'center' ) ); // Кадрирование изображения
-    add_image_size( 'size-720_720', 720, 720, array( 'center', 'center' ) ); // Кадрирование изображения
+    add_image_size( 'max-width-2800', 2800, 9999 );
+    add_image_size( 'size-860_680', 880, 680, array( 'center', 'center' ) );
+    add_image_size( 'size-720_720', 720, 720, array( 'center', 'center' ) );
 }
 
 //if (get_current_user_id() == 1 ) {
@@ -456,3 +458,9 @@ function model_cat_query($query) {
         $query->set('orderby', array( 'menu_order' => 'DESC', 'date' => 'ASC' ));
 	}
 }
+
+// Move Yoast to bottom
+function yoasttobottom() {
+	return 'low';
+}
+add_filter( 'wpseo_metabox_prio', 'yoasttobottom');

@@ -826,6 +826,45 @@
                   }
                 }
               }
+
+              .zoom-img {
+                position: relative;
+                display: block;
+                &:after {
+                  position: absolute;
+                  display: block;
+                  content: '';
+                  z-index: 10;
+                  top: 20px;
+                  right: 20px;
+                  width: 32px;
+                  height: 32px;
+                  text-align: center;
+                  font-weight: 400;
+                  color: #ffffff;
+                  @include border-radius(2em);
+                  background-color: $color-bg12;
+                  background-image: url(../../img/icon_expand.png);
+                  background-position: center;
+                  background-size: 17px 17px;
+                  background-repeat: no-repeat;
+                  @include transition($transition-other);
+                }
+                @media all and (min-width: 769px) {
+                  //opacity: 0;
+                  &:hover,
+                  &:focus {
+                    &:after {
+                      background-color: #0093CA;
+                    }
+                    .group-img-wrap  {
+                      img {
+                        @include scale(1.1);
+                      }
+                    }
+                  }
+                }
+              }
                 .radio-item,
                 .check-item {
                   position: absolute;

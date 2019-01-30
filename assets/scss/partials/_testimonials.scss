@@ -1,0 +1,37 @@
+.section-testimonials {
+	max-width: 880px;
+	margin: 0 auto;
+}
+.testimonial_item {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	border-bottom: solid 1px #f1f1f1;
+	padding-bottom: 60px;
+	padding-top: 60px;
+	
+	.left {
+		width: $col *3;
+	}
+	.right {
+		width: $col *8;
+		margin-left: $col*1;
+	}
+	span {
+		display: block;
+	}
+	h4 {
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	.name {
+		font-weight: bold;
+	}
+}
+
+
+
+
+
+
+

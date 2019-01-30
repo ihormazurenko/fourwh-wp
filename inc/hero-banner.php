@@ -34,6 +34,7 @@ if (is_tax('model_categories')) {
     $hero_title_classes = '';
     $hero_content_classes = '';
     $hero_bg = '';
+    $hero_overlay = '';
 
     if (is_front_page()) {
         $hero_classes = 'vertical-line';
@@ -72,6 +73,7 @@ if (is_tax('model_categories')) {
                     $hero_title = $hero_content_group['title'];
                     $hero_subtitle = $hero_content_group['subtitle'];
                     $hero_content = $hero_content_group['content'];
+                    $hero_overlay = $hero_content_group['overlay'];
 
                     if (empty($hero_title) && is_singular('model')) {
                         $hero_title = get_the_title($id);
@@ -97,6 +99,9 @@ if (is_tax('model_categories')) {
                 }
 
                 $hero_classes .= ($hero_title || $hero_subtitle || $hero_content || $hero_button) ? ' ' : ' without-content';
+
+                $hero_classes .= ($hero_overlay == 1) ? ' overlay' : '';  
+                
 
                 if ($hero_image_url) {
                     $hero_bg = 'style="background-image: url(' . $hero_image_url . ')"';

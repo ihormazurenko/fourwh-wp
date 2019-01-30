@@ -493,11 +493,15 @@
   position: relative;
   width: 100%;
   padding: 0;
-  min-height: 700px;
+  // min-height: 700px;
   background-color: #969696;
+  img {
+    width: 100%;
+    display: block;
+  }
   @include bg();
   @media all and (max-width: 1024px) {
-    min-height: 550px;
+    // min-height: 550px;
   }
   @media all and (max-width: 767px) {
     min-height: 450px;
@@ -508,7 +512,7 @@
 }
 
   .full-width-bottom-box {
-    position: absolute;
+    
     left: 0;
     bottom: 0;
     width: 100%;
@@ -518,6 +522,9 @@
     vertical-align: bottom;
     @media all and (max-width: 767px) {
       padding: 28px 0;
+    }
+    @media (min-width: $screen-md-min) {
+      position: absolute; 
     }
   }
     .full-width-title {

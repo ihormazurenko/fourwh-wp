@@ -798,8 +798,10 @@ wp_reset_postdata();
                 $full_width_bg      = $full_width_img_url ? 'style="background-image: url('.$full_width_img_url.');"' : '';
                 $full_width_img_alt = $full_width_title ? $full_width_title : $full_width_img['title'];
                 ?>
+                
                 <?php if ($full_width_title || $full_width_img ) : ?>
-                    <div class="detail-box full-width-img" id="full-width-img" <?php echo $full_width_bg; ?>>
+                    <div class="detail-box full-width-img" id="full-width-img" <?php //echo $full_width_bg; ?>>
+                        <?php echo wp_get_attachment_image( $full_width['image']['ID'], 'max-width-2800' ); ?>
                         <?php if ( $full_width_title ) : ?>
                             <div class="full-width-bottom-box">
                                 <div class="container">

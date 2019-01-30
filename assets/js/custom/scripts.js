@@ -646,7 +646,7 @@
                 header = $('#header-main'),
                 anchorNav = $('.anchor-nav-box'),
                 lastScrollTop = 0,
-                delayHeight = 100,
+                delayHeight = 200,
                 testCount = 0,
                 workTrigger = 0;
 

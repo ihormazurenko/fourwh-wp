@@ -572,6 +572,17 @@ button {
   padding: 0;
 }
 
+.white-popup-block {
+  position: relative;
+  max-width: 650px;
+  padding: 40px 30px;
+  text-align: left;
+  background: #FFF;
+  margin: 40px auto;
+  .box-title {
+    text-align: center;
+  }
+}
 
 /*
 

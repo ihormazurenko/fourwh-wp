@@ -199,9 +199,42 @@ wp_reset_postdata();
                         <?php } ?>
                         <li class="anchor-btn-list">
                             <ul>
-                                <li>
-                                    <a href="#" class="btn blue inverse" title="<?php esc_attr_e('Brochure', 'fw_campers') ?>"><?php _e('Brochure', 'fw_campers'); ?></a>
-                                </li>
+                                <?php
+                                    if ($info_box_1 && is_array($info_box_1) && count($info_box_1) > 0 ) {
+                                        $brochure_button         = $info_box_1['button'];
+
+                                        if ($brochure_button && is_array($brochure_button) && count($brochure_button) > 0 ) {
+                                             $label = $brochure_button['label'];
+                                             $btn_class = '';
+                                             $link_type = $brochure_button['link_type'];
+                                             $target = $brochure_button['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+
+                                             if ($link_type == 'internal') {
+                                                 $link = $brochure_button['internal_link'] ? $brochure_button['internal_link'] : '';
+                                             } elseif ($link_type == 'external') {
+                                                 $link = $brochure_button['external_link'] ? $brochure_button['external_link'] : '';
+                                             } elseif ($link_type == 'build_page') {
+                                                 if ($childrens && is_array($childrens) && count($childrens) > 0 ) {
+                                                     $term_id = wp_get_post_terms($model_id, 'model_categories', array('fields' => 'ids'));
+                                                     $link = get_term_link((int)$term_id[0], 'model_categories').'?type=build';
+                                                 } else {
+                                                     $link = get_permalink() . $build_url;
+                                                 }
+
+                                             } elseif ($link_type == 'modal') {
+                                                 $link = '#brochure-form';
+                                                 $btn_class = 'brochure-popup-form';
+                                                 $modal_obj = $brochure_button['modal'];
+                                             } else {
+                                                 $link = '';
+                                             }
+
+                                             if ( !empty($label) && !empty($link) ) {
+                                                 echo '<li><a href="' . $link . '" class="btn blue inverse '.$btn_class.'" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a></li>';
+                                             }
+                                         }
+                                    }
+                                ?>
                                 <li>
                                     <a href="<?php print get_site_url(); ?>/contact-us/" class="btn blue inverse" title="<?php esc_attr_e('Contact Us', 'fw_campers') ?>"><?php _e('Contact Us', 'fw_campers'); ?></a>
                                 </li>
@@ -943,6 +976,7 @@ wp_reset_postdata();
                                         $box_title          = $box['title'];
                                         $box_description    = $box['description'];
                                         $box_button         = $box['button'];
+                                        $modal_obj          = '';
                                         ?>
                                     <li>
                                         <div class="our-service-box">
@@ -963,6 +997,7 @@ wp_reset_postdata();
 
                                                     if ( $box_button && is_array( $box_button ) && count( $box_button ) > 0 ) {
                                                         $label = $box_button['label'];
+                                                        $btn_class = '';
                                                         $link_type = $box_button['link_type'];
                                                         $target = $box_button['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
 
@@ -971,17 +1006,36 @@ wp_reset_postdata();
                                                         } elseif ($link_type == 'external') {
                                                             $link = $box_button['external_link'] ? $box_button['external_link'] : '';
                                                         } elseif ($link_type == 'build_page') {
-                                                            $link = get_permalink() . $build_url;
+                                                            if ($childrens && is_array($childrens) && count($childrens) > 0 ) {
+                                                                $term_id = wp_get_post_terms($model_id, 'model_categories', array('fields' => 'ids'));
+                                                                $link = get_term_link((int)$term_id[0], 'model_categories').'?type=build';
+                                                            } else {
+                                                                $link = get_permalink() . $build_url;
+                                                            }
+
+                                                        } elseif ($link_type == 'modal') {
+                                                            $link = '#brochure-form';
+                                                            $btn_class = 'brochure-popup-form';
+                                                            $modal_obj = $box_button['modal'];
                                                         } else {
                                                             $link = '';
                                                         }
 
                                                         if ( !empty($label) && !empty($link) ) {
-                                                            echo '<a href="' . $link . '" class="btn blue inverse" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
+                                                            echo '<a href="' . $link . '" class="btn blue inverse '.$btn_class.'" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
                                                         }
+
                                                     }
                                                 ?>
                                             </div>
+                                            <?php
+                                                if(isset($modal_obj) && is_object($modal_obj)) {
+                                                    echo '<div id="brochure-form" class="mfp-hide white-popup-block">';
+                                                        echo '<h3 class="section-title smaller line">'. $modal_obj->post_title .'</h3>';
+                                                        echo do_shortcode('[contact-form-7 id="' . $modal_obj->ID . '" title="' . $modal_obj->post_title . '"]');
+                                                    echo '</div>';
+                                                }
+                                            ?>
                                         </div>
                                     </li>
                                 <?php endforeach; ?>

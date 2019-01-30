@@ -457,8 +457,8 @@
                     }
                 });
             }
-            if ($('.section-camper-details .group-box .zoom-img').length) {
-                $('.section-camper-details .group-box').magnificPopup({
+            if ($('.group-box .zoom-img').length) {
+                $('.group-box').magnificPopup({
                     delegate: 'a.zoom-img',
                     type: 'image',
                     tLoading: 'Loading image #%curr%...',

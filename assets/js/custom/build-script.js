@@ -46,7 +46,7 @@ jQuery(document).ready(function($) {
                     urlMediumLarge = $(this).data('imgMediumLarge'),
                     previewType = $(this).data('preview'),
                     alt = $(this).next('label').find('img').attr('alt'),
-                    zoomLink = parentInnerBox.find('.icon-zoom'),
+                    zoomLink = parentBox.find('.zoom-img'),
                     image = parentInnerBox.find('img.active');
 
                 zoomLink.attr('href', url).attr('title', alt);

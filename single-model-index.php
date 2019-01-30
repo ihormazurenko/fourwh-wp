@@ -700,8 +700,7 @@ wp_reset_postdata();
                                                     <?php
                                                     if (is_array($items) && count($items) > 0) :
                                                         $items_count = count($items);
-                                                        ?>
-                                                        <?php
+
                                                         foreach ($items as $key => $value) :
                                                             if ( strtolower($value['status']) == strtolower('standard') ) {
                                                                 $item_id                    = trim($value['option_id']);

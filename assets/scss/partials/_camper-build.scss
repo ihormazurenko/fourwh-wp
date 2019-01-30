@@ -413,8 +413,8 @@
               }
               &.wider {
                 img {
-                  max-height: 100%;
-                  max-width: none;
+                  max-height: initial;
+                  max-width: 100%;
                 }
               }
             }

@@ -260,9 +260,6 @@ wp_reset_postdata();
     <section class="section section-camper-details">
 
         <?php
-        if(get_current_user_id() == 1) {
-            echo '<div class="holder"><div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>';
-        }
             if ( $show_section_floorplans && $floorplans && is_array( $floorplans ) && count( $floorplans ) > 0) :
                 $floorplans_title       = $floorplans['title'];
                 $floorplans_description = $floorplans['description'];

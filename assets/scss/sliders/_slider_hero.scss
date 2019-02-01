@@ -32,6 +32,26 @@
       position: relative;
       z-index: 7;
     }
+    //img {
+    //  position: absolute;
+    //  z-index: 3;
+    //  min-height: 100%;
+    //  min-width: 100%;
+    //  max-width: initial;
+    //  max-height: 100%;
+    //  width: auto;
+    //  height: auto;
+    //  left: 50%;
+    //  bottom: 0;
+    //  margin: auto;
+    //  @include transform-origin();
+    //  @include transition($transition-other);
+    //  @include translate(-50%, 0);
+    //  .highest & {
+    //    max-height: initial;
+    //    max-width: 100%;
+    //  }
+    //}
     @media all and (max-width: 1024px) {
       padding-top: 140px;
       padding-bottom: 80px;

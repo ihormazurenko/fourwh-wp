@@ -44,7 +44,27 @@
   color: $white;
   background-color: #969696;
   @include bg();
-  background-position: center bottom; 
+  background-position: center bottom;
+  img {
+    position: absolute;
+    z-index: 3;
+    min-height: 100%;
+    min-width: 100%;
+    max-width: initial;
+    //max-height: 100%;
+    width: auto;
+    height: auto;
+    left: 50%;
+    bottom: 0;
+    margin: auto;
+    @include transform-origin();
+    @include transition($transition-other);
+    @include translate(-50%, 0);
+    .highest & {
+      max-height: initial;
+      max-width: 100%;
+    }
+  }
   .home & {
     min-height: 994px;
     padding-top: 236px;
@@ -125,26 +145,26 @@
 }
 
 // Full width hero image code
-.section-hero > img {
-  position: absolute;
-  top: 0;
-  height: 100%; 
-  width: auto;
-  opacity: 0;
-}
-
-.greenishCover {
-  position:absolute;
-  height:100%;
-  width:100%;
-  overflow:hidden;
-  /*added */
-  top:0;
-}
-
-.greenishCover img {
-  
-}
+//.section-hero > img {
+//  position: absolute;
+//  top: 0;
+//  height: 100%;
+//  width: auto;
+//  opacity: 0;
+//}
+//
+//.greenishCover {
+//  position:absolute;
+//  height:100%;
+//  width:100%;
+//  overflow:hidden;
+//  /*added */
+//  top:0;
+//}
+//
+//.greenishCover img {
+//
+//}
 
 // end full width hero image code
 

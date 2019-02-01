@@ -359,3 +359,42 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   height: 100%;
 }
+
+#main-content {
+  img {
+    opacity: 0;
+    &.fadein-style {
+      opacity: 1;
+      -webkit-animation: fadein .75s;
+      -moz-animation: fadein .75s;
+      -ms-animation: fadein .75s;
+      -o-animation: fadein .75s;
+      animation: fadein .75s;
+    }
+  }
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-moz-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-ms-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-o-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}

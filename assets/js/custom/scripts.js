@@ -125,17 +125,20 @@
         if (typeof Swiper !== 'undefined') {
             //for hero slider
             if ($('.slider-hero .swiper-container').length) {
-                var heroSlider = new Swiper('.slider-hero .swiper-container', {
-                    effect: 'fade',
-                    autoHeight: true,
-                    loop: true,
-                    autoplay: {
-                        delay: 5000,
-                    },
-                    pagination: {
-                        el: '.swiper-pagination',
-                        clickable: true
-                    },
+                $(".section-hero").imagesLoaded().done( function( instance ) {
+                    var heroSlider = new Swiper('.slider-hero .swiper-container', {
+                        // init: 0,
+                        effect: 'fade',
+                        autoHeight: true,
+                        loop: true,
+                        // autoplay: {
+                        //     delay: 5000,
+                        // },
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true
+                        },
+                    });
                 });
             }
 
@@ -176,65 +179,43 @@
 
             //for plan slider
             if ($('.slider-plan .gallery-thumbs').length && $('.slider-plan .gallery-top').length) {
-                var planGalleryThumbs = new Swiper('.slider-plan .gallery-thumbs', {
-                    spaceBetween: 20,
-                    slidesPerView: 5,
-                    centerInsufficientSlides: true,
-                    watchOverflow: true,
-                    freeMode: true,
-                    watchSlidesVisibility: true,
-                    watchSlidesProgress: true,
-                    navigation: {
-                        nextEl: '.slider-plan .swiper-button-next',
-                        prevEl: '.slider-plan .swiper-button-prev',
-                    },
-                    breakpoints: {
-                        1024: {
-                            slidesPerView: 4
+                // $(".section-hero").imagesLoaded().done( function( instance ) {
+                    var planGalleryThumbs = new Swiper('.slider-plan .gallery-thumbs', {
+                        spaceBetween: 20,
+                        slidesPerView: 5,
+                        centerInsufficientSlides: true,
+                        watchOverflow: true,
+                        freeMode: true,
+                        watchSlidesVisibility: true,
+                        watchSlidesProgress: true,
+                        navigation: {
+                            nextEl: '.slider-plan .swiper-button-next',
+                            prevEl: '.slider-plan .swiper-button-prev',
                         },
-                        860: {
-                            slidesPerView: 3
-                        },
-                        480: {
-                            slidesPerView: 2
-                        }
-                    }
-                });
-
-                var planGalleryTop = new Swiper('.slider-plan .gallery-top', {
-                    spaceBetween: 10,
-                    effect: 'fade',
-                    centeredSlides: true,
-                    autoHeight: true,
-                    thumbs: {
-                        swiper: planGalleryThumbs
-                    }
-                });
-
-                if ($('.swiper-inner-images-box img').length) {
-                    $('.swiper-inner-images-box img').on('click', function () {
-                       var currentImg = $(this),
-                           newImgUrl  = currentImg.data('planUrl'),
-                           newImgAlt  = currentImg.attr('alt'),
-                           parentBox  = currentImg.closest('.swiper-slide'),
-                           img        = parentBox.find('[data-plan]'),
-                           allImg     = parentBox.find('.swiper-inner-images-box img');
-
-                            if (!(currentImg.hasClass('active'))) {
-                                allImg.removeClass('active');
-                                currentImg.addClass('active');
-                                img.fadeOut();
-                                setTimeout(function () {
-                                    img.attr('src', newImgUrl);
-                                    img.attr('alt', newImgAlt);
-                                },350);
-                                img.fadeIn(200);
-                                // console.log('chahdge');
+                        breakpoints: {
+                            1024: {
+                                slidesPerView: 4
+                            },
+                            860: {
+                                slidesPerView: 3
+                            },
+                            480: {
+                                slidesPerView: 2
                             }
-
-
+                        }
                     });
-                }
+
+                    var planGalleryTop = new Swiper('.slider-plan .gallery-top', {
+                        spaceBetween: 10,
+                        effect: 'fade',
+                        centeredSlides: true,
+                        autoHeight: true,
+                        thumbs: {
+                            swiper: planGalleryThumbs
+                        }
+                    });
+
+                // });
             }
 
             //for virtual tour slider
@@ -371,7 +352,7 @@
 
             //for swatch slider
             if ($('.slider-swatch .swiper-container').length) {
-                var heroSlider = new Swiper('.slider-swatch .swiper-container', {
+                var swatchSlider = new Swiper('.slider-swatch .swiper-container', {
                     slidesPerView: 3,
                     spaceBetween: 30,
                     centerInsufficientSlides: true,
@@ -515,6 +496,20 @@
                    $('#brochure-form input.model-url-input').val(url);
                });
            }
+        });
+
+        //fade in image onLoad
+        $(function () {
+           $('#main-content img');
+            var allImg = $('#main-content img'),
+                currentIndex = 0;
+
+            $('#main-content').imagesLoaded().progress( function( instance, image ) {
+                if (image.isLoaded) {
+                    allImg.eq(currentIndex).addClass('fadein-style');
+                }
+                currentIndex++;
+            });
         });
 
         //for More Info btn
@@ -867,13 +862,74 @@
 
 
         //hero image cover
-        $(".section-hero img").cover({
-            backgroundPosition:"bottom",
-            checkWindowResize:true,
-            loadHidden:true,
-            callbacks: {}
-        });
+        //$(".section-hero").imagesLoaded().done( function( instance ) {
+            // console.log('imagesReady');
+            // $(".section-hero img").cover({
+            //     backgroundPosition:"bottom",
+            //     checkWindowResize:true,
+            //     loadHidden:true,
+            //     callbacks: {
+            //         "postLoading": function (data) {
+            //             console.log('load');
+            //             // console.log(data);
+            //         }
+            //     }
+            // });
+            //
+            // if ($(".section-hero img").length) {
+            //     var count = 0;
+            //     function checkGreenishCover(){
+            //         var heroBox = $('.section-hero'),
+            //             boxes = heroBox.find('.swiper-slide'),
+            //             boxesImgCount = boxes.find('img').length,
+            //             trueCount = 0;
+            //
+            //         boxes.each(function (i) {
+            //             // console.log(boxes.eq(i).find('img').css('visibility') == 'visible');
+            //             var imgVisible = boxes.eq(i).find('img').css('visibility');
+            //             console.log(imgVisible);
+            //             if (boxes.eq(i).find('.greenishCover').length && imgVisible != 'hidden') {
+            //                 trueCount++;
+            //             } else {
+            //                 trueCount = 0;
+            //             }
+            //         });
+            //
+            //         if (trueCount == boxesImgCount && trueCount != 0) {
+            //             console.log('init slider');
+            //             // console.log(heroSlider);
+            //             // setTimeout(function () {
+            //             // boxes.find('img').css('visibility', 'visible');
+            //             // heroSlider.autoplay.start();
+            //             heroSlider.init();
+            //             // },500);
+            //             stopInterval();
+            //         } else {
+            //             console.log('count - ' + count);
+            //             if (count == 30) {
+            //                 stopInterval();
+            //             }
+            //         }
+            //         count++;
+            //     }
+            //
+            //     var checker = setInterval(checkGreenishCover, 100);
+            //
+            //     function stopInterval() {
+            //         clearInterval(checker);
+            //         console.log('stop');
+            //     }
+            // }
 
+      //  });
+
+        // heroSlider.on('imagesReady', function () {
+
+        // });
+
+
+
+// console.log($(".section-hero img"));
         //for youtube and vimeo play
         // $(function() {
         //     if ($('.video-wrap').length) {

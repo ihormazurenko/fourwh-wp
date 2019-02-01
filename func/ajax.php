@@ -20,3 +20,15 @@ function ajax_save_pdf() {
 
 add_action('wp_ajax_save_pdf', 'ajax_save_pdf');
 add_action('wp_ajax_nopriv_save_pdf', 'ajax_save_pdf');
+
+function ajax_generate_img() {
+
+    if (!empty($_POST) && !empty($_POST['floorplan_id'])) {
+        echo wp_get_attachment_image( $_POST['floorplan_id'], 'max-width-2800', false, array('class' => 'fadein-style'));
+    }
+
+    die();
+}
+
+add_action('wp_ajax_generate_img', 'ajax_generate_img');
+add_action('wp_ajax_nopriv_generate_img', 'ajax_generate_img');

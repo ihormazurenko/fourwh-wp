@@ -1,4 +1,5 @@
 jQuery(document).ready(function($) {
+    //for build page
     if ($('#summary').length && $('.save-pdf-btn').length) {
         var submitBtn = $('.save-pdf-btn');
 
@@ -41,7 +42,7 @@ jQuery(document).ready(function($) {
                 'exterior': '',
             };
 
-            console.log('click');
+            // console.log('click');
             $.ajax({
                 url: ajaxurl,
                 data: data,
@@ -57,6 +58,37 @@ jQuery(document).ready(function($) {
                     // $('#ajax-pdf-content').html('<p>Sorry, there was a failure! Please try again.</p>');
                 }
             });
+        });
+    }
+
+
+    //for floorplan slider
+    if ($('.swiper-inner-images-box img').length) {
+        $('.swiper-inner-images-box img').on('click', function () {
+            var currentImg = $(this),
+                floorplanId = currentImg.data('floorplanId'),
+                parentBox = currentImg.closest('.swiper-slide').find('.swiper-main-img-box'),
+                img = parentBox.find('img');
+
+            parentBox.append('<div class="holder"><div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>');
+
+            data = {
+                'action': 'generate_img',
+                'floorplan_id' : floorplanId
+            };
+
+            $.ajax({
+                url: ajaxurl,
+                data: data,
+                type: 'POST',
+                success: function(data) {
+                    if( data ) {
+                        parentBox.html(data);
+                    }
+                }
+            });
+
+
         });
     }
 });

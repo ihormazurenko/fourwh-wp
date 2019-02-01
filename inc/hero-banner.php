@@ -57,10 +57,10 @@ if (is_tax('model_categories')) {
             $hero_image = $slide['image'];
             if ($hero_image['sizes']['max-width-2800']) {
                 $hero_image_url = $hero_image['sizes']['max-width-2800'];
-                $hero_image_class = ($hero_image['sizes']['max-width-2800-width'] > $hero_image['sizes']['max-width-2800-height']) ? 'wider' : '';
+                $hero_image_class = ($hero_image['sizes']['max-width-2800-width'] < $hero_image['sizes']['max-width-2800-height']) ? 'highest' : '';
             } else {
                 $hero_image_url = $hero_image['url'];
-                $hero_image_class = ($hero_image['width'] > $hero_image['height']) ? 'wider' : '';
+                $hero_image_class = ($hero_image['width'] > $hero_image['height']) ? 'highest' : '';
             }
 
             $hero_content_group = $slide['title_group'];
@@ -109,12 +109,12 @@ if (is_tax('model_categories')) {
                 }
 
                 if ($hero_slide_count > 1) {
-                    echo '<div class="swiper-slide ' . $hero_alignment . '"  ' . $hero_bg . '">';
+                    echo '<div class="swiper-slide ' . $hero_alignment . ' '.$hero_image_class.'"  ' . $hero_bg . '>';
                 } else {
-                    echo '<div class="section section-hero inverse ' . $hero_alignment . ' ' . $hero_classes . '" ' . $hero_bg . '">';
+                    echo '<div class="section section-hero inverse ' . $hero_alignment . ' ' . $hero_classes . ' '.$hero_image_class.'" ' . $hero_bg . '>';
                 }
                 
-                echo wp_get_attachment_image( $hero_image['ID'], 'max-width-2800' ); 
+                echo wp_get_attachment_image( $hero_image['ID'], 'max-width-2800' );
 
                 echo '<div class="container">
                                 <div class="hero-box">';

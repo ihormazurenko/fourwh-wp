@@ -260,6 +260,9 @@ wp_reset_postdata();
     <section class="section section-camper-details">
 
         <?php
+        if(get_current_user_id() == 1) {
+            echo '<div class="holder"><div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>';
+        }
             if ( $show_section_floorplans && $floorplans && is_array( $floorplans ) && count( $floorplans ) > 0) :
                 $floorplans_title       = $floorplans['title'];
                 $floorplans_description = $floorplans['description'];
@@ -296,14 +299,16 @@ wp_reset_postdata();
                                                                         $slide_inner_count = 0;
                                                                         foreach ($slide_inner_images as $image) {
                                                                             $slide_inner_count++;
-                                                                            $image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
-                                                                            $image_title        = $image['title'] ? $image['title'] : '';
+//                                                                            $image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
+//                                                                            $image_title        = $image['title'] ? $image['title'] : '';
                                                                             if ($slide_inner_count == 1) {
+                                                                                echo wp_get_attachment_image( $image['ID'], 'max-width-2800');
+                                                                                /*
                                                                                 ?>
                                                                                 <img src="<?php echo esc_url($image_url); ?>"
                                                                                      alt="<?php echo esc_attr($image_title); ?>"
                                                                                      data-plan>
-                                                                                <?php
+                                                                                <?php */
                                                                                 break;
                                                                             }
                                                                         }
@@ -315,9 +320,13 @@ wp_reset_postdata();
                                                                         $image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                                         $image_title        = $image['title'] ? $image['title'] : '';
                                                                         $image_thumb_url    = $image['sizes']['medium'] ? $image['sizes']['medium'] : $image['sizes']['medium_large'];
+
+                                                                        echo wp_get_attachment_image( $image['ID'], 'medium', false, array('data-floorplan-id' => $image['ID'] ));
+                                                                        /*
                                                                         ?>
                                                                             <img src="<?php echo esc_url( $image_thumb_url ); ?>" alt="<?php echo esc_attr( $image_title );?>" data-plan-url="<?php echo esc_url($image_url); ?>">
                                                                         <?php
+                                                                        */
                                                                     }
                                                                     ?>
                                                                 </div>
@@ -1086,3 +1095,7 @@ wp_reset_postdata();
         endif;
     ?>
     </section>
+
+    <script>
+        var ajaxurl = '<?php echo home_url(); ?>/wp-admin/admin-ajax.php';
+    </script>

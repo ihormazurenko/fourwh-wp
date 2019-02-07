@@ -3,7 +3,7 @@ if (is_post_type_archive('event') || is_tax('event_category')) {
     $id = 339;
 } elseif (is_post_type_archive('video') || is_tax('video_category')) {
     $id = 1020;
-} elseif (is_post_type_archive('model') || is_tax('model_sizes') || is_tax('model_categories')) {
+} elseif (is_post_type_archive('model') || is_tax('model_sizes') || is_tax('model_categories') || is_page(2554)) {
     $id = 1236;
 } elseif (is_page()) {
     $id = get_the_ID();
@@ -16,17 +16,18 @@ if (is_tax('model_categories')) {
     $model_category_info = get_field('model_category_info', 'model_categories_'.$model_category_id);
 
     if ($model_category_info && is_array($model_category_info) && count($model_category_info) > 0) {
-        $hero_image_url = $model_category_info['hero_image']['url'];
-        if ($hero_image_url) {
-            $hero_bg = 'style="background-image: url(' . $hero_image_url . ')"';
-
-            echo '<div class="section section-hero inverse without-content" ' . $hero_bg . '">
-                    <div class="container">
-                        <div class="hero-box"></div>
-                    </div>
-                </div>';
-        }
+//        $hero_image_url = $model_category_info['hero_image']['url'];
+//        if ($hero_image_url) {
+//            $hero_bg = 'style="background-image: url(' . $hero_image_url . ')"';
+//
+//            echo '<div class="section section-hero inverse without-content" ' . $hero_bg . '">
+//                    <div class="container">
+//                        <div class="hero-box"></div>
+//                    </div>
+//                </div>';
+//        }
     }
+
 } else {
     $show_hero_banner = get_field('show_hero_banner', $id);
     $hero_banner = get_field('hero_banner', $id);

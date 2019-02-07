@@ -6,7 +6,18 @@
     } else {
         $url = get_permalink();
     }
-    $general_list = get_field('general_list');
+    $general_list   = get_field('general_list');
+    $taxonomy       = 'model_categories';
+    $categories     = wp_get_post_terms(get_the_ID(), $taxonomy);
+    $show_view      = 0;
+
+    if ($categories && is_array($categories) && count($categories) > 0) {
+        foreach ($categories as $category) {
+            if (strpos($category->slug, 'flat-bed')) {
+                $show_view = 1;
+            }
+        }
+    }
 ?>
 <li>
     <div class="product-wrap">
@@ -29,8 +40,12 @@
                             <?php echo $general_list['short_description']; ?>
                         </div>
                     <?php endif; ?>
-                    <?php if (is_tax('model_categories')) : ?>
-                        <span class="view-more-btn"><?php _e('Build & Price','fw_campers'); ?></span>
+                    <?php if (is_tax($taxonomy)) : ?>
+                        <?php if ($show_view && $type != 'build') : ?>
+                            <span class="view-more-btn"><?php _e('View Model','fw_campers'); ?></span>
+                        <?php else: ?>
+                            <span class="view-more-btn"><?php _e('Build & Price','fw_campers'); ?></span>
+                        <?php endif; ?>
                     <?php else: ?>
                         <span class="view-more-btn"><?php _e('View Model','fw_campers'); ?></span>
                     <?php endif; ?>

@@ -223,6 +223,29 @@
     }
   }
 }
+.align-left-shifts {
+  .container {
+    text-align: right;
+  }
+  .hero-box {
+    max-width: 50%;
+    text-align: left;
+    .home & {
+      max-width: 50%;
+    }
+  }
+  @media all and (max-width: 1024px) {
+    .container {
+      text-align: left;
+    }
+    .hero-box {
+      max-width: 100%;
+      .home & {
+        max-width: 100%;
+      }
+    }
+  }
+}
 
     .hero-title {
       position: relative;

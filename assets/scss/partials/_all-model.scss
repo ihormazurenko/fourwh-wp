@@ -1,4 +1,25 @@
-.section-products {}
+.section-products {
+  .categories {
+    margin-bottom: 80px;
+    ul {
+      text-align: center;
+    }
+    li {
+      display: inline-block;
+      margin-bottom: 15px;
+
+      @media (min-width: $screen-sm-min) {
+        margin-bottom: 0;
+      }
+    }
+    .btn {
+
+      margin: 0 8px;
+      border-radius: 0;
+      -webkit-border-radius: 0;
+    }
+  }
+}
   .products-list {
     overflow: hidden;
     margin: 90px -15px -94px;

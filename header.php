@@ -20,9 +20,10 @@ if (is_tax('model_categories')) {
     $model_category_info = get_field('model_category_info', 'model_categories_'.$model_category_id);
 
     if ($model_category_info && is_array($model_category_info) && count($model_category_info) > 0) {
-        if ( ! $model_category_info['hero_image'] ) {
-            $classes .= ' white-header-bg';
-        }
+//        if ( ! $model_category_info['hero_image'] ) {
+//            $classes .= ' white-header-bg';
+//        }
+        $classes .= ' white-header-bg';
     }
 }
 

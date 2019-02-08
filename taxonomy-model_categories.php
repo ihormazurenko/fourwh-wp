@@ -1,6 +1,7 @@
 <?php
 get_header();
-
+$all_model_id           = 1236;
+$flat_bad_model_id      = 2554;
 ?>
 
 <?php get_template_part('inc/hero', 'banner'); ?>
@@ -14,7 +15,7 @@ get_header();
                 <div class="categories">
                     <ul>
                         <li>
-                            <a class="btn blue small inverse" href="<?php echo get_permalink($all_model_id); ?>" title="<?php esc_attr_e('Slide-in', 'fw_campers'); ?>"><?php _e('Slide-in', 'fw_campers'); ?></a>
+                            <a class="btn blue small inverse" href="<?php echo get_permalink($all_model_id); ?>" title="<?php esc_attr_e('Slide-In', 'fw_campers'); ?>"><?php _e('Slide-In', 'fw_campers'); ?></a>
                         </li>
                         <li>
                             <a class="btn blue small" href="<?php echo get_permalink($flat_bad_model_id); ?>" title="<?php esc_attr_e('Flat Bed', 'fw_campers'); ?>"><?php _e('Flat Bed', 'fw_campers'); ?></a>

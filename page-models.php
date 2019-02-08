@@ -22,7 +22,7 @@ $flat_bad_page          = wp_get_post_parent_id($id);
             <div class="categories">
                 <ul>
                     <li>
-                        <a class="btn blue small <?php echo $all_model_id == get_the_ID() ? '' : 'inverse'; ?>" href="<?php echo get_permalink($all_model_id); ?>" title="<?php esc_attr_e('Slide-in', 'fw_campers'); ?>"><?php _e('Slide-in', 'fw_campers'); ?></a>
+                        <a class="btn blue small <?php echo $all_model_id == get_the_ID() ? '' : 'inverse'; ?>" href="<?php echo get_permalink($all_model_id); ?>" title="<?php esc_attr_e('Slide-In', 'fw_campers'); ?>"><?php _e('Slide-In', 'fw_campers'); ?></a>
                     </li>
                     <li>
                         <a class="btn blue small <?php echo $flat_bad_model_id == get_the_ID() ? '' : 'inverse'; ?>" href="<?php echo get_permalink($flat_bad_model_id); ?>" title="<?php esc_attr_e('Flat Bed', 'fw_campers'); ?>"><?php _e('Flat Bed', 'fw_campers'); ?></a>
@@ -94,7 +94,7 @@ $flat_bad_page          = wp_get_post_parent_id($id);
                     'post_type'         => 'model',
                     'post_status'       => 'publish',
                     'posts_per_page'    => -1,
-                    'orderby'           => array( 'menu_order' => 'DESC', 'date' => 'ASC' ),
+                    'orderby'           => array( 'menu_order' => 'DESC', 'date' => 'DESC' ),
                     'post_parent'       => 0
 
                 );

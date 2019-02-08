@@ -3,8 +3,14 @@ if (is_post_type_archive('event') || is_tax('event_category')) {
     $id = 339;
 } elseif (is_post_type_archive('video') || is_tax('video_category')) {
     $id = 1020;
-} elseif (is_post_type_archive('model') || is_tax('model_sizes') || is_tax('model_categories') || is_page(2554)) {
-    $id = 1236;
+} elseif (is_post_type_archive('model') || is_tax('model_sizes') || is_tax('model_categories')) {
+    if (is_tax('model_sizes')) {
+        $id = 1236;
+    } elseif (is_tax('model_categories')) {
+        $id = 2554;
+    } else {
+        $id = 1236;
+    }
 } elseif (is_page()) {
     $id = get_the_ID();
 } else {

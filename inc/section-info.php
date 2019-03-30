@@ -18,7 +18,8 @@ if (is_post_type_archive('event') || is_tax('event_category')) {
 }
 
 
-if (is_tax('model_categories') && !strpos(get_queried_object()->slug, 'flat-bed')) {
+//if (is_tax('model_categories') && !strpos(get_queried_object()->slug, 'flat-bed')) {
+if (is_tax('model_categories')) {
     $model_category_id   = get_queried_object()->term_id;
     $model_category_name = get_queried_object()->name;
     $model_category_desc = get_queried_object()->description;
@@ -29,14 +30,19 @@ if (is_tax('model_categories') && !strpos(get_queried_object()->slug, 'flat-bed'
 //    }
 
     if ($model_category_info && is_array($model_category_info) && count($model_category_info) > 0) {
-        $section_title = $model_category_info['title'] ? $model_category_info['title'] : __('Select your ','fw_campers').$model_category_name.__(' to Build','fw_campers');
+        if (strpos(get_queried_object()->slug, 'flat-bed')) {
+            $section_title = $model_category_info['title'] ? $model_category_info['title'] : __('Select your ','fw_campers').$model_category_name.__(' Model to Build','fw_campers');
+        } else {
+            $section_title = $model_category_info['title'] ? $model_category_info['title'] : __('Select your ', 'fw_campers') . $model_category_name . __(' to Build', 'fw_campers');
+        }
+
         $section_description = $model_category_info['description'] ? $model_category_info['description'] : $model_category_desc;
 
         if ($section_title)
             echo '<h1 class="section-title smaller line">' . $section_title . '</h1>';
 
-        if ($section_description)
-            echo '<div class="section-desc content">' . $section_description . '</div>';
+//        if ($section_description)
+//            echo '<div class="section-desc content">' . $section_description . '</div>';
     }
 
 } else {

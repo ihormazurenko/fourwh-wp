@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 
     <section class="section content-wrapper section-articles archive">
+        <div id="content"></div>
         <div class="container">
 
             <h1 class="section-title smaller line"><?php the_archive_title(); ?></h1>

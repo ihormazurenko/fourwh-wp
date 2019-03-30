@@ -12,6 +12,7 @@ $contact_info   = get_field('contact_info');
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-faq">
+        <div id="content"></div>
         <div class="container">
             <?php get_template_part('inc/section', 'info'); ?>
 

@@ -10,6 +10,7 @@ $section_inventory = get_field('section_inventory');
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-inventory-details">
+        <div id="content"></div>
         <div class="container">
             <?php get_template_part('inc/section', 'info'); ?>
 

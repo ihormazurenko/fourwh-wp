@@ -10,6 +10,7 @@ $truck_sizes = get_field('truck_sizes');
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-select-truck" id="truck-search">
+        <div id="content"></div>
         <div class="container">
 
             <?php get_template_part('inc/section', 'info'); ?>

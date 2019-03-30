@@ -11,6 +11,7 @@ $referrer           = '';
 ?>
 
     <section class="section section-hero inverse video" style="background: black;">
+        <div id="content"></div>
         <div class="container">
             <h1 class="section-title smaller line"><?php echo $title; ?></h1>
             <div class="videoWrapper">

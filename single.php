@@ -14,6 +14,7 @@ $archive_day   = get_the_time('d');
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-article">
+        <div id="camper-details"></div>
         <div class="container">
 
             <?php get_template_part('inc/section', 'info'); ?>

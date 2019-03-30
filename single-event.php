@@ -13,6 +13,7 @@ $external_button_group  = get_field('external_button_group');
 ?>
 
     <section class="section content-wrapper section-event">
+        <div id="camper-details"></div>
         <div class="container">
 
             <h1 class="section-title smaller line"><?php echo $title; ?></h1>

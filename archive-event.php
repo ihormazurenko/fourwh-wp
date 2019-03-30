@@ -14,6 +14,7 @@ $event_page_id = is_page() ? get_the_ID() : 339;
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-events">
+        <div id="content"></div>
         <div class="container">
 
             <?php get_template_part('inc/section', 'info'); ?>

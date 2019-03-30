@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 
     <section class="section content-wrapper section-articles searsh">
+        <div id="content"></div>
         <div class="container">
 
             <h1 class="section-title"><?php printf( esc_html__( 'Search Results for: %s', 'fw_campers' ), '<span><i>' . trim(get_search_query()) . '</i></span>' ); ?></h1>

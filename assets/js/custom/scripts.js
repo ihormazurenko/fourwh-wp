@@ -107,6 +107,17 @@
                 }, 50);
             }
 
+            if ($('.model-wrap .model-inner-box').length) {
+                setTimeout(function () {
+                    $('.model-wrap .model-inner-box').niceScroll({
+                        cursoropacitymin: 0.5,
+                        cursoropacitymax: 0.8,
+                        cursorcolor: "#62666a",
+                        cursorwidth: "6px",
+                    });
+                }, 50);
+            }
+
             // if ($('.build .anchor-nav ul').length) {
             //     setTimeout(function () {
             //         $('.build .anchor-nav ul').niceScroll({

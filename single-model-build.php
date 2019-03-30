@@ -44,84 +44,99 @@ else :
         }
     }
 
-    $option_args = array(
-        'post_type'         => 'model_option',
-        'post_status'       => 'publish',
-        'post__in'          => $options_ids,
-        'posts_per_page'    => -1,
-        'orderby'           => 'post__in'
-    );
+    if ($options_ids && is_array($options_ids) && count($options_ids) > 0) :
+        $option_args = array(
+            'post_type'         => 'model_option',
+            'post_status'       => 'publish',
+            'post__in'          => $options_ids,
+            'posts_per_page'    => -1,
+            'orderby'           => 'post__in'
+        );
 
-    $option_query = new WP_Query( $option_args );
-    if ( $option_query->have_posts() )  :
-        while ( $option_query->have_posts()) : $option_query->the_post();
-            $option_id          = $option_query->post->ID;
+        $option_query = new WP_Query( $option_args );
+        if ( $option_query->have_posts() )  :
+            while ( $option_query->have_posts()) : $option_query->the_post();
+                $option_id          = $option_query->post->ID;
 
-            $meta = new stdClass;
-            foreach( (array) get_post_meta($option_id ) as $k => $v ) $meta->$k = $v[0];
+                $meta = new stdClass;
+                foreach( (array) get_post_meta($option_id ) as $k => $v ) $meta->$k = $v[0];
 
-            $option_name        = get_the_title() ? get_the_title() : '';
-            $option_price       = $meta->option_info_price ? $meta->option_info_price : 0;
-            $option_weight      = $meta->option_info_weight ? $meta->option_info_weight : 0;
-            $option_desc        = $meta->description ? $meta->description : '';
-            $option_status      = $status_arr[$option_id];
-            $option_group       = get_the_terms($option_id, 'groups');
+                $option_name        = get_the_title() ? get_the_title() : '';
+                $option_price       = $meta->option_info_price ? $meta->option_info_price : 0;
+                $option_weight      = $meta->option_info_weight ? $meta->option_info_weight : 0;
+                $option_desc        = $meta->description ? $meta->description : '';
+                $option_status      = $status_arr[$option_id];
+                $option_group       = get_the_terms($option_id, 'groups');
 
 
 
-            if ( strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') || strtolower($option_group[0]->name) === strtolower('Exterior Siding') ) {
-                $option_thumb_id    = $meta->thumbnail ? $meta->thumbnail : '';
-                $option_thumb_arr   = $option_thumb_id ? image_downsize($option_thumb_id, 'thumbnail') : '';
-                $option_thumb_url   = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
-                $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
+                if ( strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') || strtolower($option_group[0]->name) === strtolower('Exterior Siding') ) {
+                    $option_thumb_id    = $meta->thumbnail ? $meta->thumbnail : '';
+                    $option_thumb_arr   = $option_thumb_id ? image_downsize($option_thumb_id, 'thumbnail') : '';
+                    $option_thumb_url   = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
+                    $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
 
-                $option_large_photo_id    = $meta->photo ? $meta->photo : $meta->thumbnail;
-                $option_large_photo_arr   = $option_large_photo_id ? image_downsize($option_large_photo_id, 'large') : '';
-                $option_large_photo_url   = $option_large_photo_arr[0] ? $option_large_photo_arr[0] : '';
-                $option_large_photo_class = ($option_large_photo_arr[1] > $option_large_photo_arr[2]) ? 'wider' : '';
+                    $option_large_photo_id    = $meta->photo ? $meta->photo : $meta->thumbnail;
+                    $option_large_photo_arr   = $option_large_photo_id ? image_downsize($option_large_photo_id, 'large') : '';
+                    $option_large_photo_url   = $option_large_photo_arr[0] ? $option_large_photo_arr[0] : '';
+                    $option_large_photo_class = ($option_large_photo_arr[1] > $option_large_photo_arr[2]) ? 'wider' : '';
 
-                $option_full_photo_id    = $meta->photo ? $meta->photo : $meta->thumbnail;
-                $option_full_photo_arr   = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
-                $option_full_photo_url   = $option_full_photo_arr[0] ? $option_full_photo_arr[0] : '';
-                $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
-            } else {
-                $option_thumb_id    = $meta->thumbnail ? $meta->thumbnail : '';
-                $option_thumb_arr   = $option_thumb_id ? image_downsize($option_thumb_id, 'large') : '';
-                $option_thumb_url   = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
-                $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
+                    $option_full_photo_id    = $meta->photo ? $meta->photo : $meta->thumbnail;
+                    $option_full_photo_arr   = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
+                    $option_full_photo_url   = $option_full_photo_arr[0] ? $option_full_photo_arr[0] : '';
+                    $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
+                } else {
+                    $option_thumb_id    = $meta->thumbnail ? $meta->thumbnail : '';
+                    $option_thumb_arr   = $option_thumb_id ? image_downsize($option_thumb_id, 'large') : '';
+                    $option_thumb_url   = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
+                    $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
 
-                $option_full_photo_id    = $meta->photo ? $meta->photo :  $meta->thumbnail;
-                $option_full_photo_arr   = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
-                $option_full_photo_url   = $option_full_photo_arr[0] ? $option_full_photo_arr[0] : '';
-                $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
-            }
+                    $option_full_photo_id    = $meta->photo ? $meta->photo :  $meta->thumbnail;
+                    $option_full_photo_arr   = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
+                    $option_full_photo_url   = $option_full_photo_arr[0] ? $option_full_photo_arr[0] : '';
+                    $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
+                }
 
-            if (is_array($option_group)) {
-                $group_id         = trim($option_group[0]->term_id);
-                $group_name         = trim($option_group[0]->name);
-                $group_desc         = trim($option_group[0]->description);
-                $parent_group_id    = $option_group[0]->parent != 0 ? $option_group[0]->parent : '';
-                $parent_group_name  = $parent_group_id ? get_term($parent_group_id) : 'other';
-                $group_check_type   = get_field('people_select', $taxonomy.'_'.$group_id);
+                if (is_array($option_group)) {
+                    $group_id         = trim($option_group[0]->term_id);
+                    $group_name         = trim($option_group[0]->name);
+                    $group_desc         = trim($option_group[0]->description);
+                    $parent_group_id    = $option_group[0]->parent != 0 ? $option_group[0]->parent : '';
+                    $parent_group_name  = $parent_group_id ? get_term($parent_group_id) : 'other';
+                    $group_check_type   = get_field('people_select', $taxonomy.'_'.$group_id);
 
-                if ( $parent_group_name->name ) {
-                    if ( strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') || strtolower($option_group[0]->name) === strtolower('Exterior Siding') ) {
-                        $options_arr[$parent_group_name->name][$group_name][] = [
-                            'option_id'                 => $option_id,
-                            'name'                      => $option_name,
-                            'price'                     => $option_price,
-                            'weight'                    => $option_weight,
-                            'full_photo'                => $option_full_photo_url,
-                            'full_photo_class'          => $option_full_photo_class,
-                            'large_photo'               => $option_large_photo_url,
-                            'large_photo_class'         => $option_large_photo_class,
-                            'thumbnail'                 => $option_thumb_url,
-                            'thumbnail_class'           => $option_thumb_class,
-                            'status'                    => $option_status,
-                            'desc'                      => $option_desc,
-                        ];
+                    if ( $parent_group_name->name ) {
+                        if ( strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') || strtolower($option_group[0]->name) === strtolower('Exterior Siding') ) {
+                            $options_arr[$parent_group_name->name][$group_name][] = [
+                                'option_id'                 => $option_id,
+                                'name'                      => $option_name,
+                                'price'                     => $option_price,
+                                'weight'                    => $option_weight,
+                                'full_photo'                => $option_full_photo_url,
+                                'full_photo_class'          => $option_full_photo_class,
+                                'large_photo'               => $option_large_photo_url,
+                                'large_photo_class'         => $option_large_photo_class,
+                                'thumbnail'                 => $option_thumb_url,
+                                'thumbnail_class'           => $option_thumb_class,
+                                'status'                    => $option_status,
+                                'desc'                      => $option_desc,
+                            ];
+                        } else {
+                            $options_arr[$parent_group_name->name][$group_name][] = [
+                                'option_id'         => $option_id,
+                                'name'              => $option_name,
+                                'price'             => $option_price,
+                                'weight'            => $option_weight,
+                                'full_photo'        => $option_full_photo_url,
+                                'full_photo_class'  => $option_full_photo_class,
+                                'thumbnail'         => $option_thumb_url,
+                                'thumbnail_class'   => $option_thumb_class,
+                                'status'            => $option_status,
+                                'desc'              => $option_desc,
+                            ];
+                        }
                     } else {
-                        $options_arr[$parent_group_name->name][$group_name][] = [
+                        $options_arr['Other'][$group_name][] = [
                             'option_id'         => $option_id,
                             'name'              => $option_name,
                             'price'             => $option_price,
@@ -134,8 +149,11 @@ else :
                             'desc'              => $option_desc,
                         ];
                     }
+
+                    $group_desc_arr[$group_name]['desc']        = $group_desc;
+                    $group_desc_arr[$group_name]['check-type']  = $group_check_type;
                 } else {
-                    $options_arr['Other'][$group_name][] = [
+                    $options_arr['Other']['Other'][] = [
                         'option_id'         => $option_id,
                         'name'              => $option_name,
                         'price'             => $option_price,
@@ -147,178 +165,181 @@ else :
                         'status'            => $option_status,
                         'desc'              => $option_desc,
                     ];
+
+                    $group_desc_arr['Other']['desc']        = '';
+                    $group_desc_arr['Other']['check-type']  = 'multiple';
                 }
 
-                $group_desc_arr[$group_name]['desc']        = $group_desc;
-                $group_desc_arr[$group_name]['check-type']  = $group_check_type;
-            } else {
-                $options_arr['Other']['Other'][] = [
-                    'option_id'         => $option_id,
-                    'name'              => $option_name,
-                    'price'             => $option_price,
-                    'weight'            => $option_weight,
-                    'full_photo'        => $option_full_photo_url,
-                    'full_photo_class'  => $option_full_photo_class,
-                    'thumbnail'         => $option_thumb_url,
-                    'thumbnail_class'   => $option_thumb_class,
-                    'status'            => $option_status,
-                    'desc'              => $option_desc,
-                ];
+            endwhile;
 
-                $group_desc_arr['Other']['desc']        = '';
-                $group_desc_arr['Other']['check-type']  = 'multiple';
-            }
-
-        endwhile;
-
-        //sort groups
-        $sort_options = [];
-        ksort($options_arr);
-        foreach ($options_arr as $parent => $groups) {
-            ksort($groups);
-            foreach ($groups as $group => $items) {
-                ksort($items);
-                foreach ($items as $key => $value) {
-                    $sort_options[$parent][$group][$key] = $value;
+            //sort groups
+            $sort_options = [];
+            ksort($options_arr);
+            foreach ($options_arr as $parent => $groups) {
+                ksort($groups);
+                foreach ($groups as $group => $items) {
+                    ksort($items);
+                    foreach ($items as $key => $value) {
+                        $sort_options[$parent][$group][$key] = $value;
+                    }
                 }
             }
-        }
 
-        $options_arr = $sort_options;
+            $options_arr = $sort_options;
 
-        //move "Cushion Fabric Colors" to the top of group
-        if ( $options_arr['Interior Options']['Cushion Fabric Colors'] ) :
-            $options_arr['Interior Options'] = array('Cushion Fabric Colors' => $options_arr['Interior Options']['Cushion Fabric Colors']) + $options_arr['Interior Options'];
-        endif;
+            //move "Cushion Fabric Colors" to the top of group
+            if ( $options_arr['Interior Options']['Cushion Fabric Colors'] ) :
+                $options_arr['Interior Options'] = array('Cushion Fabric Colors' => $options_arr['Interior Options']['Cushion Fabric Colors']) + $options_arr['Interior Options'];
+            endif;
 
-        //move "Exterior Siding" to the top of group
-        if ($options_arr['Exterior Options']['Exterior Siding']) :
-            $options_arr['Exterior Options'] = array('Exterior Siding' => $options_arr['Exterior Options']['Exterior Siding']) + $options_arr['Exterior Options'];
-        endif;
+            //move "Exterior Siding" to the top of group
+            if ($options_arr['Exterior Options']['Exterior Siding']) :
+                $options_arr['Exterior Options'] = array('Exterior Siding' => $options_arr['Exterior Options']['Exterior Siding']) + $options_arr['Exterior Options'];
+            endif;
 
-        //move parent Other to end
-        if ($options_arr['Other']) :
-            $temp = $options_arr['Other'];
-            unset($options_arr['Other']);
-            $options_arr['Other'] = $temp;
-        endif;
+            //move parent Other to end
+            if ($options_arr['Other']) :
+                $temp = $options_arr['Other'];
+                unset($options_arr['Other']);
+                $options_arr['Other'] = $temp;
+            endif;
 
-        //move "Other" to the top of group
-        if ($options_arr['Other']['Other']) :
-            $temp = $options_arr['Other']['Other'];
-            unset($options_arr['Other']['Other']);
-            $options_arr['Other']['Other'] = $temp;
-        endif;
+            //move "Other" to the top of group
+            if ($options_arr['Other']['Other']) :
+                $temp = $options_arr['Other']['Other'];
+                unset($options_arr['Other']['Other']);
+                $options_arr['Other']['Other'] = $temp;
+            endif;
 
-        //enable custom exterior
-        $exterior_arr = [];
+            //enable custom exterior
+            $exterior_arr = [];
 
-        if ($model_customizer) :
-            if ($customize_exterior && is_array($customize_exterior) && count($customize_exterior) > 0) :
-                foreach ($customize_exterior as $key => $value) {
-                    $exterior_price         = $value['price'] ? $value['price'] : '';
-                    $exterior_full_photo    = $value['photo'] ? $value['photo'] : '';
-                    $exterior_thumbnail     = $value['thumbnail'] ? $value['thumbnail'] : '';
-                    $necessary_option_id    = $value['select_option'][0] ? $value['select_option'][0] : '';
+            if ($model_customizer) :
+                if ($customize_exterior && is_array($customize_exterior) && count($customize_exterior) > 0) :
+                    foreach ($customize_exterior as $key => $value) {
+                        $exterior_price         = $value['price'] ? $value['price'] : '';
+                        $exterior_full_photo    = $value['photo'] ? $value['photo'] : '';
+                        $exterior_thumbnail     = $value['thumbnail'] ? $value['thumbnail'] : '';
+                        $necessary_option_id    = $value['select_option'][0] ? $value['select_option'][0] : '';
 
-                    $exterior_arr[$necessary_option_id] = [
-                        'full_photo'    => $exterior_full_photo,
-                        'thumbnail'     => $exterior_thumbnail,
-                        'price'         => $exterior_price,
-                    ];
-                }
+                        $exterior_arr[$necessary_option_id] = [
+                            'full_photo'    => $exterior_full_photo,
+                            'thumbnail'     => $exterior_thumbnail,
+                            'price'         => $exterior_price,
+                        ];
+                    }
 
-                if (is_array($exterior_arr) && count($exterior_arr) > 0) :
-                    $options_exterior_arr = $options_arr['Exterior Options']['Exterior Siding'];
-                    if (isset($options_exterior_arr)) :
+                    if (is_array($exterior_arr) && count($exterior_arr) > 0) :
+                        $options_exterior_arr = $options_arr['Exterior Options']['Exterior Siding'];
+                        if (isset($options_exterior_arr)) :
 
-                        foreach ($options_exterior_arr as $key => $value) {
-                            $opt_id = $value['option_id'];
+                            foreach ($options_exterior_arr as $key => $value) {
+                                $opt_id = $value['option_id'];
 
-                            if (array_key_exists($opt_id, $exterior_arr)) {
-                                $new_price      = $exterior_arr[$opt_id]['price'] ? $exterior_arr[$opt_id]['price'] : '';
+                                if (array_key_exists($opt_id, $exterior_arr)) {
+                                    $new_price      = $exterior_arr[$opt_id]['price'] ? $exterior_arr[$opt_id]['price'] : '';
 
-                                $new_thumbnail = $exterior_arr[$opt_id]['thumbnail'] ? $exterior_arr[$opt_id]['thumbnail'] : '';
-                                $new_thumbnail_url = $new_thumbnail['sizes']['thumbnail'] ? $new_thumbnail['sizes']['thumbnail'] : $new_thumbnail['url'];
-                                $new_thumbnail_class = $new_thumbnail_url['width'] > $new_thumbnail_url['height'] ? 'wider' : '';
+                                    $new_thumbnail = $exterior_arr[$opt_id]['thumbnail'] ? $exterior_arr[$opt_id]['thumbnail'] : '';
+                                    $new_thumbnail_url = $new_thumbnail['sizes']['thumbnail'] ? $new_thumbnail['sizes']['thumbnail'] : $new_thumbnail['url'];
+                                    $new_thumbnail_class = $new_thumbnail_url['width'] > $new_thumbnail_url['height'] ? 'wider' : '';
 
-                                $new_large = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
-                                $new_large_url = $new_large['sizes']['large'] ? $new_large['sizes']['large'] : $new_large['url'];
-                                $new_large_class = $new_large['width'] > $new_large['height'] ? 'wider' : '';
+                                    $new_large = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
+                                    $new_large_url = $new_large['sizes']['large'] ? $new_large['sizes']['large'] : $new_large['url'];
+                                    $new_large_class = $new_large['width'] > $new_large['height'] ? 'wider' : '';
 
-                                $new_full_photo = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
-                                $new_full_photo_url = $new_full_photo['sizes']['full'] ? $new_full_photo['sizes']['full'] : $new_full_photo['url'];
-                                $new_full_photo_class = $new_full_photo_class['width'] > $new_full_photo_class['height'] ? 'wider' : '';
+                                    $new_full_photo = $exterior_arr[$opt_id]['full_photo'] ? $exterior_arr[$opt_id]['full_photo'] : $exterior_arr[$opt_id]['thumbnail'];
+                                    $new_full_photo_url = $new_full_photo['sizes']['full'] ? $new_full_photo['sizes']['full'] : $new_full_photo['url'];
+                                    $new_full_photo_class = $new_full_photo_class['width'] > $new_full_photo_class['height'] ? 'wider' : '';
 
 
-                                if ($new_price) {
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['price'] = $new_price;
-                                }
+                                    if ($new_price) {
+                                        $options_arr['Exterior Options']['Exterior Siding'][$key]['price'] = $new_price;
+                                    }
 
-                                if ($new_thumbnail) {
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail']                = $new_thumbnail_url;
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail_class']          = $new_thumbnail_class;
-                                }
+                                    if ($new_thumbnail) {
+                                        $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail']                = $new_thumbnail_url;
+                                        $options_arr['Exterior Options']['Exterior Siding'][$key]['thumbnail_class']          = $new_thumbnail_class;
+                                    }
 
-                                if ($new_large) {
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['large_photo']       = $new_large_url;
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['large_photo_class'] = $new_large_class;
-                                }
+                                    if ($new_large) {
+                                        $options_arr['Exterior Options']['Exterior Siding'][$key]['large_photo']       = $new_large_url;
+                                        $options_arr['Exterior Options']['Exterior Siding'][$key]['large_photo_class'] = $new_large_class;
+                                    }
 
-                                if ($new_full_photo) {
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['full_photo']               = $new_full_photo_url;
-                                    $options_arr['Exterior Options']['Exterior Siding'][$key]['full_photo_class']         = $new_full_photo_class;
+                                    if ($new_full_photo) {
+                                        $options_arr['Exterior Options']['Exterior Siding'][$key]['full_photo']               = $new_full_photo_url;
+                                        $options_arr['Exterior Options']['Exterior Siding'][$key]['full_photo_class']         = $new_full_photo_class;
+                                    }
                                 }
                             }
-                        }
+                        endif;
                     endif;
+
                 endif;
+            endif;
+
+            //group Cushion Fabric Colors
+            $options_fabric_arr = $options_arr['Interior Options']['Cushion Fabric Colors'];
+
+            if (isset($options_fabric_arr)) :
+                $fabric_price_arr = array_column( $options_fabric_arr, 'price' );
+                $fabric_name_arr = array_column( $options_fabric_arr, 'name' );
+                $fabric_status_arr = array_column( $options_fabric_arr, 'status' );
+
+                array_multisort( $fabric_price_arr, SORT_NUMERIC , $fabric_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_fabric_arr );
+                $fabric_standard = 0;
+
+                foreach ($fabric_status_arr as $value) {
+                    if ($value == 'standard') {
+                        $fabric_standard = 1;
+                    }
+                }
+
+                if (!$fabric_standard) {
+                    $options_fabric_arr[0]['status'] = 'standard';
+                }
+
+
+                $options_arr['Interior Options']['Cushion Fabric Colors'] = $options_fabric_arr;
 
             endif;
+
+            //group Exterior Siding
+            $options_exterior_opt_arr = $options_arr['Exterior Options']['Exterior Siding'];
+
+            if (isset($options_exterior_opt_arr)) :
+                $exterior_opt_price_arr = array_column( $options_exterior_opt_arr, 'price' );
+                $exterior_opt_name_arr = array_column( $options_exterior_opt_arr, 'name' );
+                $exterior_opt_status_arr = array_column( $options_exterior_opt_arr, 'status' );
+
+                array_multisort( $exterior_opt_price_arr, SORT_NUMERIC , $exterior_opt_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_exterior_opt_arr );
+                $exterior_standard = 0;
+
+                foreach ($exterior_opt_status_arr as $value) {
+                    if ($value == 'standard') {
+                        $exterior_standard = 1;
+                    }
+                }
+
+                if (!$exterior_standard) {
+                    $options_exterior_opt_arr[0]['status'] = 'standard';
+                }
+
+//                if ( ! in_array( $exterior_opt_status_arr, 'standard' ) ) {
+//                    $options_exterior_opt_arr[0]['status'] = 'standard';
+//                }
+
+                $options_arr['Exterior Options']['Exterior Siding'] = $options_exterior_opt_arr;
+
+            endif;
+
+    //        if (get_current_user_id() == 1) :
+    //            var_dump($group_desc_arr);
+    //        endif;
+
+        else:
+            $options_arr = [];
         endif;
-
-        //group Cushion Fabric Colors
-        $options_fabric_arr = $options_arr['Interior Options']['Cushion Fabric Colors'];
-
-        if (isset($options_fabric_arr)) :
-            $fabric_price_arr = array_column( $options_fabric_arr, 'price' );
-            $fabric_name_arr = array_column( $options_fabric_arr, 'name' );
-            $fabric_status_arr = array_column( $options_fabric_arr, 'status' );
-
-            array_multisort( $fabric_price_arr, SORT_NUMERIC , $fabric_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_fabric_arr );
-
-            if ( ! in_array( $fabric_status_arr, 'standard' ) ) {
-                $options_fabric_arr[1]['status'] = 'standard';
-            }
-
-            $options_arr['Interior Options']['Cushion Fabric Colors'] = $options_fabric_arr;
-
-        endif;
-
-        //group Exterior Siding
-        $options_exterior_opt_arr = $options_arr['Exterior Options']['Exterior Siding'];
-
-        if (isset($options_exterior_opt_arr)) :
-            $exterior_opt_price_arr = array_column( $options_exterior_opt_arr, 'price' );
-            $exterior_opt_name_arr = array_column( $options_exterior_opt_arr, 'name' );
-            $exterior_opt_status_arr = array_column( $options_exterior_opt_arr, 'status' );
-
-            array_multisort( $exterior_opt_price_arr, SORT_NUMERIC , $exterior_opt_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_exterior_opt_arr );
-
-            if ( ! in_array( $exterior_opt_status_arr, 'standard' ) ) {
-                $options_exterior_opt_arr[0]['status'] = 'standard';
-            }
-
-            $options_arr['Exterior Options']['Exterior Siding'] = $options_exterior_opt_arr;
-
-        endif;
-
-//        if (get_current_user_id() == 1) :
-//            var_dump($group_desc_arr);
-//        endif;
-
-    else:
-        $options_arr = [];
     endif;
 
     wp_reset_postdata();
@@ -445,6 +466,37 @@ else :
                                                                     $items_count = count($items);
                                                                     $item_prev_price = 0;
 
+
+                                                                    foreach ($items as $key => $value) {
+                                                                        if (trim($value['price']) != 0) {
+                                                                            $img_count = 1;
+                                                                        } else {
+                                                                            $img_count = 0;
+                                                                            break;
+                                                                        }
+                                                                    }
+
+//                                                                    $new_standard_key = '';
+//                                                                    if (get_current_user_id() == 1) {
+//                                                                        //var_dump($items);
+//                                                                        $standard_count = 0;
+////                                                                        var_dump($fabric_status_arr);
+//                                                                        foreach ($fabric_status_arr as $key => $value) {
+//                                                                            if ($value == 'standard') {
+//                                                                                $standard_count = 1;
+////                                                                                if ($items[$key] == 0) {
+////                                                                                    $new_standard_key = $key;
+////                                                                                    break 2;
+////                                                                                }
+//                                                                            }
+//                                                                        }
+//                                                                        if ($new_standard_key) {
+////                                                                            $items[$new_standard_key]['status'] = 'standard';
+//                                                                        }
+////                                                                        var_dump($items);
+//                                                                    }
+
+                                                                    $reset_status = 0;
                                                                     foreach ($items as $key => $value) :
                                                                         $item_id                        = trim($value['option_id']);
                                                                         $item_name                      = trim($value['name']);
@@ -456,7 +508,11 @@ else :
                                                                         $item_large_photo_class         = trim($value['large_photo_class']);
                                                                         $item_thumbnail                 = trim($value['thumbnail']);
                                                                         $item_thumbnail_class           = trim($value['thumbnail_class']);
-                                                                        $item_class                     = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
+                                                                        $item_class                     = '';
+                                                                        if (strtolower($value['status']) == strtolower('standard') && $reset_status == 0) {
+                                                                            $item_class = 'checked';
+                                                                            $reset_status = 1;
+                                                                        }
 
                                                                         if ($img_count == 0) {
                                                                             ?>
@@ -475,7 +531,7 @@ else :
                                                                             <ul class="color-list">
                                                                             <?php
                                                                         }
-                                                                        if ($img_count == $items_count) {
+                                                                        if ($img_count == $items_count && $img_count == $items_count + 1) {
                                                                             ?>
                                                                             </ul>
                                                                             <?php
@@ -491,7 +547,8 @@ else :
                                                                                        type="radio"
                                                                                        name="option_group[<?php echo $element_id; ?>]"
                                                                                        id="option_<?php echo $item_id; ?>"
-                                                                                       value="<?php echo $item_name; ?>" <?php echo $item_class; ?>
+                                                                                       value="<?php echo $item_name; ?>"
+                                                                                       <?php echo $item_class; ?>
                                                                                        data-color="truck_color_<?php echo $item_id; ?>"
                                                                                        data-price="<?php echo $item_price; ?>"
                                                                                        data-weight="<?php echo $item_weight; ?>"
@@ -776,5 +833,14 @@ else :
             var ajaxurl = '<?php echo home_url(); ?>/wp-admin/admin-ajax.php';
         </script>
         <?php
+    else:
+        ?>
+        <section class="section section-content content-wrapper">
+            <div id="content"></div>
+            <div class="container">
+                <h1 class="section-title smaller line"><?php _e('Sorry, no options available...','fw_campers') ?></h1>
+            </div>
+        </section>
+         <?php
     endif;
  endif;

@@ -10,6 +10,7 @@ $bottom_content = get_field('bottom_content');
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-truck-preparation">
+        <div id="content"></div>
         <div class="container">
             <?php get_template_part('inc/section', 'info'); ?>
 

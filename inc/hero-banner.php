@@ -96,6 +96,8 @@ if (is_tax('model_categories')) {
                         $link = $hero_button_group['internal_link'] ? $hero_button_group['internal_link'] : '';
                     } elseif ($link_type == 'external') {
                         $link = $hero_button_group['external_link'] ? $hero_button_group['external_link'] : '';
+                    } elseif ($link_type == 'scrolling') {
+                        $link = '#content';
                     } else {
                         $link = '';
                     }

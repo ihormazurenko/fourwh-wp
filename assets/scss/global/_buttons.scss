@@ -73,6 +73,29 @@ a.btn, .btn {
       }
     }
   }
+  &.black {
+    color: $white;
+    border-color: #000000;
+    background-color: #000000;
+    @media all and (min-width: 769px) {
+      &:hover,
+      &:focus {
+        color: #000000;
+        background-color: transparent;
+      }
+    }
+    &.inverse {
+      color: #000000;
+      background-color: transparent;
+      @media all and (min-width: 769px) {
+        &:hover,
+        &:focus {
+          color: $white;
+          background-color: #000000;
+        }
+      }
+    }
+  }
   &.download {
     min-width: 240px;
     padding: 10px 60px 13px 13px;
@@ -103,6 +126,50 @@ a.btn, .btn {
       }
     }
   }
+  &.dark {
+    color: #ffffff;
+    border-color: #54504f;
+    background-color: #54504f;
+    @media all and (min-width: 769px) {
+      &:hover,
+      &:focus {
+        color: #54504f;
+        background-color: transparent;
+      }
+    }
+    &.inverse {
+      color: #54504f;
+      background-color: transparent;
+      @media all and (min-width: 769px) {
+        &:hover,
+        &:focus {
+          color: $white;
+          background-color: #54504f;
+        }
+      }
+    }
+    @media all and (max-width: 1024px) {
+      &.inverse {
+        background-color: #54504f;
+        color: #ffffff;
+        &:hover,
+        &:focus {
+          color: #54504f;
+          background-color: transparent;
+        }
+      }
+    }
+    @media all and (min-width: 769px) and (max-width: 1024px) {
+      &.inverse {
+        &:hover,
+        &:focus {
+          color: #54504f;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
   &.big {
     padding: 15px 32px;
     font-size: 20px;

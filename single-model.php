@@ -16,6 +16,7 @@ $current_fp = get_query_var('fpage');
 <?php endwhile;  else:  ?>
 
     <section class="section section-content content-wrapper">
+        <div id="content"></div>
         <div class="container">
             <p><?php  _e('Sorry, this page does not exist.', 'fw_campers'); ?></p>
         </div>

@@ -1,6 +1,7 @@
 <?php get_header(); ?>
 
     <section class="section section-content content-wrapper">
+        <div id="content"></div>
         <div class="container">
             <?php the_title('<h1 class="section-title">', '</h1>'); ?>
             <div class="content">

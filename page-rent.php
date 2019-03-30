@@ -9,6 +9,7 @@ $rental = get_field('rental');
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-career">
+        <div id="content"></div>
         <div class="container">
             <?php get_template_part('inc/section', 'info'); ?>
 

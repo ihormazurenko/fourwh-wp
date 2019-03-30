@@ -1119,6 +1119,20 @@
               }
             }
           }
+          #main-content & {
+            .centered-img {
+              img {
+                opacity: 1;
+              }
+              &.wider {
+                img {
+                  max-height: 100%;
+                  max-width: initial;
+                }
+              }
+            }
+          }
+
           @media all and (max-width: 420px) {
             //margin: 0 -10px -20px;
             > li {

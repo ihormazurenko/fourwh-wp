@@ -8,7 +8,7 @@
   .container {
     > :first-child {}
   }
-  > :first-child {
+  > :first-child:not(#content) {
     padding-top: 0;
   }
   > :last-child {
@@ -305,7 +305,6 @@
       overflow: hidden;
       position: relative;
       padding-bottom: 56.25%; /* 16:9 */
-      padding-top: 25px;
       height: 0;
       width: 100%;
       iframe {
@@ -315,6 +314,7 @@
         left: 0;
         width: 100%;
         height: 100%;
+        background-color: $black;
       }
       img {
         position: absolute;
@@ -452,7 +452,7 @@
   .specification-table {
     max-width: 1030px;
     width: 100%;
-    margin: 0 auto 30px;
+    margin: 0 auto 40px;
     border-top: 2px solid #202325;
     tbody {
       tr {
@@ -743,6 +743,10 @@
         color: $color-text11;
         opacity: .8;
       }
+.specification-btn-box {
+  text-align: center;
+}
+
 
 
 $count: 10;

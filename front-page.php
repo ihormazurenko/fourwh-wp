@@ -14,6 +14,7 @@ get_template_part('inc/hero', 'banner');
     $video_slide_count = count($video_slider); ?>
 
     <section class="section section-meet-popup <?php if ($video_slide_count > 1) { echo 'slider-mode'; } ?>">
+        <div id="content"></div>
         <div class="container">
             <?php
                 if ($video_title) { echo '<h2 class="section-title">'.$video_title.'</h2>';}
@@ -74,13 +75,34 @@ get_template_part('inc/hero', 'banner');
 <?php } ?>
 
 <?php if ($build_based && is_array($build_based) && count($build_based) > 0) {
-    $build_title = $build_based['title'];
-    $build_description = $build_based['description'];
+    $build_title = trim($build_based['title']) ? $build_based['title'] : '';
+    $build_color_style = trim($build_based['color_style']) ? $build_based['color_style'] : '';
+    $build_description = trim($build_based['description']) ? $build_based['description'] : '';
     $build_button = $build_based['button'];
+    $build_button_class = '';
+    $build_bg_url = ($build_based['background_image'] && is_array($build_based['background_image']) && count($build_based['background_image']) > 0) ? $build_based['background_image']['url'] : '';
+    $build_class = '';
+
+    if ($build_color_style == 'dark') {
+        $build_class = 'dark';
+        $build_button_class = 'dark';
+    } elseif ($build_color_style == 'light') {
+        $build_class = 'inverse';
+        $build_button_class = 'white';
+    } else {
+        $build_class = 'dark';
+        $build_button_class = 'dark';
+    }
+
+    if ($build_bg_url) {
+        $build_class .= ' custom-bg';
+    } else {
+        $build_class .= '';
+    }
 
     if ($build_title || $build_description || $build_button) { ?>
-        <section class="section section-build-based inverse">
-            <div class="container">
+        <section class="section section-build-based <?php echo $build_class; ?>">
+            <div class="container <?php ?>">
                 <div class="left-box">
                     <div class="four-truck-img-wrap">
                         <img class="" src="<?php echo get_bloginfo('template_url'); ?>/img/fourwh-truck.png" alt="Truck">
@@ -108,13 +130,18 @@ get_template_part('inc/hero', 'banner');
 
                                 if (!empty($label) && !empty($link)) {
                                     echo '<div class="build-based-btn-box">
-                                            <a href="' . $link . '" class="btn white inverse big" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>
+                                            <a href="' . $link . '" class="btn big '. $build_button_class .' inverse" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>
                                         </div>';
                                 }
                             }
                         ?>
                     </div>
                 </div>
+                <?php
+                    if ($build_bg_url) {
+                        echo '<div class="custom-bg-box" style="background-image: url('.$build_bg_url.')"></div>';
+                    }
+                ?>
             </div>
         </section>
     <?php }

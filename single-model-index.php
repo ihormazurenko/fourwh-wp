@@ -65,95 +65,111 @@ $group_desc_arr = [];
 $status_arr     = [];
 $taxonomy       = 'groups';
 
+
 foreach ($model_relationship as $key => $value) {
+
     if ($value->status != 'not_available' && $value->status != '' && $value->trash != 1) {
         $options_ids[]                  = $value->option_id;
         $status_arr[$value->option_id]  = $value->status;
     }
 }
 
-$option_args = array(
-    'post_type'         => 'model_option',
-    'post_status'       => 'publish',
-    'post__in'          => $options_ids,
-    'posts_per_page'    => -1,
-    'orderby'           => 'post__in'
-);
+if ($options_ids && is_array($options_ids) && count($options_ids) > 0) :
 
-$option_query = new WP_Query( $option_args );
-if ( $option_query->have_posts() )  :
-    while ( $option_query->have_posts()) : $option_query->the_post();
-        $option_id          = $option_query->post->ID;
+    $option_args = array(
+        'post_type'         => 'model_option',
+        'post_status'       => 'publish',
+        'post__in'          => $options_ids,
+        'posts_per_page'    => -1,
+        'orderby'           => 'post__in'
+    );
 
-        $meta = new stdClass;
-        foreach( (array) get_post_meta($option_id ) as $k => $v ) $meta->$k = $v[0];
+    $option_query = new WP_Query( $option_args );
+    if ( $option_query->have_posts() )  :
+        while ( $option_query->have_posts()) : $option_query->the_post();
+            $option_id          = $option_query->post->ID;
 
-        $option_name        = get_the_title() ? get_the_title() : '';
-        $option_price       = $meta->option_info_price ? $meta->option_info_price : 0;
-        $option_weight      = $meta->option_info_weight ? $meta->option_info_weight : 0;
-        $option_desc        = $meta->description ? $meta->description : '';
-        $option_status      = $status_arr[$option_id];
-        $option_group       = get_the_terms($option_id, 'groups');
+            $meta = new stdClass;
+            foreach( (array) get_post_meta($option_id ) as $k => $v ) $meta->$k = $v[0];
+
+            $option_name        = get_the_title() ? get_the_title() : '';
+            $option_price       = $meta->option_info_price ? $meta->option_info_price : 0;
+            $option_weight      = $meta->option_info_weight ? $meta->option_info_weight : 0;
+            $option_desc        = $meta->description ? $meta->description : '';
+            $option_status      = $status_arr[$option_id];
+            $option_group       = get_the_terms($option_id, 'groups');
 
 
-        if ( strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') ) {
-            $option_thumb_id = $meta->thumbnail ? $meta->thumbnail : '';
-            $option_thumb_arr = $option_thumb_id ? image_downsize($option_thumb_id, 'thumbnail') : '';
-            $option_thumb_url = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
-            $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
+            if ( strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') ) {
+                $option_thumb_id = $meta->thumbnail ? $meta->thumbnail : '';
+                $option_thumb_arr = $option_thumb_id ? image_downsize($option_thumb_id, 'thumbnail') : '';
+                $option_thumb_url = $option_thumb_arr[0] ? $option_thumb_arr[0] : '';
+                $option_thumb_class = ($option_thumb_arr[1] > $option_thumb_arr[2]) ? 'wider' : '';
 
-            $option_large_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
-            $option_large_photo_arr = $option_large_photo_id ? image_downsize($option_large_photo_id, 'large') : '';
-            $option_large_photo_url = $option_large_photo_arr[0] ? $option_large_photo_arr[0] : '';
-            $option_large_photo_class = ($option_large_photo_arr[1] > $option_large_photo_arr[2]) ? 'wider' : '';
+                $option_large_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
+                $option_large_photo_arr = $option_large_photo_id ? image_downsize($option_large_photo_id, 'large') : '';
+                $option_large_photo_url = $option_large_photo_arr[0] ? $option_large_photo_arr[0] : '';
+                $option_large_photo_class = ($option_large_photo_arr[1] > $option_large_photo_arr[2]) ? 'wider' : '';
 
-            $option_full_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
-            $option_full_photo_arr = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
-            $option_full_photo_url = $option_full_photo_arr[0] ? $option_full_photo_arr[0] : '';
-            $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
+                $option_full_photo_id = $meta->photo ? $meta->photo : $meta->thumbnail;
+                $option_full_photo_arr = $option_full_photo_id ? image_downsize($option_full_photo_id, 'full') : '';
+                $option_full_photo_url = $option_full_photo_arr[0] ? $option_full_photo_arr[0] : '';
+                $option_full_photo_class = ($option_full_photo_arr[1] > $option_full_photo_arr[2]) ? 'wider' : '';
 
-            if (is_array($option_group)) {
-                $group_id = trim($option_group[0]->term_id);
-                $group_name = trim($option_group[0]->name);
-                    $options_arr[$group_name][] = [
-                        'option_id' => $option_id,
-                        'name' => $option_name,
-                        'price' => $option_price,
-                        'weight' => $option_weight,
-                        'full_photo' => $option_full_photo_url,
-                        'full_photo_class' => $option_full_photo_class,
-                        'large_photo' => $option_large_photo_url,
-                        'large_photo_class' => $option_large_photo_class,
-                        'thumbnail' => $option_thumb_url,
-                        'thumbnail_class' => $option_thumb_class,
-                        'status' => $option_status,
-                        'desc' => $option_desc,
-                    ];
+                if (is_array($option_group)) {
+                    $group_id = trim($option_group[0]->term_id);
+                    $group_name = trim($option_group[0]->name);
+                        $options_arr[$group_name][] = [
+                            'option_id' => $option_id,
+                            'name' => $option_name,
+                            'price' => $option_price,
+                            'weight' => $option_weight,
+                            'full_photo' => $option_full_photo_url,
+                            'full_photo_class' => $option_full_photo_class,
+                            'large_photo' => $option_large_photo_url,
+                            'large_photo_class' => $option_large_photo_class,
+                            'thumbnail' => $option_thumb_url,
+                            'thumbnail_class' => $option_thumb_class,
+                            'status' => $option_status,
+                            'desc' => $option_desc,
+                        ];
+                }
             }
-        }
 
-    endwhile;
+        endwhile;
 
-    //group Cushion Fabric Colors
-    $options_fabric_arr = $options_arr['Cushion Fabric Colors'];
+        //group Cushion Fabric Colors
+        $options_fabric_arr = $options_arr['Cushion Fabric Colors'];
 
-    if (isset($options_fabric_arr)) :
-        $fabric_price_arr = array_column( $options_fabric_arr, 'price' );
-        $fabric_name_arr = array_column( $options_fabric_arr, 'name' );
-        $fabric_status_arr = array_column( $options_fabric_arr, 'status' );
+        if (isset($options_fabric_arr)) :
+            $fabric_price_arr = array_column( $options_fabric_arr, 'price' );
+            $fabric_name_arr = array_column( $options_fabric_arr, 'name' );
+            $fabric_status_arr = array_column( $options_fabric_arr, 'status' );
 
-        array_multisort( $fabric_price_arr, SORT_NUMERIC , $fabric_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_fabric_arr );
+            array_multisort( $fabric_price_arr, SORT_NUMERIC , $fabric_name_arr, SORT_NATURAL | SORT_FLAG_CASE, $options_fabric_arr );
+            $fabric_standard = 0;
 
-        if ( ! in_array( $fabric_status_arr, 'standard' ) ) {
-            $options_fabric_arr[1]['status'] = 'standard';
-        }
+            foreach ($fabric_status_arr as $value) {
+                if ($value == 'standard') {
+                    $fabric_standard = 1;
+                }
+            }
 
-        $options_arr['Cushion Fabric Colors'] = $options_fabric_arr;
+            if (!$fabric_standard) {
+                $options_fabric_arr[0]['status'] = 'standard';
+            }
 
+//            if ( ! in_array( $fabric_status_arr, 'standard' ) ) {
+//                $options_fabric_arr[0]['status'] = 'standard';
+//            }
+
+            $options_arr['Cushion Fabric Colors'] = $options_fabric_arr;
+
+        endif;
+
+    else:
+        $options_arr = [];
     endif;
-
-else:
-    $options_arr = [];
 endif;
 
 wp_reset_postdata();
@@ -258,7 +274,7 @@ wp_reset_postdata();
     <?php endif; ?>
 
     <section class="section section-camper-details">
-
+        <div id="content"></div>
         <?php
             if ( $show_section_floorplans && $floorplans && is_array( $floorplans ) && count( $floorplans ) > 0) :
                 $floorplans_title       = $floorplans['title'];
@@ -420,11 +436,16 @@ wp_reset_postdata();
                                                 if ($virtual_image_url) {
                                                     echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
                                                 }
+                                                if ($virtual_url) {
+                                                    echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?background=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+                                                    /*echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';*/
+                                                }
+                                                /*
                                                 if (getVideoType($virtual_tour_video_url) == 'youtube') {
                                                     echo '<iframe src="https://www.youtube.com/embed/' . getVideoId($virtual_url) . '?rel=0&autoplay=1&loop=1&mute=1&playlist=' . getVideoId($virtual_url) . '" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
                                                 } elseif (getVideoType($virtual_tour_video_url) == 'vimeo') {
                                                     echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?autoplay=1&loop=1&muted=1&autopause=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-                                                }
+                                                }*/
                                                 echo '</div>
                                                 </div>';
                                             }
@@ -619,12 +640,13 @@ wp_reset_postdata();
             if ( $show_section_specifications && $specifications && is_array( $specifications ) && count( $specifications ) > 0 ) :
                 $specifications_title       = $specifications['title'];
                 $specifications_description = $specifications['description'];
-                $specifications_img_url     = $specifications['image']['sizes']['medium_large'] ? $specifications['image']['sizes']['medium_large'] : $specifications['image']['url'];
-                $specifications_img_alt     = $specifications_title ? $specifications_title :  $specifications['image']['title'];
-                $specifications_accordion   = $specifications['accordion'];
+//                $specifications_img_url     = $specifications['image']['sizes']['medium_large'] ? $specifications['image']['sizes']['medium_large'] : $specifications['image']['url'];
+//                $specifications_img_alt     = $specifications_title ? $specifications_title :  $specifications['image']['title'];
+//                $specifications_accordion   = $specifications['accordion'];
                 $specifications_list        = $specifications['specifications'];
+                $specification_btn_group = $specifications['specifications_btn'];
 
-                if ($specifications_title || $specifications_description || $specifications_img_url || $specifications_accordion) :
+                if ($specifications_title || $specifications_description || $specifications_list) :
                     ?>
                     <div class="detail-box specifications" id="specifications">
                         <?php
@@ -660,6 +682,29 @@ wp_reset_postdata();
                                     echo '</tbody>
                                         </table>';
                                 }
+
+                                if ($specification_btn_group && is_array($specification_btn_group) && count($specification_btn_group) > 0) {
+
+                                    $specification_btn_type = $specification_btn_group['download_type'];
+                                    $specification_btn_label = trim($specification_btn_group['label']) ? $specification_btn_group['label'] : __('View All Specifications','fw_campers');
+                                    $specification_btn_target = $specification_btn_group['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+                                    $specification_btn_url = '';
+
+                                    if ( $specification_btn_type == 'file' ) {
+                                        $specification_btn_url = $specification_btn_group['file'];
+                                    } elseif ( $specification_btn_type == 'internal' ) {
+                                        $specification_btn_url = $specification_btn_group['internal_link'];
+                                    } elseif ( $specification_btn_type == 'external' ) {
+                                        $specification_btn_url = $specification_btn_group['external_link'];
+                                    } else {
+                                        $specification_btn_url = '';
+                                    }
+
+                                    if ($specification_btn_url) {
+                                         echo '<div class="specification-btn-box"><a href="'.esc_url( $specification_btn_url ).'" title="'.esc_attr(strip_tags($specification_btn_label)).'" class="btn black" '.$specification_btn_target.'>'.$specification_btn_label.'</a></div>';
+                                    }
+                                }
+
                             ?>
                         </div>
                     </div>
@@ -735,6 +780,7 @@ wp_reset_postdata();
                                                             ?>
                                                             <ul class="color-list">
                                                             <?php
+                                                            $reset_status = 0;
                                                             foreach ($items as $key => $value) :
                                                                 $item_id                        = trim($value['option_id']);
                                                                 $item_name                      = trim($value['name']);
@@ -746,7 +792,11 @@ wp_reset_postdata();
                                                                 $item_large_photo_class         = trim($value['large_photo_class']);
                                                                 $item_thumbnail                 = trim($value['thumbnail']);
                                                                 $item_thumbnail_class           = trim($value['thumbnail_class']);
-                                                                $item_class                     = (strtolower($value['status']) == strtolower('standard')) ? 'checked' : '';
+                                                                $item_class                     = '';
+                                                                if (strtolower($value['status']) == strtolower('standard') && $reset_status == 0) {
+                                                                    $item_class = 'checked';
+                                                                    $reset_status = 1;
+                                                                }
 
                                                                 $img_count++;
                                                                 $item_prev_price = $item_price;
@@ -758,7 +808,8 @@ wp_reset_postdata();
                                                                                type="radio"
                                                                                name="option_group[<?php echo $element_id; ?>]"
                                                                                id="option_<?php echo $item_id; ?>"
-                                                                               value="<?php echo $item_name; ?>" <?php echo $item_class; ?>
+                                                                               value="<?php echo $item_name; ?>"
+                                                                               <?php echo $item_class; ?>
                                                                                data-color="truck_color_<?php echo $item_id; ?>"
                                                                                data-price="<?php echo $item_price; ?>"
                                                                                data-weight="<?php echo $item_weight; ?>"

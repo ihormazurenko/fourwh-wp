@@ -470,3 +470,7 @@ function yoasttobottom() {
 	return 'low';
 }
 add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
+
+
+//add woocommerce support
+get_template_part('func/support', 'woocommerce');

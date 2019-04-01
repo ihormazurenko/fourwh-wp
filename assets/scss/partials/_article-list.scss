@@ -20,6 +20,16 @@
       width: calc(0% + #{300px});
       padding-left: 30px;
     }
+    &.left {
+      .content-box {
+        float: right;
+      }
+      .sidebar {
+        float: left;
+        padding-left: 0;
+        padding-right: 30px;
+      }
+    }
     @media all and (max-width: 767px) {
       display: table;
       width: 100%;

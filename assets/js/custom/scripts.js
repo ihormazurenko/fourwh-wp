@@ -830,7 +830,7 @@
 
         // Accordion
         $(function() {
-            var accordion = $('.accordion');
+            var accordion = $('.faq-questions .accordion, .specifications-accordion .accordion');
 
             accordion.on('click', function() {
                 $(this).toggleClass('active');

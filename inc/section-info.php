@@ -31,7 +31,8 @@ if (is_tax('model_categories')) {
 
     if ($model_category_info && is_array($model_category_info) && count($model_category_info) > 0) {
         if (strpos(get_queried_object()->slug, 'flat-bed')) {
-            $section_title = $model_category_info['title'] ? $model_category_info['title'] : __('Select your ','fw_campers').$model_category_name.__(' Model to Build','fw_campers');
+//            $section_title = $model_category_info['title'] ? $model_category_info['title'] : __('Select your ','fw_campers').$model_category_name.__(' Model to Build','fw_campers');
+            $section_title = $model_category_info['title'] ? $model_category_info['title'] : __('Select your ','fw_campers').$model_category_name.__(' Model','fw_campers');
         } else {
             $section_title = $model_category_info['title'] ? $model_category_info['title'] : __('Select your ', 'fw_campers') . $model_category_name . __(' to Build', 'fw_campers');
         }

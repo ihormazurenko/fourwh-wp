@@ -29,7 +29,7 @@ get_header( 'shop' );
 do_action( 'woocommerce_before_main_content' );
 
 if (function_exists('dynamic_sidebar')) {
-    if (is_active_sidebar('product-sidebar')) {
+    if (is_active_sidebar('shop-sidebar')) {
         echo '<div class="content-with-sidebar left">';
             echo '<div class="content-box">';
     }
@@ -100,18 +100,18 @@ if ( woocommerce_product_loop() ) {
 }
 
 
-    if ( function_exists('dynamic_sidebar') ) {
-        if (is_active_sidebar('product-sidebar')) {
-            /**
-             * woocommerce_sidebar hook.
-             *
-             * @hooked woocommerce_get_sidebar - 10
-             */
-            echo '</div>';
-            do_action( 'woocommerce_sidebar' );
-            echo '</div>';
-        }
+if ( function_exists('dynamic_sidebar') ) {
+    if (is_active_sidebar('shop-sidebar')) {
+        /**
+         * woocommerce_sidebar hook.
+         *
+         * @hooked woocommerce_get_sidebar - 10
+         */
+        echo '</div>';
+        do_action( 'woocommerce_sidebar' );
+        echo '</div>';
     }
+}
 
 
 /**

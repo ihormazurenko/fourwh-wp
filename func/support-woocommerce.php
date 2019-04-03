@@ -54,12 +54,8 @@ function fwc_wrapper_end() {
     echo '</div></section>';
 }
 
-//add_action( 'woocommerce_sidebar', 'fwc_get_sidebar', 10 );
-//
-//function fwc_get_sidebar() {
-//    if (is_singular('product')) {
-//        get_sidebar( 'product' );
-//    } else {
-//        get_sidebar( 'shop' );
-//    }
-//}
+add_filter( 'woocommerce_breadcrumb_home_url', 'woo_custom_breadrumb_home_url' );
+
+function woo_custom_breadrumb_home_url() {
+    return get_permalink(2850);
+}

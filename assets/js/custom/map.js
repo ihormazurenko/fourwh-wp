@@ -24,7 +24,7 @@ jQuery(document).ready(function($) {
                 var map = new google.maps.Map(mapEl, {
                     zoom: 4,
                     center: {lat: 37.6979, lng: -97.314},
-                    disableDefaultUI: true
+                    disableDefaultUI: true,
                 });
 
                 setMarkers(map);

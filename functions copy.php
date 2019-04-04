@@ -473,7 +473,4 @@ add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
 
 
 //add woocommerce support
-get_template_part('func/woocommerce', 'support');
-
-// Woocommerce Functions
-get_template_part('func/woocommerce', 'functions');
+get_template_part('func/support', 'woocommerce');

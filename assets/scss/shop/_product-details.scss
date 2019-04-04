@@ -1,0 +1,41 @@
+.woocommerce button.button.single_add_to_cart_button {
+ clear: left;
+
+ @extend .btn;
+ @extend .big;
+ margin-top: 15px;
+ font-weight: 500;
+
+}
+.woocommerce div.product form.cart div.quantity {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	.screen-reader-text {
+		height: auto;
+		position: relative !important;
+	}
+	input {
+		padding: 5px;
+	}
+}
+
+
+.woocommerce-product-gallery__image {
+	margin-bottom: 20px;
+	margin-right: 15px;
+}
+
+.product_meta {
+	display: none;
+	span {
+		margin-right: 10px;
+	}
+	margin-bottom: 30px;
+}
+
+
+
+.up-sells.upsells {
+	clear: left;
+	padding-top: 50px;
+}

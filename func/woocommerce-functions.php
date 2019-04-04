@@ -1,17 +1,5 @@
 <?php
 
-//add woocommerce support
-function mytheme_add_woocommerce_support() {
-    add_theme_support( 'woocommerce' );
-}
-add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
-
-// disable WooCommerce’s default styling
-//if (class_exists('Woocommerce')){
-//    add_filter( 'woocommerce_enqueue_styles', '__return_empty_array' );
-//}
-
-
 //register sidebars
 function register_shop_sidebar(){
     register_sidebar( array(
@@ -59,3 +47,22 @@ add_filter( 'woocommerce_breadcrumb_home_url', 'woo_custom_breadrumb_home_url' )
 function woo_custom_breadrumb_home_url() {
     return get_permalink(2850);
 }
+
+//remove tabs from the bottom of the page
+add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
+
+function woo_remove_product_tabs( $tabs ) {
+
+    unset( $tabs['description'] );        // Remove the description tab
+    unset( $tabs['reviews'] );            // Remove the reviews tab
+    unset( $tabs['additional_information'] );      // Remove the additional information tab
+
+    return $tabs;
+
+}
+
+// move description to the right section
+function woocommerce_template_product_description() {
+    wc_get_template( 'single-product/tabs/description.php' );
+}
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_product_description', 1000 );

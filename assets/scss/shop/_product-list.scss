@@ -1,0 +1,15 @@
+.woocommerce ul.products li.product, 
+.woocommerce-page ul.products li.product {
+	background: white;
+	padding: 20px;
+
+	.add_to_cart_button {
+		display: none;
+	}
+}
+
+.woocommerce .products ul, .woocommerce ul.products {
+	border-top: solid 1px #e6e6e6;
+	padding-top: 50px;
+	margin-top: 50px;
+}

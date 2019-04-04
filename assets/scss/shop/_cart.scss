@@ -1,0 +1,29 @@
+.woocommerce table.shop_table {
+	background: white;
+}
+
+
+
+.woocommerce a.checkout-button.button.alt {
+	background-color: $color-bg4;
+}
+
+.woocommerce a.checkout-button.button.alt:hover {
+	background-color: $color-bg2;
+	color: black;
+}
+
+.woocommerce-page .content ul > li:before {
+	display: none;
+	opacity: 0;
+}
+
+// checkout
+.checkout.woocommerce-checkout {
+	background:white;
+	padding: 30px;
+
+	.input-text {
+		padding: 8px;
+	}
+}

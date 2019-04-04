@@ -1,3 +1,32 @@
 .section-shop {
-  padding-top: 10px;
+  padding-top: 60px;
+  background: #f5f5f5;
 }
+.woocommerce-page .container {
+	max-width: 1210px;
+}
+.woocommerce .woocommerce-breadcrumb {
+	margin-bottom: 60px;
+}
+
+.woocommerce-error, .woocommerce-info, .woocommerce-message {
+	background:white;
+}
+form.checkout.woocommerce-checkout .woocommerce-error, form.checkout.woocommerce-checkout .woocommerce-info, form.checkout.woocommerce-checkout .woocommerce-message {
+	    background-color: #f7f6f7;
+}
+
+// sidebar
+.product-categories {
+	.children {
+		margin-left: 25px;
+	}
+	a {
+		text-decoration: none;
+	}
+	.current-cat a {
+		text-decoration: underline;
+	}
+}
+
+

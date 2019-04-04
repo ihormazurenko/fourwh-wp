@@ -73,11 +73,6 @@
       &.with-icon {}
     }
   }
-  &.desktop {
-    @media all and (max-width: 1024px) {
-      display: none;
-    }
-  }
   .home & {
     height: 90px;
     max-width: -webkit-calc(100% - #{326px});
@@ -120,7 +115,27 @@
         a {
           padding: 12px 13px;
           font-size: $size-main;
+          @media all and (max-width: 1200px) {
+            padding-left: 8px;
+            padding-right: 8px;
+          }
+        }
+      }
+    }
+  }
+}
 
+#header-scrolling .main-nav,
+.home .main-nav,
+.main-nav {
+  &.desktop {
+    @media all and (max-width: 1024px) {
+      height: 48px;
+      max-width: -webkit-calc(100% - 210px);
+      max-width: calc(100% - 210px);
+      ul {
+        li:not(.fwc-cart-box) {
+          display: none;
         }
       }
     }
@@ -204,6 +219,9 @@
           }
         }
       }
+    }
+    &.fwc-cart-box {
+      display: none;
     }
   }
   > .current-menu-item > a,

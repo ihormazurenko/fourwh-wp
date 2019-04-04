@@ -3,7 +3,6 @@
 }
 
 
-
 .woocommerce a.checkout-button.button.alt {
 	background-color: $color-bg4;
 }
@@ -27,3 +26,24 @@
 		padding: 8px;
 	}
 }
+
+a.cart-contents.menu-item {
+	position: relative;
+	top: 2px;
+	font-size: 20px;
+	&.menu-item.disable {
+		display: none;
+	}
+	.cart-contents-count {
+		position: absolute;
+		top: -1px;
+		right: 0;
+		font-size: 16px;
+		@include translate(50%, 0);
+	}
+	@media all and (max-width: 1024px) {
+		top: 6px;
+	}
+}
+
+

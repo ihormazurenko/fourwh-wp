@@ -42,11 +42,13 @@ function fwc_wrapper_end() {
     echo '</div></section>';
 }
 
+//change home URL to shop URL
 add_filter( 'woocommerce_breadcrumb_home_url', 'woo_custom_breadrumb_home_url' );
 
 function woo_custom_breadrumb_home_url() {
     return get_permalink(2850);
 }
+
 
 //remove tabs from the bottom of the page
 add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );

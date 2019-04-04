@@ -36,6 +36,13 @@
 
 
 .up-sells.upsells {
-	clear: left;
+	clear: both;
 	padding-top: 50px;
+}
+
+.woocommerce div.product div.images .flex-control-thumbs {
+	margin: 20px -10px 0;
+	li {
+		padding: 0 10px;
+	}
 }

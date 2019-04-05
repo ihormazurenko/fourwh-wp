@@ -170,6 +170,7 @@
                 var socilaSlider = new Swiper('.social-slider', {
                     slidesPerView: 4,
                     spaceBetween: 30,
+                    watchOverflow: true,
                     navigation: {
                         nextEl: '.swiper-social-button-next',
                         prevEl: '.swiper-social-button-prev',

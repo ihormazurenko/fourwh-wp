@@ -67,7 +67,7 @@ function woo_remove_product_tabs( $tabs ) {
 function woocommerce_template_product_description() {
     wc_get_template( 'single-product/tabs/description.php' );
 }
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_product_description', 1000 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_product_description', 10 );
 
 
 //add cart icon

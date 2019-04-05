@@ -152,4 +152,10 @@
             padding-top: 16px;
             padding-bottom: 16px;
           }
+          &.go-category {
+            a.btn:not(.btn-go-category),
+            .btn:not(.btn-go-category) {
+              display: none;
+            }
+          }
         }

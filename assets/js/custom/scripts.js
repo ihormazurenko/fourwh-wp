@@ -548,6 +548,7 @@
                         btnBox = parentBox.find('.select-truck-btn-box'),
                         truckLengthList = parentBox.find('.select-truck-list.bed-length'),
                         input = $(this),
+                        btnView = $('a[data-view-truck]'),
                         btnFind = $('a[data-find-truck]'),
                         btnBuild = $('a[data-build-truck]');
 
@@ -576,13 +577,22 @@
                             urlType = input.data('truckBtn');
 
                             btnFind.attr('href', url);
+                            btnView.attr('href', url);
 
                             if ( urlType == 'single' ) {
                                 btnBuild.attr('href', url + 'build');
                             } else if (  urlType == 'multiple' ) {
                                 btnBuild.attr('href', url + '?type=build');
-                            } else {
+                            }  else {
                                 btnBuild.attr('href', url);
+                            }
+
+
+
+                            if ($(this).attr('data-truck-btn') == 'multiple_parent') {
+                                btnBox.addClass('go-category');
+                            } else {
+                                btnBox.removeClass('go-category');
                             }
 
                         btnBox.fadeIn(350);

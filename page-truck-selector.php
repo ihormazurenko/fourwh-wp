@@ -78,6 +78,7 @@ $truck_sizes = get_field('truck_sizes');
                                                     $group_selector_type    = $group['selector_type'];
                                                     $group_single_model     = $group['single_model'][0];
                                                     $group_multiple_models  = $group['multiple_models'];
+                                                    $group_multiple_models_parent  = $group['multiple_models_parent'];
                                                     $taxonomy               = 'model_sizes';
                                                     $group_url              = '';
                                                     $group_btn_type         = '';
@@ -109,6 +110,9 @@ $truck_sizes = get_field('truck_sizes');
                                                             $group_url = $group_multiple_models ? get_term_link($group_multiple_models, $taxonomy) : '';
                                                             $group_btn_type = 'multiple';
                                                         }
+                                                    } elseif ( $group_selector_type == 'parent') {
+                                                            $group_url      = $group_multiple_models_parent ? get_term_link($group_multiple_models_parent, 'model_categories') : '';
+                                                            $group_btn_type = 'multiple_parent';
                                                     } elseif ( $group_selector_type == 'single') {
                                                         $group_url = $group_single_model ? get_permalink($group_single_model) : '';
                                                         $group_btn_type = 'single';
@@ -142,8 +146,9 @@ $truck_sizes = get_field('truck_sizes');
 
                     <?php endforeach; ?>
                     <div class="select-truck-btn-box">
-                        <a href="" class="btn blue" target="_self" title="<?php esc_attr_e('Find my Camper', 'fw_campers'); ?>" data-find-truck><?php _e('Find my Camper', 'fw_campers'); ?></a>
-                        <a href="" class="btn blue" target="_self" title="<?php esc_attr_e('Build Now', 'fw_campers'); ?>" data-build-truck><?php _e('Build Now', 'fw_campers'); ?></a>
+                            <a href="" class="btn blue btn-go-category" target="_self" title="<?php esc_attr_e('View Model & Floor Plans', 'fw_campers'); ?>" data-view-truck><?php _e('View Model & Floor Plans', 'fw_campers'); ?></a>
+                            <a href="" class="btn blue" target="_self" title="<?php esc_attr_e('Find my Camper', 'fw_campers'); ?>" data-find-truck><?php _e('Find my Camper', 'fw_campers'); ?></a>
+                            <a href="" class="btn blue" target="_self" title="<?php esc_attr_e('Build Now', 'fw_campers'); ?>" data-build-truck><?php _e('Build Now', 'fw_campers'); ?></a>
                     </div>
                 <?php endif; ?>
         </div>

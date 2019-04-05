@@ -144,18 +144,24 @@
               font-size: 20px;
             }
           }
+
         .select-truck-btn-box {
-          display: none;
           text-align: center;
           a.btn,.btn {
             min-width: 220px;
             padding-top: 16px;
             padding-bottom: 16px;
           }
-          &.go-category {
-            a.btn:not(.btn-go-category),
-            .btn:not(.btn-go-category) {
-              display: none;
-            }
-          }
+          //.btn-go-category {
+          //  display: none;
+          //}
+          //&.go-category {
+          //  a.btn:not(.btn-go-category),
+          //  .btn:not(.btn-go-category) {
+          //    display: none;
+          //  }
+          //  .btn-go-category {
+          //    display: inline-block;
+          //  }
+          //}
         }

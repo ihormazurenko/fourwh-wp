@@ -578,8 +578,7 @@
                             urlType = input.data('truckBtn');
 
                             btnFind.attr('href', url);
-                            btnView.attr('href', url);
-
+/*
                             if ( urlType == 'single' ) {
                                 btnBuild.attr('href', url + 'build');
                             } else if (  urlType == 'multiple' ) {
@@ -595,7 +594,7 @@
                             } else {
                                 btnBox.removeClass('go-category');
                             }
-
+*/
                         btnBox.fadeIn(350);
                         setTimeout(function () {
                             $('html, body').animate({

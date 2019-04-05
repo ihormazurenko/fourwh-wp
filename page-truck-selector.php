@@ -146,9 +146,11 @@ $truck_sizes = get_field('truck_sizes');
 
                     <?php endforeach; ?>
                     <div class="select-truck-btn-box">
-                            <a href="" class="btn blue btn-go-category" target="_self" title="<?php esc_attr_e('View Model & Floor Plans', 'fw_campers'); ?>" data-view-truck><?php _e('View Model & Floor Plans', 'fw_campers'); ?></a>
+                            <a href="" class="btn blue" target="_self" title="<?php esc_attr_e('View Model & Floor Plans', 'fw_campers'); ?>" data-find-truck><?php _e('View Model & Floor Plans', 'fw_campers'); ?></a>
+                        <?php /*
                             <a href="" class="btn blue" target="_self" title="<?php esc_attr_e('Find my Camper', 'fw_campers'); ?>" data-find-truck><?php _e('Find my Camper', 'fw_campers'); ?></a>
                             <a href="" class="btn blue" target="_self" title="<?php esc_attr_e('Build Now', 'fw_campers'); ?>" data-build-truck><?php _e('Build Now', 'fw_campers'); ?></a>
+                        */ ?>
                     </div>
                 <?php endif; ?>
         </div>

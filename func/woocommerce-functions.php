@@ -34,13 +34,13 @@ add_action('woocommerce_after_main_content', 'fwc_wrapper_end', 10);
 
 function fwc_wrapper_start() {
     $single_product_class = is_singular('product') ? 'single-product' : '';
-
     echo '<section class="section section-shop content-wrapper '.$single_product_class.'"><div class="container">';
 }
 
 function fwc_wrapper_end() {
     echo '</div></section>';
 }
+
 
 //change home URL to shop URL
 add_filter( 'woocommerce_breadcrumb_home_url', 'woo_custom_breadrumb_home_url' );
@@ -54,20 +54,66 @@ function woo_custom_breadrumb_home_url() {
 add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
 
 function woo_remove_product_tabs( $tabs ) {
+    if ( isset( $tabs['additional_information'] ) ) {
+        unset($tabs['additional_information']);      // Remove the additional information tab
+    }
 
-    unset( $tabs['description'] );        // Remove the description tab
-    unset( $tabs['reviews'] );            // Remove the reviews tab
-    unset( $tabs['additional_information'] );      // Remove the additional information tab
+    if ( isset( $tabs['reviews'] ) ) {
+        unset($tabs['reviews']);            // Remove the reviews tab
+    }
+
+    return $tabs;
+}
+
+// Change the Description tab link text for single products
+add_filter( 'woocommerce_product_description_tab_title', 'fwc_wc_description_tab_link_text', 999, 2 );
+
+function fwc_wc_description_tab_link_text( $text, $tab_key ) {
+    return __( 'Specifications', 'woocommerce' );
+}
+
+// Remove the product description heading
+add_filter( 'woocommerce_product_description_heading', '__return_null' );
+
+
+//Add a custom product data tab
+add_filter( 'woocommerce_product_tabs', 'woo_new_product_tab' );
+function woo_new_product_tab( $tabs ) {
+
+    // Adds the new tab
+    $tabs['test_tab'] = array(
+        'title' 	=> __( 'Short Description', 'woocommerce' ),
+        'priority' 	=> 5,
+        'callback' 	=> 'woo_short_product_tab_content'
+    );
 
     return $tabs;
 
 }
 
-// move description to the right section
+function woo_short_product_tab_content() {
+    global $post;
+
+    $short_description = apply_filters( 'woocommerce_short_description', $post->post_excerpt );
+
+    if ( ! $short_description ) {
+        return;
+    }
+
+     echo $short_description;
+}
+
+
+// show tabs in the right section
 function woocommerce_template_product_description() {
-    wc_get_template( 'single-product/tabs/description.php' );
+    wc_get_template( 'single-product/tabs/tabs.php' );
 }
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_product_description', 10 );
+
+//remove single excerpt from right section
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
+//remove bottom tabs
+remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10);
 
 
 //add cart icon
@@ -97,8 +143,8 @@ function woo_cart_but() {
     <?php
 
     return ob_get_clean();
-
 }
+
 
 //Add AJAX Shortcode when cart contents update
 add_filter( 'woocommerce_add_to_cart_fragments', 'woo_cart_but_count' );
@@ -128,6 +174,7 @@ function woo_cart_but_count( $fragments ) {
 
     return $fragments;
 }
+
 
 //Add WooCommerce Cart Menu Item Shortcode to particular menu
 add_filter( 'wp_nav_menu_main-menu_items', 'woo_cart_but_icon', 10, 2 ); // Change menu to suit - example uses 'top-menu'

@@ -5,22 +5,23 @@
     $thumbnail_class = '';
     $thumbnail_url = '';
 
-    if( ! is_null( $thumbnail_id ) ) {
-        $thumbnail_arr = image_downsize($thumbnail_id, 'large');
-        $thumbnail_url = $thumbnail_arr[0];
-        $thumbnail_class = ($thumbnail_arr[1] > $thumbnail_arr[2]) ? 'wider' : '';
-    }
+     if( ! is_null( $thumbnail_id ) ) {
+         $thumbnail_arr = image_downsize($thumbnail_id, 'large');
+         $thumbnail_url = $thumbnail_arr[0];
+         //$thumbnail_class = ($thumbnail_arr[1] > $thumbnail_arr[2]) ? 'wider' : '';
+     }
 ?>
 <li>
     <a href="<?php echo $url; ?>" title="<?php echo esc_attr($title); ?>">
         <div class="related-box">
-            <div class="related-img-wrap centered-img <?php echo $thumbnail_class; ?>">
-                <?php
-                    if ($thumbnail_url) {
-                        echo '<img src="'.$thumbnail_url.'" alt="'.esc_attr($title).'">';
-                    }
-                ?>
-            </div>
+            <?php if ($thumbnail_id) { ?>
+                <div class="<?php /* related-img-wrap centered-img <?php echo $thumbnail_class; */ ?>event-img-wrap">
+                    <?php
+                        echo wp_get_attachment_image($thumbnail_id, 'medium_large', false, array('alt' => esc_attr($title)));
+                    ?>
+                </div>
+            <?php } ?>
+
             <div class="related-info">
                 <h3 class="related-title"><?php echo $title; ?></h3>
                 <p class="desc">

@@ -98,7 +98,7 @@ a.btn, .btn {
   }
   &.download {
     min-width: 240px;
-    padding: 10px 60px 13px 13px;
+    padding: 10px 60px 9px 13px; 
     font-size: $size-small;
     font-weight: $normal;
     line-height: 1.4;
@@ -110,8 +110,8 @@ a.btn, .btn {
       content: '';
       top: 50%;
       right: 20px;
-      width: 26px;
-      height: 25px;
+      width: 21px;
+      height: 19px;
       background-image: url(../../img/icon_download.png);
       @include bg(center, contain, no-repeat);
       @include translate(0, -50%);
@@ -259,4 +259,25 @@ a.btn, .btn {
       z-index: 9999;
     }
   }
+}
+
+a.note-beta,
+a.btn.note-beta {
+  padding: 12px 32px 10px 15px;
+  a + & {
+    margin-top: 2px;
+  }
+}
+.note-beta span:last-child {
+  color: #000000;
+  font-size: 0.8em;
+  position: absolute;
+  top: 3px;
+  right: 13px;
+}
+
+
+%blue-inverse_hover {
+  color: $white;
+  background-color: $color-bg12;
 }

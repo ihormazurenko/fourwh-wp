@@ -15,7 +15,7 @@ function generatePdf($build_data) {
         $total_weight   = $build_data['total_weight'];
         $summary        = $build_data['summary'];
 
-        date_default_timezone_set(get_option('timezone_string'));
+        //date_default_timezone_set(get_option('timezone_string'));
         $currentTime = date('mdy_His');
         $name = preg_replace('/[^\w]/','-', strtolower(strip_tags(trim($model_name))) );
         $name = preg_replace('/(-)\1+/','-', $name );
@@ -131,21 +131,21 @@ function generatePdf($build_data) {
         if ( $summary && is_array( $summary ) && count( $summary ) > 0 ) {
             $html .= '<ul class="resume-list">';
 
-                foreach ( $summary as $parent_group => $groups) {
+                foreach ( $summary as $parent_group) {
                     $html .= '<li>';
                         $html .= '<div class="resume-parent-group">';
-                        $html .= '<h3 class="group-title parent">' . $parent_group . '</h3>
+                        $html .= '<h3 class="group-title parent">' . $parent_group['parentName'] . '</h3>
                                   <ul class="resume-group-list">';
-                                    foreach ($groups as $group => $items) {
+                                    foreach ($parent_group['groups'] as $group) {
                                         $html .= '<li>
                                                     <div class="resume-group">
-                                                        <h4 class="resume-title">'.$group.'</h4>';
+                                                        <h4 class="resume-title">'.$group['groupName'].'</h4>';
                                                 $html .='<table class="resume-table">
                                                             <tbody>';
-                                                            foreach ($items as $key => $value) {
+                                                            foreach ($group['items'] as $item) {
                                                                 $html .= '<tr>
-                                                                            <td>' . $value['name'] . '</td>
-                                                                            <td class="price">$' . number_format($value['price'], 2, '.', ',') . '</td>
+                                                                            <td>' . $item['name'] . '</td>
+                                                                            <td class="price">$' . number_format($item['price'], 2, '.', ',') . '</td>
                                                                         </tr>';
                                                             }
                                                 $html .= ' </tbody>

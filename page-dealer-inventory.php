@@ -80,11 +80,13 @@ $rows = get_field('rows');
                                                                     <div class="swiper-wrapper">';
                                                 }
                                                 foreach ($images as $key => $image) :
+                                                    $image_id = $image['ID'] ? $image['ID'] : '';
                                                     $image_url = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                     $image_class = $image['width'] > $image['height'] ? 'wider' : '';
 
                                                     if ($images_count > 1) {
-                                                        echo '<div class="swiper-slide" style="background-image: url('.$image_url .') "></div>';
+//                                                        echo '<div class="swiper-slide" style="background-image: url('.$image_url .') "></div>';
+                                                            echo '<div class="swiper-slide centered-img">'.wp_get_attachment_image( $image_id, 'size-720_720', false, array('class' => 'dealer-slide-img')).'</div>';
                                                     } else {
                                                         ?>
                                                         <div class="centered-img <?php echo $image_class; ?>">
@@ -116,11 +118,13 @@ $rows = get_field('rows');
                                                                     <div class="swiper-wrapper">';
                                                     }
                                                         foreach ($images as $key => $image) :
+                                                            $image_id = $image['ID'] ? $image['ID'] : '';
                                                             $image_url = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                             $image_class = $image['width'] > $image['height'] ? 'wider' : '';
 
                                                                 if ($images_count > 1) {
-                                                                    echo '<div class="swiper-slide" style="background-image: url('.$image_url .') "></div>';
+//                                                                    echo '<div class="swiper-slide" style="background-image: url('.$image_url .') "></div>';
+                                                                    echo '<div class="swiper-slide centered-img">'.wp_get_attachment_image( $image_id, 'size-720_720', false, array('class' => 'dealer-slide-img')).'</div>';
                                                                 } else {
                                                                     ?>
                                                                     <div class="centered-img <?php echo $image_class; ?>">

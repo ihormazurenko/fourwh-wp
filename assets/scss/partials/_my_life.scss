@@ -1,0 +1,193 @@
+.section-life-grid {
+  padding: 80px 0 90px;
+  .container {
+    //max-width: 1450px;
+  }
+  .categories {
+    margin-bottom: 80px;
+
+    ul {
+      text-align: center;
+    }
+
+    li {
+      display: inline-block;
+      margin-bottom: 15px;
+
+      @media (min-width: $screen-sm-min) {
+        margin-bottom: 0;
+      }
+    }
+
+    .btn {
+      margin: 0 8px;
+      border-radius: 0;
+      -webkit-border-radius: 0;
+    }
+  }
+  .grid {}
+
+
+  .grid-sizer,
+  .grid-item {
+    width: 32%;
+    @media all and (max-width: 767px) {
+      width: 48%;
+    }
+  }
+  .gutter-sizer {
+    width: 2%;
+  }
+  .grid-item {
+    margin-bottom: 2%;
+    .centered-img {
+      display: block;
+      z-index: 3;
+      padding-bottom: 57.6%;
+      img {
+        min-width: initial;
+        min-height: initial;
+        max-width: initial;
+        //&.wider {
+        //  max-width: initial;
+        //  max-height: 100%;
+        //}
+        //&.higher {
+        //
+        //}
+      }
+      @media all and (max-width: 480px) {
+        padding-bottom: 100%;
+      }
+    }
+    a {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: $white;
+      overflow: hidden;
+      @include border-radius($radius-main);
+      cursor: pointer;
+      &:after {
+        position: absolute;
+        z-index: 5;
+        content: '';
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgb(0,0,0);
+        background: -moz-linear-gradient(0deg, rgba(0,0,0,0.6979166666666667) 0%, rgba(0,0,0,0.2497373949579832) 63%);
+        background: -webkit-linear-gradient(0deg, rgba(0,0,0,0.6979166666666667) 0%, rgba(0,0,0,0.2497373949579832) 63%);
+        background: linear-gradient(0deg, rgba(0,0,0,0.6979166666666667) 0%, rgba(0,0,0,0.2497373949579832) 63%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#000000",GradientType=1);
+      }
+      @media all and (min-width: 768px) {
+        &:hover,
+        &:focus {
+          color: $color-text2;
+
+          .centered-img img {
+            @include scale(1.05);
+          }
+        }
+      }
+    }
+    .life-title {
+      position: absolute;
+      z-index: 10;
+      display: block;
+      width: 100%;
+      padding: 0 10px;
+      left: 0;
+      bottom: 10px;
+      @include font($normal, $size-big, $font-main, $line-height-heading);
+      text-align: center;
+      @media all and (max-width: 1024px) {
+        font-size: 22px;
+      }
+      @media all and (max-width: 767px) {
+        font-size: 20px;
+      }
+      @media all and (max-width: 480px) {
+        padding: 0 5px;
+        font-size: 18px;
+      }
+    }
+
+    &--height2 {
+      .centered-img {
+        padding-bottom: 122.2%;
+        img {
+          //&.wider {}
+          &.higher {
+            //max-width: initial;
+            //min-height: initial;
+          }
+        }
+      }
+      @media all and (max-width: 767px) {
+        width: 48%;
+        .centered-img {
+          //padding-bottom:  57.6%;
+          //padding-bottom:  78%;
+        }
+      }
+      //@media all and (max-width: 480px) {
+      //  .centered-img {
+      //    padding-bottom: 78%;
+      //  }
+      //}
+    }
+    &--width2 {
+      width: 66%;
+      .centered-img {
+        padding-bottom: 59.2%;
+        img {
+          &.wider {}
+          &.higher {
+            max-width: initial;
+            max-height: initial;
+          }
+        }
+      }
+      @media all and (max-width: 767px) {
+        width: 48%;
+        .centered-img {
+          //padding-bottom: 57.6%;
+          padding-bottom: 78%;
+        }
+      }
+      //@media all and (max-width: 480px) {
+      //  .centered-img {
+      //    padding-bottom: 78%;
+      //  }
+      //}
+    }
+    &--width3 {
+      width: 100%;
+      .centered-img {
+        padding-bottom: 48.2%;
+        img {
+          &.wider {
+            max-width: initial;
+            max-height: initial;
+          }
+          &.higher {}
+        }
+      }
+      @media all and (max-width: 767px) {
+        width: 48%;
+        .centered-img {
+          //padding-bottom:  57.6%;
+          padding-bottom:  78%;
+        }
+      }
+      //@media all and (max-width: 480px) {
+      //  .centered-img {
+      //    padding-bottom: 78%;
+      //  }
+      //}
+    }
+  }
+}

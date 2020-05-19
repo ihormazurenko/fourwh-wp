@@ -5,8 +5,8 @@ require 'sass';
 #require "compass_radix";
 
 # Set environment [development, production]
-environment = :development
-#environment = :production
+# environment = :development
+environment = :production
 
 # Set this to the root of your project when deployed:
 http_path = "/"
@@ -16,6 +16,7 @@ images_dir = "assets/images"
 #fonts_dir = "assets/fonts"
 javascripts_dir = "assets/js"
 extensions_dir = "extensions"
+#sourcemap = true
 
 # You can select your preferred output style here (can be overridden via the command line):
 # output_style = :expanded or :nested or :compact or :compressed

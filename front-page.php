@@ -6,6 +6,7 @@
     $build_based        = get_field('build_based');
     $social_slider      = get_field('social_slider');
     $upcoming_events    = get_field('upcoming_events');
+    $latest_news        = get_field('latest_news');
 
 get_template_part('inc/hero', 'banner');
 ?>
@@ -37,7 +38,7 @@ get_template_part('inc/hero', 'banner');
 
                             if ($video_slide_count > 1) {
                                 echo '<div class="swiper-slide">
-                                            <a href="'.$video_url.'" class="youtube-video" title="'.esc_attr($video_thumb_alt).'">
+                                            <a href="'.$video_url.'?autoplay=1&muted=0&loop=1" class="youtube-video" title="'.esc_attr($video_thumb_alt).'">
                                                 <div class="video-preview">'. wp_get_attachment_image( $slide['img']['ID'], 'max-width-2800' ).
                                                 '</div>';
                                       echo '</a>';
@@ -46,7 +47,7 @@ get_template_part('inc/hero', 'banner');
                                             }
                                     echo '</div>';
                             } else {
-                                echo '<a href="' . $video_url . '" class="youtube-video" title="' . esc_attr($video_thumb_alt) . '">
+                                echo '<a href="' . $video_url . '?autoplay=1&muted=0&loop=1" class="youtube-video" title="' . esc_attr($video_thumb_alt) . '">
                                         <div class="video-preview">
                                             <img src="' . $video_thumb_url . '" alt="' . esc_attr($video_thumb_alt) . '">
                                         </div>';
@@ -80,6 +81,8 @@ get_template_part('inc/hero', 'banner');
     $build_description = trim($build_based['description']) ? $build_based['description'] : '';
     $build_button = $build_based['button'];
     $build_button_class = '';
+    $build_truck_id = ($build_based['truck_image'] && is_array($build_based['truck_image']) && count($build_based['truck_image']) > 0) ? $build_based['truck_image']['ID'] : '';
+    $build_bg_id = ($build_based['background_image'] && is_array($build_based['background_image']) && count($build_based['background_image']) > 0) ? $build_based['background_image']['ID'] : '';
     $build_bg_url = ($build_based['background_image'] && is_array($build_based['background_image']) && count($build_based['background_image']) > 0) ? $build_based['background_image']['url'] : '';
     $build_class = '';
 
@@ -103,11 +106,7 @@ get_template_part('inc/hero', 'banner');
     if ($build_title || $build_description || $build_button) { ?>
         <section class="section section-build-based <?php echo $build_class; ?>">
             <div class="container <?php ?>">
-                <div class="left-box">
-                    <div class="four-truck-img-wrap">
-                        <img class="" src="<?php echo get_bloginfo('template_url'); ?>/img/fourwh-truck.png" alt="Truck">
-                    </div>
-                </div>
+                <div class="container">
                 <div class="right-box">
                     <div class="build-based-box">
                         <?php
@@ -137,9 +136,13 @@ get_template_part('inc/hero', 'banner');
                         ?>
                     </div>
                 </div>
+                </div>
+
                 <?php
-                    if ($build_bg_url) {
-                        echo '<div class="custom-bg-box" style="background-image: url('.$build_bg_url.')"></div>';
+                    if ($build_bg_id) {
+
+//                        echo '<div class="custom-bg-box" style="background-image: url('.$build_bg_url.')">
+                        echo '<div class="custom-bg-box">'.wp_get_attachment_image( $build_bg_id, 'max-width-2800').'</div>';
                     }
                 ?>
             </div>
@@ -147,26 +150,88 @@ get_template_part('inc/hero', 'banner');
     <?php }
 } ?>
 
+<?php if ($latest_news && is_array($latest_news) && count($latest_news) > 0) {
+    $show_latest_news = $latest_news['show_news'];
+
+    if ($show_latest_news) {
+        $latest_news_title = $latest_news['news_title'];
+        $latest_news_article_count = $latest_news['article_count'] ? $latest_news['article_count'] : 8; ?>
+
+        <section class="section section-upcoming-events">
+            <div class="container">
+
+                <?php if ($latest_news_title) { echo '<h2 class="section-title">'.$latest_news_title.'</h2>';} ?>
+
+                <a href="<?php echo get_permalink(233); ?>" class="go-link" title="<?= esc_attr_x('All News', 'fw_campers'); ?>"><?= __('All News', 'fw_campers') ?></a>
+
+                <?php
+                    //events
+                    global $wp_query;
+
+                    $args = array(
+                        'post_type'         => 'post',
+                        'post_status'       => 'publish',
+                        'posts_per_page'    => $latest_news_article_count,
+                        'orderby'           => 'post_date',
+                        'order'             => 'DESC',
+                    );
+
+                    $new_query = new WP_Query( $args );
+
+                    if ($new_query->have_posts()) {
+                        echo '<div class="events-list news">
+                                <div class="swiper-container front-latest-news">
+                                    <div class="swiper-wrapper">';
+
+                        while ( $new_query->have_posts() ) : $new_query->the_post();
+
+                            get_template_part('inc/loop', 'front-news');
+
+                        endwhile;
+
+                        echo   '</div>
+                                <div class="custom-nav-box">
+                                    <div class="swiper-news-button-prev"></div>
+                                    <div class="swiper-news-button-next"></div>
+                                </div>
+                            </div>
+                        </div>';
+                    }
+
+                    wp_reset_query();
+                ?>
+            </div>
+        </section>
+
+    <?php }
+} ?>
+
 <?php if ($social_slider && is_array($social_slider) && count($social_slider) > 0) { ?>
     <section class="section section-social-slider vertical-line">
         <div class="container">
+            <h2 class="section-title">Stay Connected</h2>
             <div class="swiper-container social-slider">
                 <div class="swiper-wrapper">
                     <?php foreach ($social_slider as $slide) {
-                        $slide_title            = $slide['title'];
+                        $slide_info_group       = ($slide['info_group'] && is_array($slide['info_group']) && count($slide['info_group']) > 0) ? $slide['info_group'] : '';
+                        $slide_social_group     = ($slide['social_group'] && is_array($slide['social_group']) && count($slide['social_group']) > 0) ? $slide['social_group'] : '';
+
+                        $slide_title            = ($slide_info_group && trim($slide_info_group['title'])) ? $slide_info_group['title'] : '';
                         $slide_without_title    = $slide_title ? '' : 'without-title';
-                        $slide_description      = $slide['description'];
+                        $slide_description      = ($slide_info_group && trim($slide_info_group['description'])) ? $slide_info_group['description'] : '';
                         $slide_image            = $slide['image'];
+                        $slide_image_id         = $slide_image['ID'] ? $slide_image['ID'] : '';
 
                         if ($slide_image['sizes']['size-720_720']) {
-                            $slide_image_url = $slide_image['sizes']['size-720_720'];
-                            $slide_image_class = ($slide_image['sizes']['size-720_720-width'] > $slide_image['sizes']['size-720_720-height']) ? 'wider' : '';
+                            $slide_image_url    = $slide_image['sizes']['size-720_720'];
+                            $slide_image_class  = ($slide_image['sizes']['size-720_720-width'] > $slide_image['sizes']['size-720_720-height']) ? 'wider' : '';
                         } else {
-                            $slide_image_url = $slide_image['url'];
-                            $slide_image_class = ($slide_image['width'] > $slide_image['height']) ? 'wider' : '';
+                            $slide_image_url    = $slide_image['url'];
+                            $slide_image_class  = ($slide_image['width'] > $slide_image['height']) ? 'wider' : '';
                         }
 
-                        $slide_style            = $slide['slide_style'];
+                        $slide_style            = ($slide_social_group && $slide_social_group['slide_style']) ? $slide_social_group['slide_style'] : '';
+                        $slide_url              = ($slide_social_group && trim($slide_social_group['link'])) ? $slide_social_group['link'] : '#';
                         $slide_icon_base        = get_bloginfo('template_url').'/img/';
                         $slide_icon             = '';
                         $slide_icon_alt         = '';
@@ -201,10 +266,11 @@ get_template_part('inc/hero', 'banner');
 
                         if ($slide_title || $slide_description || $slide_image || $slide_style) {
                             echo '<div class="swiper-slide">
-                                    <a href="#" title="'.esc_attr($slide_title).'">
-                                        <div class="slide-box '.$slide_image_class.' '.$slide_overlay_class.'">';
-                                            if ($slide_image_url) {
-                                                echo '<img src="'.$slide_image_url.'" alt="'.esc_attr($slide_title).'">';
+                                    <a href="'.esc_url($slide_url).'" title="'.esc_attr($slide_title).'"  target="_blank" rel="nofollow">
+                                        <div class="slide-box '.$slide_image_class.' '.$slide_overlay_class.' ">';
+                                            if ($slide_image_id) {
+//                                                echo '<img src="'.$slide_image_url.'" alt="'.esc_attr($slide_title).'">';
+                                                echo wp_get_attachment_image($slide_image_id, 'medium', false, array('class' => 'social-slide-img lazyload'));
                                             }
                                             echo '<div class="slide-inner-box">
                                                     <div class="slider-social-table '.$slide_without_title.'">
@@ -257,7 +323,7 @@ get_template_part('inc/hero', 'banner');
                     //events
                     global $wp_query;
 
-                    date_default_timezone_set( get_option('timezone_string') );
+                    //date_default_timezone_set( get_option('timezone_string') );
                     $currentTime = date('Y-m-d H:i:s');
 
                     $args = array(

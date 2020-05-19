@@ -29,7 +29,7 @@ textarea.input-style {
   height: 136px;
   resize: none;
   border: 1px solid $color-bg11;
-  border-color: rgba($color-bg11, .2);
+  border-color: rgba($color-bg11, .5);
   color: $color-text11;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -92,3 +92,119 @@ textarea:-moz-placeholder {
   color: #d5d6d7;
   @include transition($transition-other)
 }
+
+.subscribe-form .mc4wp-alert.mc4wp-success,
+.subscribe-form .mc4wp-alert.mc4wp-notice,
+.subscribe-form .mc4wp-alert.mc4wp-error,
+.mc4wp-form .mc4wp-alert.mc4wp-success,
+.mc4wp-form .mc4wp-alert.mc4wp-error,
+.mc4wp-form .mc4wp-alert.mc4wp-notice {
+  margin-top: 10px;
+  line-height: 1.2;
+  font-size: 16px;
+  color: $color-text7;
+  text-align: center;
+}
+.subscribe-form .mc4wp-alert.mc4wp-success,
+.mc4wp-form .mc4wp-alert.mc4wp-success {
+  color: #3ade5e;
+}
+
+.mc4wp-form {
+  .ajax-loader {
+    visibility: hidden;
+  }
+  &.ajax-load {
+    .a.btn-subscribe,
+    .btn-subscribe {
+      display: none;
+    }
+
+    .ajax-loader {
+      visibility: visible;
+      display: inline-block;
+      background-image: url(../../img/ajax-loader.gif);
+      width: 16px;
+      height: 50px;
+      border: none;
+      padding: 0;
+      margin: 0 0 0 4px;
+      vertical-align: middle;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+}
+
+select {
+  min-height: 56px;
+  width: 100%;
+  padding: 12px 30px 8px;
+  color: #d5d6d7;
+  @include font($normal, $size-smaller, $font-main, 1);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  background-color: $white;
+  border: 1px solid $color-bg11;
+  border-color: rgba($color-bg11, .5);
+  border-radius: 0;
+  letter-spacing: $letter-spacing-20;
+  option {
+    color: $color-text11;
+  }
+  &.selected {
+    color: $color-text11;
+  }
+  .no-js & {
+    color: $color-text11;
+    &.selected {
+      color: $color-text11;
+    }
+  }
+}
+
+.select-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+  &:before {
+    position: absolute;
+    content: '';
+    top: 1px;
+    right: 1px;
+    width: 30px;
+    height: 54px;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    pointer-events: none;
+  }
+  &:after {
+    position: absolute;
+    content: '';
+    top: 26px;
+    right: 12px;
+    //margin-top: -4px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid $color-bg11;
+    border-top: 8px solid rgba($color-bg11, .5);
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    pointer-events: none;
+  }
+  .wpcf7-not-valid {
+    border-color: red;
+  }
+}
+

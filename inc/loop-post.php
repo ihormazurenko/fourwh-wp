@@ -25,7 +25,7 @@
         <div class="article-info">
             <span>
                 <?php _e('Published Date:', 'fw_campers'); ?>
-                <a href="<?php echo get_day_link( $archive_year, $archive_month, $archive_day); ?>" class="date" title="<?php echo esc_attr($date); ?>"><?php echo $date; ?></a>
+                <a href="https://fourwheelcampers.com/" class="date" title="<?php echo esc_attr($date); ?>"><?php echo $date; ?></a>
             </span>
             <span><?php _e('By', 'fw_campers'); ?> <?php the_author_posts_link(); ?></span>
         </div>

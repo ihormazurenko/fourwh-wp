@@ -7,18 +7,19 @@
 @import 'fonts/fonts';
 @import 'global/buttons';
 @import 'global/magnific';
-@import 'global/forms';
+@import 'global/forms'; 
 @import 'global/headers';
 @import 'global/navigation';
 @import 'global/sidebar';
-@import 'global/footer';
+@import 'global/footer'; 
 @import 'global/accordion';
 @import 'global/pagenavi';
 @import 'global/subscribe_form';
+@import 'global/popup';
 //@import 'global/responsive';
 
 /* styles used throughout site */
-@import 'partials/home';
+@import 'partials/home';  
 @import 'partials/dealer';
 @import 'partials/truck-selector';
 @import 'partials/truck-preparation';
@@ -36,9 +37,12 @@
 @import 'partials/inventory-list';
 @import 'partials/inventory-details';
 @import 'partials/career';
+@import 'partials/my_life';
+@import 'partials/my_life-details';
 @import 'partials/404';
 @import 'partials/single';
 @import 'partials/testimonials';
+@import 'partials/corporate-store';
 @import 'shop/shop';
 @import 'shop/product-list';
 @import 'shop/product-details';

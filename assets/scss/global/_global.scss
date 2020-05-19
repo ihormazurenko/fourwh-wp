@@ -339,9 +339,11 @@ h1, h2, h3, h4, h5, h6 {
 #main-content {
   display: block;
   .white-header-bg & {
-    padding-top: 132px;
+    // padding-top: 166px;
+    padding-top: 111px;
     @media all and (max-width: 1200px) {
-      padding-top: 82px;
+      // padding-top: 116px;
+      padding-top: 106px;
     }
     @media all and (max-width: 1024px) {
       padding-top: 70px;

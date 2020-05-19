@@ -7,16 +7,18 @@
     margin-top: 41px;
     text-align: center;
     @media all and (max-width: 540px) {
-      margin-top: 40px;
+      margin-top: 20px;
     }
   }
 
   .swiper-custom-button-prev,
-  .swiper-custom-button-next {
+  .swiper-custom-button-next,
+  .swiper-news-button-prev,
+  .swiper-news-button-next {
     position: relative;
     display: inline-block;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 42px;
     cursor: pointer;
 
     &:before,
@@ -28,17 +30,17 @@
 
     &:before {
       top: 50%;
-      width: 36px;
-      height: 2px;
+      width: 50px;
+      height: 3px;
       background-color: #4e4e4e;
       @include translate(0, -50%);
     }
 
     &:after {
       top: 50%;
-      width: 12px;
-      height: 12px;
-      border: 2px solid #4e4e4e;
+      width: 18px;
+      height: 18px;
+      border: 3px solid #4e4e4e;
       @include css3-prefix('transform', 'translate(0, -50%) rotate(45deg)');
     }
 
@@ -57,7 +59,7 @@
 
     &.swiper-button-disabled {
       &:before {
-        width: 16px;
+        width: 24px;
       }
 
       &:before,
@@ -67,25 +69,27 @@
     }
   }
 
-  .swiper-custom-button-prev {
+  .swiper-custom-button-prev,
+  .swiper-news-button-prev {
     &:before {
       left: 2px;
     }
 
     &:after {
-      left: 1px;
+      left: 2px;
       border-right: none;
       border-top: none;
     }
   }
 
-  .swiper-custom-button-next {
+  .swiper-custom-button-next,
+  .swiper-news-button-next {
     &:before {
       right: 2px;
     }
 
     &:after {
-      right: 1px;
+      right: 2px;
       border-left: none;
       border-bottom: none;
     }

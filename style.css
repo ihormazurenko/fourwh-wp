@@ -5,3 +5,364 @@ Author: ACS Digital Media
 Author URI: https://www.acs-digital.com/
 Text Domain: fw_campers
 */
+
+/* custom style  */
+.models-list>li:last-child {
+  margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+  .models-list>li:last-child {
+    margin-bottom: 0;
+  }
+}
+.section-products ul.models-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-products .models-list li {
+  width: 33.333%;
+  display: inline-block;
+  padding: 10px;
+}
+
+@media (max-width: 767px) {
+  .section-products .models-list li {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .section-products .models-list li {
+    width: 50%;
+  }
+}
+
+.section-products .models-list .model-wrap {
+  border: none;
+}
+
+.section-products .models-list .left-box {
+  width: 100%;
+}
+
+.section-products .models-list .model-wrap .model-img-wrap {
+  background: transparent;
+  padding-bottom: 61.5%;
+}
+.section-products .models-list .model-wrap .model-img-wrap img.wp-post-image {
+  max-height: 300px;
+  min-height: auto;
+  object-fit: cover;
+}
+
+.section-products .models-list .model-wrap .title-wrapper {
+  z-index: 300;
+  position: absolute;
+  bottom: 35px;
+  color: white;
+  padding-left: 20px;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.section-products .models-list .model-wrap .title-wrapper .model-custom-title {
+  margin-bottom: 0;
+  flex: 1;
+  font-weight: bold;
+}
+
+.section-products .models-list .model-wrap .title-wrapper .model-info {
+  color: #000;
+  padding: 5px 13px;
+  background: #fff;
+  margin-right: 0;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.section-products .models-list .model-wrap .title-wrapper .model-info span {
+  color: #000;
+  font-weight: bold;
+}
+
+.section-products .models-list .model-wrap .info-custom {
+  position: absolute;
+  bottom: 5px;
+  z-index: 30;
+  padding-left: 20px;
+}
+
+.section-products .models-list .model-wrap .info-custom .model-info {
+  color: white;
+}
+
+.section-products .models-list .model-wrap .info-custom .model-info span {
+  color: white;
+}
+
+.swiper-inner-images-box_carousel {
+  position: relative;
+}
+
+.swiper-inner-images-box_carousel .owl-stage {
+  overflow: hidden;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.swiper-inner-images-box_carousel .owl-nav {}
+.swiper-inner-images-box_carousel .plan-slide-img-modal {}
+.swiper-inner-images-box_carousel .plan-slide-img-inner {
+  position: relative;
+  padding-bottom: 70%;
+}
+  .swiper-inner-images-box_carousel .thumb_img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+  }
+
+.swiper-inner-images-box_carousel .owl-nav button {
+  height: calc(100% - 14px);
+  margin-top: 6px;
+  background: #fff;
+  border: none;
+  opacity: .4;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  width: 25px;
+}
+
+.swiper-inner-images-box_carousel .owl-nav button:hover {
+  opacity: 0.6;
+}
+
+.swiper-inner-images-box_carousel .owl-nav button span {
+  font-size: 40px;
+}
+
+.swiper-inner-images-box_carousel .owl-nav button.owl-next {
+  right: 0;
+}
+
+.swiper-inner-images-box_carousel .m_thumb_img {
+  position: relative;
+  /* width: 50%; */
+  /* flex: 1; */
+  padding: 6px 2px 0 2px;
+}
+
+.swiper-inner-images-box_carousel .plan-slide-img_carousel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-inner-images-box_carousel .m_thumb_img:first-child {
+  margin-left: -2px;
+}
+
+.swiper-inner-images-box_carousel .m_thumb_img:last-child {
+  margin-right: -2px;
+}
+
+.section-products .models-list .model-wrap .btn_viewModel_plans {
+  width: 100%;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.section-products .models-list .custom_shell_wrapper .model-wrap {
+  background: #F0F3F9;
+  height: 100%;
+  padding: 5% 15%;
+}
+
+.section-products .models-list .custom_shell_wrapper .shell_campers {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.section-products .models-list .custom_shell_wrapper .shell_campers .shell_campers_title h3 {
+  padding-top: 10%;
+  color: #00a3e0;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.section-products .models-list .custom_shell_wrapper .shell_campers .shell_campers_title p {
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.section-products .models-list .custom_shell_wrapper .shell_campers .shell_cursor {
+  padding: 15%;
+}
+
+.section-products .models-list .custom_shell_wrapper .shell_campers .shell_cursor .cursor_image_wrapper {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #00a3e0;
+  border-radius: 50%;
+}
+
+.section-products .models-list .custom_shell_wrapper .shell_campers .shell_cursor .cursor_image_wrapper img {
+  filter: invert(100%);
+}
+
+
+/* Video section */
+.section-gallery .video-gallery.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section-how-videos .itemlink,
+.section-how-video-details {
+  display: block;
+  width: 100%;
+}
+
+.section-gallery .itemlink_gallery {
+  display: inline-block;
+  width: 50%;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .section-gallery .itemlink_gallery {
+    width: 100%;
+  }
+  .section-gallery .itemlink_gallery .image {
+    margin-bottom: 0;
+  }
+  .section-gallery .itemlink_gallery .image img {
+    margin-bottom: 0;
+  }
+}
+.section-gallery .itemlink_gallery.youtube-video:after {
+  display: none;
+}
+
+.section-gallery .itemlink_gallery:hover .image i::before {
+  color: #00a3e0;
+}
+
+.section-gallery .itemlink_gallery .image {
+  position: relative;
+}
+
+.section-gallery .itemlink_gallery .image i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  font-size: 80px;
+  color: #3e3e3e;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.section-gallery .itemlink_gallery .image i::before {
+  z-index: 2;
+  position: relative;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+  content: "\f144";
+}
+
+.section-gallery .itemlink_gallery .image i::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 50%;
+  z-index: 0;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.section-gallery .itemlink_gallery .list-item,
+.section-how-video-details .itemlink_gallery .list-item {
+  display: block;
+}
+
+.section-gallery .itemlink_gallery .list-item,
+.section-how-video-details .itemlink_gallery .list-item h6 {
+  font-size: 16px;
+}
+
+.section-how-videos .list-item, .section-how-video-details .itemlink_gallery .list-item h3 {
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  .section-gallery .itemlink_gallery .image {
+      width: 100%;
+      margin-bottom: 0;
+  }
+
+  .section-gallery .itemlink_gallery .text {
+    width: 100%;
+    padding-left: 0;
+    padding-bottom: 15px;
+  }
+}
+
+.mfp-fade.mfp-bg {
+  opacity: 0;
+
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+/* overlay animate in */
+.mfp-fade.mfp-bg.mfp-ready {
+  opacity: 0.8;
+}
+/* overlay animate out */
+.mfp-fade.mfp-bg.mfp-removing {
+  opacity: 0;
+}
+
+/* content at start */
+.mfp-fade.mfp-wrap .mfp-content {
+  opacity: 0;
+
+  -webkit-transition: all 0.15s ease-out;
+  -moz-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+/* content animate it */
+.mfp-fade.mfp-wrap.mfp-ready .mfp-content {
+  opacity: 1;
+}
+/* content animate out */
+.mfp-fade.mfp-wrap.mfp-removing .mfp-content {
+  opacity: 0;
+}
+

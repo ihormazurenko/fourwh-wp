@@ -4,14 +4,17 @@
  */
 get_header();
 $id                     = get_the_ID();
+$parent_id                      = wp_get_post_parent_id($id);
+
 $all_model_id           = 1236;
 $flat_bad_model_id      = 2554;
 $taxonomy               = 'model_categories';
 $categories             = get_terms(array('taxonomy' => $taxonomy, 'orderby' => 'term_order', 'parent' => 0));
 $flat_bad_page          = wp_get_post_parent_id($id);
 
-?>
 
+?>
+<!-- <?php print $flat_bad_page; ?> -->
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-products">
@@ -28,89 +31,23 @@ $flat_bad_page          = wp_get_post_parent_id($id);
                     <li>
                         <a class="btn blue small <?php echo $flat_bad_model_id == get_the_ID() ? '' : 'inverse'; ?>" href="<?php echo get_permalink($flat_bad_model_id); ?>" title="<?php esc_attr_e('Flat Bed', 'fw_campers'); ?>"><?php _e('Flat Bed', 'fw_campers'); ?></a>
                     </li>
+                    <li>
+                        <a class="btn blue small inverse" href="<?php echo get_permalink(4010); ?>" title="<?php esc_attr_e('Project M', 'fw_campers'); ?>"><?php _e('Project M', 'fw_campers'); ?></a>
+                    </li>
+
+                    
                 </ul>
             </div>
 
-            <?php if (get_current_user_id() == 1) {
-                /*?>
-                <ul class="models-list">
-                    <li>
-                        <div class="model-wrap">
-                            <div class="left-box">
-                                <a href="https://acsdm.com/fwc/model/raven-model/"  title="">
-                                    <div class="model-img-wrap centered-img">
-                                        <img width="300" height="225" src="https://acsdm.com/fwc/wp-content/uploads/2018/12/raven-model-thumbnail.jpg" class="attachment-large size-large wp-post-image fadein-style" alt="Raven Model">
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="right-box">
-                                <div class="model-box">
-                                    <a href="https://acsdm.com/fwc/model/raven-model/"  title="">
-                                        <h3 class="model-title">Raven Model</h3>
-                                    </a>
-                                    <div class="model-inner-box">
-                                        <div class="model-details">
-                                            <span class="model-info">Starting at <span>$18,995.00</span> USD</span>
-                                            <span class="model-info">Bed size: <span>5'5"– 5'8"</span></span>
-                                            <span class="model-info">Floor plans: <span>2</span></span>
-                                        </div>
-                                        <div class="content small">
-                                            <p>The Raven Model is designed to fit on Full Sized, 1/2 Ton, Crew Cab trucks
-                                                that have the really short bed. These trucks usually have the
-                                                short 5’5″– 5’8″ truck bed.</p>
-                                            <br>
-                                            <b>Truck examples:</b>
-                                            <p>Ford F-150 SuperCrew, Tundra CrewMax, Chevy/GMC 1500 Crew Cab,
-                                                Nissan Titan CrewCab, etc.</p>
-                                        </div>
-                                    </div>
-                                    <a href="https://acsdm.com/fwc/model/raven-model/" class="btn blue" title="View Model & Floor Plans">View Model & Floor Plans</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="model-wrap">
-                            <div class="left-box">
-                                <div class="model-img-wrap centered-img">
-                                    <img width="300" height="225" src="https://acsdm.com/fwc/wp-content/uploads/2018/12/hawk-model-thumbnail.jpg" class="attachment-large size-large wp-post-image fadein-style" alt="Raven Model">
-                                </div>
-                            </div>
-                            <div class="right-box">
-                                <div class="model-box">
-                                    <h3 class="model-title">Raven Model</h3>
-                                    <div class="model-inner-box">
-                                        <div class="model-details">
-                                            <span class="model-info">Starting at <span>$18,995.00</span> USD</span>
-                                            <span class="model-info">Bed size: <span>5'5"– 5'8"</span></span>
-                                            <span class="model-info">Floor plans: <span>2</span></span>
-                                        </div>
-                                        <div class="content small">
-                                            <p>The Raven Model is designed to fit on Full Sized, 1/2 Ton, Crew Cab trucks
-                                                that have the really short bed. These trucks usually have the
-                                                short 5’5″– 5’8″ truck bed.</p>
-                                            <br>
-                                            <b>Truck examples:</b>
-                                            <p>Ford F-150 SuperCrew, Tundra CrewMax, Chevy/GMC 1500 Crew Cab,
-                                                Nissan Titan CrewCab, etc.</p>
-                                        </div>
-                                    </div>
-                                    <a href="https://acsdm.com/fwc/model/raven-model/" class="btn blue" title="View Model & Floor Plans">View Model & Floor Plans</a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            <?php */ } ?>
-
             <?php
-            if ($flat_bad_page) :
+            // if ($flat_bad_page) :
+            if ($id == $flat_bad_model_id) :
 
                 $tax_children_ids = [];
                 foreach ($categories as $category) {
                     $tax_children = get_term_children((int)$category->term_id, $taxonomy);
                     $tax_children_id = (is_array($tax_children) && count($tax_children) > 0) ? $tax_children[0] : 0;
-                    if ($tax_children_id > 0 && !in_array($tax_children_id)) {
+                    if ($tax_children_id > 0 && !in_array($tax_children_id, $tax_children_ids)) {
                         $tax_children_ids[] = $tax_children_id;
                     }
                 }
@@ -139,50 +76,31 @@ $flat_bad_page          = wp_get_post_parent_id($id);
                                         <div class="left-box">
                                             <a href="<?php echo esc_url($url); ?>" title="<?php echo esc_attr($title); ?>">
                                                 <div class="model-img-wrap centered-img">
-                                                <?php
-                                                    if ($img_id) {
-                                                        echo wp_get_attachment_image($img_id,'large', false, array('title'   => esc_attr($title)));
-                                                    }
-                                                ?>
+                                                    <?php
+                                                        if ($img_id) {
+                                                            echo wp_get_attachment_image($img_id,'large', false, array('title'   => esc_attr($title)));
+                                                        }
+                                                        
+                                                    ?>
+                                                    <div class="title-wrapper">
+                                                        <h3 class="model-title model-custom-title"><?php echo $title; ?></h3>
+                                                        <?php if ($model_price) { ?>
+                                                            <span class="model-info"><?php _e('From at','fw_campers'); ?> <span><?php _e('$','fw_campers'); ?><?php echo number_format( $model_price, 0, '.', ',' ); ?>
+                                                        <?php } ?>
+                                                    </div>
+                                                    <div class="info-custom">
+                                                        <?php if ($model_bed_size) { ?>
+                                                            <span class="model-info"><span><?php echo $model_bed_size; ?></span> <?php _e('bed size','fw_campers'); ?></span>
+                                                        <?php } ?>
+                                                        <?php if ($model_floor_plans) { ?>
+                                                            <span class="model-info"><span><?php echo $model_floor_plans; ?></span> <?php _e('floor plans','fw_campers'); ?></span>
+                                                        <?php } ?>
+                                                    </div>
                                                 </div>
                                             </a>
+                                            <a href="<?php echo esc_url($url); ?>" class="btn blue btn_viewModel_plans" title="<?php esc_attr_e('View Models','fw_campers'); ?>"><?php _e('View Models','fw_campers'); ?></a>
                                         </div>
-                                        <div class="right-box">
-                                            <div class="model-box">
-                                                <a href="<?php echo esc_url($url); ?>" title="<?php echo esc_attr($title); ?>">
-                                                    <h3 class="model-title"><?php echo $title; ?></h3>
-                                                </a>
-                                                <div class="model-inner-box">
-                                                    <?php if ($model_price || $model_bed_size || $model_floor_plans) { ?>
-                                                        <div class="model-details">
-                                                            <?php if ($model_price) { ?>
-                                                                <span class="model-info"><?php _e('Starting at','fw_campers'); ?> <span><?php _e('$','fw_campers'); ?><?php echo number_format( $model_price, 2, '.', ',' ); ?></span> <?php _e('USD','fw_campers'); ?></span>
-                                                            <?php } ?>
-                                                            <?php if ($model_bed_size) { ?>
-                                                                <span class="model-info"><?php _e('Bed size:','fw_campers'); ?> <span><?php echo $model_bed_size; ?></span></span>
-                                                            <?php } ?>
-                                                            <?php if ($model_floor_plans) { ?>
-                                                                <span class="model-info"><?php _e('Floor plans:','fw_campers'); ?> <span><?php echo $model_floor_plans; ?></span></span>
-                                                            <?php } ?>
-                                                        </div>
-                                                    <?php } ?>
-                                                    <?php if ($description || $model_truck_examples) : ?>
-                                                        <div class="content small">
-                                                            <?php
-                                                            if ($description) {
-                                                                echo $description;
-                                                            }
-                                                            if ($model_truck_examples) {
-                                                                echo '<br><b>'.__('Truck examples:', 'fw_campers').'</b>';
-                                                                echo '<p>'.$model_truck_examples.'</p>';
-                                                            }
-                                                            ?>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <a href="<?php echo esc_url($url); ?>" class="btn blue" title="<?php esc_attr_e('View Models','fw_campers'); ?>"><?php _e('View Models','fw_campers'); ?></a>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </li>
                                 <?php
@@ -200,7 +118,8 @@ $flat_bad_page          = wp_get_post_parent_id($id);
                     'post_status'       => 'publish',
                     'posts_per_page'    => -1,
                     'orderby'           => array( 'menu_order' => 'DESC', 'date' => 'DESC' ),
-                    'post_parent'       => 0
+                    'post_parent'       => 0,
+                    'post__not_in' => array(3928,4010) //Don't include the Project M Post
 
                 );
                 $new_query = new WP_Query( $args );
@@ -212,6 +131,28 @@ $flat_bad_page          = wp_get_post_parent_id($id);
                         get_template_part('inc/loop', 'model');
 
                     endwhile;
+                    ?>
+                        <li class="custom_shell_wrapper">
+                            <div class="model-wrap">
+                                <div class="left-box">
+                                    <a href="javascript:void(0);" class="shell_campers">
+                                        <div class="shell_campers_title">
+                                            <h3>Shell Campers</h3>
+                                            <p>start at $12,995 and are available in all Slide-in models</p>
+                                        </div>
+                                        <div class="shell_cursor">
+                                            <div class="cursor_image_wrapper">
+                                                <img src="<?php echo get_template_directory_uri(); ?>/img/cursor.png">
+                                            </div>
+                                        </div>
+                                        <div class="shell_click_btn">
+                                            <p>click a model for details</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    <?php
                     echo "</ul>";
                 } else {
                     echo '<p class="no-results">' . __('Sorry, no models found...', 'fw_campers') . '</p>';

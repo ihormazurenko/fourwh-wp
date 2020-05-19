@@ -27,7 +27,13 @@ if (is_tax('model_categories')) {
     }
 }
 
-if (!get_field('show_hero_banner', $id)) {
+// if (!get_field('show_hero_banner', $id)) {
+//     $classes .= ' white-header-bg';
+// }
+if (get_field('show_hero_banner', $id)) {
+    $classes .= ' has-hero';
+}
+if (!is_front_page()) {
     $classes .= ' white-header-bg';
 }
 
@@ -70,6 +76,11 @@ if (!get_field('show_hero_banner', $id)) {
                 <span></span>
             </div>
 
+            <span class="toggle-woo-category">
+                <span><?php _e('Categories', 'fw_campers'); ?></span>
+                <i class="fas fa-th-large"></i>
+            </span>
+
             <?php wp_nav_menu(array(
                 'theme_location'  => 'main-menu',
                 'menu'            => 'Main Navigation',
@@ -103,9 +114,12 @@ if (!get_field('show_hero_banner', $id)) {
                     <img src="<?php echo $logo_url; ?>" alt="<?= esc_attr(get_bloginfo('name')); ?>">
                 </a>
             </div>
-            <div class="mobile-menu-toggle">
-                <span></span>
-            </div>
+
+            <span class="toggle-woo-category">
+                <span><?php _e('Categories', 'fw_campers'); ?></span>
+                <i class="fas fa-th-large"></i>
+            </span>
+
             <?php wp_nav_menu(array(
                 'theme_location'  => 'main-menu',
                 'menu'            => 'Main Navigation',
@@ -115,6 +129,10 @@ if (!get_field('show_hero_banner', $id)) {
                 'items_wrap'      => '<ul>%3$s</ul>',
                 'depth'           => 2
             )); ?>
+
+            <div class="mobile-menu-toggle">
+                <span></span>
+            </div>
         </div>
     </header>
 

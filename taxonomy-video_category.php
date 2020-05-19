@@ -1,11 +1,8 @@
 <?php
-get_header();
+    get_header();
 
-
-$video_page_id = 1020;
-$term = get_queried_object();
-
-
+    $video_page_id = 1020;
+    $term = get_queried_object();
 ?>
 
     <?php get_template_part('inc/hero', 'banner'); ?>
@@ -19,7 +16,6 @@ $term = get_queried_object();
             <div class="section-desc content"><?php print $term->description ?></div>
 
             
-
             <?php
 
                 $taxonomy = 'video_category';
@@ -34,13 +30,16 @@ $term = get_queried_object();
                                 <a class="btn blue small inverse" href="<?php echo get_permalink($video_page_id); ?>" title="<?php esc_attr_e('All', 'fw_campers'); ?>"><?php _e('All', 'fw_campers'); ?></a>
                             </li>
                             <?php foreach ($categories as $term) {
-                                if (is_tax( $taxonomy, (int)$term->term_id )) {
-                                    $current_term_id = $term->term_id;
-                                    $category_class = 'active';
-                                } else {
-                                    $current_term = '';
-                                    $category_class = 'inverse';
-                                }
+                                    if ( $term->slug == 'gallery') continue;
+
+                                    if (is_tax( $taxonomy, (int)$term->term_id )) {
+                                        $current_term_id = $term->term_id;
+                                        $current_term_slug = $term->slug;
+                                        $category_class = 'active';
+                                    } else {
+                                        $current_term = '';
+                                        $category_class = 'inverse';
+                                    }
                                 ?>
                                 <li>
                                     <a class="btn blue small <?php echo $category_class; ?> " href="<?php echo get_term_link((int)$term->term_id, $taxonomy); ?>" title="<?php echo esc_attr( $term->name ); ?>"><?php echo $term->name; ?></a>
@@ -60,8 +59,8 @@ $term = get_queried_object();
                     'post_type'        => 'video',
                     'post_status'      => 'publish',
                     'paged'            => $paged,
-                    'orderby' => 'date',
-                    'order'   => 'DESC',
+                    'orderby'          => 'date',
+                    'order'            => 'DESC',
                 );
 
                 if (!empty($current_term_id)) {
@@ -78,14 +77,14 @@ $term = get_queried_object();
 
                 if ($new_query->have_posts()) {
                     echo '<div class="video-list content">';
-                    while ( $new_query->have_posts() ) : $new_query->the_post();
+                        while ( $new_query->have_posts() ) : $new_query->the_post();
 
-                        get_template_part('inc/loop', 'video');
+                            get_template_part('inc/loop', 'video');
 
-                    endwhile;
+                        endwhile;
                     echo "</div>";
 
-                    get_template_part('inc/pagination');
+                    //get_template_part('inc/pagination');
 
                 } else {
                     echo '<p class="no-results">' . __('Sorry, videos not found...', 'fw_campers') . '</p>';

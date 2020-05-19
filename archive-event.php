@@ -4,7 +4,7 @@
  */
 get_header();
 
-date_default_timezone_set( get_option('timezone_string') );
+//date_default_timezone_set( get_option('timezone_string') );
 $currentTime = date('Y-m-d H:i:s');
 
 $event_page_id = is_page() ? get_the_ID() : 339;

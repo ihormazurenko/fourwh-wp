@@ -1,0 +1,312 @@
+.section-corporate-store {
+  .container {}
+}
+  .corporate-store-full-img {
+    margin-bottom: 73px;
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    @media all and (max-width: 767px) {
+      margin-bottom: 40px;
+      .container {
+        padding: 0;
+      }
+    }
+  }
+  .corporate-store-services-box {
+    max-width: 785px;
+    margin: 0 auto;
+    padding-bottom: 44px;
+    @media all and (max-width: 767px) {
+      max-width: 425px;
+      padding-bottom: 0;
+    }
+  }
+    .corporate-store-title {
+      margin-bottom: 65px;
+      text-align: center;
+      color: $black;
+      @include font($medium, 32px, $font-main, $line-height-heading);
+      @media all and (max-width: 767px) {
+        margin-bottom: 26px;
+      }
+      &.line {
+        position: relative;
+        text-align: left;
+        padding-bottom: 23px;
+        margin-bottom: 24px;
+        &:after {
+          position: absolute;
+          content: '';
+          width: 100px;
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: #01A2DD;
+        }
+      }
+    }
+    .corporate-store-services-list {
+      display: block;
+      width: 100%;
+      margin-left: 75px;
+      columns: 2;
+      color: #838486;
+      font-size: $size-smaller;
+      @media all and (max-width: 1023px) {
+        margin-left: 60px;
+      }
+      > li {
+        position: relative;
+        padding-left: 40px;
+        padding-right: 40px;
+        margin: 0 -65px 7px 31px;
+        &:before {
+          position: absolute;
+          content: '';
+          top: 6px;
+          left: 0;
+          width: 10px;
+          height: 10px;
+          @include border-radius(20rem);
+          background-color: #01A2DD;
+        }
+      }
+      @media all and (max-width: 767px) {
+        margin-left: 0;
+        columns: auto;
+        > li {
+          margin: 0;
+          padding-left: 26px;
+        }
+      }
+    }
+  .corporate-store-about-box {
+    overflow: hidden;
+    margin: 0 auto;
+    padding-bottom: 150px;
+    @media all and (max-width: 767px) {
+      padding-bottom: 70px;
+      .container {
+        padding: 0;
+      }
+    }
+  }
+    .corporate-store-about-img {
+      float: left;
+      width: 48.8%;
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      @media all and (max-width: 767px) {
+        float: none;
+        width: 100%;
+      }
+    }
+    .corporate-store-about-info {
+      float: left;
+      width: 51.2%;
+      padding-left: 130px;
+      padding-top: 62px;
+      @media all and (max-width: 1023px) {
+        padding-left: 40px;
+      }
+      @media all and (max-width: 767px) {
+        float: none;
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .corporate-store-title {}
+      .content {
+        color: $black;
+        line-height: 1.65;
+        * {
+          margin-bottom: 25px;
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+.corporate-store-contact-section {
+  .left-box {
+    float: left;
+    width: 45%;
+    text-align: right;
+    .inner-box {
+      text-align: left;
+      max-width: 500px;
+      padding-right: 20px;
+      padding-bottom: 40px;
+      width: 100%;
+      display: inline-block;
+      @media all and (max-width: 767px) {
+        padding-left: 20px;
+        max-width: 532px;
+      }
+    }
+    @media all and (max-width: 767px) {
+      float: none;
+      width: 100%;
+    }
+  }
+  .right-box {
+    float: left;
+    width: 55%;
+    @media all and (max-width: 767px) {
+      float: none;
+      width: 100%;
+    }
+  }
+  .top-box {
+    overflow: hidden;
+    margin-bottom: -256px;
+    @media all and (max-width: 1023px) {
+      margin-bottom: 0;
+    }
+  }
+  .bottom-box {
+    overflow: hidden;
+    padding: 45px 0 150px;
+    background: -moz-linear-gradient(bottom, rgba(246, 247, 249, 0) 0%, #F6F7F9 100%);
+    background: -webkit-linear-gradient(bottom, rgba(246, 247, 249, 0) 0%, #F6F7F9 100%);
+    background: linear-gradient(to top, rgba(246, 247, 249, 0) 0%, #F6F7F9 100%);
+    @media all and (max-width: 1023px) {
+      padding-bottom: 40px;
+    }
+  }
+  .container {
+    max-width: 1720px;
+    @media all and (max-width: 767px) {
+      padding: 0;
+    }
+  }
+}
+    .corporate-store-contact-list {
+      > li {
+        &:not(:last-child) {
+          margin-bottom: 20px;
+        }
+      }
+    }
+      .corporate-store-contact-img-box {
+        min-height: 576px;
+        img {
+          width: 100%;
+          height: auto;
+          @media all and (max-width: 767px) {
+            display: block;
+          }
+        }
+        @media all and (max-width: 1023px) {
+          min-height: auto;
+        }
+      }
+      .corporate-store-contact-box {}
+        .corporate-store-contact-icon {
+          position: relative;
+          display: inline-block;
+          vertical-align: top;
+          width: 70px;
+          height: 70px;
+          font-size: 21px;
+          background-color: #F6F7F9;
+          @include border-radius(20rem);
+          &:after {
+            position: absolute;
+            content: '';
+            width: 1em;
+            height: 1em;
+            top: 50%;
+            left: 50%;
+            @include translate();
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+          }
+          &.marker {
+            margin-top: 1px;
+            &:after {
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='21' viewBox='0 0 20 21' fill='none'%3E%3Cpath d='M10 0C6.686 0 4 2.686 4 6C4 10.286 10 17 10 17C10 17 16 10.286 16 6C16 2.686 13.314 0 10 0ZM10 2C12.206 2 14 3.794 14 6C14 8.01 11.919 11.3604 9.99805 13.8594C8.07705 11.3644 6 8.016 6 6C6 3.794 7.794 2 10 2ZM10 4C9.46957 4 8.96086 4.21071 8.58579 4.58579C8.21071 4.96086 8 5.46957 8 6C8 6.53043 8.21071 7.03914 8.58579 7.41421C8.96086 7.78929 9.46957 8 10 8C10.5304 8 11.0391 7.78929 11.4142 7.41421C11.7893 7.03914 12 6.53043 12 6C12 5.46957 11.7893 4.96086 11.4142 4.58579C11.0391 4.21071 10.5304 4 10 4ZM2.80078 14L0 21H20L17.1992 14H14.8125C14.3275 14.731 13.8406 15.408 13.3926 16H15.8477L17.0469 19H2.95312L4.15234 16H6.60742C6.15942 15.408 5.6725 14.731 5.1875 14H2.80078Z' fill='%2301A2DD'/%3E%3C/svg%3E");
+            }
+          }
+          &.phone {
+            margin-top: -2px;
+            &:after {
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='22' viewBox='0 0 14 22' fill='none'%3E%3Cpath d='M11.5 0H2.5C1.12 0 0 1.12 0 2.5V19.5C0 20.88 1.12 22 2.5 22H11.5C12.88 22 14 20.88 14 19.5V2.5C14 1.12 12.88 0 11.5 0ZM7 20.125C6.378 20.125 5.875 19.622 5.875 19C5.875 18.378 6.378 17.875 7 17.875C7.622 17.875 8.125 18.378 8.125 19C8.125 19.622 7.622 20.125 7 20.125ZM12 17H2V3H12V17Z' fill='%2301A2DD'/%3E%3C/svg%3E");
+            }
+          }
+          &.clock {
+            margin-top: 1px;
+            &:after {
+              background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M10 0C4.489 0 0 4.489 0 10C0 15.511 4.489 20 10 20C15.511 20 20 15.511 20 10C20 4.489 15.511 0 10 0ZM10 2C14.4301 2 18 5.56988 18 10C18 14.4301 14.4301 18 10 18C5.56988 18 2 14.4301 2 10C2 5.56988 5.56988 2 10 2ZM9 4V10.4141L13.293 14.707L14.707 13.293L11 9.58594V4H9Z' fill='%2301A2DD'/%3E%3C/svg%3E");
+            }
+          }
+        }
+        .corporate-store-contact-info {
+          display: inline-block;
+          vertical-align: top;
+          max-width: 300px;
+          width: -webkit-calc(100% - 76px);
+          width: calc(100% - 76px);
+          padding-left: 30px;
+          font-size: $size-smaller;
+          line-height: 1.65;
+          strong {
+            display: block;
+            font-weight: $bold;
+          }
+          span {
+            display: block;
+            color: #838486;
+          }
+          @media all and (max-width: 767px) {
+            padding-left: 20px;
+          }
+        }
+
+
+      .people-list-title {
+        display: block;
+        margin-bottom: 22px;
+        font-size: $size-smaller;
+        font-weight: $bold;
+      }
+      .people-list {
+        > li {
+          &:not(:last-child) {
+            margin-bottom: 21px;
+          }
+        }
+        .people-box {
+
+        }
+        .people-photo-box {
+          position: relative;
+          display: inline-block;
+          vertical-align: middle;
+          width: 70px;
+          .centered-img {
+            padding-bottom: 100%;
+          }
+        }
+        .people-info-box {
+          display: inline-block;
+          vertical-align: middle;
+          width: -webkit-calc(100% - 76px);
+          width: calc(100% - 76px);
+          padding-left: 30px;
+          font-size: $size-smaller;
+          color: $black;
+          a {
+            color: #01A2DD;
+          }
+        }
+        .people-name {}
+      }

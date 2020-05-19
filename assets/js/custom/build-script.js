@@ -94,8 +94,8 @@ jQuery(document).ready(function($) {
         if ($('.customizer-form input').length) {
 
             var productInput = $('.customizer-form input[name="model_id"]'),
-                productPrice = productInput.data('modelPrice'),
-                productWeight = productInput.data('modelWeight'),
+                productPrice = parseInt(productInput.data('modelPrice')),
+                productWeight = parseInt(productInput.data('modelWeight')),
                 totalPriceBox = $('.total-camper-box .price, .total-price-box .price.value, .total .price.value, .subtotal .price.value'),
                 totalWeightBox = $('.total-camper-box .weight, .total-price-box .weight.value, .subtotal .weight.value'),
                 totalPriceInput = $('.customizer-form input[name="total-price"]'),
@@ -119,7 +119,11 @@ jQuery(document).ready(function($) {
                 }
 
                 $('.customizer-form input[data-option]').each(function () {
-                    var input = $(this);
+                    var input = $(this),
+                        thisID = input.attr('id'),
+                        thisParentGroup = input.data('optionParentGroup'),
+                        thisGroup = $(this).data('optionGroup'),
+                        thisName = input.data('optionName');
 
                     if (input.prop('checked') == true && input.data('standard') != 'standard') {
                         price += parseInt(input.data('price'));
@@ -132,18 +136,14 @@ jQuery(document).ready(function($) {
                     }
 
                     if (input.prop('checked') == true) {
-                        var thisID = $(this).attr('id'),
-                            thisParentGroup = input.data('optionParentGroup'),
-                            thisGroup = $(this).data('optionGroup'),
-                            thisName = input.data('optionName');
-
                         $('[data-option-parent-resume-group="' + thisParentGroup + '"]').show(0);
-                        $('[data-option-resume-group="' + thisGroup + '"]').show(0).find('tr').hide(0);
+                        $('[data-option-resume-group="' + thisGroup + '"]').show(0);
                         $('[data-option-id="' + thisID + '"]').show(0);
 
                         optionsString += ' – ' + thisName + '\n';
                         input.data('checked', 'selected');
                     } else {
+                        $('[data-option-id="' + thisID + '"]').hide(0);
                         input.data('checked', 'unselect');
                     }
                 });
@@ -183,19 +183,21 @@ jQuery(document).ready(function($) {
 
             $(window).on('load', function () {
                 $('.customizer-form input[data-option]').each(function () {
-                    var input = $(this);
-                    if (input.prop('checked') == true) {
-                        var thisID = input.attr('id'),
-                            thisParentGroup = input.data('optionParentGroup'),
-                            thisGroup = input.data('optionGroup'),
-                            thisName = input.data('optionName');
+                    var input = $(this),
+                        thisID = input.attr('id'),
+                        thisParentGroup = input.data('optionParentGroup'),
+                        thisGroup = input.data('optionGroup'),
+                        thisName = input.data('optionName');
 
+                    if (input.prop('checked') == true) {
                         $('[data-option-parent-resume-group="' + thisParentGroup + '"]').show(0);
-                        $('[data-option-resume-group="' + thisGroup + '"]').show(0).find('tr').hide(0);
+                        $('[data-option-resume-group="' + thisGroup + '"]').show(0);
                         $('[data-option-id="' + thisID + '"]').show(0);
 
                         input.attr('data-checked', 'selected');
                     } else {
+                        $('[data-option-id="' + thisID + '"]').hide(0);
+
                         input.attr('data-checked', 'unselect');
                     }
                 });
@@ -259,7 +261,6 @@ jQuery(document).ready(function($) {
                     optionsInput.val(optionsString);
 
                 }
-                ;
             });
         }
     });

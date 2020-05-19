@@ -126,8 +126,6 @@
           font-weight: $normal;
           color: $color-text11;
           line-height: 1.2;
-          white-space: nowrap;
-          text-overflow: ellipsis;
           @media all and (max-width: 1024px) {
             font-size: 22px;
           }
@@ -135,3 +133,21 @@
             font-size: 20px;
           }
         }
+
+// video embed
+.wp-block-embed-vimeo {
+  margin: 0;
+}
+.wp-block-embed__wrapper {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 60%;
+  width: 100%;
+  margin: 0;
+}
+.wp-block-embed__wrapper iframe {
+  height: 100% !important;
+  position: absolute;
+  top: 0; left: 0;
+width: 100% !important;
+}

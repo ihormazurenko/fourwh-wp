@@ -2,24 +2,29 @@
 // loading styles and scripts
 function load_style_script(){
     wp_enqueue_style('fonts', '//fonts.googleapis.com/css?family=Roboto:100,300,400,500', array(), null);
-    wp_enqueue_style('font-awesome-5', '//use.fontawesome.com/releases/v5.5.0/css/all.css', array(), '5.5.0');
-    wp_enqueue_style('swiper', '//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css', array(), '4.4.2');
 //    wp_enqueue_style('jquery-cover', get_template_directory_uri() . '/assets/js/jquery.cover/jquery.cover.css', array(), '1.4.3' );
-    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/screen.css', array(), '1.4.3' );
+    wp_enqueue_style('font-awesome-5', get_template_directory_uri() . '/assets/css/all.css', array(), '5.5.0');
+    wp_enqueue_style('swiper', get_template_directory_uri() . '/assets/css/swiper.min.css', array(), '4.4.2');
+    wp_enqueue_style('styles', get_template_directory_uri() . '/assets/css/screen.css', array(), '1.4.12' );
+    wp_enqueue_style('owl.carousel.min', get_template_directory_uri() . '/assets/css/owl.carousel.min.css', array(), '2.3.4' );
+    wp_enqueue_style('owl.theme.default.min', get_template_directory_uri() . '/assets/css/owl.theme.default.min.css', array(), '2.3.4' );
     wp_enqueue_style('style', get_stylesheet_uri(), array(), null );
 
 //    wp_enqueue_script('modernizr.min', '//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js', array(), '2.8.3', false );
-    wp_enqueue_script('imagesloaded.pkgd.min', '//unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js', array(), '4.1.4', true );
+    wp_enqueue_script('imagesloaded.pkgd.min', '//unpkg.com/imagesloaded@4.1.4/imagesloaded.pkgd.min.js', array(), null, true );
 //    wp_enqueue_script('jquery-cover', get_template_directory_uri() . '/assets/js/jquery.cover/jquery.cover.js', array(), '2.2.1', true );
     wp_enqueue_script('swiper.min', '//cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js', array(), '4.4.2', true );
     wp_enqueue_script('smooth-scroll.polyfills.min', '//cdnjs.cloudflare.com/ajax/libs/smooth-scroll/15.1.0/smooth-scroll.polyfills.min.js', array(), '15.1.0', true );
     wp_enqueue_script('jquery.nicescroll.min', '//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js', array(), '3.7.6', true );
-    wp_enqueue_script('tippy.all.min', '//unpkg.com/tippy.js@3/dist/tippy.all.min.js', array(), '3.3.0', true );
+    wp_enqueue_script('tippy.all.min', '//unpkg.com/tippy.js@3.4.1/dist/tippy.all.min.js', array(), null, true );
     wp_enqueue_script('magnific', get_template_directory_uri() . '/assets/js/magnific.js', array(), '1.1.0', true );
     wp_enqueue_script('readmore_js', get_template_directory_uri() . '/assets/js/readmore.min.js', array(), '2.2.1', true );
+    wp_enqueue_script('owl.carousel.min', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', array(), '2.3.4', true );
+    wp_enqueue_script('vimeo-player', '//player.vimeo.com/api/player.js', array(), null, true );
 
-    
-    
+    if (is_page(1029)) {
+        wp_enqueue_script('isotope.min', '//unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), null, true );
+    }
 
     wp_enqueue_script('scripts', get_template_directory_uri() . '/assets/js/custom/scripts.js', array('jquery'), null, true );
 //    wp_enqueue_script('map', get_template_directory_uri() . '/assets/js/custom/map.js', array('jquery'), null, true );
@@ -27,7 +32,7 @@ function load_style_script(){
 //    if ( is_singular('model') && get_query_var('fpage') == 'build' ) {
     if ( is_singular('model')) {
         wp_enqueue_script('customizer', get_template_directory_uri() . '/assets/js/custom/build-script.js', array('jquery'), null, true );
-        wp_enqueue_script('vimeo-player', '//player.vimeo.com/api/player.js' );
+//        wp_enqueue_script('vimeo-player', '//player.vimeo.com/api/player.js' );
         wp_enqueue_script('custom-ajax', get_template_directory_uri() . '/assets/js/custom/ajax.js' );
     }
     if ( is_page(391) ) {
@@ -301,11 +306,11 @@ function funcDate($start, $end, $format = 'full') {
 
         $dash = ' – ';
 
-        date_default_timezone_set(get_option('timezone_string'));
+        //date_default_timezone_set(get_option('timezone_string'));
         $start = strtotime($start);
         $end = strtotime($end);
         $currentTime = strtotime(date('Y-m-d H:i:s'));
-        $timezone_str = ' ' . date('T');
+        $timezone_str = ' ' . wp_date('T');
 
         $wrong_text = is_user_logged_in() ? '<span class="warning">' . __('Something wrong, please check event dates "end date less than the start date of the event" !!!', 'fc_details') . '</span>' : '';
         $over_text = __('Event is over – ', 'fc_details');
@@ -338,7 +343,7 @@ function funcDate($start, $end, $format = 'full') {
             $convertDate .= '<li><span> <i class="far fa-calendar-alt"></i>' . $separator . $month2 . $day2 . $year2 . ' @ '.  $hours2 . $timezone_str . '</span></li>';
         }
 
-        
+
         if ($start !== $end && $start < $end) {
             if ($currentTime >= $end) {
                 //finished event
@@ -442,7 +447,7 @@ get_template_part('func/ajax');
 // ACF Google Maps
 global $fwc_google_map_key;
 
-$fwc_google_map_key = "AIzaSyDKgILIY7uNqZXPqoJqFopqATvOMOuTvFs";
+$fwc_google_map_key = "AIzaSyARQ_9Hfages8_3jr4lZdLAIhO_i5Ednxk";
 function my_acf_init() {
     global $fwc_google_map_key;
     acf_update_setting('google_api_key', $fwc_google_map_key);
@@ -477,3 +482,6 @@ get_template_part('func/woocommerce', 'support');
 
 // Woocommerce Functions
 get_template_part('func/woocommerce', 'functions');
+
+
+add_image_size( 'front-section-thumb', 403, 242, array( 'center', 'center' ) );

@@ -4,9 +4,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  padding-top: 11px;
-  padding-bottom: 11px;
-  min-height: 132px;
+  min-height: 166px;
+  padding-top: 28px;
+  padding-bottom: 28px;
   text-align: right;
   opacity: 0;
   @include transition($transition-other);
@@ -17,21 +17,28 @@
   }
   .white-header-bg & {
     background-color: $white;
+    padding-top: 6px;
+    padding-bottom: 15px;
+    min-height: 0px;
   }
   .container {
     position: relative;
-    .home & {
-      max-width: 1832px;
-      @media all and (max-width: 1440px) {
-        max-width: 1210px;
-      }
+    max-width: $wide-container;
+    //.home & {
+    //  max-width: $wide-container;
+    //  @media all and (max-width: 1440px) {
+    //    max-width: 1210px;
+    //  }
+    //}
+    @media all and (max-width: 1440px) {
+      max-width: 1210px;
     }
   }
-  .home & {
-    min-height: 166px;
-    padding-top: 28px;
-    padding-bottom: 28px;
-  }
+  //.home & {
+  //  min-height: 166px;
+  //  padding-top: 28px;
+  //  padding-bottom: 28px;
+  //}
   @media all and (max-width: 1200px) {
     min-height: 82px;
   }
@@ -44,7 +51,7 @@
 
 #header-main {
   z-index: 20;
-  .white-header-bg & {
+  .white-header-bg:not(.has-hero) & {
     @include box-shadow(0 5px 10px 0, rgba($black, .2));
   }
 }
@@ -67,7 +74,7 @@
   .direction-down & {
     top: -82px;
   }
-  .home.overflow.direction-down &,
+  //.home.overflow.direction-down &,
   .overflow.direction-down & {
     top: 0;
   }
@@ -117,6 +124,7 @@
 .logo {
   overflow: hidden;
   float: left;
+  margin-left: 10px;
   max-width: 315px;
   @include transition($transition-other);
   img {
@@ -125,31 +133,42 @@
   }
   #header-scrolling & {
     max-width: 158px;
+    margin-left: 0;
   }
-  .home & {
-    margin-left: 10px;
-    @media all and (max-width: 1440px) {
-     margin-left: 0;
-    }
+  .white-header-bg & {
+    max-width: 240px;
+  }
+  //.home & {
+  //  margin-left: 10px;
+  //  @media all and (max-width: 1440px) {
+  //    margin-left: 0;
+  //  }
+  //}
+  @media all and (max-width: 1440px) {
+    margin-left: 0;
   }
   @media all and (max-width: 1200px) {
     max-width: 158px;
+    .white-header-bg & {
+      max-width: 158px;
+    }
   }
   //@media all and (max-width: 1024px) {
   //  max-width: 158px;
   //}
 }
 
-.home #header-scrolling {
-  .logo {
-    margin-left: 0;
-  }
-}
+//.home #header-scrolling {
+//  .logo {
+//    margin-left: 0;
+//  }
+//}
 
 .mobile-menu-wrap,
 .mobile-menu-toggle {
   display: none;
 }
+
 .mobile-menu-wrap {
   position: fixed;
   z-index: 99999;
@@ -180,7 +199,6 @@
     }
   }
 }
-
 
 .mobile-menu-overlay {
   position: absolute;

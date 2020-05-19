@@ -4,6 +4,7 @@ global $wpdb;
 $page_id = get_the_ID();
 $enable_customizer = get_field('enable_customizer');
 
+
 if (!$enable_customizer)  :
     if ($_SERVER['HTTP_REFERER'] != null) {
         header("Location: ".$_SERVER['HTTP_REFERER']);
@@ -31,11 +32,12 @@ else :
     $table_name = 'fourwh_model_relationship';
     $model_relationship = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$wpdb->prefix.$table_name.' WHERE model_id = %d',$model_id),OBJECT);
 
-    $options_ids    = [];
-    $options_arr    = [];
-    $group_desc_arr = [];
-    $status_arr     = [];
-    $taxonomy       = 'groups';
+    $options_ids        = [];
+    $options_arr        = [];
+    $group_desc_arr     = [];
+    $status_arr         = [];
+    $standard_features  = [];
+    $taxonomy           = 'groups';
 
     foreach ($model_relationship as $key => $value) {
         if ($value->status != 'not_available' && $value->status != '' && $value->trash != 1) {
@@ -67,8 +69,6 @@ else :
                 $option_desc        = $meta->description ? $meta->description : '';
                 $option_status      = $status_arr[$option_id];
                 $option_group       = get_the_terms($option_id, 'groups');
-
-
 
                 if ( strtolower($option_group[0]->name) === strtolower('Cushion Fabric Colors') || strtolower($option_group[0]->name) === strtolower('Exterior Siding') ) {
                     $option_thumb_id    = $meta->thumbnail ? $meta->thumbnail : '';
@@ -278,6 +278,29 @@ else :
                 endif;
             endif;
 
+
+            if ($options_arr && is_array($options_arr) && count($options_arr) > 0) {
+                foreach ($options_arr as $parent_group => $groups ) {
+                    if( $groups && is_array( $groups ) && count( $groups ) > 0 ) {
+                        foreach ($groups as $group => $items) {
+                            if( $items && is_array( $items ) && count( $items ) > 0 ) {
+                                foreach ($items as $key => $value) {
+                                    if( $value && is_array( $value ) && count( $value ) > 0 ) {
+                                        $status = trim($value['status']) ? $value['status'] : '';
+
+                                        if ($status == 'standard') {
+                                            $name = trim($value['name']) ? $value['name'] : '';
+                                            $standard_features[] = $name;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
             //group Cushion Fabric Colors
             $options_fabric_arr = $options_arr['Interior Options']['Cushion Fabric Colors'];
 
@@ -373,7 +396,7 @@ else :
                                     $element_id = preg_replace('/(-)\1+/','-', $element_id );
                                     ?>
                                 <li>
-                                    <a href="#<?php echo $element_id; ?>" title="<?php echo esc_attr( ucwords($parent_group) ); ?>"><?php echo ucwords($parent_group); ?></a>
+                                    <a href="#pg-<?php echo $element_id; ?>" title="<?php echo esc_attr( ucwords($parent_group) ); ?>"><?php echo ucwords($parent_group); ?></a>
                                 </li>
                             <?php endforeach; ?>
                             <li>
@@ -397,6 +420,25 @@ else :
             <div class="camper-customizer-box">
                 <div class="container">
 
+                        <div class="standard-feature-box">
+                            <div class="group-header">
+                                <h2 class="section-title small"><?php _e('Standard Features','fw_campers') ?></h2>
+                                <div class="section-desc content small"><?php _e('(included in base model pricing)','fw_campers') ?></div>
+                                <?php if ($standard_features && is_array($standard_features) && count($standard_features) > 0) { ?>
+                                    <ul class="standard-features-list">
+                                        <?php
+
+                                            foreach ($standard_features as $value) :
+                                                if ($value) {
+                                                    echo '<li>'.$value.'</li>';
+                                                }
+                                            endforeach;
+                                        ?>
+                                    </ul>
+                                <?php } ?>
+                            </div>
+                        </div>
+
                     <form action="" class="customizer-form">
 
                         <div class="no-display">
@@ -410,7 +452,7 @@ else :
                                 $parent_id         = preg_replace('/(-)\1+/','-', $parent_id );
                                 $parent_group_desc = $group_desc_arr[$parent_group]['desc'];
                                 ?>
-                                <div class="group-parent-box" id="<?php echo $parent_id; ?>">
+                                <div class="group-parent-box" id="pg-<?php echo $parent_id; ?>">
                                     <div class="group-header">
                                         <h2 class="section-title small line"><?php echo ucwords($parent_group); ?></h2>
                                         <?php if ($parent_group_desc) : ?>
@@ -598,8 +640,19 @@ else :
                                                                         $item_desc              = $value['desc'];
                                                                         $item_status            = $value['status'];
                                                                         $item_standard          = ($item_status == 'standard') ? 'checked data-standard="standard"' : '';
+                                                                        $item_box_classes       = '';
+
+                                                                        if ( !$item_thumbnail ) {
+                                                                            $item_box_classes .= ' without-image';
+                                                                        }
+                                                                        if ( !$item_desc ) {
+                                                                            $item_box_classes .= ' without-desc';
+                                                                        }
+                                                                        if ( !$item_price && !$item_weight ) {
+                                                                            $item_box_classes .= ' without-price-weight-box';
+                                                                        }
                                                                     ?>
-                                                                    <div class="item-box <?php if ( !$item_thumbnail ) { echo 'without-image'; } ?>">
+                                                                    <div class="item-box <?php echo $item_box_classes; ?>">
                                                                         <?php if ( $item_thumbnail ) { ?>
                                                                             <a class="icon-zoom"
                                                                                href="<?php echo esc_url($item_full_photo); ?>"

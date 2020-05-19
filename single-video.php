@@ -20,7 +20,7 @@ $referrer           = '';
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/<?php print $video_id; ?>?&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                 <?php else:  ?>
-                
+
                 <iframe src="https://player.vimeo.com/video/<?php print $video_id; ?>?autoplay=1&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" allow="autoplay" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
                 <?php endif; ?>
@@ -39,25 +39,25 @@ $referrer           = '';
             <div class="categories">
                 <ul>
                     <li>
-                    <?php 
+                    <?php
                         //check if referrer was from the current site and show back button if so.
-                        
+
                         if(isset($_SERVER['HTTP_REFERER'])) :
                             $referrer = $_SERVER['HTTP_REFERER'];
                         endif;
 
                         //check if the site domain is in the referrer url and was not a page refresh
                         if (strpos($referrer, $site_url) !== false && $referrer != $current_url) : ?>
-                            
+
                             <a class="btn blue small" href="<?php print $_SERVER['HTTP_REFERER']; ?>"><i class="fas fa-arrow-left"></i> Return to videos</a></li>
 
-                        <?php    
+                        <?php
                         else : ?>
                             <a class="btn blue small" href="<?php print $site_url; ?>/videos/"><i class="fas fa-arrow-left"></i> Return to videos</a></li>
 
-                        <?php    
+                        <?php
                         endif; ?>
-                    
+
                 </ul>
             </div>
 

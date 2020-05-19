@@ -1,7 +1,7 @@
 <?php
 get_header();
 
-date_default_timezone_set( get_option('timezone_string') );
+//date_default_timezone_set( get_option('timezone_string') );
 $currentTime = date('Y-m-d H:i:s');
 
 $event_page_id = 339;
@@ -65,8 +65,8 @@ $event_page_id = 339;
                             'type'    => 'DATE'
                         ),
                         'future_event' => array(
-                                'key'  => 'dates_start_U',
-                            )
+                            'key'  => 'dates_start_U',
+                        )
                     ),
                     'orderby' => 'future_event',
                     'order'   => 'ASC',

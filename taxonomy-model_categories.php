@@ -195,10 +195,11 @@ $model_term = get_queried_object();
             $new_query = new WP_Query( $args );
 
             if ($new_query->have_posts()) {
-                echo '<ul class="products-list">';
+                echo '<ul class="models-list">';
                 while ( $new_query->have_posts() ) : $new_query->the_post();
 
-                    get_template_part('inc/loop', 'model-subcategory');
+                    get_template_part('inc/loop', 'model');
+                    //get_template_part('inc/loop', 'model-subcategory');
 
                 endwhile;
                 echo "</ul>";

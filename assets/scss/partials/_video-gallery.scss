@@ -119,3 +119,18 @@
 					color: $color-text11;
 					@include transition($transition-other);
 				}
+
+
+.section-gallery .itemlink_gallery .image {
+	&:not(:last-child) {
+		margin-bottom: 15px;
+		@media all and (max-width: 767px) {
+			margin-bottom: 10px;
+		}
+	}
+	img {
+		display: block;
+		margin: 0 auto;
+		border-radius: 4px;
+	}
+}

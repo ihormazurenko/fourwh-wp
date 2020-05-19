@@ -53,17 +53,20 @@ if (is_tax('model_categories')) {
     if ($show_section_info) {
         if ($section_info && is_array($section_info) && count($section_info) > 0) {
             $section_description = $section_info['description'];
+
             if (is_post_type_archive('model') || is_tax('model_sizes') || is_tax('model_categories') && !strpos(get_queried_object()->slug, 'flat-bed')) {
                 $section_title = get_the_archive_title();
             } else {
                 $section_title = $section_info['title'];
             }
 
+            $section_description_class = (!$section_title && $section_description && is_singular('my_life')) ? 'line' : '';
+
             if ($section_title)
                 echo '<h1 class="section-title smaller line">' . $section_title . '</h1>';
 
             if ($section_description)
-                echo '<div class="section-desc content">' . $section_description . '</div>';
+                echo '<div class="section-desc content '.$section_description_class.'">' . $section_description . '</div>';
         }
     }
 }

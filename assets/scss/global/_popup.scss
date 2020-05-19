@@ -1,0 +1,57 @@
+.popup-background {
+	background-size: cover;
+	position: relative;
+}
+.popup-background:before {
+	content: "";
+	position: absolute;
+	z-index: 0;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,545454+94&1+0,0+99 */
+background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(84,84,84,0.05) 94%, rgba(84,84,84,0) 99%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(84,84,84,0.05) 94%,rgba(84,84,84,0) 99%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(84,84,84,0.05) 94%,rgba(84,84,84,0) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#00545454',GradientType=0 ); /* IE6-9 */
+
+}
+.popup-newsletter-inner {
+	padding: 65px !important;
+	
+	height: 400px; 
+	position: relative; 
+	max-width: 100%;
+}
+.popup-newsletter-inner h4 {
+	color: white;
+	font-size: 22px;
+	font-weight: bold;
+}
+.popup-newsletter-inner p {
+	color: white;
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+.popup-newsletter-inner .email-wrap:after {
+	left: 28px;
+}
+.popup-newsletter-inner .mc4wp-success {
+	font-weight: bold;
+}
+@media screen and (min-width: 768px) {
+	.popup-newsletter-inner {
+		// width: 790px; 
+		width: 60%;
+	}
+	.popup-newsletter-inner .subscribe-list > li.email-wrap {
+		width: 100%;
+	}
+	.popup-background {
+		width: 790px; 
+	}
+	.popup-background .btn-wrap {
+		margin-top: 25px;
+	}
+}

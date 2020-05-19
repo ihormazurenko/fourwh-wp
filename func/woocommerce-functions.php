@@ -35,6 +35,7 @@ add_action('woocommerce_after_main_content', 'fwc_wrapper_end', 10);
 function fwc_wrapper_start() {
     $single_product_class = is_singular('product') ? 'single-product' : '';
     echo '<section class="section section-shop content-wrapper '.$single_product_class.'"><div class="container">';
+//    echo '<i class="fas fa-th-large toggle-woo-category"></i>';
 }
 
 function fwc_wrapper_end() {
@@ -82,7 +83,7 @@ function woo_new_product_tab( $tabs ) {
 
     // Adds the new tab
     $tabs['test_tab'] = array(
-        'title' 	=> __( 'Short Description', 'woocommerce' ),
+        'title' 	=> __( 'Description', 'woocommerce' ),
         'priority' 	=> 5,
         'callback' 	=> 'woo_short_product_tab_content'
     );
@@ -178,9 +179,13 @@ function woo_cart_but_count( $fragments ) {
 
 //Add WooCommerce Cart Menu Item Shortcode to particular menu
 add_filter( 'wp_nav_menu_main-menu_items', 'woo_cart_but_icon', 10, 2 ); // Change menu to suit - example uses 'top-menu'
-
 function woo_cart_but_icon ( $items, $args ) {
     $items .=  do_shortcode('[woo_cart_but]'); // Adding the created Icon via the shortcode already created
 
     return $items;
 }
+
+function woo_show_info_func() {
+    echo '<p class="woo-order-processing-info">'.__('Please allow 5-7 days for order processing.','fw_campers').'</p>';
+};
+add_action( 'woocommerce_single_product_summary', 'woo_show_info_func', 30 );

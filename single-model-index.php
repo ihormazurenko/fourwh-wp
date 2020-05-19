@@ -34,8 +34,10 @@ $download                       = get_field('download_parent_data') ? get_field(
 $show_subscribe_section         = get_field('show_subscribe_section', 'option');
 $subscribe                      = get_field('subscribe', 'option');
 
-$show_info_box_1                = get_field('show_info_box_1', 'option');
-$info_box_1                     = get_field('info_box_1', 'option');
+// $show_info_box_1                = get_field('show_info_box_1', 'option');
+$show_info_box_1                = "";
+$info_box_1                     = "";
+// $info_box_1                     = get_field('info_box_1', 'option');
 
 $show_info_box_2                = get_field('show_info_box_2', 'option');
 $info_box_2                     = get_field('info_box_2', 'option');
@@ -183,32 +185,32 @@ wp_reset_postdata();
             <div class="container">
                 <nav class="anchor-nav">
                     <ul>
-                        <?php if ( $floorplans ) { ?>
+                        <?php if ( $show_section_floorplans ) { ?>
                             <li>
-                                <a href="#floorplans" title="<?php esc_attr_e('Floorplans', 'fw_campers') ?>"><?php _e('Floorplans', 'fw_campers'); ?></a>
+                                <a href="#floorplans" title="<?php esc_attr_e('Floorplans', 'fw_campers') ?>"><?php print($floorplans['title']) ? $floorplans['title'] : _e('Floorplans', 'fw_campers'); ?></a>
                             </li>
                         <?php } ?>
-                        <?php if ( $virtual_tour ) { ?>
+                        <?php if ( $show_section_virtual_tour ) { ?>
                             <li>
                                 <a href="#virtual-tour" title="<?php esc_attr_e('Virtual Tour', 'fw_campers') ?>"><?php _e('Virtual Tour', 'fw_campers'); ?></a>
                             </li>
                         <?php } ?>
-                        <?php if ( $specifications ) {?>
+                        <?php if ( $show_section_specifications ) {?>
                             <li>
                                 <a href="#specifications" title="<?php esc_attr_e('Specifications', 'fw_campers') ?>"><?php _e('Specifications', 'fw_campers'); ?></a>
                             </li>
                         <?php } ?>
-                        <?php if ( $fabric_selection ) {?>
+                        <?php if ( $show_section_fabric_selection ) {?>
                             <li>
                                 <a href="#fabric-selection" title="<?php esc_attr_e('Fabric Selection', 'fw_campers') ?>"><?php _e('Fabric Selection', 'fw_campers'); ?></a>
                             </li>
                         <?php } ?>
-                        <?php if ( $siding ) {?>
+                        <?php if ( $show_section_siding ) {?>
                             <li>
                                 <a href="#siding" title="<?php esc_attr_e('Siding', 'fw_campers') ?>"><?php _e('Siding', 'fw_campers'); ?></a>
                             </li>
                         <?php } ?>
-                        <?php if ( $key_benefits ) {?>
+                        <?php if ( $show_section_key_benefits ) {?>
                             <li>
                                 <a href="#key-benefits" title="<?php esc_attr_e('Key Benefits', 'fw_campers') ?>"><?php _e('Key Benefits', 'fw_campers'); ?></a>
                             </li>
@@ -262,9 +264,11 @@ wp_reset_postdata();
                                             $build_price_url = get_permalink() . $build_url;
                                         }
                                     ?>
+                                <?php if($enable_customizer) { ?>
                                 <li>
                                     <a href="<?php echo $build_price_url; ?>" class="btn blue" title="<?php esc_attr_e('Build &amp; Price', 'fw_campers') ?>"><?php _e('Build &amp; Price', 'fw_campers'); ?></a>
                                 </li>
+                                <?php } ?>
                             </ul>
                         </li>
                     </ul>
@@ -296,26 +300,66 @@ wp_reset_postdata();
                             if ( $floorplans_slider && is_array( $floorplans_slider ) && count( $floorplans_slider ) > 0 ) {
                                 ?>
                                 <div class="slider-plan">
+                                    <div class="plan-thumbs-wrap" <?php print (count($floorplans_slider) > 1) ? '' : 'style="display: none;"' ?>>
+                                        <div class="swiper-container gallery-thumbs">
+                                            <div class="swiper-wrapper">
+                                                <?php
+                                                foreach ( $floorplans_slider as $slide ) {
+                                                    $main_slide = $slide['main_slide'];
+                                                    if ($main_slide && is_array($main_slide) && count($main_slide) > 0) {
+                                                        $slide_url = $main_slide['image']['sizes']['medium'] ? $main_slide['image']['sizes']['medium'] : $main_slide['image']['url'];
+                                                        $slide_alt = $main_slide['short_title'] ? $main_slide['short_title'] :  $main_slide['image']['title'];
+                                                        $slide_title = trim($main_slide['short_title']) ? $main_slide['short_title'] : '';
+                                                        $slide_price = trim($main_slide['price']) ? '<span>'.$main_slide['price'].'</span>' : '';
+                                                        $slide_class = $main_slide['image']['sizes']['medium-width'] > $main_slide['image']['sizes']['medium-height'] ? 'wider' : '' ;
+                                                        ?>
+                                                        <div class="swiper-slide">
+                                                            <div class="slide-img-wrap <?php echo $slide_class; ?>">
+                                                                <img src="<?php echo esc_url( $slide_url ); ?>" alt="<?php echo esc_attr( $slide_alt );?>">
+                                                            </div>
+                                                            <?php if ( $slide_title ) { ?>
+                                                                <div class="slide-title-box">
+                                                                    <h3 class="slide-title"><?php echo $slide_title . $slide_price; ?></h3>
+                                                                </div>
+                                                            <?php } ?>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <!-- Add Arrows -->
+                                        <div class="swiper-button-next swiper-button-black"></div>
+                                        <div class="swiper-button-prev swiper-button-black"></div>
+                                    </div>
+
                                     <!-- Swiper -->
                                     <div class="swiper-container gallery-top">
+                                        <button class="swiper-inner-nav-btn inner-next" data-inner-next title="<?php _e('Next','fw_campers'); ?>"></button>
+                                        <button class="swiper-inner-nav-btn inner-prev" data-inner-prev title="<?php _e('Prev','fw_campers'); ?>"></button>
                                         <div class="swiper-wrapper">
                                             <?php
                                                 foreach ( $floorplans_slider as $slide ) {
                                                     $slide_inner_images = $slide['inner_images'];
+                                                    $main_slide = $slide['main_slide'];
+                                                    $main_slide_price = trim($main_slide['price']) ? ' '.$main_slide['price'] : '';
                                                     ?>
                                                     <div class="swiper-slide">
                                                         <?php
                                                             if ($slide_inner_images && is_array($slide_inner_images) && count($slide_inner_images) > 0 ) {
+                                                                echo '<div class="slide_label">'.$main_slide['short_title'].$main_slide_price.'</div>';
                                                                 ?>
                                                                 <div class="swiper-main-img-box">
                                                                     <?php
                                                                         $slide_inner_count = 0;
                                                                         foreach ($slide_inner_images as $image) {
                                                                             $slide_inner_count++;
-//                                                                            $image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
-//                                                                            $image_title        = $image['title'] ? $image['title'] : '';
+                                                                            //$image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
+                                                                            //$image_title        = $image['title'] ? $image['title'] : '';
+                                                                             
                                                                             if ($slide_inner_count == 1) {
-                                                                                echo wp_get_attachment_image( $image['ID'], 'max-width-2800');
+                                                                                echo wp_get_attachment_image( $image['ID'], 'max-width-2800', false, array('class' => 'plan-slide-img'));
                                                                                 /*
                                                                                 ?>
                                                                                 <img src="<?php echo esc_url($image_url); ?>"
@@ -329,12 +373,17 @@ wp_reset_postdata();
                                                                 </div>
                                                                 <div class="swiper-inner-images-box">
                                                                     <?php
-                                                                    foreach ($slide_inner_images as $image) {
+                                                                    $inner_slide_count = count($slide_inner_images);
+                                                                    foreach ($slide_inner_images as $key => $image) {
+                                                                        $image_class        = ($key == 0) ? 'active plan-slide-img' : 'plan-slide-img';
                                                                         $image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                                         $image_title        = $image['title'] ? $image['title'] : '';
                                                                         $image_thumb_url    = $image['sizes']['medium'] ? $image['sizes']['medium'] : $image['sizes']['medium_large'];
 
-                                                                        echo wp_get_attachment_image( $image['ID'], 'medium', false, array('data-floorplan-id' => $image['ID'] ));
+                                                                        if($inner_slide_count > 1) { //if more than one inner slide image
+
+                                                                        echo wp_get_attachment_image( $image['ID'], 'medium', false, array('data-floorplan-id' => $image['ID'], 'class' => $image_class));
+                                                                        }
                                                                         /*
                                                                         ?>
                                                                             <img src="<?php echo esc_url( $image_thumb_url ); ?>" alt="<?php echo esc_attr( $image_title );?>" data-plan-url="<?php echo esc_url($image_url); ?>">
@@ -342,6 +391,16 @@ wp_reset_postdata();
                                                                         */
                                                                     }
                                                                     ?>
+                                                                    <?php 
+                                                                    if($main_slide['3d_tour_link']) {
+                                                                        print '<a class="virtual_tour" href="'.$main_slide['3d_tour_link'].'"><img src="'.get_template_directory_uri().'/img/360-virtual-tour-thumb.png" alt="3d virtual tour"></a>';
+                                                                        
+                                                                    }
+                                                                    
+
+                                                                    ?>
+
+                                                                    
                                                                 </div>
                                                                 <?php
                                                             }
@@ -349,39 +408,6 @@ wp_reset_postdata();
                                                     </div>
                                             <?php } ?>
                                         </div>
-                                    </div>
-                                    
-                                    <div class="plan-thumbs-wrap" <?php print (count($floorplans_slider) > 1) ? '' : 'style="display: none;"' ?>>
-                                        <div class="swiper-container gallery-thumbs">
-                                            <div class="swiper-wrapper">
-                                                <?php
-                                                    foreach ( $floorplans_slider as $slide ) {
-                                                        $main_slide = $slide['main_slide'];
-                                                        if ($main_slide && is_array($main_slide) && count($main_slide) > 0) {
-                                                            $slide_url = $main_slide['image']['sizes']['medium'] ? $main_slide['image']['sizes']['medium'] : $main_slide['image']['url'];
-                                                            $slide_alt = $main_slide['short_title'] ? $main_slide['short_title'] :  $main_slide['image']['title'];
-                                                            $slide_title = $main_slide['short_title'];
-                                                            $slide_class = $main_slide['image']['sizes']['medium-width'] > $main_slide['image']['sizes']['medium-height'] ? 'wider' : '' ;
-                                                            ?>
-                                                            <div class="swiper-slide">
-                                                                <div class="slide-img-wrap <?php echo $slide_class; ?>">
-                                                                    <img src="<?php echo esc_url( $slide_url ); ?>" alt="<?php echo esc_attr( $slide_alt );?>">
-                                                                </div>
-                                                                <?php if ( $slide_title ) { ?>
-                                                                    <div class="slide-title-box">
-                                                                        <h3 class="slide-title"><?php echo $slide_title; ?></h3>
-                                                                    </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                            <?php
-                                                        }
-                                                    }
-                                                ?>
-                                            </div>
-                                        </div>
-                                        <!-- Add Arrows -->
-                                        <div class="swiper-button-next swiper-button-black"></div>
-                                        <div class="swiper-button-prev swiper-button-black"></div>
                                     </div>
                                     
                                 </div>
@@ -434,7 +460,7 @@ wp_reset_postdata();
                                                 echo '<div class="video-wrap-box">
                                                         <div class="video-wrap">';
                                                 if ($virtual_image_url) {
-                                                    echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '">';
+                                                    echo '<img src="' . $virtual_image_url . '" alt="' . esc_attr($virtual_tour_title) . '" class="lazyload">';
                                                 }
                                                 if ($virtual_url) {
                                                     echo '<iframe src="https://player.vimeo.com/video/' . getVideoId($virtual_url) . '?background=1" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
@@ -640,6 +666,7 @@ wp_reset_postdata();
             if ( $show_section_specifications && $specifications && is_array( $specifications ) && count( $specifications ) > 0 ) :
                 $specifications_title       = $specifications['title'];
                 $specifications_description = $specifications['description'];
+                $spec_table_style = get_field('spec_table_style');
 //                $specifications_img_url     = $specifications['image']['sizes']['medium_large'] ? $specifications['image']['sizes']['medium_large'] : $specifications['image']['url'];
 //                $specifications_img_alt     = $specifications_title ? $specifications_title :  $specifications['image']['title'];
 //                $specifications_accordion   = $specifications['accordion'];
@@ -665,7 +692,7 @@ wp_reset_postdata();
                                 }
 
                                 if ($specifications_list && is_array($specifications_list) && count($specifications_list) > 0 ) {
-                                    echo '<table class="specification-table">
+                                    echo '<table class="specification-table '.$spec_table_style.'">
                                             <tbody>';
                                         foreach ($specifications_list as $specification_item) {
                                             $specification_name = $specification_item['name'];
@@ -935,7 +962,7 @@ wp_reset_postdata();
                 $benefits_description = $key_benefits['description'];
                 $benefits_list        = $key_benefits['benefits_list'];
 
-                if ( $siding_title || $siding_description || $siding_slider ) :
+                if ( $benefits_title || $benefits_description || $benefits_list ) :
                 ?>
                     <div class="detail-box key-benefits" id="key-benefits">
                         <div class="container">
@@ -955,6 +982,7 @@ wp_reset_postdata();
                                          <?php foreach ( $benefits_list as $value ) { ?>
                                             <li>
                                                 <div class="benefits">
+                                                    <h4><?php echo $value['title']; ?></h4>
                                                     <?php echo $value['text']; ?>
                                                 </div>
                                             </li>
@@ -973,6 +1001,7 @@ wp_reset_postdata();
             <div class="detail-box" id="download">
                 <div class="container">
                     <div class="download-btn-list-box">
+                        <h2 class="section-title smaller"><?php print  get_field("download_section_title", $id); ?></h2>
                         <ul class="download-btn-list">
                             <?php foreach ( $download as $item ) {
                                 $download_download_type = $item['download_type'];
@@ -1069,6 +1098,9 @@ wp_reset_postdata();
                                                                 $link = get_term_link((int)$term_id[0], 'model_categories').'?type=build';
                                                             } else {
                                                                 $link = get_permalink() . $build_url;
+                                                                if($enable_customizer == 0) { 
+                                                                    $label = 'Not Available';
+                                                                }
                                                             }
 
                                                         } elseif ($link_type == 'modal') {
@@ -1109,6 +1141,7 @@ wp_reset_postdata();
         if ( $show_subscribe_section && $subscribe && is_array( $subscribe ) && count( $subscribe ) > 0) :
             $subscribe_title       = $subscribe['title'];
             $subscribe_description = $subscribe['description'];
+            $subscribe_form        = trim($subscribe['form']) ? $subscribe['form'] : '';
 
             if ( $siding_title || $siding_description ) :
                 ?>
@@ -1122,6 +1155,11 @@ wp_reset_postdata();
                         if ( $siding_description ) {
                             echo '<div class="section-desc content">' . $subscribe_description . '</div>';
                         }
+
+                        if ($subscribe_form) {
+                            echo '<div class="subscribe-form">'.do_shortcode($subscribe_form).'</div>';
+                        }
+                        /*
                             ?>
                             <form class="subscribe-form" method="post" action="http://oi.vresp.com?fid=0fccd530a0" target="vr_optin_popup" onsubmit="window.open( 'http://www.verticalresponse.com', 'vr_optin_popup', 'scrollbars=yes,width=600,height=450' ); return true;" >
                                 <ul class="subscribe-list">
@@ -1135,6 +1173,7 @@ wp_reset_postdata();
                             </form>
 
                             <?php
+                            */
                     ?>
                     </div>
                 </div>

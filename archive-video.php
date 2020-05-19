@@ -4,7 +4,7 @@
  */
 get_header();
 
-date_default_timezone_set( get_option('timezone_string') );
+//date_default_timezone_set( get_option('timezone_string') );
 $currentTime = date('Y-m-d H:i:s');
 
 $video_page_id = is_page() ? get_the_ID() : 1020;
@@ -32,13 +32,17 @@ $video_page_id = is_page() ? get_the_ID() : 1020;
                             <li>
                                 <a class="btn blue small active" href="<?php echo get_permalink($video_page_id); ?>" title="<?php esc_attr_e('All', 'fw_campers'); ?>"><?php _e('All', 'fw_campers'); ?></a>
                             </li>
-                            <?php foreach ($categories as $term) { ?>
+                            <?php foreach ($categories as $term) {
+                                if ( $term->slug == 'gallery') continue;
+                            ?>
                                 <li>
                                     <a class="btn blue small inverse" href="<?php echo get_term_link((int)$term->term_id, $taxonomy); ?>" title="<?php echo esc_attr( $term->name ); ?>"><?php echo $term->name; ?></a>
                                 </li>
                             <?php } ?>
+                            
                         </ul>
                     </div>
+
                     <?php
                 }
 
@@ -51,10 +55,21 @@ $video_page_id = is_page() ? get_the_ID() : 1020;
                     'post_type'        => 'video',
                     'post_status'      => 'publish',
                     'paged'            => $paged,
-                    'orderby' => 'post_date',
-                    'order'   => 'DESC',
+                    'orderby'          => 'date',
+                    'order'            => 'DESC',
                 );
 
+
+                $args['tax_query'][] = array(
+                    array(
+                        'taxonomy' => $taxonomy,
+                        'field'    => 'slug',
+                        'terms'    => array('gallery'),
+                        'operator' => 'NOT IN'
+                    )
+                );
+
+                
                 $new_query = new WP_Query( $args );
 
                 if ($new_query->have_posts()) {
@@ -64,6 +79,7 @@ $video_page_id = is_page() ? get_the_ID() : 1020;
                         get_template_part('inc/loop', 'video');
 
                     endwhile;
+                    
                     echo "</div>";
 
                     get_template_part('inc/pagination');

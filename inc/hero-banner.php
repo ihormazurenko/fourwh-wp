@@ -47,7 +47,16 @@ if (is_tax('model_categories')) {
         $hero_classes = 'vertical-line';
         $hero_content_classes = 'biggest';
     }
+
     if (is_singular('model')) {
+        $hero_title_classes = 'big';
+    }
+
+    if (is_singular('my_life')) {
+        $hero_title_classes = 'big';
+    }
+
+    if (is_page(1029)) {
         $hero_title_classes = 'big';
     }
 
@@ -61,6 +70,9 @@ if (is_tax('model_categories')) {
         }
 
         foreach ($hero_banner as $slide) {
+            $show_video_bg = $slide['show_video_bg'];
+            $video_bg_id = ($show_video_bg && trim($slide['video_bg'])) ? getVideoId(trim($slide['video_bg'])) : '';
+
             $hero_image = $slide['image'];
             if ($hero_image['sizes']['max-width-2800']) {
                 $hero_image_url = $hero_image['sizes']['max-width-2800'];
@@ -72,6 +84,7 @@ if (is_tax('model_categories')) {
 
             $hero_content_group = $slide['title_group'];
             $hero_button_group = $slide['show_button'] ? $slide['button'] : '';
+            $hero_button_class = 'btn blue';
             $hero_button = '';
 
             if ($hero_image_url || $hero_content_group || $hero_button) {
@@ -98,12 +111,15 @@ if (is_tax('model_categories')) {
                         $link = $hero_button_group['external_link'] ? $hero_button_group['external_link'] : '';
                     } elseif ($link_type == 'scrolling') {
                         $link = '#content';
+                    } elseif ($link_type == 'video') {
+                        $link = $hero_button_group['popup_video'] ? $hero_button_group['popup_video'] : '';
+                        $hero_button_class = 'youtube-video';
                     } else {
                         $link = '';
                     }
 
                     if (!empty($label) && !empty($link)) {
-                        $hero_button = '<a href="' . $link . '" class="btn blue" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
+                        $hero_button = '<a href="' . $link . '" class="'.$hero_button_class.'" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>';
                     }
                 }
 
@@ -125,6 +141,10 @@ if (is_tax('model_categories')) {
                 
                 echo wp_get_attachment_image( $hero_image['ID'], 'max-width-2800' );
 
+                if ($video_bg_id) {
+                    echo '<div id="vimeo-bg-frame_'.$video_bg_id.'"  class="videoWrapper" data-vid-id="'.$video_bg_id.'" ></div>';
+                }
+
                 echo '<div class="container">
                                 <div class="hero-box">';
                 if ($hero_title) {
@@ -139,6 +159,8 @@ if (is_tax('model_categories')) {
                 if ($hero_button) {
                     echo '<div class="hero-btn-box">' . $hero_button . '</div>';
                 }
+
+
                 echo '</div>
                             </div>
                         </div>';

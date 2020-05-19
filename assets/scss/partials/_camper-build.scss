@@ -354,7 +354,7 @@
             }
           }
           .section-desc {
-            max-width: 600px;
+            max-width: 650px;
             margin: -25px 0 50px;
             text-align: left;
           }
@@ -386,6 +386,41 @@
                 word-spacing: .025em;
                 &:after {
                   width: 60px;
+                }
+              }
+            }
+            .standard-feature-box {
+              margin-bottom: 120px;
+              .section-title {
+                margin-bottom: 0;
+              }
+              .section-desc {
+                margin-bottom: 40px;
+              }
+            }
+            .standard-features-list {
+              columns: 300px 3;
+              -webkit-columns: 300px 3;
+              -moz-columns: 300px 3;
+              > li {
+                overflow: hidden;
+                position: relative;
+                padding-left: 25px;
+                margin-bottom: 1px;
+                list-style-position: outside;
+                &:before {
+                  position: absolute;
+                  display: inline-block;
+                  top: 0;
+                  left: 4px;
+                  content: '';
+                  margin-top: 12px;
+                  margin-right: 12px;
+                  width: 4px;
+                  height: 4px;
+                  background-color: $light-blue;
+                  @include border-radius();
+                  vertical-align: top;
                 }
               }
             }
@@ -444,7 +479,7 @@
               //&.wider {
               //  img {
               //    max-height: 100%;
-              //    max-width: none;
+              //    max-width: initial;
               //  }
               //}
               .icon-zoom {
@@ -756,6 +791,7 @@
                       & + label {
                         &:after {
                           opacity: 1;
+                          background-color: #00a3e0;
                           background-image: url(../../img/icon_check.png);
                         }
                       }
@@ -766,11 +802,12 @@
                       position: absolute;
                       z-index: 10;
                       content: '';
-                      top: 140px;
+                      top: 4px;
                       right: 20px;
                       width: 32px;
                       height: 32px;
-                      background-color: $color-bg12;
+                      //background-color: $color-bg12;
+                      background-color: #ccc;
                       @include bg(center, 15px 13px, no-repeat);
                       @include border-radius(50%);
                       @include transition($transition-other);
@@ -784,10 +821,34 @@
                       &:focus {
                         &:after {
                           opacity: 1;
+                          background-color: #62666a;
+                          background-image: url(../../img/icon_check.png);
                         }
                       }
                     }
                   }
+                  &.without-desc {
+                    label:after {
+                      top: 5px;
+                    }
+                  }
+                  &.without-price-weight-box {
+                    label:after {
+                      top: 5px;
+                    }
+                  }
+                  &.without-price-weight-box.without-desc {
+                    .item-title-box {
+                      border: none;
+                      margin-bottom: 0;
+                      padding-bottom: 0;
+                    }
+                    label:after {
+                      top: auto;
+                      bottom: 15px;
+                    }
+                  }
+
                 }
                 a.more-info-btn,
                 .more-info-btn {
@@ -937,7 +998,7 @@
                   //&.wider {
                   //  img {
                   //    max-height: 100%;
-                  //    max-width: none;
+                  //    max-width: initial;
                   //  }
                   //}
 
@@ -1127,7 +1188,7 @@
               &.wider {
                 img {
                   max-height: 100%;
-                  max-width: initial;
+                  max-width: none;
                 }
               }
             }

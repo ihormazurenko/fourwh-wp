@@ -40,7 +40,7 @@
         <a href="<?php echo esc_url($url); ?>" title="<?php echo esc_attr($title); ?>">
             <div class="product-box">
                 <?php if (has_post_thumbnail()) { ?>
-                    <div class="product-img-wrap centered-img">
+                    <div class="product-img-wrap centered-img ccc">
                         <?php the_post_thumbnail('large', array(
                             'alt'   => esc_attr($title)
                         )); ?>

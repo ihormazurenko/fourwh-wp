@@ -149,7 +149,7 @@
                         if ($current_year == 2018) {
                             echo '<p class="copyright">© Copyright Four Wheel Campers 2018. All rights reserved</p>';
                         } elseif ($current_year > 2018) {
-                            echo '<p class="copyright">© Copyright Four Wheel Campers 2018-'.$current_year.' All rights reserved</p>';
+                            echo '<p class="copyright">© Copyright Four Wheel Campers 2018-'.$current_year.' All rights reserved | <a href="/sitemap/" style="color: #fff; text-decoration:none">Sitemap</a></p>';
                         }
                     ?>
                 </div>
@@ -158,5 +158,14 @@
     </div><!--/wrap-->
 
     <?php wp_footer(); ?>
+    <script src="https://js.adsrvr.org/up_loader.1.1.0.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            ttd_dom_ready( function() {
+                if (typeof TTDUniversalPixelApi === 'function') {
+                    var universalPixelApi = new TTDUniversalPixelApi();
+                    universalPixelApi.init("oxla3ar", ["qo3blpv"], "https://insight.adsrvr.org/track/up");
+                }
+            });
+        </script>
 </body>
 </html>

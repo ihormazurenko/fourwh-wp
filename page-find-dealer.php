@@ -41,6 +41,7 @@ $map_info_right = get_field('map_info_right');
             <?php endif; ?>
 
             <?php
+
                 global $wp_query;
 
                 $paged = get_query_var('paged') ? get_query_var('paged') : 1;

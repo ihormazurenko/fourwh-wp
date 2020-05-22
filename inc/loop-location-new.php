@@ -23,7 +23,7 @@
 
         if ($website && is_array($website) && count($website) > 0) {
             $website_url   = trim( $website['url'] ) ? $website['url'] : '';
-            $website_title = trim( $website['title'] ) ? $website['title'] : $website_url;
+            $website_title = trim( $website['title'] ) ? $website['title'] : str_replace(["https://", "http://", "/"], "", $website_url);
         }
 
         if (isset($_GET['dealer-id']) && $_GET['dealer-id'] == $id) {

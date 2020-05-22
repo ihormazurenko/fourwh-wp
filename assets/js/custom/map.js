@@ -67,6 +67,14 @@ jQuery(document).ready(function($) {
                             infowindow.open(map, marker);
                         }
                     })(marker, beach));
+
+                    if (beach[4]) {
+                        infowindow.setContent('<div class="service-marker-box">' +
+                            '                           <h2 class="service-marker-title">' + beach[0] + '</h2>' +
+                            '<div class="service-marker-info">' + decodeEntities(beach[1]) + '</div>' +
+                            '</div>');
+                        infowindow.open(map, marker);
+                    }
                 }
             }
 

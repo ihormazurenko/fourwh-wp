@@ -10,6 +10,7 @@
     $show_sale      = get_field('show_campers_for_sale');
     $website_url    = $website_title = '';
     $active_style   = $active_class = '';
+    $active_info    = '';
 
     if ( $locations && is_array( $locations ) && count( $locations ) > 0 ) :
         $label                  = $locations['label'] ? trim($locations['label'], ':') : __('Our Dealer:', 'fw_campers');
@@ -29,11 +30,12 @@
         if (isset($_GET['dealer-id']) && $_GET['dealer-id'] == $id) {
           $active_style = 'style="display: block;"';
           $active_class = 'open';
+          $active_info  = 1;
         }
 
     ?>
     <li>
-        <div class="service-box" data-dealer-id="<?php echo $id; ?>" id="dealer-<?php echo $id; ?>">
+        <div class="service-box">
             <div class="service-top-box">
                 <div class="service-img-wrap">
                     <img src="<?php echo get_bloginfo('template_url'); ?>/img/icon_forest.png" alt="Icon">
@@ -130,7 +132,7 @@
     }
 
 
-    $fwc_coordinate[] = [$marker_label, $marker_description, $lat, $lng];
+    $fwc_coordinate[] = [$marker_label, $marker_description, $lat, $lng, $active_info];
 
 
 endif; ?>

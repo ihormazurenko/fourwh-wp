@@ -188,6 +188,17 @@
                 }, 50);
             }
 
+            if ($('.section-location .inventory-detail-list .inventory-info-wrap').length) {
+                setTimeout(function () {
+                    $('.inventory-detail-list .inventory-info-wrap').niceScroll({
+                        cursoropacitymin: 0.5,
+                        cursoropacitymax: 0.8,
+                        cursorcolor: "#62666a",
+                        cursorwidth: "6px",
+                    });
+                }, 50);
+            }
+
             if ($('.model-wrap .model-inner-box').length) {
                 setTimeout(function () {
                     $('.model-wrap .model-inner-box').niceScroll({
@@ -567,6 +578,10 @@
                             autoplay: {
                                 delay: 5000,
                             },
+                            navigation: {
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
+                            },
                             pagination: {
                                 el: '.swiper-pagination',
                                 clickable: true
@@ -788,11 +803,18 @@
             if (($('.service-box').length || $('.item-box').length || $('.product-box').length || $('.inventory-detail-box').length) && $('.more-info-btn').length) {
                 $('.more-info-btn').on('click', function (e) {
                     e.preventDefault();
-
-                    if ($(this).hasClass('open')) {
-                        $(this).removeClass('open').next('.more').slideUp(350);
+                    if ($(this).hasClass('service-style')) {
+                        if ($(this).hasClass('open')) {
+                            $(this).removeClass('open').prev('.more').slideUp(350);
+                        } else {
+                            $(this).addClass('open').prev('.more').slideDown(350);
+                        }
                     } else {
-                        $(this).addClass('open').next('.more').slideDown(350);
+                        if ($(this).hasClass('open')) {
+                            $(this).removeClass('open').next('.more').slideUp(350);
+                        } else {
+                            $(this).addClass('open').next('.more').slideDown(350);
+                        }
                     }
                 });
             }

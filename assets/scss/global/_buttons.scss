@@ -51,6 +51,20 @@ a.btn, .btn {
       }
     }
   }
+  &.blue-light.open,
+  &.blue-light {
+    color: #00A2E0;
+    border-color: rgba(0, 162, 224, 0.1);
+    background-color: rgba(0, 162, 224, 0.1);
+    @media all and (min-width: 769px) {
+      &:hover,
+      &:focus {
+        color: $white;
+        border-color: #00A2E0;
+        background-color: #00A2E0;
+      }
+    }
+  }
   &.white {
     border-color: $white;
     background-color: $white;
@@ -98,7 +112,7 @@ a.btn, .btn {
   }
   &.download {
     min-width: 240px;
-    padding: 10px 60px 9px 13px; 
+    padding: 10px 60px 9px 13px;
     font-size: $size-small;
     font-weight: $normal;
     line-height: 1.4;
@@ -184,6 +198,11 @@ a.btn, .btn {
     // font-size: 20px;
     min-width: auto;
   }
+  &.back-btn {
+    i {
+      margin-right: 8px;
+    }
+  }
 }
 
 .main-nav > ul > li.btn-dealer a,
@@ -221,7 +240,7 @@ a.btn, .btn {
     @media all and (max-width: 1440px) {
       padding: 13px 15px;
       min-width: 130px;
-      font-size: $size-smaller; 
+      font-size: $size-smaller;
       font-weight: $medium;
     }
   }

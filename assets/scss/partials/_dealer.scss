@@ -1,6 +1,6 @@
 
 .section-service-location {
-    
+
 }
   .map-box {
     margin-bottom: 127px;
@@ -20,7 +20,7 @@
       float: left;
       width: 33.33%;
       padding: 0 15px;
-      margin-bottom: 60px;
+      margin-bottom: 30px;
       &:nth-child(3n + 4) {
         clear: both;
         @media all and (max-width: 991px) {
@@ -40,24 +40,52 @@
         width: 100%;
       }
     }
+    &.style-2 {
+
+    }
   }
         .service-box {
-          padding: 35px 29px 0;
+          padding: 28px 29px 20px;
           border: 1px solid $color-bg12;
           border-color: rgba(0, 163, 224, .32);
           @include border-radius($radius-small);
           @media all and (max-width: 767px) {
             padding: 25px 20px 0;
           }
+          > :first-of-type(.btn) {
+            margin-top: 32px;
+          }
+          a.btn, .btn {
+            width: 100%;
+            padding: 10px;
+            line-height: 1.4;
+            letter-spacing: .02em;
+            word-spacing: 0;
+            margin-top: 0;
+            margin-bottom: 10px;
+
+            .arrow-down {
+              margin-left: 10px;
+            }
+            //@media all and (min-width: 769px) {
+            //  &:hover,
+            //  &:focus {
+            //    .arrow-down {
+            //      border-color: $white;
+            //    }
+            //  }
+            //}
+          }
         }
           .service-top-box {
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
           }
               .service-img-wrap {
-                float: left;
-                width: 40px;
-                margin: 5px 28px 0 0;
+                display: inline-block;
+                vertical-align: middle;
+                width: 50px;
+                margin: 0 20px 0 0;
                 @media all and (max-width: 767px) {
                   margin-right: 20px;
                 }
@@ -66,39 +94,113 @@
                   height: auto;
                 }
               }
-              .service-title-box {}
+              .service-title-box {
+                display: inline-block;
+                width: 100%;
+                max-width: 75%;
+                max-width: -webkit-calc(100% - 72px);
+                max-width: calc(100% - 72px);
+                vertical-align: middle;
+              }
+                .service-contact-list {
+                  margin-bottom: 20px;
+                  > li {
+                    position: relative;
+                    display: block;
+                    width: 100%;
+                    &:not(:last-child) {
+                      margin-bottom: 15px;
+                    }
+                    p, a, i {
+                      display: table-cell;
+                      vertical-align: top;
+                    }
+                    i {
+                      position: absolute;
+                      top: 1px;
+                      left: 0;
+                      font-size: 20px;
+                      color: #01A2DD;
+                      &.fa-mobile-alt {
+                        top: 3px;
+                        left: 4px;
+                        font-size: 22px;
+                      }
+                      &.fa-at {
+                        top: 3px;
+                        left: 1px;
+                        font-size: 22px;
+                      }
+                      &.fa-globe {
+                        top: 4px;
+                        left: 1px;
+                      }
+                    }
+                    > div {
+                      display: block;
+                      padding-left: 40px;
+                    }
+                    p, a {
+                      color: $color-text11;
+                    }
+                    a {
+                      @media all and (min-width: 769px) {
+                        &:hover,
+                        &:focus {
+                          text-decoration: none;
+                          color: $color-text12;
+                        }
+                      }
+                    }
+                  }
+                }
+
                 .service-title {
+                  margin-bottom: 2px;
                   font-size: 16px;
-                  font-weight: $normal;
+                  font-weight: $bold;
                   text-transform: uppercase;
-                  letter-spacing: .02em;
+                  letter-spacing: 0;
                   word-spacing: .02em;
-                  color: $color-text11;
+                  color: $color-text;
                   @media all and (max-width: 767px) {
                    font-size: 14px;
                   }
+                  //.style-2 & {
+                  //  font-weight: $bold;
+                  //  color: $color-text;
+                  //}
+
                 }
                 .service-info-box {
                   overflow: hidden;
-                  height: 110px;
+                  //height: 110px;
                   color: $color-text11;
-                  letter-spacing: .03em;
-                  border-top: 1px solid transparent;
+                  letter-spacing: 0;
+                  margin-bottom: 15px;
+
+                  //border-top: 1px solid transparent;
                   @media all and (max-width: 767px) {
-                    height: 72px;
+                    //height: 72px;
                     font-size: 16px;
                   }
-
+                  > :last-child {
+                    margin-bottom: 0;
+                  }
                   &.more {
                     display: none;
                     height: auto;
-                    padding-top: 20px;
-                    padding-bottom: 22px;
-                    border-top-color: $color-bg11;
-                    border-top-color: rgba($color-bg11, .2);
+                    margin-bottom: 32px;
+                    //margin-top: -16px;
+                    //padding-top: 20px;
+                    //padding-bottom: 22px;
+                    //border-top-color: $color-bg11;
+                    //border-top-color: rgba($color-bg11, .2);
                   }
                   h4 {
                     font-weight: 600;
+                    color: $color-text;
+                    letter-spacing: 0;
                   }
                   a {
                     color: $color-text12;
@@ -163,7 +265,21 @@
                   @media all and (max-width: 767px) {
                     font-size: 16px;
                   }
+                  &.btn {
+                    .arrow-down {
+                      border-color: #00a2e0;
+                    }
+                    @media all and (min-width: 769px) {
+                      &:hover,
+                      &:focus {
+                        .arrow-down {
+                          border-color: $white;
+                        }
+                      }
+                    }
+                  }
                 }
+
                 .arrow-down {
                   position: relative;
                   display: inline-block;
@@ -186,35 +302,110 @@
   }
     #map {
       width: 100%;
-      height: 520px;
+      height: 630px;
       margin-bottom: 16px;
+      @media all and (max-width: 1024px) {
+        height: 520px;
+      }
       @media all and (max-width: 767px) {
         height: 420px;
       }
     }
       .service-marker-box {
-        max-width: 240px;
+        max-width: 300px;
+        padding: 20px 18px 20px;
+        @media all and (max-width: 767px) {
+          max-width: 240px;
+          padding: 0;
+        }
       }
         .service-marker-title {
+          //padding: 0 18px;
           margin-top: 4px;
           margin-bottom: 6px;
           font-family: $font-main;
           font-size: $size-smaller;
-          font-weight: $normal;
-          line-height: 1;
-          letter-spacing: .03em;
-          color: $color-text11;
+          font-weight: $bold;
+          line-height: 1.4;
+          //letter-spacing: .03em;
+          color: $color-text;
+          @media all and (max-width: 767px) {
+            font-size: 14px;
+          }
         }
         .service-marker-info {
-          padding: 0 16px;
+          //padding: 0 18px;
           font-family: $font-main;
-          font-size: 12px;
+          font-size: $size-main;
           font-weight: $normal;
           line-height: 1.8;
           letter-spacing: .02em;
-          color: $color-text11;
-          opacity: .8;
+          color: #646464;
+          //opacity: .8;
+          p {}
+          strong, b {
+            display: block;
+            margin-top: 0;
+            padding-bottom: 16px;
+            color: $black;
+            line-height: 1.2;
+            @media all and (max-width: 767px) {
+              margin-top: -4px;
+              padding-bottom: 10px;
+              line-height: 1.2;
+            }
+          }
+          a {
+            color: #00a2e0;
+            @media all and (min-width: 769px) {
+              &:hover,
+              &:focus {
+                color: $color-text2;
+                text-decoration: underline;
+              }
+            }
+          }
+          a.btn, .btn {
+            margin-top: 12px;
+            width: 100%;
+            @media all and (min-width: 769px) {
+              &:hover,
+              &:focus {
+                text-decoration: none;
+              }
+            }
+            @media all and (max-width: 767px) {
+              font-size: 10px;
+              padding: 4px 5px;
+              min-width: 70px;
+
+            }
+          }
+          .showroom-available-box {
+            margin-top: -10px;
+            margin-bottom: 20px;
+          }
+          @media all and (max-width: 767px) {
+            font-size: 12px;
+            .showroom-available-box {
+              margin-top: -4px;
+              margin-bottom: 12px;
+            }
+            .showroom-available-btn {
+              font-size: 9px;
+            }
+          }
         }
+        #map .gm-ui-hover-effect {
+          top: -4px !important;
+          right: -4px !important;
+          img {
+            width: 18px !important;
+            height: 18px !important;
+            margin: 4px !important;
+          }
+        }
+
       .map-contact-info {
         display: table;
         width: 100%;

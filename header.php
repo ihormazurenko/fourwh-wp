@@ -30,7 +30,7 @@ if (is_tax('model_categories')) {
 // if (!get_field('show_hero_banner', $id)) {
 //     $classes .= ' white-header-bg';
 // }
-if (get_field('show_hero_banner', $id)) {
+if (get_field('show_hero_banner', $id) && get_query_var('flocation') !== 'campers-for-sale') {
     $classes .= ' has-hero';
 }
 if (!is_front_page()) {

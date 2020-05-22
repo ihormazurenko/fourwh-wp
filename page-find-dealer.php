@@ -9,7 +9,6 @@ global $fwc_coordinate, $fwc_google_map_key;
 $show_map       = get_field('show_map');
 $map_info_left  = get_field('map_info_left');
 $map_info_right = get_field('map_info_right');
-
 ?>
 
     <?php get_template_part('inc/hero', 'banner'); ?>
@@ -58,7 +57,7 @@ $map_info_right = get_field('map_info_right');
                     echo '<ul class="service-list">';
                     while ( $new_query->have_posts() ) : $new_query->the_post();
 
-                        get_template_part('inc/loop', 'location');
+                      get_template_part( 'inc/loop', 'location-new' );
 
                     endwhile;
                     echo "</ul>";

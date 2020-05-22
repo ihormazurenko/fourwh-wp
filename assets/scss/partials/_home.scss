@@ -527,6 +527,20 @@
         }
       }
     }
+    &.blue {
+      &:after {
+        background-color: $color-text12;
+        background-color: rgba($color-text12, .9);
+        @media all and (min-width: 769px) {
+          &:hover,
+          &:focus {
+            &:after {
+              background-color: rgba($color-text12, 1);
+            }
+          }
+        }
+      }
+    }
   }
     .video-preview {
       overflow: hidden;

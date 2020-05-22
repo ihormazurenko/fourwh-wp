@@ -438,6 +438,9 @@ get_template_part('func/admin', 'options-columns');
 
 get_template_part('func/register', 'model-build');
 
+get_template_part('func/register', 'location-rules');
+
+
 //add DomPdf
 get_template_part('func/generate', 'pdf');
 

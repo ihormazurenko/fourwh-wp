@@ -4,18 +4,40 @@
  */
 get_header();
 
-    $contact_info   = get_field('contact_info');
-    $about          = get_field('about');
-    $image          = get_field('image');
-    $services       = get_field('services');
+    $contact_info           = get_field('contact_info');
+    $about                  = get_field('about');
+    $image                  = get_field('image');
+    $services               = get_field('services');
+    $southern_california_id = 6702;
+    $show_our_showroom      = get_field('show_our_showroom', $southern_california_id);
+    $show_campers_for_sale  = get_field('show_campers_for_sale', $southern_california_id);
 ?>
 
     <?php get_template_part('inc/hero', 'banner'); ?>
 
     <section class="section content-wrapper section-corporate-store">
         <div id="content"></div>
+
             <?php get_template_part('inc/section', 'info'); ?>
+
             <?php
+            if ($show_our_showroom || $show_campers_for_sale) {
+                ?>
+                <div class="categories">
+                    <ul>
+                        <?php
+                        if ($show_our_showroom) {
+                            echo '<li><a href="'.get_permalink($southern_california_id).'showroom/" class="btn blue small" title="'.__('See Our Showroom','fw_campers').'">'.__('See Our Showroom','fw_campers').'</a></li>';
+                        }
+
+                        if ($show_campers_for_sale) {
+                            echo '<li><a href="'.get_permalink($southern_california_id).'campers-for-sale/" class="btn blue small" title="'.__('See Campers for Sale','fw_campers').'">'.__('See Campers for Sale','fw_campers').'</a></li>';
+                        }
+                        ?>
+                    </ul>
+                </div>
+                <?php
+            }
 
             if ($contact_info && is_array($contact_info) && count($contact_info) > 0) :
                 $contact_image_id   = $contact_image_class = '';

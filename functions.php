@@ -216,7 +216,7 @@ function getVideoId($url) {
 }
 
 //get video thumbnail url
-function getVideoThumbnail($url) {
+function getVideoThumbnail($url, $img_size = 'full') {
     if (strpos($url, 'youtube') > 0) {
         //for Youtube
         if (empty($url))
@@ -259,7 +259,22 @@ function getVideoThumbnail($url) {
 
         $sizes_arr = $output->data[0]->sizes;
 
-        $thumb_url = $sizes_arr[5]->link ? $sizes_arr[5]->link : $sizes_arr[6]->link;
+
+        if ($img_size && $img_size === 'small') {
+            if ($sizes_arr[3]->link) {
+                $thumb_url = $sizes_arr[3]->link;
+            } elseif ($sizes_arr[6]->link) {
+                $thumb_url = $sizes_arr[6]->link;
+            } elseif ($sizes_arr[7]->link) {
+                $thumb_url = $sizes_arr[7]->link;
+            } else {
+                $thumb_url = $sizes_arr[4]->link;
+            }
+        } else {
+            $thumb_url = $sizes_arr[5]->link ? $sizes_arr[5]->link : $sizes_arr[6]->link;
+        }
+
+
 
         if ( empty( $thumb_url ) )
             return;

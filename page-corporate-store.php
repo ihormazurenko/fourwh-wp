@@ -28,7 +28,7 @@ get_header();
 
             <?php
 
-            if (current_user_can('administrator')) {
+            // if (current_user_can('administrator')) {
                 if ($show_our_showroom || $show_campers_for_sale) {
                     ?>
                     <div class="categories">
@@ -46,20 +46,21 @@ get_header();
                     </div>
                     <?php
                 }
-            }
+            // }
 
 
             if ($contact_info && is_array($contact_info) && count($contact_info) > 0) :
-                $contact_image_id   = $contact_image_class = '';
-                $peoples_list       = $contacts_list = '';
-                $contact_image      = ($contact_info['image'] && is_array($contact_info['image']) && count($contact_info['image']) > 0) ? $contact_info['image'] : '';
-                $contact_data       = ($contact_info['left_box'] && is_array($contact_info['left_box']) && count($contact_info['left_box']) > 0) ? $contact_info['left_box'] : '';
+                $contact_image_id       = $contact_image_class = '';
+                $peoples_list           = $contacts_list = '';
+//                $contact_image          = ($contact_info['image'] && is_array($contact_info['image']) && count($contact_info['image']) > 0) ? $contact_info['image'] : '';
+                $contact_gallery        = ($contact_info['gallery'] && is_array($contact_info['gallery']) && count($contact_info['gallery']) > 0) ? $contact_info['gallery'] : '';
+                $contact_data           = ($contact_info['left_box'] && is_array($contact_info['left_box']) && count($contact_info['left_box']) > 0) ? $contact_info['left_box'] : '';
+                $contact_gallery_count  = $contact_gallery ? count($contact_gallery) : '';
 
-
-                if ($contact_image) {
-                    $contact_image_id     = $contact_image['ID'] ? $contact_image['ID'] : '';
-                    $contact_image_class  = $contact_image['width'] > $contact_image['height'] ? 'wider' : '';
-                }
+//                if ($contact_image) {
+//                    $contact_image_id     = $contact_image['ID'] ? $contact_image['ID'] : '';
+//                    $contact_image_class  = $contact_image['width'] > $contact_image['height'] ? 'wider' : '';
+//                }
 
                 if ($contact_data) {
                     $contacts_list  = ($contact_data['contact_info'] && is_array($contact_data['contact_info']) && count($contact_data['contact_info']) > 0) ? $contact_data['contact_info'] : '';
@@ -99,8 +100,36 @@ get_header();
                                         }
                                     echo '</div>';
                                 echo '</div>';
-                                if ($contact_image_id)
-                                    echo '<div class="right-box"><div class="corporate-store-contact-img-box  '.$contact_image_class.'">'.wp_get_attachment_image( $contact_image_id, 'large').'</div></div>';
+                                if ($contact_gallery) :
+                                    if ($contact_gallery_count > 1) {
+                                        echo '<div class="right-box">
+                                                  <div class="corporate-store-slider">
+                                                        <div class="swiper-container">
+                                                            <div class="swiper-wrapper">';
+                                    }
+
+                                    foreach ($contact_gallery as $single_image) :
+                                        if ($single_image && is_array($single_image) && count($single_image) > 0) :
+                                            $single_image_id = isset($single_image['id']) ? $single_image['id'] : '';
+                                            $single_image_class  = $single_image['width'] > $single_image['height'] ? 'wider' : '';
+
+                                            if ($contact_gallery_count > 1) {
+                                                echo '<div class="swiper-slide centered-img">'.wp_get_attachment_image( $single_image_id, 'size-720_720', false, array('class' => 'dealer-slide-img ' . $single_image_class)).'</div>';
+                                            } else {
+                                                echo '<div class="right-box"><div class="corporate-store-contact-img-box  ' . $contact_image_class . '">' . wp_get_attachment_image( $contact_image_id, 'large' ) . '</div></div>';
+                                            }
+                                        endif;
+                                    endforeach;
+
+                                    if ($contact_gallery_count > 1) {
+                                        echo '</div>
+                                                      <div class="swiper-pagination"></div>
+                                                    </div>
+                                                </div>
+                                              </div>';
+                                    }
+                                endif;
+
                             echo '</div>';
                         echo '</div>';
                         echo '<div class="bottom-box">';

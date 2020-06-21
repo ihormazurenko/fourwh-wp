@@ -366,3 +366,14 @@ Text Domain: fw_campers
   opacity: 0;
 }
 
+
+@media (min-width: 1261px) and (max-width: 1600px) {
+    .corporate-store-contact-section .top-box {
+        margin-bottom: -120px;
+    }
+}
+@media (max-width: 1260px) {
+    .corporate-store-contact-section .top-box {
+        margin-bottom: 0;
+    }
+}

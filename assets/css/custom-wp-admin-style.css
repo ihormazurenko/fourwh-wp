@@ -33,6 +33,7 @@
         }
         #fourwh-model-relationships .relationship-thumbnail-box img {
             display: block;
+            max-width: 100%;
         }
         #fourwh-model-relationships .relationship-label-box {
             width: 20%;

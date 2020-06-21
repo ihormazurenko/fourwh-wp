@@ -5,10 +5,50 @@ $title            = get_the_title();
 $url              = get_permalink();
 $locations        = get_field('location');
 
-$show_our_showroom  = get_field('show_our_showroom');
-$our_showroom       = $show_our_showroom ? get_field('our_showroom') : '';
+$show_showroom            = get_field('show_our_showroom');
+$our_showroom             = $show_showroom ? get_field('our_showroom') : '';
+$showroom_showroom_video  = '';
 
-$show_campers_for_sale = get_field('show_campers_for_sale');
+
+$show_sale          = get_field('show_campers_for_sale');
+$sale_type          = get_field('campers_for_sale_type'); //true - block type, false - link
+$group_button_sale  = get_field('campers_for_sale_link');
+$group_button_sale  = ($group_button_sale && is_array($group_button_sale) && count($group_button_sale) > 0) ? $group_button_sale : '';
+$sale_btn           = '';
+
+if ($show_sale) {
+    $label      = (!$sale_type && trim($group_button_sale['label'])) ? $group_button_sale['label'] : __('See Campers for Sale','fw_campers');
+    $link_type  = (!$sale_type && $group_button_sale['link_type']) ? $group_button_sale['link_type'] : 'internal';
+    $target     = (!$sale_type && $group_button_sale['target']) ? 'target="_blank" rel="nofollow noopener"' : '';
+
+    if ($link_type == 'internal') {
+        $link = (!$sale_type && $group_button_sale['internal_link']) ? $group_button_sale['internal_link'] : get_permalink().'campers-for-sale/';
+    } elseif ($link_type == 'external') {
+        $link = (!$sale_type && $group_button_sale['external_link']) ? $group_button_sale['external_link'] : get_permalink().'campers-for-sale/';
+    }
+
+    $sale_btn = (!empty($label) && !empty($link)) ? '<a href="' . $link . '" class="btn blue" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>' : '';
+}
+
+
+$show_facility          = get_field('show_our_facility');
+$group_button_facility  = $show_facility ? get_field('our_facility') : '';
+$group_button_facility  = ($group_button_facility && is_array($group_button_facility) && count($group_button_facility) > 0) ? $group_button_facility : '';
+$facility_btn           = '';
+
+if ($group_button_facility) {
+    $label      = trim($group_button_facility['label']) ? $group_button_facility['label'] : __('Our Facility','fw_campers');
+    $link_type  = $group_button_facility['link_type'] ? $group_button_facility['link_type'] : 'internal';
+    $target     = $group_button_facility['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+
+    if ($link_type == 'internal') {
+        $link = $group_button_facility['internal_link'] ? $group_button_facility['internal_link'] : '';
+    } elseif ($link_type == 'external') {
+        $link = $group_button_facility['external_link'] ? $group_button_facility['external_link'] : '';
+    }
+
+    $facility_btn = (!empty($label) && !empty($link)) ? '<a href="' . $link . '" class="btn blue" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>' : '';
+}
 
 ?>
 
@@ -31,8 +71,24 @@ $show_campers_for_sale = get_field('show_campers_for_sale');
                         if ($showroom_title)
                             echo '<h1 class="section-title smaller line">' . $showroom_title . '</h1>';
 
-                        if ($show_campers_for_sale)
-                            echo '<div class="centered-btn-box"><a class="btn blue" href="'.get_permalink().'campers-for-sale/" title="'.esc_attr__('See Campers for Sale','fw_campers').'">'.__('See Campers for Sale','fw_campers').'</a></div>';
+                        if (($show_sale && $sale_btn || ($show_facility && $facility_btn))) {
+                            ?>
+                            <div class="categories">
+                                <ul>
+                                    <?php
+                                        if ($show_sale && $sale_btn) {
+                                          echo '<li>'.$sale_btn.'</li>';
+                                        }
+
+                                        if ($show_facility && $facility_btn) {
+                                            echo '<li>'.$facility_btn.'</li>';
+                                        }
+                                    ?>
+
+                                </ul>
+                            </div>
+                            <?php
+                        }
 
                         if ($showroom_description)
                             echo '<div class="section-desc content">' . $showroom_description . '</div>';

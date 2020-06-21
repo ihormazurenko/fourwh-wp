@@ -2,7 +2,9 @@
 
 get_header();
 
-$current_fp = get_query_var('flocation');
+$current_fp    = get_query_var('flocation');
+$show_showroom = get_field('show_our_showroom');
+$show_sale     = get_field('show_campers_for_sale');
 //var_dump($current_fp);
 ?>
 
@@ -10,10 +12,12 @@ $current_fp = get_query_var('flocation');
 	<?php
 	if (!$current_fp) {
 		get_template_part( 'single', 'location-index' );
-	} else if ($current_fp == 'showroom') {
+	} else if ($current_fp == 'showroom' && $show_showroom) {
 		get_template_part( 'single', 'location-showroom' );
-	} else if ($current_fp == 'campers-for-sale') {
+	} else if ($current_fp == 'campers-for-sale' && $show_sale) {
 	  get_template_part( 'single', 'location-campers-for-sale' );
+  } else {
+      get_template_part( 'single', 'location-index' );
   }
 	?>
 <?php endwhile;  else:  ?>

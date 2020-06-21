@@ -918,6 +918,18 @@
   }
 }
 
+.section-camper-photos {
+  padding: 90px 0 80px;
+  .container {}
+  @media all and (max-width: 767px) {
+    .container {
+      padding: 0;
+    }
+  }
+}
+
+@import '../sliders/slider_cumper_photos';
+
 @import '../sliders/slider_social';
 
 .section-upcoming-events {

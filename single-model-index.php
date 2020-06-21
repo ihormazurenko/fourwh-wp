@@ -357,7 +357,7 @@ wp_reset_postdata();
                                                                             $slide_inner_count++;
                                                                             //$image_url          = $image['sizes']['max-width-2800'] ? $image['sizes']['max-width-2800'] : $image['url'];
                                                                             //$image_title        = $image['title'] ? $image['title'] : '';
-                                                                             
+
                                                                             if ($slide_inner_count == 1) {
                                                                                 echo wp_get_attachment_image( $image['ID'], 'max-width-2800', false, array('class' => 'plan-slide-img'));
                                                                                 /*
@@ -391,16 +391,16 @@ wp_reset_postdata();
                                                                         */
                                                                     }
                                                                     ?>
-                                                                    <?php 
+                                                                    <?php
                                                                     if($main_slide['3d_tour_link']) {
                                                                         print '<a class="virtual_tour" href="'.$main_slide['3d_tour_link'].'"><img src="'.get_template_directory_uri().'/img/360-virtual-tour-thumb.png" alt="3d virtual tour"></a>';
-                                                                        
+
                                                                     }
-                                                                    
+
 
                                                                     ?>
 
-                                                                    
+
                                                                 </div>
                                                                 <?php
                                                             }
@@ -409,7 +409,7 @@ wp_reset_postdata();
                                             <?php } ?>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             <?php } ?>
                         </div>
@@ -740,6 +740,154 @@ wp_reset_postdata();
             endif;
         ?>
 
+
+        <?php if (get_current_user_id() === 6 ) : ?>
+          <div class="detail-box general-specification" id="general-specification">
+            <div class="container">
+              <h2 class="section-title smaller">General Specifications</h2>
+              <div class="general-specification-types-wrap">
+                <div>
+                  <div class="general-specification-single-box">
+                  <div class="centered-img">
+                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/truck_5.png" alt="">
+                  </div>
+                  <div class="inner-box">
+                    <h3 class="box-title">Mid Size Trucks</h3>
+                    <ul class="car-list">
+                      <li>Tacoma 2005-2020</li>
+                      <li>Ranger 2019-2020</li>
+                      <li>Colorado 2015-2020</li>
+                      <li>Canyon 2015-2020</li>
+                      <li>Ranger 2019-2020</li>
+                    </ul>
+                  </div>
+                </div>
+                </div>
+                <div>
+                  <div class="general-specification-single-box">
+                  <div class="centered-img">
+                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/truck_4.png" alt="">
+                  </div>
+                  <div class="inner-box">
+                    <h3 class="box-title">Full Size Trucks</h3>
+                    <ul class="car-list">
+                      <li>Tundra 2007-2020</li>
+                      <li>Chevy 1999-2020</li>
+                      <li>GMC 1999-2020</li>
+                      <li>RAM 2002-2020</li>
+                      <li>Ford150 2004-2020</li>
+                      <li>Ford250 2008-2020</li>
+                      <li>Titan 2016-2020</li>
+                    </ul>
+                  </div>
+                </div>
+                </div>
+                <div>
+                  <div class="general-specification-single-box">
+                  <div class="centered-img">
+                    <img src="<?php echo get_bloginfo('template_url'); ?>/img/truck_6.png" alt="">
+                  </div>
+                  <div class="inner-box">
+                    <h3 class="box-title">Gladiator Trucks</h3>
+                    <ul class="car-list">
+                      <li>2019 - 2020</li>
+                    </ul>
+                  </div>
+                </div>
+                </div>
+              </div>
+
+              <div class="general-specification-table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Project M Specs</th>
+                      <th>Mid Size Trucks</th>
+                      <th>Full Size Trucks</th>
+                      <th>Gladiator Trucks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Base Price 5' & 6' Bed</td>
+                      <td>$8,995</td>
+                      <td>$8,995</td>
+                      <td>$9,495</td>
+                    </tr>
+                    <tr>
+                      <td>Base Price 8' Bed</td>
+                      <td>NA</td>
+                      <td>$9,495</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td>5’ Truck Bed - Weight</td>
+                      <td>352lbs</td>
+                      <td>390lbs</td>
+                      <td>NA</td>
+                    </tr>
+                    <tr>
+                      <td>6’ Truck Bed - Weight</td>
+                      <td>377lbs</td>
+                      <td>420lbs</td>
+                      <td>NA</td>
+                    </tr>
+                    <tr>
+                      <td>8’ Truck Bed – Weight</td>
+                      <td>NA</td>
+                      <td>465lbs</td>
+                      <td>NA</td>
+                    </tr>
+                    <tr>
+                      <td>Height Down</td>
+                      <td>37" + Truck Height</td>
+                      <td>39" + Truck Height</td>
+                      <td>39” + Truck Height</td>
+                    </tr>
+                    <tr>
+                      <td>Height Popped Up</td>
+                      <td>58" + Truck Rail Depth</td>
+                      <td>60" + Truck Rail Depth</td>
+                      <td>60” + Truck Rail Depth</td>
+                    </tr>
+                    <tr>
+                      <td>Sleeping Bed Size</td>
+                      <td>81" X 66"</td>
+                      <td>81" X 73"</td>
+                      <td>80” X 61”</td>
+                    </tr>
+                    <tr>
+                      <td>Exterior Width</td>
+                      <td>69"</td>
+                      <td>75"</td>
+                      <td>65”</td>
+                    </tr>
+                    <tr>
+                      <td>Framing</td>
+                      <td>Welded Aluminum</td>
+                      <td>Welded Aluminum</td>
+                      <td>Welded Aluminum</td>
+                    </tr>
+                    <tr>
+                      <td>Exterior Material</td>
+                      <td>Aluminum (Various colors)</td>
+                      <td>Aluminum (Various colors)</td>
+                      <td>Aluminum (Various Colors)</td>
+                    </tr>
+                    <tr>
+                      <td>Roof Material</td>
+                      <td>One Piece Aluminum</td>
+                      <td>One Piece Aluminum</td>
+                      <td>One Piece Aluminum</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        <?php endif; ?>
+
+
         <?php
             if ( $show_section_fabric_selection && $fabric_selection && is_array( $fabric_selection ) && count( $fabric_selection ) > 0 ) :
                 $fabric_title       = $fabric_selection['title'];
@@ -874,6 +1022,261 @@ wp_reset_postdata();
             endif;
         ?>
 
+      <?php if (get_current_user_id() === 6 ) : ?>
+        <div class="detail-box available-options" id="available-options">
+          <div class="container">
+            <div class="two-col-box">
+              <div class="left-box">
+                <h3 class="box-title">Available Options</h3>
+                <div class="model-options-table-wrap">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+                     <tr>
+                        <td>Lorem ipsum dolor sit amet</td>
+                        <td>44lbs</td>
+                        <td>$999</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="right-box">
+                <h3 class="box-title">Racks & Track Options For Gear</h3>
+                <div class="model-options-table-wrap">
+                  <table>
+                    <tbody>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                      <td>44lbs</td>
+                      <td>$999</td>
+                    </tr>
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endif; ?>
+
+        <?php if (get_current_user_id() === 6 ) : ?>
+          <div class="detail-box power-options" id="power-options">
+            <div class="container">
+              <h3 class="section-title smaller">Power Options</h3>
+
+              <div class="power-options-wrap">
+                <div>
+                  <div class="power-option-card">
+                    <div class="power-option-icon centered-img">
+                      <span class="power-icon plug" title="Pre-Wire for Power">
+
+                    </div>
+                    <div class="inner-box">
+                      <h4 class="box-title">Pre-Wire for Power</h4>
+                      <div class="power-option-decs">
+                        <p>4 interior lights installed, & pre-wiring for roof vent fans, rear flood lights & roof solar. </p>
+                        <p class="power-option-warn">NOT RETROFITABLE</p>
+                      </div>
+                    </div>
+                    <div class="power-option-price">$325</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="power-option-card">
+                    <div class="power-option-icon centered-img">
+                      <span class="power-icon battery" title="Full Power Solution">
+                    </div>
+                    <div class="inner-box">
+                      <h4 class="box-title">Full Power Solution</h4>
+                      <div class="power-option-decs">
+                        <p>130AH Lithium Battery, 2 USB Ports, 12V Socket, 1000W Power Inverter & PWM Controller. This
+                          Option also includes the Pre-Wire for Power Option.</p>
+                      </div>
+                    </div>
+                    <div class="power-option-price">$3715</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="power-option-card">
+                    <div class="power-option-icon centered-img">
+                      <span class="power-icon solar" title="Roof Mount Solar Panel ">
+                    </div>
+                    <div class="inner-box">
+                      <h4 class="box-title">Roof Mount Solar Panel </h4>
+                      <div class="power-option-decs">
+                        <p>17lbs</p>
+                      </div>
+                    </div>
+                    <div class="power-option-price">TBD</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php endif; ?>
+
         <?php
             if ( $show_section_full_width_image && $full_width && is_array( $full_width ) && count( $full_width ) > 0) :
                 $full_width_title   = $full_width['title'];
@@ -882,7 +1285,7 @@ wp_reset_postdata();
                 $full_width_bg      = $full_width_img_url ? 'style="background-image: url('.$full_width_img_url.');"' : '';
                 $full_width_img_alt = $full_width_title ? $full_width_title : $full_width_img['title'];
                 ?>
-                
+
                 <?php if ($full_width_title || $full_width_img ) : ?>
                     <div class="detail-box full-width-img" id="full-width-img" <?php //echo $full_width_bg; ?>>
                         <?php echo wp_get_attachment_image( $full_width['image']['ID'], 'max-width-2800' ); ?>
@@ -898,6 +1301,135 @@ wp_reset_postdata();
                 endif;
             endif;
         ?>
+
+        <?php if (get_current_user_id() === 6 ) : ?>
+          <div class="detail-box" id="features-options">
+            <div class="container">
+              <h2 class="section-title smaller">Features & Options</h2>
+              <div class="left-box">
+                <h3 class="box-title">Standard Features</h3>
+                <div class="model-options-table-wrap">
+                  <table>
+                    <tbody>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    <tr>
+                      <td>Lorem ipsum dolor sit amet</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="right-box">
+                <h3 class="box-title">Siding Colors Available</h3>
+                <ul class="siding-color-list">
+                  <li>
+                    <div class="siding-color-box">
+                      <div class="siding-color centered-img">
+                        <img src="<?php echo get_bloginfo('template_url'); ?>/img/color_1.jpg" alt="Matte Black Diamond Plate">
+                      </div>
+                      <span class="siding-color-name">Matte Black Diamond Plate</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="siding-color-box">
+                      <div class="siding-color centered-img">
+                        <img src="<?php echo get_bloginfo('template_url'); ?>/img/color_2.jpg" alt="Smooth Red">
+                      </div>
+                      <span class="siding-color-name">Smooth Red</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="siding-color-box">
+                      <div class="siding-color centered-img">
+                        <img src="<?php echo get_bloginfo('template_url'); ?>/img/color_3.jpg" alt="Smooth Khaki">
+                      </div>
+                      <span class="siding-color-name">Smooth Khaki</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="siding-color-box">
+                      <div class="siding-color centered-img">
+                        <img src="<?php echo get_bloginfo('template_url'); ?>/img/color_4.jpg" alt="Smooth White">
+                      </div>
+                      <span class="siding-color-name">Smooth White</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="siding-color-box">
+                      <div class="siding-color centered-img">
+                        <img src="<?php echo get_bloginfo('template_url'); ?>/img/color_5.jpg" alt="Smooth Black">
+                      </div>
+                      <span class="siding-color-name">Smooth Black</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="siding-color-box">
+                      <div class="siding-color centered-img">
+                        <img src="<?php echo get_bloginfo('template_url'); ?>/img/color_6.jpg" alt="Smooth Metallic Charcoal">
+                      </div>
+                      <span class="siding-color-name">Smooth Metallic Charcoal</span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="siding-color-box">
+                      <div class="siding-color centered-img">
+                        <img src="<?php echo get_bloginfo('template_url'); ?>/img/color_7.jpg" alt="Smooth FWC Grey">
+                      </div>
+                      <span class="siding-color-name">Smooth FWC Grey</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        <?php endif; ?>
 
         <?php
             if ( $show_section_siding && $siding && is_array( $siding ) && count( $siding ) > 0) :
@@ -979,14 +1511,21 @@ wp_reset_postdata();
                                 ?>
                                 <div class="benefits-list-box">
                                     <ul class="benefits-list">
-                                         <?php foreach ( $benefits_list as $value ) { ?>
+                                         <?php foreach ( $benefits_list as $value ) {
+                                            if ($value['title'] || $value['text']) {
+                                        ?>
                                             <li>
                                                 <div class="benefits">
-                                                    <h4><?php echo $value['title']; ?></h4>
-                                                    <?php echo $value['text']; ?>
+                                                    <?php
+                                                        if ($value['title'])
+                                                            echo "<h4>".$value['title']."</h4>";
+
+                                                        if ($value['text'])
+                                                            echo $value['text'];
+                                                    ?>
                                                 </div>
                                             </li>
-                                        <?php } ?>
+                                        <?php } } ?>
                                     </ul>
                                 </div>
                             <?php endif; ?>
@@ -1098,7 +1637,7 @@ wp_reset_postdata();
                                                                 $link = get_term_link((int)$term_id[0], 'model_categories').'?type=build';
                                                             } else {
                                                                 $link = get_permalink() . $build_url;
-                                                                if($enable_customizer == 0) { 
+                                                                if($enable_customizer == 0) {
                                                                     $label = 'Not Available';
                                                                 }
                                                             }

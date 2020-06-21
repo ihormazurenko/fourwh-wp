@@ -20,14 +20,14 @@
     $show_view      = 0;
 
     if ($categories && is_array($categories) && count($categories) > 0) {
-        foreach ($categories as $category) {
+//        foreach ($categories as $category) {
 //            if (strpos($category->slug, 'flat-bed') || $category->slug === 'swift') {
 
-            if (strpos($category->slug, 'flat-bed')) {
+//            if (strpos($category->slug, 'flat-bed')) {
                 $show_view = 1;
-                $url = get_permalink().'build/';
-            }
-        }
+//                $url = get_permalink().'build/';
+//            }
+//        }
     }
 
 

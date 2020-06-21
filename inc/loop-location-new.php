@@ -6,14 +6,30 @@
     $locations      = get_field('location');
     $marker_info    = get_field('marker_info');
     $map            = get_field('map');
-    $show_showroom  = get_field('show_our_showroom');
-    $show_sale      = get_field('show_campers_for_sale');
+
+    $show_showroom          = get_field('show_our_showroom');
+    $showroom_type          = get_field('our_showroom_type');
+    $group_button_showroom  = get_field('our_showroom_link');
+    $group_button_showroom  = ($group_button_showroom && is_array($group_button_showroom) && count($group_button_showroom) > 0) ? $group_button_showroom : '';
+    $showroom_btn           = '';
+
+    $show_sale          = get_field('show_campers_for_sale');
+    $sale_type          = get_field('campers_for_sale_type'); //true - block type, false - link
+    $group_button_sale  = get_field('campers_for_sale_link');
+    $group_button_sale  = ($group_button_sale && is_array($group_button_sale) && count($group_button_sale) > 0) ? $group_button_sale : '';
+    $sale_btn           = '';
+/*
+    $show_facility          = get_field('show_our_facility');
+    $group_button_facility  = $show_facility ? get_field('our_facility') : '';
+    $group_button_facility  = ($group_button_facility && is_array($group_button_facility) && count($group_button_facility) > 0) ? $group_button_facility : '';
+    $facility_btn           = '';
+*/
     $website_url    = $website_title = '';
     $active_style   = $active_class = '';
     $active_info    = '';
 
     if ( $locations && is_array( $locations ) && count( $locations ) > 0 ) :
-        $label                  = $locations['label'] ? trim($locations['label'], ':') : __('Our Dealer:', 'fw_campers');
+        $location_label         = $locations['label'] ? trim($locations['label'], ':') : __('Our Dealer:', 'fw_campers');
         $address                = trim($locations['contact_address']) ? $locations['contact_address'] : '';
         $phone                  = trim($locations['contact_phone']) ? $locations['contact_phone'] : '';
         $email                  = trim($locations['contact_email']) ? $locations['contact_email'] : '';
@@ -33,6 +49,51 @@
           $active_info  = 1;
         }
 
+        if ($show_sale) {
+            $label      = (!$sale_type && trim($group_button_sale['label'])) ? $group_button_sale['label'] : __('See Campers for Sale','fw_campers');
+            $link_type  = (!$sale_type && $group_button_sale['link_type']) ? $group_button_sale['link_type'] : 'internal';
+            $target     = (!$sale_type && $group_button_sale['target']) ? 'target="_blank" rel="nofollow noopener"' : '';
+
+            if ($link_type == 'internal') {
+                $link = (!$sale_type && $group_button_sale['internal_link']) ? $group_button_sale['internal_link'] : get_permalink().'campers-for-sale/';
+            } elseif ($link_type == 'external') {
+                $link = (!$sale_type && $group_button_sale['external_link']) ? $group_button_sale['external_link'] : get_permalink().'campers-for-sale/';
+            }
+
+            $sale_btn = (!empty($label) && !empty($link)) ? '<a href="' . $link . '" class="btn blue" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>' : '';
+        }
+
+
+        if ($show_showroom) {
+            $label      = (!$showroom_type && trim($group_button_showroom['label'])) ? $group_button_showroom['label'] : __('See Our Showroom','fw_campers');
+            $link_type  = (!$showroom_type && $group_button_showroom['link_type']) ? $group_button_showroom['link_type'] : 'internal';
+            $target     = (!$showroom_type && $group_button_showroom['target']) ? 'target="_blank" rel="nofollow noopener"' : '';
+
+            if ($link_type == 'internal') {
+                $link = (!$showroom_type && $group_button_showroom['internal_link']) ? $group_button_showroom['internal_link'] : get_permalink().'showroom/';
+            } elseif ($link_type == 'external') {
+                $link = (!$showroom_type && $group_button_showroom['external_link']) ? $group_button_showroom['external_link'] : get_permalink().'showroom/';
+            }
+
+            $showroom_btn = (!empty($label) && !empty($link)) ? '<a href="' . $link . '" class="btn blue" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>' : '';
+        }
+
+       /*
+        if ($group_button_facility) {
+            $label      = trim($group_button_facility['label']) ? $group_button_facility['label'] : __('Our Facility','fw_campers');
+            $link_type  = $group_button_facility['link_type'] ? $group_button_facility['link_type'] : 'internal';
+            $target     = $group_button_facility['target'] ? 'target="_blank" rel="nofollow noopener"' : '';
+
+            if ($link_type == 'internal') {
+                $link = $group_button_facility['internal_link'] ? $group_button_facility['internal_link'] : '';
+            } elseif ($link_type == 'external') {
+                $link = $group_button_facility['external_link'] ? $group_button_facility['external_link'] : '';
+            }
+
+            $facility_btn = (!empty($label) && !empty($link)) ? '<a href="' . $link . '" class="btn blue" title="' . esc_attr($label) . '" ' . $target . '>' . $label . '</a>' : '';
+        }
+      */
+
     ?>
     <li>
         <div class="service-box">
@@ -40,9 +101,9 @@
                 <div class="service-img-wrap">
                     <img src="<?php echo get_bloginfo('template_url'); ?>/img/icon_forest.png" alt="Icon">
                 </div>
-                <?php if ( $label ) : ?>
+                <?php if ( $location_label ) : ?>
                     <div class="service-title-box">
-                        <h3 class="service-title"><?php echo $label; ?></h3>
+                        <h3 class="service-title"><?php echo $location_label; ?></h3>
                         <?php
                             if ( $show_showroom ) {
                                 echo '<span class="showroom-available-btn"><i class="far fa-eye"></i>'.__('Showroom available','fw_campers').'</span>';
@@ -92,15 +153,16 @@
                 <button class="more-info-btn service-style btn blue-light <?php echo $active_class; ?>" title="<?php esc_attr_e('Contact Details', 'fw_campers') ?>"><?php _e('Contact Details', 'fw_campers'); ?><span class="arrow-down"></span></button>
             <?php endif; ?>
 
-  <?php if (current_user_can('administrator')) { ?>
-            <?php if ($show_sale) { ?>
-                <a href="<?php echo get_permalink(); ?>campers-for-sale/" class="btn blue" title="<?php esc_attr_e('See Campers for Sale', 'fw_campers') ?>"><?php _e('See Campers for Sale', 'fw_campers'); ?></a>
-            <?php } ?>
-
-            <?php if ($show_showroom) { ?>
-                <a href="<?php echo get_permalink(); ?>showroom/" class="btn blue" title="<?php esc_attr_e('See Our Showroom', 'fw_campers') ?>"><?php _e('See Our Showroom', 'fw_campers'); ?></a>
-            <?php } ?>
-  <?php } ?>
+            <?php
+                // if (current_user_can('administrator')) {
+                    if ($show_sale && $sale_btn) {
+                      echo $sale_btn;
+                    }
+                    if ($show_showroom && $showroom_btn) {
+                      echo $showroom_btn;
+                    }
+                // }
+            ?>
 
         </div>
 <!--        <a href="http://" target="_blank" rel="nofollow"></a>-->
@@ -122,11 +184,14 @@
             $marker_description = '<div class="showroom-available-box"><span class="showroom-available-btn"><i class="far fa-eye"></i>'.__('Showroom available','fw_campers').'</span></div>' .$marker_description;
         }
 
-        if (current_user_can('administrator')) {
-            if ($show_sale) {
-                $marker_description .= '<p><a href="'. get_permalink() .'campers-for-sale/" class="btn blue" title="'. __('See Campers for Sale', 'fw_campers')  .'">'. __('See Campers for Sale', 'fw_campers') .'</a></p>';
+        // if (current_user_can('administrator')) {
+            if ($show_sale && $sale_btn) {
+                $marker_description .= $sale_btn;
             }
-        }
+            if ($show_showroom && $showroom_btn) {
+                $marker_description .= $showroom_btn;
+            }
+        // }
 
         $marker_description = preg_replace('/[\n\r]/', '', htmlentities($marker_description));
     }

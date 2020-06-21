@@ -27,18 +27,33 @@ if ( $campers_list && is_array( $campers_list ) && count( $campers_list ) > 0 ) 
 	<div class="inventory-detail-list-wrap">
 		<ul class="inventory-detail-list">
 			<?php
+
+
 			foreach ( $campers_list as $detail ) :
-				$title = $detail['title'];
-				$description = $detail['description'];
-				$photos = $detail['photo'];
-				$photo_count = count($detail['photo']);
+		        $photos = $video = $video_url = $video_thumb_url = '';
+		        $photo_count = 0;
+
+						$title = $detail['title'];
+						$description = $detail['description'];
+						$type = $detail['video_photo_switch'] ? strtolower($detail['video_photo_switch']) : 'photo';
+
+				if ($type === 'video') {
+		            $video = ($detail['video'] && is_array($detail['video']) && count($detail['video']) > 0) ? $detail['video'] : '';
+		            if ($video){
+		                $video_url       = trim($video['url']) ? $video['url'] : '';
+		                $video_thumb_url = $video['thumbnail'] ? $video['thumbnail']['sizes']['medium_large'] : getVideoThumbnail($video_url, 'small');
+		            }
+		        } else {
+		            $photos       = (isset($detail['photo']) && is_array($detail['photo']) && count($detail['photo']) > 0) ? $detail['photo'] : '';
+		            $photo_count  = count($detail['photo']);
+		        }
 
 				?>
 				<li class="full-inventory-info">
 					<div class="inventory-detail-box">
 						<div class="left-box">
-							<?php
-							if ($photos && is_array($photos) && count($photos) >  0) :
+							<?php 
+							if ($photos) {
 
 								if ($photo_count > 1) {
 									echo '<div class="dealer-slider">
@@ -72,7 +87,24 @@ if ( $campers_list && is_array( $campers_list ) && count( $campers_list ) > 0 ) 
                           </div>
                       </div>';
 								}
-							endif;
+              } elseif ($video_url) {
+                echo '<a href="' . $video_url . '?autoplay=1&muted=0&loop=1" class="youtube-video blue" title="' . esc_attr(strip_tags($title)) . '">
+                        <div class="video-preview">
+                          <img class="dealer-slide-img" src="' . $video_thumb_url . '" alt="' . esc_attr(strip_tags($title)) . '">
+                        </div>';
+                echo '</a>';
+              }
+//                    endif;
+//              else if ($video_url):
+
+//               echo '<a href="' . $video_url . '?autoplay=1&muted=0&loop=1" class="youtube-video blue" title="' . esc_attr(strip_tags($title)) . '">
+//                        <div class="video-preview">
+//                          <img src="' . $video_thumb_url . '" alt="' . esc_attr(strip_tags($title)) . '">
+//                        </div>';
+//                echo '</a>';
+
+//							endif;
+
 							?>
 						</div>
 						<div class="right-box">
@@ -81,14 +113,13 @@ if ( $campers_list && is_array( $campers_list ) && count( $campers_list ) > 0 ) 
 								<?php if ( $title ) { ?>
 									<h3 class="inventory-detail-title"><?php echo $title; ?></h3>
 								<?php } ?>
-
-								<div class="inventory-info-box content">
 									<?php
 									if ( $description ) {
-										echo $description;
+									  echo '<div class="inventory-info-box content">';
+                      echo $description;
+                    echo '</div>';
 									}
 									?>
-								</div>
 							</div>
 						</div>
 					</div>

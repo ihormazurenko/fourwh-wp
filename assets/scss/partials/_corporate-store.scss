@@ -28,6 +28,29 @@
       margin-bottom: 45px;
     }
   }
+  .corporate-store-slider {
+    .centered-img {
+      padding-bottom: 62.4%;
+    }
+
+    .swiper-pagination-bullet {
+      width: 12px;
+      height: 12px;
+      background-color: $white;
+      opacity: .3;
+      cursor: pointer;
+
+      &.swiper-pagination-bullet-active {
+        background-color: $light-blue;
+        opacity: 1;
+      }
+    }
+
+    .swiper-container-horizontal > .swiper-pagination-bullets,
+    .swiper-pagination-custom, .swiper-pagination-fraction {
+      bottom: 2px;
+    }
+  }
 }
 
   .corporate-store-full-img {

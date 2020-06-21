@@ -302,6 +302,37 @@
                 });
             }
 
+            //for Campers Photo slider
+            if ($('.camper-photos-slider').length) {
+                $('.camper-photos-slider').imagesLoaded().done( function( instance ) {
+                    var newsSlider = new Swiper('.camper-photos-slider', {
+                        slidesPerView: 4.2,
+                        spaceBetween: 30,
+                        centerInsufficientSlides: true,
+                        watchOverflow: true,
+                        freeMode: true,
+                        watchSlidesVisibility: true,
+                        watchSlidesProgress: true,
+                        navigation: {
+                            nextEl: '.swiper-news-button-next',
+                            prevEl: '.swiper-news-button-prev',
+                        },
+                        breakpoints: {
+                            540: {
+                                slidesPerView: 1.2
+                            },
+                            767: {
+                                slidesPerView: 2.25,
+                                spaceBetween: 20,
+                            },
+                            1200: {
+                                slidesPerView: 3.2
+                            }
+                        },
+                    });
+                });
+            }
+
 
             //for social slider
             if ($('.social-slider').length) {
@@ -590,6 +621,31 @@
                     });
                 });
             }
+
+            //for corporate-store-slider slider
+            if ($('.corporate-store-slider .swiper-container').length) {
+                var corporaSliders = $('.corporate-store-slider .swiper-container');
+
+                corporaSliders.each(function (i) {
+                    corporaSliders.eq(i).imagesLoaded().done( function( instance ) {
+                        new Swiper(corporaSliders.eq(i), {
+                            effect: 'fade',
+                            loop: true,
+                            autoplay: {
+                                delay: 5000,
+                            },
+                            // navigation: {
+                            //     nextEl: '.swiper-button-next',
+                            //     prevEl: '.swiper-button-prev',
+                            // },
+                            pagination: {
+                                el: '.swiper-pagination',
+                                clickable: true
+                            },
+                        });
+                    });
+                });
+            }
         }
 
         //for popup
@@ -719,6 +775,28 @@
                 //         duration: 300 // don't foget to change the duration also in CSS
                 //     }
                 // });
+
+            if ($('.camper-photos-slider img').length) {
+                $('.camper-photos-slider').magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    tLoading: 'Loading image #%curr%...',
+                    mainClass: 'mfp-img-mobile',
+                    gallery: {
+                        enabled: true,
+                        navigateByImgClick: true,
+                        preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                    },
+                    image: {
+                        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                        titleSrc: function (item) {
+                            return false;
+                            // return item.el.attr('title');
+                        }
+                    }
+                });
+            }
+
         }
 
         //for vimeo video
@@ -1229,6 +1307,15 @@
                     },25);
                 });
             }
+
+            if ($('.section-camper-photos .centered-img img').length) {
+                $(window).on('load lazyloaded resize hashchange', function () {
+                    setTimeout(function () {
+                        simulateBGCover($('.section-camper-photos .centered-img img'), '.centered-img');
+                    },25);
+                });
+            }
+
         });
 
 

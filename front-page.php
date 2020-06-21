@@ -4,6 +4,7 @@
     $video_slider       = get_field('video_slider');
 
     $build_based        = get_field('build_based');
+    $camper_photos      = get_field('camper_photos');
     $social_slider      = get_field('social_slider');
     $upcoming_events    = get_field('upcoming_events');
     $latest_news        = get_field('latest_news');
@@ -149,6 +150,43 @@ get_template_part('inc/hero', 'banner');
         </section>
     <?php }
 } ?>
+
+
+<?php if (current_user_can('administrator')) { ?>
+    <?php if ($camper_photos && is_array($camper_photos) && count($camper_photos) > 0) {
+        $camper_photo_title = get_field('camper_photo_title');
+
+        ?>
+        <section class="section section-camper-photos">
+            <div class="container">
+                <?php if ($camper_photo_title) { echo '<h2 class="section-title">'.$camper_photo_title.'</h2>';} ?>
+
+                <div class="swiper-container camper-photos-slider">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($camper_photos as $photo) {
+                            $photo_id = $photo['ID'];
+                            $photo_full_url = $photo['url']; ?>
+
+                            <div class="swiper-slide">
+                                <a href="<?php echo esc_url($photo_full_url); ?>" title="<?php echo $camper_photo_title; ?>">
+                                    <span class="centered-img">
+                                        <?php echo wp_get_attachment_image( $photo_id, 'medium_large'); ?>
+                                    </span>
+                                </a>
+                            </div>
+
+                        <?php } ?>
+                    </div>
+                    <div class="custom-nav-box">
+                        <div class="swiper-news-button-prev"></div>
+                        <div class="swiper-news-button-next"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <?php } ?>
+<?php } ?>
+
 
 <?php if ($latest_news && is_array($latest_news) && count($latest_news) > 0) {
     $show_latest_news = $latest_news['show_news'];
